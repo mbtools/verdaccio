@@ -13,9 +13,10 @@ verdaccio --listen 4000 --config ~./config.yaml
 
 Command | Default | Example | Description
 --- | --- | --- | ---
---listen \ **-l** | 4873 |  -p 7000 | http port
---config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | the configuration file
---info \ **-i** | | | prints local environment information
+--listen \ **-l** | http:localhost:4873 | 7000 | Define protocol + host + port ([formats](https://github.com/verdaccio/verdaccio/blob/08c36e688e8635733f92080eb3598239d43259cb/packages/node-api/src/cli-utils.ts#L7-L16))
+--config \ **-c** | ~/.local/verdaccio/config.yaml | ~./config.yaml | Set location of the configuration file
+--info \ **-i** | | | Print local environment information
+--version \ **-v** | | | Show version information
 
 ## Default config file location {#default-config-file-location}
 
@@ -28,7 +29,7 @@ Config files should be YAML, JSON or a NodeJS module. YAML format is detected by
 ## Default storage location {#default-storage-location}
 
 We use the **$XDG_DATA_HOME** environment by variable default to locate the storage by default which [should be the same](https://askubuntu.com/questions/538526/is-home-local-share-the-default-value-for-xdg-data-home-in-ubuntu-14-04) as $HOME/.local/share.
-If you are using a custom storage, this location is irrelevant.
+If you are using custom storage, this location is irrelevant.
 
 ## Default database file location {#default-database-file-location}
 
