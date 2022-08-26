@@ -1,12 +1,10 @@
 import { setGlobalDispatcher } from 'undici';
 
-import { Config } from '@verdaccio/config';
+import { Config, getDefaultConfig } from '@verdaccio/config';
 import { searchUtils } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
-import { configExample } from '@verdaccio/mock';
 
 import { Storage, removeDuplicates } from '../src';
-import { SearchInstance } from '../src/search';
 
 setup([]);
 
@@ -32,7 +30,7 @@ describe('search', () => {
     test('search items', async () => {
       const { MockAgent } = require('undici');
       // FIXME: fetch is already part of undici
-      const domain = 'http://localhost:4873';
+      const domain = 'https://registry.npmjs.org';
       const url = '/-/v1/search?maintenance=1&popularity=1&quality=1&size=10&text=verdaccio';
       const response = require('./fixtures/search.json');
       const options = {
@@ -44,77 +42,13 @@ describe('search', () => {
       setGlobalDispatcher(mockAgent);
       const mockClient = mockAgent.get(domain);
       mockClient.intercept(options).reply(200, JSON.stringify(response));
-      const config = new Config(configExample());
+      const config = new Config(getDefaultConfig());
       const storage = new Storage(config);
       await storage.init(config);
 
       // @ts-expect-error
-      const results = await storage.searchManager.search({ url, query: { text: 'foo' } });
+      const results = await storage.search({ url, query: { text: 'foo' } });
       expect(results).toHaveLength(4);
-    });
-  });
-
-  describe('search index', () => {
-    const packages = [
-      {
-        name: 'test1',
-        description: 'description',
-        _npmUser: {
-          name: 'test_user',
-        },
-      },
-      {
-        name: 'test2',
-        description: 'description',
-        _npmUser: {
-          name: 'test_user',
-        },
-      },
-      {
-        name: 'test3',
-        description: 'description',
-        _npmUser: {
-          name: 'test_user',
-        },
-      },
-    ];
-
-    test('search query item', async () => {
-      const config = new Config(configExample());
-      const storage = new Storage(config);
-      await storage.init(config);
-      SearchInstance.configureStorage(storage);
-      packages.map(function (item) {
-        // @ts-ignore
-        SearchInstance.add(item);
-      });
-      const result = SearchInstance.query('t');
-      expect(result).toHaveLength(3);
-    });
-
-    test('search remove item', async () => {
-      const config = new Config(configExample());
-      const storage = new Storage(config);
-      await storage.init(config);
-      SearchInstance.configureStorage(storage);
-      packages.map(function (item) {
-        // @ts-ignore
-        SearchInstance.add(item);
-      });
-      const item = {
-        name: 'test6',
-        description: 'description',
-        _npmUser: {
-          name: 'test_user',
-        },
-      };
-      // @ts-ignore
-      SearchInstance.add(item);
-      let result = SearchInstance.query('test6');
-      expect(result).toHaveLength(1);
-      SearchInstance.remove(item.name);
-      result = SearchInstance.query('test6');
-      expect(result).toHaveLength(0);
     });
   });
 });

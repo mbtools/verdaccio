@@ -3,20 +3,12 @@ name: Verdaccio Website CI
 on:
   workflow_dispatch:
   pull_request:
-    types:
-      - opened
-      - synchronize
     paths:
-      - 'website/**'
-      - 'package.json'
-      - './.github/workflows/website.yml'
+        - 'website/**'
+        - './.github/workflows/website.yml'
   push:
     branches:
-      - 'master'
-    paths:
-      - 'website/**'
-      - 'package.json'
-      - './.github/workflows/website.yml'
+      - 'master'  
 
 jobs:
   build:
@@ -24,15 +16,15 @@ jobs:
     env:
       NODE_OPTIONS: --max_old_space_size=4096
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
 
-      - name: Use Node 14
-        uses: actions/setup-node@v3
+      - name: Use Node 16
+        uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
         with:
-          node-version: 14
+          node-version: 16
 
       - name: Cache pnpm modules
-        uses: actions/cache@v3
+        uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
         env:
           cache-name: cache-pnpm-modules
         with:
@@ -41,16 +33,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
 
-      - uses: pnpm/action-setup@v2.2.1
+      - uses: pnpm/action-setup@10693b3829bf86eb2572aef5f3571dcf5ca9287d # tag=v2.2.2
         with:
-          version: 6.10.2
+          version: 6.32.15
           run_install: |
             - recursive: true
               args: [--frozen-lockfile]
       - name: Build Plugins
         run: pnpm build --filter "docusaurus-plugin-contributors"
       - name: Cache Docusaurus Build
-        uses: actions/cache@v3
+        uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
         with:
           path: website/node_modules/.cache/webpack
           key: cache/webpack-${{github.ref}}-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -69,7 +61,7 @@ jobs:
 
       - name: 🔥 Deploy Production Netlify
         if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
-        uses: semoal/action-netlify-deploy@master
+        uses: semoal/action-netlify-deploy@1a53f098745bf78555d11b436f5ee3af87e6b566
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
@@ -83,7 +75,8 @@ jobs:
         run: pnpm netlify:build:deployPreview --filter ...@verdaccio/website
 
       - name: 🤖 Deploy Preview Netlify
-        uses: semoal/action-netlify-deploy@master
+        if: github.repository == 'verdaccio/verdaccio'
+        uses: semoal/action-netlify-deploy@1a53f098745bf78555d11b436f5ee3af87e6b566
         id: netlify_preview
         with:
           draft: true
@@ -96,8 +89,9 @@ jobs:
           build-dir: './website/build'
 
       - name: Audit preview URL with Lighthouse
+        if: github.repository == 'verdaccio/verdaccio'
         id: lighthouse_audit
-        uses: treosh/lighthouse-ci-action@9.3.0
+        uses: treosh/lighthouse-ci-action@b4dfae3eb959c5226e2c5c6afd563d493188bfaf # tag=9.3.0
         with:
           urls: |
             ${{ steps.netlify_preview.outputs.preview-url }}
@@ -106,7 +100,7 @@ jobs:
 
       - name: Format lighthouse score
         id: format_lighthouse_score
-        uses: actions/github-script@v6
+        uses: actions/github-script@d50f485531ba88479582bc2da03ff424389af5c1 # tag=v6
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
@@ -129,11 +123,13 @@ jobs:
              core.setOutput("comment", comment);
 
       - name: Add comment to PR
+        if: github.repository == 'verdaccio/verdaccio'
         id: comment_to_pr
-        uses: marocchino/sticky-pull-request-comment@v1
+        uses: marocchino/sticky-pull-request-comment@39c5b5dc7717447d0cba270cd115037d32d28443 # tag=v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           number: ${{ github.event.issue.number }}
+          delete: true
           header: lighthouse
           message: |
             ${{ steps.format_lighthouse_score.outputs.comment }}

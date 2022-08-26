@@ -1,5 +1,6 @@
 import isEmpty from 'lodash/isEmpty';
 import isNil from 'lodash/isNil';
+import merge from 'lodash/merge';
 import React, { FunctionComponent, createContext, useContext, useMemo, useState } from 'react';
 import { PRIMARY_COLOR } from 'verdaccio-ui/utils/colors';
 
@@ -12,13 +13,21 @@ type ConfigProviderProps = {
 
 const defaultValues: ConfigProviderProps = {
   configOptions: {
+    // note: dark mode set as undefined by design
     primaryColor: PRIMARY_COLOR,
-    darkMode: false,
     pkgManagers: ['yarn', 'pnpm', 'npm'],
     scope: '',
     base: '',
+    flags: {},
     login: true,
     url_prefix: '',
+    showInfo: true,
+    showSettings: true,
+    showThemeSwitch: true,
+    showFooter: true,
+    showSearch: true,
+    showRaw: true,
+    showDownloadTarball: true,
     title: 'Verdaccio',
   },
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -26,7 +35,15 @@ const defaultValues: ConfigProviderProps = {
 };
 
 function getConfiguration() {
-  const uiConfiguration = window?.__VERDACCIO_BASENAME_UI_OPTIONS ?? defaultValues.configOptions;
+  const uiConfiguration = merge(
+    defaultValues.configOptions,
+    window?.__VERDACCIO_BASENAME_UI_OPTIONS
+  );
+
+  if (window?.__VERDACCIO_BASENAME_UI_OPTIONS.pkgManagers) {
+    uiConfiguration.pkgManagers = window?.__VERDACCIO_BASENAME_UI_OPTIONS.pkgManagers;
+  }
+
   if (isNil(uiConfiguration.primaryColor) || isEmpty(uiConfiguration.primaryColor)) {
     uiConfiguration.primaryColor = PRIMARY_COLOR;
   }
@@ -37,7 +54,7 @@ function getConfiguration() {
 const AppConfigurationContext = createContext<ConfigProviderProps>(defaultValues);
 
 const AppConfigurationProvider: FunctionComponent = ({ children }) => {
-  const [configOptions, setConfigOptions] = useState(getConfiguration());
+  const [configOptions, setConfigOptions] = useState<TemplateUIOptions>(getConfiguration());
 
   const value = useMemo(
     () => ({

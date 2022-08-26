@@ -5,22 +5,33 @@
   "action-bar-action": {
     "visit-home-page": "Visit homepage",
     "open-an-issue": "Open an issue",
-    "download-tarball": "Download tarball"
+    "download-tarball": "Download tarball",
+    "raw": "Raw Manifest"
   },
   "dialog": {
     "registry-info": {
-      "title": "Configuration Details"
-    }
+      "title": "Information"
+    },
+    "settings": {
+      "title": "Configuration"
+    },
+    "license": "License",
+    "totalContributors": "Total contributors"
   },
   "header": {
     "documentation": "Documentation",
     "registry-info": "Registry Information",
     "registry-info-link": "Learn more",
+    "settings": "Settings",
+    "help": "Help",
     "registry-no-conf": "No configurations available",
     "greetings": "Hi "
   },
   "search": {
-    "packages": "Search Packages"
+    "packages": "Search Packages",
+    "isPrivate": "Private",
+    "isRemote": "Remote",
+    "isCached": "Cached"
   },
   "autoComplete": {
     "loading": "Loading...",
@@ -149,13 +160,14 @@
     "portuguese": "Portuguese",
     "spanish": "Spanish",
     "german": "German",
-    "chinese": "Chinese",
-    "chineseTraditional": "Chinese (Traditional)",
+    "italian": "Italian",
     "french": "French",
     "russian": "Russian",
     "turkish": "Turkish",
     "ukraine": "Ukraine",
-    "khmer": "Khmer"
+    "khmer": "Khmer",
+    "chinese": "Chinese Simplified",
+    "chineseTraditional": "Chinese Traditional"
   },
   "flag": {
     "austria": "Austria",
@@ -171,7 +183,7 @@
     "title": "Package Managers",
     "description": "This is the configuration details for the registry. Each package manager could have different configuration, expand each section for more details. If the section is disable review your configuration.",
     "yarnclassicDetails": "Yarn classic configuration differs from Yarn 2+ configuration. For more details, please visit [Yarn Classic](https://verdaccio.org/docs/cli-registry#yarn-1x).",
-    "yarnBerryDetails": "Yarn Berry does not support the `--registry` flag, instead all configurarion should be defined on the `yarnrc.yalm` file in the root of your project. For more details, please visit [Yarn Berry](https://verdaccio.org/docs/cli-registry#yarn-berry-2x)."
+    "yarnBerryDetails": "Yarn Berry does not support the `--registry` flag, instead all configurarion should be defined on the `yarnrc.yaml` file in the root of your project. For more details, please visit [Yarn Berry](https://verdaccio.org/docs/cli-registry#yarn-berry-2x)."
   },
   "language": {
     "title": "Translations",

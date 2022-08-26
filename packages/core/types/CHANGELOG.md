@@ -1,5 +1,119 @@
 # Change Log
 
+## 11.0.0-6-next.13
+
+### Major Changes
+
+- 292c0a37: feat!: replace deprecated request dependency by got
+
+  This is a big refactoring of the core, fetching dependencies, improve code, more tests and better stability. This is essential for the next release, will take some time but would allow modularize more the core.
+
+  ## Notes
+
+  - Remove deprecated `request` by other `got`, retry improved, custom Agent ( got does not include it built-in)
+  - Remove `async` dependency from storage (used by core) it was linked with proxy somehow safe to remove now
+  - Refactor with promises instead callback wherever is possible
+  - ~Document the API~
+  - Improve testing, integration tests
+  - Bugfix
+  - Clean up old validations
+  - Improve performance
+
+  ## 💥 Breaking changes
+
+  - Plugin API methods were callbacks based are returning promises, this will break current storage plugins, check documentation for upgrade.
+  - Write Tarball, Read Tarball methods parameters change, a new set of options like `AbortController` signals are being provided to the `addAbortSignal` can be internally used with Streams when a request is aborted. eg: `addAbortSignal(signal, fs.createReadStream(pathName));`
+  - `@verdaccio/streams` stream abort support is legacy is being deprecated removed
+  - Remove AWS and Google Cloud packages for future refactoring [#2574](https://github.com/verdaccio/verdaccio/pull/2574).
+
+- a3a209b5: feat: migrate to pino.js 8
+
+### Minor Changes
+
+- 5cf041a1: feat: add dist.signatures to core/types
+
+  According to [`npm`](https://docs.npmjs.com/about-registry-signatures): _"Signatures are provided in the package's `packument` in each published version within the `dist` object"_
+
+  Here's an [example of a package version from the public npm registry with `dist.signatures`](https://registry.npmjs.org/light-cycle/1.4.3).
+
+## 11.0.0-6-next.12
+
+### Minor Changes
+
+- d43894e8: feat: rework web header for mobile, add new settings and raw manifest button
+
+  ### New set of variables to hide features
+
+  Add set of new variables that allow hide different parts of the UI, buttons, footer or download tarballs. _All are
+  enabled by default_.
+
+  ```yaml
+  # login: true <-- already exist but worth the reminder
+  # showInfo: true
+  # showSettings: true
+  # In combination with darkMode you can force specific theme
+  # showThemeSwitch: true
+  # showFooter: true
+  # showSearch: true
+  # showDownloadTarball: true
+  ```
+
+  > If you disable `showThemeSwitch` and force `darkMode: true` the local storage settings would be
+  > ignored and force all themes to the one in the configuration file.
+
+  Future could be extended to
+
+  ### Raw button to display manifest package
+
+  A new experimental feature (enabled by default), button named RAW to be able navigate on the package manifest directly on the ui, kudos to [react-json-view](https://www.npmjs.com/package/react-json-view) that allows an easy integration, not configurable yet until get more feedback.
+
+  ```yaml
+  showRaw: true
+  ```
+
+  #### Rework header buttons
+
+  - The header has been rework, the mobile was not looking broken.
+  - Removed info button in the header and moved to a dialog
+  - Info dialog now contains more information about the project, license and the aid content for Ukrania now is inside of the info modal.
+  - Separate settings and info to avoid collapse too much info (for mobile still need some work)
+
+## 11.0.0-6-next.11
+
+### Major Changes
+
+- 82cb0f2b: feat!: config.logs throw an error, logging config not longer accept array or logs property
+
+  ### 💥 Breaking change
+
+  This is valid
+
+  ```yaml
+  log: { type: stdout, format: pretty, level: http }
+  ```
+
+  This is invalid
+
+  ```yaml
+  logs: { type: stdout, format: pretty, level: http }
+  ```
+
+  or
+
+  ```yaml
+  logs:
+    - [{ type: stdout, format: pretty, level: http }]
+  ```
+
+### Minor Changes
+
+- 5167bb52: feat: ui search support for remote, local and private packages
+
+  The command `npm search` search globally and return all matches, with this improvement the user interface
+  is powered with the same capabilities.
+
+  The UI also tag where is the origin the package with a tag, also provide the latest version and description of the package.
+
 ## 11.0.0-6-next.10
 
 ### Major Changes

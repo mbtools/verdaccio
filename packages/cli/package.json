@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/cli",
-  "version": "6.0.0-6-next.30",
+  "version": "6.0.0-6-next.35",
   "author": {
     "name": "Juan Picado",
     "email": "juanpicado19@gmail.com"
@@ -35,7 +35,7 @@
   "types": "build/index.d.ts",
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "test": "jest",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
@@ -44,18 +44,17 @@
     "start": "ts-node src/index.ts"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.4",
-    "@verdaccio/config": "workspace:6.0.0-6-next.12",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.10",
-    "@verdaccio/node-api": "workspace:6.0.0-6-next.29",
-    "@verdaccio/fastify-migration": "workspace:6.0.0-6-next.21",
+    "@verdaccio/core": "workspace:6.0.0-6-next.6",
+    "@verdaccio/config": "workspace:6.0.0-6-next.15",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.12",
+    "@verdaccio/node-api": "workspace:6.0.0-6-next.33",
     "clipanion": "3.1.0",
     "envinfo": "7.8.1",
     "kleur": "3.0.3",
-    "semver": "7.3.5"
+    "semver": "7.3.7"
   },
   "devDependencies": {
-    "ts-node": "10.4.0"
+    "ts-node": "10.9.1"
   },
   "funding": {
     "type": "opencollective",

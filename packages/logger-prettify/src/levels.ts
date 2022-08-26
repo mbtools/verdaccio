@@ -1,4 +1,4 @@
-import { black, blue, cyan, green, magenta, red, white, yellow } from 'kleur';
+import { black, blue, cyan, green, magenta, red, white, yellow } from 'colorette';
 
 export type LogLevel = 'trace' | 'debug' | 'info' | 'http' | 'warn' | 'error' | 'fatal';
 
@@ -46,12 +46,14 @@ export const subSystemLevels = {
   color: {
     in: green(ARROWS.LEFT),
     out: yellow(ARROWS.RIGHT),
+    auth: blue(ARROWS.NEUTRAL),
     fs: black(ARROWS.EQUAL),
     default: blue(ARROWS.NEUTRAL),
   },
   white: {
     in: ARROWS.LEFT,
     out: ARROWS.RIGHT,
+    auth: ARROWS.NEUTRAL,
     fs: ARROWS.EQUAL,
     default: ARROWS.NEUTRAL,
   },

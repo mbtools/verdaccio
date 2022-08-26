@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/readme",
-  "version": "11.0.0-6-next.4",
+  "version": "11.0.0-6-next.5",
   "description": "Readme markdown parser",
   "keywords": [
     "private",
@@ -40,16 +40,16 @@
     "build"
   ],
   "dependencies": {
-    "dompurify": "2.3.4",
+    "dompurify": "2.3.10",
     "jsdom": "17.0.0",
     "marked": "3.0.8"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.10"
+    "@verdaccio/types": "workspace:11.0.0-6-next.13"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "test": "jest",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
     "watch": "pnpm build:js -- --watch",

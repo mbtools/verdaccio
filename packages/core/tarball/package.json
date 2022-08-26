@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/tarball",
-  "version": "11.0.0-6-next.11",
+  "version": "11.0.0-6-next.13",
   "description": "tarball utilities resolver",
   "keywords": [
     "private",
@@ -34,19 +34,19 @@
     "access": "public"
   },
   "dependencies": {
-    "debug": "4.3.3",
-    "@verdaccio/core": "workspace:6.0.0-6-next.4",
-    "@verdaccio/url": "workspace:11.0.0-6-next.8",
-    "@verdaccio/utils": "workspace:6.0.0-6-next.10",
+    "debug": "4.3.4",
+    "@verdaccio/core": "workspace:6.0.0-6-next.6",
+    "@verdaccio/url": "workspace:11.0.0-6-next.10",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.12",
     "lodash": "4.17.21"
   },
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.10",
+    "@verdaccio/types": "workspace:11.0.0-6-next.13",
     "node-mocks-http": "1.11.0"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "test": "jest",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",

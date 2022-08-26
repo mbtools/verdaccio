@@ -3,7 +3,7 @@ id: installation
 title: "Installation"
 ---
 
-Verdaccio is a multiplatform web application. To install it, you need a few basic prerequisites.
+Verdaccio is a Node.js private and proxy registry. To install it, you need a few basic prerequisites.
 
 ## Prerequisites {#prerequisites}
 
@@ -23,9 +23,7 @@ Are you still using **Verdaccio 4**?. Check the [migration guide](https://verdac
 
 Learn the basics before getting started, how to install, where is the location of the configuration file and more.
 
-[![logo](https://cdn.verdaccio.dev/website/watch-us.png)](https://www.youtube.com/channel/UC5i20v6o7lSjXzAHOvatt0w)
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/P_hxy7W-IL4?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="515" src="https://www.youtube.com/embed/hDIFKzmoCaA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Installing the CLI {#installing-the-cli}
 
@@ -52,6 +50,22 @@ pnpm install -g verdaccio
 ```
 
 ![install verdaccio](/img/install_verdaccio.gif)
+
+### Next major release (verdaccio 6 alpha) {#next-major-release}
+
+Next [major release is under development](https://github.com/verdaccio/verdaccio/discussions/2970), byt can try it out already, either for testing purposes or helping to catch any possible bug, if you find something report it under the label [6.x bugs](https://github.com/verdaccio/verdaccio/labels/6.x%20bugs).
+
+```bash
+npm install --global verdaccio@6-next
+```
+
+or with the docker image
+
+```bash
+docker pull verdaccio/verdaccio:nightly-master
+```
+
+> The docker image `verdaccio/verdaccio:nightly-master` is alinged with the latest commits in master branch, while the npmjs version has a longer release cycle. **It is highly recommended  don't use alpha versions for production**.
 
 ## Basic Usage {#basic-usage}
 
@@ -93,6 +107,8 @@ Or a `publishConfig` in your `package.json`
 }
 ```
 
+For alternative configurations, please read the [Using a private registry](cli-registry.md) section.
+
 ## Create Your Own Private NPM Package Tutorial {#create-your-own-private-npm-package-tutorial}
 
 If you'd like a broader explanation, don't miss the tutorial created by [thedevlife](https://mybiolink.co/thedevlife) on how to Create Your Own Private NPM Package using Verdaccio.
@@ -105,7 +121,15 @@ If you'd like a broader explanation, don't miss the tutorial created by [thedevl
 docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
-`Verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md).
+`Verdaccio` has an official docker image you can use, and in most cases, the default configuration is good enough. For more information about how to install the official image, [read the docker section](docker.md), furthermore you can learn more about combining Docker images in our [docker-examples](https://github.com/verdaccio/verdaccio/tree/master/docker-examples) repository.
+
+## Helm Chart {#helm-chart}
+
+```bash
+$ helm repo add verdaccio https://charts.verdaccio.org
+$ helm repo update
+$ helm install verdaccio/verdaccio
+```
 
 ## Cloudron {#cloudron}
 
@@ -115,6 +139,6 @@ docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 
 ## Heroku with Docker
 
-For easy deployment you could use [Heroku](https://www.heroku.com/home), the _free_ dino tier allows you to test their platform using a Docker container, check this example.
+For easy deployment you could use [Heroku](https://www.heroku.com/home), the _free_ dyno tier allows you to test their platform using a Docker container, check this example.
 
 [https://github.com/juanpicado/verdaccio-heroku-example](https://github.com/juanpicado/verdaccio-heroku-example)

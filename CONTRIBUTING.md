@@ -70,7 +70,7 @@ This setting would cause the `pnpm install` command to install incorrect version
 To begin your development setup, please install the latest version of pnpm globally:
 
 ```
-npm i -g pnpm
+npm i -g pnpm@latest-6
 ```
 
 With pnpm installed, the first step is installing all dependencies:
@@ -278,7 +278,7 @@ clean git history.
 #### Before Commit
 
 Before committing, **you must ensure there are no linting errors and
-all tests pass.** To do this, run these commands before create the PR:
+all tests pass.** To do this, run these commands before creating the PR:
 
 ```bash
 pnpm lint

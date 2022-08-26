@@ -4,6 +4,7 @@ import { URL } from 'url';
 
 import { WEB_TITLE } from '@verdaccio/config';
 import { HEADERS } from '@verdaccio/core';
+import { TemplateUIOptions } from '@verdaccio/types';
 import { getPublicUrl } from '@verdaccio/url';
 
 import renderTemplate from './template';
@@ -25,6 +26,9 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   const base = getPublicUrl(config?.url_prefix, req);
   const basename = new URL(base).pathname;
   const language = config?.i18n?.web ?? DEFAULT_LANGUAGE;
+  const needHtmlCache = [undefined, null].includes(config?.web?.html_cache)
+    ? true
+    : config.web.html_cache;
   const darkMode = config?.web?.darkMode ?? false;
   const title = config?.web?.title ?? WEB_TITLE;
   const login = hasLogin(config);
@@ -32,8 +36,21 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   const logoURI = config?.web?.logo ?? '';
   const pkgManagers = config?.web?.pkgManagers ?? ['yarn', 'pnpm', 'npm'];
   const version = pkgJSON.version;
+  const flags = {
+    ...config.flags,
+  };
   const primaryColor = validatePrimaryColor(config?.web?.primary_color) ?? '#4b5e40';
-  const { scriptsBodyAfter, metaScripts, scriptsbodyBefore } = Object.assign(
+  const {
+    scriptsBodyAfter,
+    metaScripts,
+    scriptsbodyBefore,
+    showInfo,
+    showSettings,
+    showThemeSwitch,
+    showFooter,
+    showSearch,
+    showDownloadTarball,
+  } = Object.assign(
     {},
     {
       scriptsBodyAfter: [],
@@ -42,7 +59,13 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
     },
     config?.web
   );
-  const options = {
+  const options: TemplateUIOptions = {
+    showInfo,
+    showSettings,
+    showThemeSwitch,
+    showFooter,
+    showSearch,
+    showDownloadTarball,
     darkMode,
     url_prefix,
     basename,
@@ -50,6 +73,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
     primaryColor,
     version,
     logoURI,
+    flags,
     login,
     pkgManagers,
     title,
@@ -61,10 +85,7 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
 
   try {
     webPage = cache.get('template');
-
     if (!webPage) {
-      debug('web options %o', options);
-      debug('web manifestFiles %o', manifestFiles);
       webPage = renderTemplate(
         {
           manifest: manifestFiles ?? defaultManifestFiles,
@@ -75,9 +96,10 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
         },
         manifest
       );
-      debug('template :: %o', webPage);
-      cache.set('template', webPage);
-      debug('set template cache');
+      if (needHtmlCache) {
+        cache.set('template', webPage);
+        debug('set template cache');
+      }
     } else {
       debug('reuse template cache');
     }
@@ -86,5 +108,5 @@ export default function renderHTML(config, manifest, manifestFiles, req, res) {
   }
   res.setHeader('Content-Type', HEADERS.TEXT_HTML);
   res.send(webPage);
-  debug('render web');
+  debug('web rendered');
 }

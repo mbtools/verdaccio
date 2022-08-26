@@ -4,23 +4,26 @@ name: ci - benchmark
 on:
   workflow_dispatch:
   schedule:
-    # 3 times day
+    # 1 time peer week
     # collecting enough data to draw some graphics
-    - cron: '0 1 * * *'
+    - cron: '0 1 * * 1'
   # push:
   #   branches:
   #     - master
+permissions:
+  contents: read
+
 jobs:
   prepare: 
     name: Prepare build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
+      - uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
         with:
-          node-version: 14.x
+          node-version: 16.x
       - name: install pnpm
-        run: sudo npm i pnpm@6.24.1 -g
+        run: sudo npm i pnpm@latest-6 -g
       - name: set store
         run: | 
           mkdir ~/.pnpm-store
@@ -30,7 +33,7 @@ jobs:
       - name: install dependencies
         run: pnpm install
       - name: Cache .pnpm-store
-        uses: actions/cache@v3
+        uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -41,7 +44,7 @@ jobs:
       - name: tar packages
         run: |      
           tar -czvf ${{ github.workspace }}/pkg.tar.gz -C ${{ github.workspace }}/packages .
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # tag=v3
         with:
           name: verdaccio-artifact
           path: pkg.tar.gz
@@ -57,24 +60,24 @@ jobs:
           # - local
           - 3.13.1
           - 4.12.2
-          - 5.7.0
-          - 6.0.0-6-next.35
+          - 5.10.2
+          - 6.0.0-6-next.40
     name: Benchmark autocannon
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
+      - uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
         with:
-          node-version: 14.x
-      - uses: actions/download-artifact@v2
+          node-version: 16.x
+      - uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 # tag=v3
         with:
           name: verdaccio-artifact
       - name: untar packages
         run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages          
       - name: install pnpm
         # require fixed version
-        run: sudo npm i pnpm@6.24.1 -g
-      - uses: actions/cache@v3
+        run: sudo npm i pnpm@latest-6 -g
+      - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}   
@@ -87,7 +90,7 @@ jobs:
         shell: bash
         env:
           DEBUG: metrics*
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # tag=v3
         with:
           name: verdaccio-metrics-api
           path: ./api-results-${{matrix.verdaccioVersion}}-${{matrix.benchmark}}.json  
@@ -118,24 +121,24 @@ jobs:
           # old versions to compare same test along previous releases
           - 3.13.1
           - 4.12.2
-          - 5.7.0
-          - 6.0.0-6-next.35
+          - 5.10.2
+          - 6.0.0-6-next.40
     name: Benchmark hyperfine
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3
+      - uses: actions/setup-node@2fddd8803e2f5c9604345a0b591c3020ee971a93 # tag=v3
         with:
-          node-version: 14.x
-      - uses: actions/download-artifact@v2
+          node-version: 16.x
+      - uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 # tag=v3
         with:
           name: verdaccio-artifact
       - name: untar packages
         run: tar -xzvf pkg.tar.gz -C ${{ github.workspace }}/packages          
       - name: install pnpm
         # require fixed version
-        run: sudo npm i pnpm@6.24.1 -g
-      - uses: actions/cache@v3
+        run: sudo npm i pnpm@latest-6 -g
+      - uses: actions/cache@fd5de65bc895cf536527842281bea11763fefd77 # tag=v3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}   
@@ -153,7 +156,7 @@ jobs:
         shell: bash
       - name: rename
         run: mv ./hyper-results.json ./hyper-results-${{matrix.verdaccioVersion}}-${{matrix.benchmark}}.json
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # tag=v3
         with:
           name: verdaccio-metrics
           path: ./hyper-results-${{matrix.verdaccioVersion}}-${{matrix.benchmark}}.json  

@@ -1,6 +1,6 @@
 {
-  "name": "@verdaccio/helper",
-  "version": "1.0.0",
+  "name": "@verdaccio/test-helper",
+  "version": "1.1.0-6-next.1",
   "private": true,
   "description": "test helpers",
   "author": "Juan Picado <juanpicado19@gmail.com>",
@@ -8,13 +8,21 @@
   "homepage": "https://verdaccio.org",
   "main": "build/index.js",
   "types": "build/index.d.ts",
-  "files": [
-    "build"
-  ],
   "devDependencies": {
-    "@verdaccio/types": "workspace:11.0.0-6-next.10"
+    "@verdaccio/types": "workspace:11.0.0-6-next.13",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.23",
+    "@verdaccio/core": "workspace:6.0.0-6-next.6",
+    "@verdaccio/config": "workspace:6.0.0-6-next.15",
+    "@verdaccio/middleware": "workspace:6.0.0-6-next.23",
+    "@verdaccio/utils": "workspace:6.0.0-6-next.12",
+    "body-parser": "1.20.0",
+    "express": "4.18.1",
+    "supertest": "6.2.4",
+    "debug": "4.3.4",
+    "fs-extra": "10.1.0"
   },
   "scripts": {
+    "test": "jest .",
     "clean": "rimraf ./build",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",

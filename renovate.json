@@ -1,10 +1,18 @@
 {
-  "extends": ["config:base", "schedule:earlyMondays"],
+  "extends": ["config:base", "schedule:earlyMondays", "helpers:pinGitHubActionDigests"],
   "prConcurrentLimit": 1,
   "ignorePaths": ["docker-examples/**"],
-  "ignoreDeps": ["eslint-plugin-verdaccio", "@verdaccio/helper"],
+  "ignoreDeps": [
+    "eslint-plugin-verdaccio",
+    "@verdaccio/test-helper",
+    "docker/setup-buildx-action",
+    "docker/login-action",
+    "docker/build-push-action",
+    "crazy-max/ghaction-docker-meta",
+    "pnpm"
+  ],
   "baseBranches": ["master", "5.x"],
-  "major": true,
+  "major": false,
   "labels": ["bot: dependencies"],
   "packageRules": [
     {
@@ -12,8 +20,24 @@
       "allowedVersions": "2.607.0"
     },
     {
+      "packageNames": ["got"],
+      "allowedVersions": "^11.8.5"
+    },
+    {
+      "packageNames": ["globby"],
+      "allowedVersions": "^12.2.0"
+    },
+    {
+      "packageNames": ["get-port"],
+      "allowedVersions": "^5.1.1"
+    },
+    {
       "packageNames": ["@google-cloud/datastore"],
       "allowedVersions": "4.5.0"
+    },
+    {
+      "packageNames": ["@docusaurus/*"],
+      "allowedVersions": "2.0.0-beta.14"
     },
     {
       "packageNames": ["@google-cloud/storage"],
@@ -78,15 +102,12 @@
         "@babel/*",
         "fast-safe-stringify",
         "undici",
-        "verdaccio*",
         "webpack",
-        "async",
         "memfs",
         "globby",
         "pnpm",
         "esbuild",
         "@emotion/*",
-        "async",
         "@mui/*",
         "express*",
         "http-status",

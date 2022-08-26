@@ -49,10 +49,10 @@ uplinks:
     url: https://private-registry.domain.com/registry
     auth:
       type: bearer
-      token_env: true # defaults to `process.env['NPM_TOKEN']`
+      token_env: true # by defaults points to the environment variable `NPM_TOKEN`
 ```
 
-or via a specified environment variable:
+or via a specified _custom_ environment variable:
 
 ```yaml
 uplinks:
@@ -60,12 +60,12 @@ uplinks:
     url: https://private-registry.domain.com/registry
     auth:
       type: bearer
-      token_env: FOO_TOKEN
+      token_env: FOO_TOKEN # override the default `NPM_TOKEN` by a custom one
 ```
 
 `token_env: FOO_TOKEN `internally will use `process.env['FOO_TOKEN']`
 
-or by directly specifying a token:
+or by directly specifying a token oh the configuration file (not recommended by security corcerns):
 
 ```yaml
 uplinks:
@@ -82,5 +82,6 @@ uplinks:
 
 * Uplinks must be registries compatible with the `npm` endpoints. Eg: *verdaccio*, `sinopia@1.4.0`, *npmjs registry*, *yarn registry*, *JFrog*, *Nexus* and more.
 * Setting `cache` to false will help to save space in your hard drive. This will avoid store `tarballs` but [it will keep metadata in folders](https://github.com/verdaccio/verdaccio/issues/391).
-* Exceed with multiple uplinks might slow down the lookup of your packages due for each request a npm client does, verdaccio does 1 call for each uplink.
+* Multiple uplinks might slow down the lookup of your packages. For each request an npm client makes, verdaccio makes 1 call to each configured uplink.
 * The (timeout, maxage and fail_timeout) format follow the [NGINX measurement units](http://nginx.org/en/docs/syntax.html)
+* When using the [Helm Chart](https://github.com/verdaccio/charts), you can use `secretEnvVars` to inject sensitive environment variables, which can be used to configure private uplink auth.

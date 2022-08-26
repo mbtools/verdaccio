@@ -16,7 +16,7 @@ import { _dbGenPath } from './utils';
 
 const DB_NAME = process.env.VERDACCIO_STORAGE_NAME ?? fileUtils.Files.DatabaseName;
 
-const debug = buildDebug('verdaccio:plugin:local-storage:experimental');
+const debug = buildDebug('verdaccio:plugin:local-storage');
 
 export const ERROR_DB_LOCKED =
   'Database is locked, please check error message printed during startup to prevent data loss';
@@ -28,7 +28,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage {
   private readonly logger: Logger;
   public readonly config: Config;
   public readonly storages: Map<string, string>;
-  public data: LocalStorage | void;
+  public data: LocalStorage | undefined;
   public locked: boolean;
 
   public constructor(config: Config, logger: Logger) {
@@ -37,14 +37,16 @@ class LocalDatabase extends TokenActions implements IPluginStorage {
     this.logger = logger;
     this.locked = false;
     this.data = undefined;
+    debug('config path %o', config.configPath);
     this.path = _dbGenPath(DB_NAME, config);
     this.storages = this._getCustomPackageLocalStorages();
+    this.logger.debug({ path: this.path }, 'local storage path @{path}');
     debug('plugin storage path %o', this.path);
   }
 
   public async init(): Promise<void> {
     debug('plugin init');
-    this.data = await this._fetchLocalPackages();
+    this.data = await this.fetchLocalPackages();
     debug('local packages loaded');
     await this._sync();
   }
@@ -101,11 +103,11 @@ class LocalDatabase extends TokenActions implements IPluginStorage {
   }
 
   private getBaseConfigPath(): string {
-    return path.dirname(this.config.config_path);
+    return path.dirname(this.config.configPath);
   }
 
   /**
-   * Filter by query.
+   * Filter and only match those values that the query define.
    **/
   public async filterByQuery(results: searchUtils.SearchItemPkg[], query: searchUtils.SearchQuery) {
     // FUTURE: apply new filters, keyword, version, ...
@@ -116,6 +118,8 @@ class LocalDatabase extends TokenActions implements IPluginStorage {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async getScore(_pkg: searchUtils.SearchItemPkg): Promise<searchUtils.Score> {
+    // TODO: there is no particular reason to predefined scores
+    // could be improved by using
     return Promise.resolve({
       final: 1,
       detail: {
@@ -135,11 +139,13 @@ class LocalDatabase extends TokenActions implements IPluginStorage {
     );
     debug('packages found %o', packagesOnStorage.length);
     for (let storage of packagesOnStorage) {
+      // check if package is listed on the cache private database
+      const isPrivate = (this.data as LocalStorage).list.includes(storage.name);
       const score = await this.getScore(storage);
       results.push({
         package: storage,
-        // there is no particular reason to predefined scores
-        // could be improved by using
+        verdaccioPrivate: isPrivate,
+        verdaccioPkgCached: !isPrivate,
         score,
       });
     }
@@ -242,7 +248,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage {
 
     try {
       await writeFilePromise(this.path, JSON.stringify(this.data));
-      debug('sync write succeed');
+      debug('sync write succeeded');
 
       return null;
     } catch (err: any) {
@@ -254,8 +260,8 @@ class LocalDatabase extends TokenActions implements IPluginStorage {
   private _getLocalStoragePath(storage: string | void): string {
     const globalConfigStorage = this.getStoragePath();
     if (_.isNil(globalConfigStorage)) {
-      this.logger.error('property storage in config.yaml is required for using  this plugin');
-      throw new Error('property storage in config.yaml is required for using  this plugin');
+      this.logger.error('property storage in config.yaml is required for using this plugin');
+      throw new Error('property storage in config.yaml is required for using this plugin');
     } else {
       if (typeof storage === 'string') {
         return path.join(globalConfigStorage as string, storage as string);
@@ -265,7 +271,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage {
     }
   }
 
-  private async _fetchLocalPackages(): Promise<LocalStorage> {
+  private async fetchLocalPackages(): Promise<LocalStorage> {
     try {
       return await loadPrivatePackages(this.path, this.logger);
     } catch (err: any) {
@@ -282,7 +288,7 @@ class LocalDatabase extends TokenActions implements IPluginStorage {
           `File Path: ${this.path}\n\n ${err.message}`
         );
       }
-
+      // if no database is found we set empty placeholders
       return { list: [], secret: '' };
     }
   }

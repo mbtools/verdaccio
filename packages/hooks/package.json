@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/hooks",
-  "version": "6.0.0-6-next.12",
+  "version": "6.0.0-6-next.14",
   "description": "loaders logic",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -30,22 +30,22 @@
     "npm": ">=6"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:6.0.0-6-next.4",
-    "@verdaccio/logger": "workspace:6.0.0-6-next.10",
-    "core-js": "3.20.3",
-    "debug": "4.3.3",
+    "@verdaccio/core": "workspace:6.0.0-6-next.6",
+    "@verdaccio/logger": "workspace:6.0.0-6-next.12",
+    "core-js": "3.24.1",
+    "debug": "4.3.4",
     "handlebars": "4.7.7",
-    "undici": "4.15.0"
+    "undici": "4.16.0"
   },
   "devDependencies": {
-    "@types/node": "16.11.21",
-    "@verdaccio/auth": "workspace:6.0.0-6-next.20",
-    "@verdaccio/config": "workspace:6.0.0-6-next.12",
-    "@verdaccio/types": "workspace:11.0.0-6-next.10"
+    "@types/node": "16.11.51",
+    "@verdaccio/auth": "workspace:6.0.0-6-next.23",
+    "@verdaccio/config": "workspace:6.0.0-6-next.15",
+    "@verdaccio/types": "workspace:11.0.0-6-next.13"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=test jest",
+    "test": "jest",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
     "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",

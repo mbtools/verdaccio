@@ -14,9 +14,6 @@
       "path": "../config"
     },
     {
-      "path": "../core/commons-api"
-    },
-    {
       "path": "../core/readme"
     },
     {
@@ -27,6 +24,9 @@
     },
     {
       "path": "../loaders"
+    },
+    {
+      "path": "../api"
     },
     {
       "path": "../logger"
@@ -42,6 +42,9 @@
     },
     {
       "path": "../store"
+    },
+    {
+      "path": "../tools/helpers"
     },
     {
       "path": "../utils"

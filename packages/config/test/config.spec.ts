@@ -8,6 +8,7 @@ import {
   ROLES,
   WEB_TITLE,
   defaultSecurity,
+  getDefaultConfig,
   parseConfigFile,
 } from '../src';
 import { parseConfigurationFile } from './utils';
@@ -57,11 +58,11 @@ describe('check basic content parsed file', () => {
     expect(config.middlewares).toBeDefined();
     expect(config.middlewares.audit).toBeDefined();
     expect(config.middlewares.audit.enabled).toBeTruthy();
-    // logs
-    expect(config.logs).toBeDefined();
-    expect(config.logs.type).toEqual('stdout');
-    expect(config.logs.format).toEqual('pretty');
-    expect(config.logs.level).toEqual('http');
+    // log
+    expect(config.log).toBeDefined();
+    expect(config.log.type).toEqual('stdout');
+    expect(config.log.format).toEqual('pretty');
+    expect(config.log.level).toEqual('http');
     // must not be enabled by default
     expect(config.notify).toBeUndefined();
     expect(config.store).toBeUndefined();
@@ -74,7 +75,7 @@ describe('check basic content parsed file', () => {
   };
 
   test('parse default.yaml', () => {
-    const config = new Config(parseConfigFile(resolveConf('default')));
+    const config = new Config(getDefaultConfig());
     checkDefaultUplink(config);
     expect(config.storage).toBe('./storage');
     expect(config.auth.htpasswd.file).toBe('./htpasswd');
@@ -82,7 +83,7 @@ describe('check basic content parsed file', () => {
   });
 
   test('parse docker.yaml', () => {
-    const config = new Config(parseConfigFile(resolveConf('docker')));
+    const config = new Config(getDefaultConfig('docker.yaml'));
     checkDefaultUplink(config);
     expect(config.storage).toBe('/verdaccio/storage/data');
     expect(config.auth.htpasswd.file).toBe('/verdaccio/storage/htpasswd');

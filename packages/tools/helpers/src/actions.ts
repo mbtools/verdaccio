@@ -1,0 +1,25 @@
+import buildDebug from 'debug';
+import supertest from 'supertest';
+
+import { HEADERS, HEADER_TYPE } from '@verdaccio/core';
+import type { Manifest } from '@verdaccio/types';
+
+import { generatePackageMetadata } from './generatePackageMetadata';
+
+const debug = buildDebug('verdaccio:tools:helpers:actions');
+
+export function publishVersion(app, pkgName, version, metadata: Partial<Manifest> = {}): any {
+  debug('publishVersion %s : %s : %s', pkgName, version, JSON.stringify(metadata, null, 2));
+  const pkgMetadata = { ...generatePackageMetadata(pkgName, version), ...metadata };
+  debug('metadata %s', JSON.stringify(pkgMetadata, null, 2));
+  return (
+    supertest(app)
+      // @ts-ignore
+      .put(`/${encodeURIComponent(pkgName)}`)
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+      .send(JSON.stringify(pkgMetadata))
+      .set('accept', HEADERS.GZIP)
+      .set(HEADER_TYPE.ACCEPT_ENCODING, HEADERS.JSON)
+      .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+  );
+}

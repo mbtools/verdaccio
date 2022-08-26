@@ -14,16 +14,16 @@
       "path": "../core/cli-ui"
     },
     {
-      "path": "../core/commons-api"
-    },
-    {
       "path": "../logger"
     },
     {
       "path": "../mock"
     },
     {
-      "path": "../server"
+      "path": "../server/express"
+    },
+    {
+      "path": "../server/fastify"
     }
   ]
 }

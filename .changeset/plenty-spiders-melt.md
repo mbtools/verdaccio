@@ -15,7 +15,6 @@
 '@verdaccio/logger': minor
 '@verdaccio/logger-prettify': minor
 '@verdaccio/middleware': minor
-'@verdaccio/mock': minor
 '@verdaccio/node-api': minor
 '@verdaccio/proxy': minor
 '@verdaccio/server': minor
@@ -24,7 +23,6 @@
 '@verdaccio/utils': minor
 'verdaccio': minor
 '@verdaccio/web': minor
-'@verdaccio/website': minor
 ---
 
 feat: add typescript project references settings

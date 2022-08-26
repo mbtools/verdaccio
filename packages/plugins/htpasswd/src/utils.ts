@@ -57,18 +57,16 @@ export function parseHTPasswd(input: string): Record<string, any> {
  */
 export async function verifyPassword(passwd: string, hash: string): Promise<boolean> {
   if (hash.match(/^\$2([aby])\$/)) {
-    return new Promise((resolve, reject) =>
-      bcrypt.compare(passwd, hash, (error, result) => (error ? reject(error) : resolve(result)))
-    );
+    return await bcrypt.compare(passwd, hash);
   } else if (hash.indexOf('{PLAIN}') === 0) {
-    return passwd === hash.substr(7);
+    return passwd === hash.slice(7);
   } else if (hash.indexOf('{SHA}') === 0) {
     return (
       crypto
         .createHash('sha1')
         // https://nodejs.org/api/crypto.html#crypto_hash_update_data_inputencoding
         .update(passwd, 'utf8')
-        .digest('base64') === hash.substr(5)
+        .digest('base64') === hash.slice(5)
     );
   }
   // for backwards compatibility, first check md5 then check crypt3

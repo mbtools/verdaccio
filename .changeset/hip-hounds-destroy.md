@@ -17,7 +17,6 @@
 '@verdaccio/logger': patch
 '@verdaccio/logger-prettify': patch
 '@verdaccio/middleware': patch
-'@verdaccio/mock': patch
 '@verdaccio/node-api': patch
 '@verdaccio/active-directory': patch
 'verdaccio-audit': patch
@@ -31,9 +30,6 @@
 '@verdaccio/utils': patch
 'verdaccio': patch
 '@verdaccio/web': patch
-'@verdaccio/e2e-cli': patch
-'@verdaccio/e2e-ui': patch
-'@verdaccio/website': patch
 ---
 
 chore: add release step to private regisry on merge changeset pr

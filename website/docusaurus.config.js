@@ -37,6 +37,9 @@ module.exports = {
   onBrokenMarkdownLinks: 'warn',
   favicon: "img/logo/uk/verdaccio-tiny-uk-no-bg.svg",
   i18n: i18nConfig,
+  scripts: [
+    "https://buttons.github.io/buttons.js",    
+  ],
   plugins: [
     'docusaurus-plugin-sass',
     "docusaurus-plugin-contributors",
@@ -59,7 +62,7 @@ module.exports = {
     announcementBar: {
       id: 'announcementBar',
       content:
-        '<a target="_blank" rel="noopener noreferrer" href="https://donate.redcrossredcrescent.org/ua/donate/~my-donation?_cv=1">Help provide humanitarian support to Ukraine refugees</a>!',
+        '<a target="_blank" rel="noopener noreferrer" href="https://www.wfp.org/support-us/stories/ukraine-appeal">Help provide humanitarian support to Ukraine refugees</a>!',
         isCloseable: false,
         backgroundColor: '#1595de',
         textColor: '#ffffff',
@@ -69,6 +72,12 @@ module.exports = {
       apiKey: 'ed054733cb03418e9af25b7beb82c924',
       indexName: 'verdaccio',
       contextualSearch: true
+    },
+    docs: {
+      sidebar: {
+        hideable: true,
+        autoCollapseCategories: true,
+      },
     },
     navbar: {
       title: `Verdaccio - v${pkgJson.version}`,
@@ -151,7 +160,7 @@ module.exports = {
             },
             {
               label: 'Discord',
-              href: 'https://discordapp.com/invite/verdaccio',
+              href: 'https://discord.gg/7qWJxBf',
             },
             {
               label: 'Twitter',
@@ -185,8 +194,7 @@ module.exports = {
         },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Verdaccio community. Built with Docusaurus.`,
-    },
-    hideableSidebar: true,
+    },    
     colorMode: {
       defaultMode: 'light',
       disableSwitch: false,
