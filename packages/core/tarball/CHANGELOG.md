@@ -1,5 +1,25 @@
 # Change Log
 
+## 12.0.0-next-7.15
+
+### Patch Changes
+
+- 7400830: revert #4600
+- Updated dependencies [bd8703e]
+  - @verdaccio/core@7.0.0-next-7.15
+  - @verdaccio/url@12.0.0-next-7.15
+  - @verdaccio/utils@7.0.0-next-7.15
+
+## 12.0.0-next-7.14
+
+### Patch Changes
+
+- 253cc13: feat: add tarball details for published packages
+- Updated dependencies [b0946b2]
+  - @verdaccio/url@12.0.0-next-7.14
+  - @verdaccio/core@7.0.0-next-7.14
+  - @verdaccio/utils@7.0.0-next-7.14
+
 ## 12.0.0-next-7.13
 
 ### Patch Changes

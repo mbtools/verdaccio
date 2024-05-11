@@ -1,5 +1,36 @@
 # @verdaccio/auth
 
+## 7.0.0-next-7.15
+
+### Minor Changes
+
+- bd8703e: feat: add migrateToSecureLegacySignature and remove enhancedLegacySignature property
+
+### Patch Changes
+
+- Updated dependencies [bd8703e]
+  - @verdaccio/core@7.0.0-next-7.15
+  - @verdaccio/signature@7.0.0-next-7.5
+  - @verdaccio/config@7.0.0-next-7.15
+  - @verdaccio/loaders@7.0.0-next-7.15
+  - @verdaccio/logger@7.0.0-next-7.15
+  - verdaccio-htpasswd@12.0.0-next-7.15
+  - @verdaccio/utils@7.0.0-next-7.15
+
+## 7.0.0-next-7.14
+
+### Patch Changes
+
+- 4dc62a8: fix: adduser error message grammar (@tobbe in #4586)
+- Updated dependencies [b6d5652]
+  - @verdaccio/signature@7.0.0-next-7.4
+  - @verdaccio/core@7.0.0-next-7.14
+  - @verdaccio/config@7.0.0-next-7.14
+  - @verdaccio/loaders@7.0.0-next-7.14
+  - verdaccio-htpasswd@12.0.0-next-7.14
+  - @verdaccio/utils@7.0.0-next-7.14
+  - @verdaccio/logger@7.0.0-next-7.14
+
 ## 7.0.0-next-7.13
 
 ### Patch Changes

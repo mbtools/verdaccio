@@ -1,5 +1,18 @@
 # Change Log
 
+## 12.0.0-next-7.15
+
+### Patch Changes
+
+- Updated dependencies [bd8703e]
+  - @verdaccio/core@7.0.0-next-7.15
+
+## 12.0.0-next-7.14
+
+### Patch Changes
+
+- @verdaccio/core@7.0.0-next-7.14
+
 ## 12.0.0-next-7.13
 
 ### Patch Changes
