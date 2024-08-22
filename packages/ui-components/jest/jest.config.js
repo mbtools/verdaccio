@@ -8,11 +8,13 @@ module.exports = Object.assign({}, config, {
   moduleFileExtensions: ['js', 'ts', 'tsx'],
   testEnvironmentOptions: {
     url: 'http://localhost:9000/',
+    // https://mswjs.io/docs/migrations/1.x-to-2.x#cannot-find-module-mswnode-jsdom
+    customExportConditions: [''],
   },
   rootDir: '..',
   collectCoverage: true,
   setupFilesAfterEnv: ['<rootDir>/jest/setup-env.ts'],
-  setupFiles: ['<rootDir>/jest/setup.ts'],
+  setupFiles: ['<rootDir>/jest/jest.polyfills.js', '<rootDir>/jest/setup.ts'],
   transformIgnorePatterns: ['<rootDir>/node_modules/(?!react-syntax-highlighter)'],
   snapshotSerializers: ['@emotion/jest/serializer'],
   collectCoverageFrom: [

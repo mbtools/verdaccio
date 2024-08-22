@@ -23,7 +23,7 @@ export const AllProperties: any = () => (
   />
 );
 
-export const NoFileSize: any = () => (
+export const NoFileCount: any = () => (
   <Dist
     packageMeta={{
       latest: {
