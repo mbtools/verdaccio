@@ -5,7 +5,6 @@ import * as React from 'react';
 import { Provider } from 'react-redux';
 
 import config from '../../plugins/ui-theme/src/i18n/config';
-import { handlers as mswHandlers } from '../jest/server-handlers';
 import {
   AppConfigurationProvider,
   PersistenceSettingProvider,
@@ -14,6 +13,7 @@ import {
   TranslatorProvider,
   store,
 } from '../src';
+import { handlers as mswHandlers } from '../test/handlers';
 
 /*
  * Initializes MSW

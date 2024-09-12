@@ -1,4 +1,24 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<LinkExternal /> component > should render the component in default state 1`] = `
+<a
+  class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover css-1iunhqo-MuiTypography-root-MuiLink-root"
+  href="/"
+  rel="noopener noreferrer"
+  target="_blank"
+/>
+`;
+
+exports[`<LinkExternal /> component > should render the component with external link 1`] = `
+<a
+  class="MuiTypography-root MuiTypography-caption MuiLink-root MuiLink-underlineHover css-1iunhqo-MuiTypography-root-MuiLink-root"
+  href="https://example.com"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  Example
+</a>
+`;
 
 exports[`<LinkExternal /> component should render the component in default state 1`] = `
 .emotion-0 {

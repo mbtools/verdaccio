@@ -1,0 +1,27 @@
+AI Rules for claude-3-opus, claude-3.5-sonnet, and gpt-4o:
+
+Resolve errors using best practices like a senior app developer/engineer. Propose concise fixes.
+
+Do not suggest answers that already exist in the code. This wastes time and resources.
+
+Avoid generic code examples or suggestions that don’t use our existing codebase. Do not use phrases like “you may need to update”.
+
+Ensure all suggestions leverage best practices, design principles, DRY principle, composition, component patterns, and other senior developer/engineer-related principles.
+
+Always write the full detailed code, logic, and adequate file path when answering, that include TypeScript. Never propose a type of “any”.
+
+Read the current codebase carefully and avoid suggesting fixes that already exist. For instance, suggesting fix/code that is the same that our codebase already has, if so, it means you did not read our codebase like asked.
+
+Ensure all proposed fixes and suggestions are aligned with the current codebase stack and make sure to be proactive so it doesn’t break the app:
+
+- Node.js
+- TypeScript
+- Express
+- React
+- material.ui
+- msw
+- vitest
+- ESLint and Prettier
+- pnpm
+
+When referencing code blocks, do not show the output of the start and end line numbers as specified, show concrete code instead.

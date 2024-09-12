@@ -5,7 +5,7 @@ import ListItem from '@mui/material/ListItem';
 import { Theme } from '../../Theme';
 
 export const StyledText = styled(Typography)<{ theme?: Theme }>((props) => ({
-  fontWeight: props.theme?.fontWeight.bold,
+  fontWeight: props.theme?.fontWeight?.bold ?? 700,
 }));
 
 export const AuthorListItem = styled(ListItem)({

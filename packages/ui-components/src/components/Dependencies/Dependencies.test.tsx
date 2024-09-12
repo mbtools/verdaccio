@@ -1,5 +1,6 @@
 import React from 'react';
 import { HashRouter } from 'react-router-dom';
+import { describe, expect, test } from 'vitest';
 
 import { render, screen } from '../../test/test-react-testing-library';
 import Dependencies from './Dependencies';

@@ -1,14 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { api, store } from '../../';
 import { fireEvent, renderWithStore, screen, waitFor } from '../../test/test-react-testing-library';
 import Search from './Search';
 import { cleanDescription } from './utils';
 
-jest.mock('lodash/debounce', () =>
-  jest.fn((fn) => {
-    fn.cancel = jest.fn();
+vi.mock('lodash/debounce', () =>
+  vi.fn((fn) => {
+    fn.cancel = vi.fn();
     return fn;
   })
 );
@@ -22,7 +23,7 @@ const ComponentToBeRendered: React.FC = () => (
 
 describe('<Search /> component', () => {
   beforeEach(() => {
-    jest.spyOn(api, 'request').mockImplementation(() =>
+    vi.spyOn(api, 'request').mockImplementation(() =>
       Promise.resolve([
         {
           name: 'verdaccio-ui/types',
@@ -37,7 +38,7 @@ describe('<Search /> component', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should load the component in default state', () => {

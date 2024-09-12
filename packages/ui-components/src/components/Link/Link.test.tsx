@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { describe, expect, test } from 'vitest';
 
 import { render } from '../../test/test-react-testing-library';
 import Link from './Link';

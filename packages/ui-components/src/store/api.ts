@@ -40,7 +40,7 @@ class API {
   public request<T>(
     url: string,
     method = 'GET',
-    options: RequestInit = { headers: {} }
+    options: RequestInit = { headers: new Headers() }
   ): Promise<T> {
     const token = storage.getItem('token');
     const headers = new Headers(options.headers);
@@ -56,7 +56,6 @@ class API {
       fetch(url, {
         method,
         credentials: 'same-origin',
-        signal: options.signal,
         ...options,
       })
         .then(handleResponseType)

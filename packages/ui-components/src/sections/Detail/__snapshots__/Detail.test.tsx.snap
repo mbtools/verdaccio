@@ -1,4 +1,85 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DetailContainer > renders correctly 1`] = `
+<div
+  class="MuiBox-root css-1xmbh36"
+>
+  <div
+    class="MuiTabs-root css-1qm1lh css-1ujnqem-MuiTabs-root"
+  >
+    <div
+      class="MuiTabs-scroller MuiTabs-fixed css-jpln7h-MuiTabs-scroller"
+      style="overflow: hidden; margin-bottom: 0px;"
+    >
+      <div
+        class="MuiTabs-flexContainer css-heg063-MuiTabs-flexContainer"
+        role="tablist"
+      >
+        <button
+          aria-selected="true"
+          class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary MuiTab-fullWidth Mui-selected css-1yjl0pz-MuiButtonBase-root-MuiTab-root"
+          data-testid="readme-tab"
+          id="readme-tab"
+          role="tab"
+          tabindex="0"
+          type="button"
+        >
+          tab.readme
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-selected="false"
+          class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary MuiTab-fullWidth css-1yjl0pz-MuiButtonBase-root-MuiTab-root"
+          data-testid="dependencies-tab"
+          id="dependencies-tab"
+          role="tab"
+          tabindex="-1"
+          type="button"
+        >
+          tab.dependencies
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-selected="false"
+          class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary MuiTab-fullWidth css-1yjl0pz-MuiButtonBase-root-MuiTab-root"
+          data-testid="versions-tab"
+          id="versions-tab"
+          role="tab"
+          tabindex="-1"
+          type="button"
+        >
+          tab.versions
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+        <button
+          aria-selected="false"
+          class="MuiButtonBase-root MuiTab-root MuiTab-textColorPrimary MuiTab-fullWidth css-1yjl0pz-MuiButtonBase-root-MuiTab-root"
+          data-testid="uplinks-tab"
+          id="uplinks-tab"
+          role="tab"
+          tabindex="-1"
+          type="button"
+        >
+          tab.uplinks
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+      <span
+        class="MuiTabs-indicator css-x84uli-MuiTabs-indicator"
+        style="left: 0px; width: 0px;"
+      />
+    </div>
+  </div>
+</div>
+`;
 
 exports[`DetailContainer renders correctly 1`] = `
 .emotion-0 {

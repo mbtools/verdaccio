@@ -1,6 +1,6 @@
 import React from 'react';
-import { MemoryRouter } from 'react-router';
-import { Route } from 'react-router-dom';
+import { MemoryRouter, Route } from 'react-router-dom';
+import { afterEach, describe, expect, test } from 'vitest';
 
 import { Route as Routes, store } from '../../';
 import {

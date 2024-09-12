@@ -1,13 +1,14 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router';
+import { afterEach, describe, expect, test, vi } from 'vitest';
 
 import { VersionProvider } from '../../providers';
 import { store } from '../../store';
 import { act, renderWithStore, screen, waitFor } from '../../test/test-react-testing-library';
 import Sidebar from './Sidebar';
 
-jest.mock('marked');
-jest.mock('marked-highlight');
+vi.mock('marked');
+vi.mock('marked-highlight');
 
 const ComponentSideBar: React.FC = () => (
   <MemoryRouter>
@@ -17,18 +18,21 @@ const ComponentSideBar: React.FC = () => (
   </MemoryRouter>
 );
 
-const mockPkgName = jest.fn().mockReturnValue('jquery');
+const mockPkgName = vi.fn().mockReturnValue('jquery');
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'), // use actual for all non-hook parts
-  useParams: () => ({
-    package: mockPkgName(),
-  }),
-}));
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom');
+  return {
+    ...actual,
+    useParams: () => ({
+      package: mockPkgName(),
+    }),
+  };
+});
 
 describe('Sidebar', () => {
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
   test('should render titles', async () => {
     act(() => {

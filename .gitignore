@@ -53,6 +53,7 @@ e2e/ui/cypress/screenshots/**/*
 
 # storybook
 packages/ui-components/storybook-static
+packages/plugins/ui-theme/src/i18n/**/*.d.ts*
 
 # plugin generator
 packages/tools/generator-verdaccio-plugin/generators/

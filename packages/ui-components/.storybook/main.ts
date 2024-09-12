@@ -21,7 +21,6 @@ const config: StorybookConfig = {
 
   // Add support for importing i18n from ui-theme plugin (used in preview.tsx)
   webpackFinal: async (config) => {
-    config.devtool = 'inline-source-map';
     config.resolve?.extensions?.push('.ts', '.tsx');
     config.module?.rules?.push({
       test: /\.(ts|tsx)$/,

@@ -1,3 +1,5 @@
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
+
 import api, { handleResponseType } from './api';
 
 describe('api', () => {
@@ -50,10 +52,10 @@ describe('api', () => {
   });
 
   describe('api client', () => {
-    let fetchSpy: jest.SpyInstance;
+    let fetchSpy;
 
     beforeEach(() => {
-      fetchSpy = jest.spyOn(window, 'fetch');
+      fetchSpy = vi.spyOn(window, 'fetch');
     });
 
     afterEach(() => {
@@ -75,15 +77,15 @@ describe('api', () => {
 
       expect(fetchSpy).toHaveBeenCalledWith('https://verdaccio.tld/resource', {
         credentials: 'same-origin',
-        headers: {},
+        headers: new Headers(),
         method: 'GET',
       });
       expect(response).toEqual({ a: 1 });
     });
 
     test('when there is token from storage', async () => {
-      jest.resetModules();
-      jest.doMock('./storage', () => ({ getItem: () => 'token-xx-xx-xx' }));
+      const TOKEN_KEY = 'token';
+      localStorage.setItem(TOKEN_KEY, 'token-xx-xx-xx');
 
       fetchSpy.mockImplementation(() =>
         Promise.resolve({
@@ -95,7 +97,6 @@ describe('api', () => {
         })
       );
 
-      const api = require('./api').default;
       const response = await api.request('https://verdaccio.tld/resource', 'GET');
 
       expect(fetchSpy).toHaveBeenCalledWith('https://verdaccio.tld/resource', {
@@ -107,6 +108,8 @@ describe('api', () => {
         method: 'GET',
       });
       expect(response).toEqual({ c: 3 });
+
+      localStorage.removeItem(TOKEN_KEY);
     });
 
     test('when url is a cross origin url', async () => {
@@ -123,7 +126,7 @@ describe('api', () => {
       const response = await api.request('https://verdaccio.xyz/resource');
       expect(fetchSpy).toHaveBeenCalledWith('https://verdaccio.xyz/resource', {
         credentials: 'same-origin',
-        headers: {},
+        headers: new Headers(),
         method: 'GET',
       });
       expect(response).toEqual({ b: 2 });

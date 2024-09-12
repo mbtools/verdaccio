@@ -1,6 +1,7 @@
-import '@testing-library/jest-dom';
-import 'whatwg-fetch';
+import '@testing-library/jest-dom/vitest';
+import { afterAll, afterEach, beforeAll } from 'vitest';
 
+import './global';
 import { server } from './server';
 
 beforeAll(() => {
@@ -8,7 +9,9 @@ beforeAll(() => {
     onUnhandledRequest: 'warn',
   });
 });
+
 afterEach(() => server.resetHandlers());
+
 afterAll(() => {
   server.close();
 });

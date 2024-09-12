@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Theme } from '../../Theme';
+import { Theme } from '../../';
 import { DeveloperType } from './';
 
 interface Props {
@@ -23,6 +23,6 @@ const Title: React.FC<Props> = ({ type }) => {
 export default Title;
 
 const StyledText = styled(Typography)<{ theme?: Theme }>(({ theme }) => ({
-  fontWeight: theme?.fontWeight.bold,
+  fontWeight: theme.fontWeight.bold,
   marginBottom: '10px',
 }));

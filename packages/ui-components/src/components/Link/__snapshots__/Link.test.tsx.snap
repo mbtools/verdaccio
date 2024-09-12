@@ -1,4 +1,28 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<Link /> component > should render the component in default state 1`] = `
+<a
+  class="css-p9rrpt"
+  href="/"
+>
+  <p
+    class="MuiTypography-root MuiTypography-body1 css-1uhxhd-MuiTypography-root"
+  />
+</a>
+`;
+
+exports[`<Link /> component > should render the component with link 1`] = `
+<a
+  class="css-p9rrpt"
+  href="/"
+>
+  <p
+    class="MuiTypography-root MuiTypography-body1 css-1uhxhd-MuiTypography-root"
+  >
+    Home
+  </p>
+</a>
+`;
 
 exports[`<Link /> component should render the component in default state 1`] = `
 .emotion-0 {

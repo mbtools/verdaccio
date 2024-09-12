@@ -1,6 +1,7 @@
 /* eslint-disable verdaccio/jsx-spread */
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
+import { afterEach, describe, expect, test, vi } from 'vitest';
 
 import { fireEvent, render, screen } from '../../test/test-react-testing-library';
 import Versions, { Props } from './Versions';
@@ -13,16 +14,16 @@ const VersionsComponent: React.FC<Props> = (props) => (
   </MemoryRouter>
 );
 
-jest.mock('lodash/debounce', () =>
-  jest.fn((fn) => {
-    fn.cancel = jest.fn();
+vi.mock('lodash/debounce', () =>
+  vi.fn((fn) => {
+    fn.cancel = vi.fn();
     return fn;
   })
 );
 
 describe('<Version /> component', () => {
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   test('should render versions', () => {

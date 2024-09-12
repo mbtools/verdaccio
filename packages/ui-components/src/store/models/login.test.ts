@@ -1,20 +1,28 @@
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
+
 // eslint-disable-next-line jest/no-mocks-import
-import { generateTokenWithTimeRange } from '../../../jest/unit/components/__mocks__/token';
+import { generateTokenWithTimeRange } from '../../__mocks__/token';
 
 describe('getDefaultUserState', (): void => {
   const username = 'xyz';
 
   beforeEach(() => {
-    jest.resetModules();
+    vi.resetModules();
   });
 
-  test('should return state with empty user', (): void => {
+  afterEach(() => {
+    localStorage.clear();
+  });
+
+  test('should return state with empty user', async (): Promise<void> => {
     const token = 'token-xx-xx-xx';
 
-    jest.doMock('../storage', () => ({
-      getItem: (key: string) => (key === 'token' ? token : username),
-    }));
-    const { getDefaultUserState } = require('./login');
+    localStorage.setItem('token', token);
+    localStorage.setItem('username', username);
+
+    // Import the function after mocking
+    const { getDefaultUserState } = await import('./login');
+
     const result = {
       token: null,
       username: null,
@@ -22,13 +30,15 @@ describe('getDefaultUserState', (): void => {
     expect(getDefaultUserState()).toEqual(result);
   });
 
-  test('should return state with user from storage', (): void => {
+  test('should return state with user from storage', async (): Promise<void> => {
     const token = generateTokenWithTimeRange(24);
 
-    jest.doMock('../storage', () => ({
-      getItem: (key: string) => (key === 'token' ? token : username),
-    }));
-    const { getDefaultUserState } = require('./login');
+    localStorage.setItem('token', token);
+    localStorage.setItem('username', username);
+
+    // Import the function after mocking
+    const { getDefaultUserState } = await import('./login');
+
     const result = {
       token,
       username,

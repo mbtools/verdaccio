@@ -1,14 +1,16 @@
+import { describe, expect, test, vi } from 'vitest';
+
 // eslint-disable-next-line jest/no-mocks-import
 import {
   generateInvalidToken,
   generateTokenWithExpirationAsString,
   generateTokenWithOutExpiration,
   generateTokenWithTimeRange,
-} from '../../jest/unit/components/__mocks__/token';
+} from '../__mocks__/token';
 import { isTokenExpire } from './token';
 
 /* eslint-disable no-console */
-console.error = jest.fn();
+console.error = vi.fn();
 
 describe('isTokenExpire', (): void => {
   test('isTokenExpire - null is not a valid payload', (): void => {
