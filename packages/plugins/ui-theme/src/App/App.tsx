@@ -3,7 +3,7 @@
 /* eslint-disable react/jsx-max-depth */
 import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
-import FlagsIcon from 'country-flag-icons/react/3x2';
+import * as FlagsIcon from 'country-flag-icons/react/3x2';
 import React, { StrictMode, Suspense, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
@@ -30,13 +30,13 @@ import AppRoute, { history } from './AppRoute';
 
 const StyledBox = styled(Box)<{ theme?: Theme }>(({ theme }) => {
   return {
-    backgroundColor: theme?.palette.background.default,
+    backgroundColor: theme.palette.background.default,
   };
 });
 
 const StyledBoxContent = styled(Box)<{ theme?: Theme }>(({ theme }) => ({
-  [`@media screen and (min-width: ${theme?.breakPoints.container}px)`]: {
-    maxWidth: theme?.breakPoints.container,
+  [`@media screen and (min-width: ${theme.breakPoints.container}px)`]: {
+    maxWidth: theme.breakPoints.container,
     width: '100%',
     marginLeft: 'auto',
     marginRight: 'auto',
