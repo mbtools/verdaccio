@@ -1,0 +1,21 @@
+{
+  "extends": "../../../tsconfig.reference.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "$/*": ["./*"]
+    },
+    "rootDir": "./src",
+    "outDir": "./build"
+  },
+  "include": ["src/**/*", "types/*.d.ts", "src/db/seeds/data/orgs.json", "src/drizzle.config.ts"],
+  "exclude": ["src/**/*.test.ts"]
+}
