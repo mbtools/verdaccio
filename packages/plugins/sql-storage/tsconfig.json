@@ -1,13 +1,13 @@
 {
-  "extends": "../../../tsconfig.reference.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
+    "target": "es6",
+    "module": "commonjs",
+    "declaration": true,
+    "allowJs": false,
+    "noImplicitAny": false,
     "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "skipLibCheck": true,
     "paths": {
       "@/*": ["./src/*"],
@@ -16,6 +16,6 @@
     "rootDir": "./src",
     "outDir": "./build"
   },
-  "include": ["src/**/*", "types/*.d.ts", "src/db/seeds/data/orgs.json", "src/drizzle.config.ts"],
+  "include": ["src/**/*.ts", "src/db/seeds/data/*.json"],
   "exclude": ["src/**/*.test.ts"]
 }

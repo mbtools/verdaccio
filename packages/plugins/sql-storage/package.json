@@ -1,6 +1,6 @@
 {
-  "name": "@verdaccio/sql-storage",
-  "version": "1.0.0-next-8.3",
+  "name": "verdaccio-sql-storage",
+  "version": "1.0.0",
   "description": "Storage plugin for PostgreSQL",
   "keywords": [
     "private",
@@ -13,19 +13,15 @@
     "server",
     "verdaccio"
   ],
-  "author": "Juan Picado <juanpicado19@gmail.com>",
+  "author": "Marc Bernard <marc@abappm.com>",
   "license": "MIT",
-  "homepage": "https://verdaccio.org",
+  "homepage": "https://abappm.com",
   "repository": {
     "type": "https",
-    "url": "https://github.com/verdaccio/verdaccio",
-    "directory": "packages/plugins/sql-storage"
+    "url": "https://github.com/abapPM/verdaccio-apm-middleware"
   },
   "bugs": {
     "url": "https://github.com/verdaccio/verdaccio/issues"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -36,39 +32,32 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/core": "workspace:8.0.0-next-8.3",
+    "@verdaccio/core": "8.0.0-next-8.3",
     "dotenv": "^16.4.5",
     "dotenv-expand": "^11.0.6",
     "drizzle-orm": "^0.36.1",
-    "lodash": "4.17.21",
-    "postgres": "3.4.5",
-    "postgres-large-object": "1.0.5",
+    "lodash": "^4.17.21",
+    "postgres": "^3.4.5",
+    "postgres-large-object": "^1.0.5",
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@verdaccio/config": "workspace:8.0.0-next-8.3",
-    "@verdaccio/logger": "workspace:8.0.0-next-8.3",
-    "@verdaccio/types": "workspace:13.0.0-next-8.1",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.9.0",
+    "@verdaccio/config": "8.0.0-next-8.3",
+    "@verdaccio/logger": "8.0.0-next-8.3",
+    "@verdaccio/types": "13.0.0-next-8.1",
     "cross-env": "7.0.3",
     "drizzle-kit": "^0.28.0",
-    "tsx": "^4.19.2"
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "test": "vitest run",
-    "type-check": "tsc --noEmit -p tsconfig.build.json",
-    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
-    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
-    "watch": "pnpm build:js -- --watch",
-    "build": "pnpm run build:js && pnpm run build:types",
+    "build": "tsc --resolveJsonModule",
     "db:generate": "drizzle-kit generate --config src/drizzle.config.ts",
     "db:migrate": "cross-env DB_MIGRATING=true tsx src/db/migrate.ts",
     "db:seed": "cross-env DB_SEEDING=true tsx src/db/seed.ts",
     "db:studio": "drizzle-kit studio --config src/drizzle.config.ts"
-  },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/verdaccio"
-  },
-  "type": "module"
+  }
 }

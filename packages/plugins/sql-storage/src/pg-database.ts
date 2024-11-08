@@ -1,3 +1,5 @@
+import env from '@/env';
+import buildDebug from 'debug';
 import _ from 'lodash';
 
 import { pluginUtils, searchUtils } from '@verdaccio/core';
@@ -11,9 +13,10 @@ import { PackageService } from './services/package';
 import { TokenService } from './services/token';
 import { VerdaccioSecretService } from './services/verdaccio-secret';
 
+const debug = buildDebug('verdaccio:plugin:loader:utils');
+
 class PGDatabase extends pluginUtils.Plugin<PGConfig> implements pluginUtils.Storage<PGConfig> {
   public readonly config: PGConfig;
-  public readonly locked: boolean;
 
   private logger: Logger;
   private database: Database;
@@ -22,9 +25,9 @@ class PGDatabase extends pluginUtils.Plugin<PGConfig> implements pluginUtils.Sto
   private verdaccioSecret: VerdaccioSecretService;
 
   public constructor(config: PGConfig, logger: Logger) {
+    debug('constructor');
     super(config, { config, logger });
 
-    this.locked = false;
     this.config = config;
     this.logger = logger;
 
@@ -33,7 +36,7 @@ class PGDatabase extends pluginUtils.Plugin<PGConfig> implements pluginUtils.Sto
     }
     this.config = Object.assign(config, config.store['sql-storage']);
 
-    this.config.url = process.env.POSTGRES_URL || this.config.url;
+    this.config.url = env.DATABASE_URL || this.config.url;
     if (!this.config.url) {
       throw new Error(
         '[sql-storage] missing config. Add `store.sql-storage.url` to your config file or use environtment POSTGRES_URL'
@@ -42,7 +45,7 @@ class PGDatabase extends pluginUtils.Plugin<PGConfig> implements pluginUtils.Sto
 
     this.logger.debug(
       { config: JSON.stringify(this.config, null, 4) },
-      'pg: configuration: @{config}'
+      '[sql-storage]: configuration: @{config}'
     );
 
     this.database = new Database(this.config.url);
