@@ -1,21 +1,24 @@
 {
+  "extends": "../../../tsconfig.reference.json",
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "declaration": true,
-    "allowJs": false,
-    "noImplicitAny": false,
-    "strict": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
     "skipLibCheck": true,
-    "paths": {
-      "@/*": ["./src/*"],
-      "$/*": ["./*"]
-    },
     "rootDir": "./src",
     "outDir": "./build"
   },
-  "include": ["src/**/*.ts", "src/db/seeds/data/*.json"],
-  "exclude": ["src/**/*.test.ts"]
+  "include": ["src/**/*", "types/*.d.ts", "src/db/seeds/data/*.json"],
+  "exclude": ["src/**/*.test.ts"],
+  "references": [
+    {
+      "path": "../../config"
+    },
+    {
+      "path": "../../core/core"
+    },
+    {
+      "path": "../../core/types"
+    },
+    {
+      "path": "../../logger/logger"
+    }
+  ]
 }

@@ -40,20 +40,20 @@ describe('Local FS test', () => {
     localTempStorage = path.join(tmpFolder, './_storage');
   });
 
-  describe.skip('deletePackage() group', () => {
+  describe('deleteTarball() group', () => {
     test('should delete a package', async () => {
-      const localFs = new LocalDriver(path.join(localTempStorage, 'createPackage'), logger);
+      const localFs = new LocalDriver(path.join(localTempStorage, 'test_package'), logger);
       await localFs.createPackage('createPackage', pkg as unknown as Manifest);
       // verdaccio removes the package.json instead the package name
-      await localFs.deletePackage('package.json');
+      await localFs.removePackage('test_package');
       // verify if the `package.json` does not exist anymore
       // note: the folder still remains
       await expect(checkFileExists(localFs._getStorage('package.json'))).resolves.toBeFalsy();
     });
     test('should fails on delete a package', async () => {
-      const localFs = new LocalDriver(path.join(localTempStorage, 'createPackage'), logger);
+      const localFs = new LocalDriver(path.join(localTempStorage, 'test_package'), logger);
       // verdaccio removes the package.json instead the package name
-      await expect(localFs.deletePackage('package.json')).rejects.toThrow('ENOENT');
+      await expect(localFs.removePackage('test_package')).rejects.toThrow('ENOENT');
     });
   });
 
@@ -65,12 +65,12 @@ describe('Local FS test', () => {
     test('should successfully remove the package', async () => {
       const localFs = new LocalDriver(path.join(localTempStorage, '_toDelete'), logger);
 
-      await expect(localFs.removePackage()).resolves.toBeUndefined();
+      await expect(localFs.removePackage('_toDelete')).resolves.toBeUndefined();
     });
 
     test('removePackage() fails', async () => {
       const localFs = new LocalDriver(path.join(localTempStorage, '_toDelete_fake'), logger);
-      await expect(localFs.removePackage()).rejects.toThrow(/ENOENT/);
+      await expect(localFs.removePackage('_toDelete_fake')).rejects.toThrow(/ENOENT/);
     });
   });
 

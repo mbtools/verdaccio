@@ -229,7 +229,7 @@ class Storage {
         throw errorUtils.getInternalError(API_ERROR.INTERNAL_SERVER_ERROR);
       }
 
-      await storage.deletePackage(filename);
+      await storage.deleteTarball(filename);
       debug('package %s removed', filename);
     } catch (err: any) {
       this.logger.error({ err }, 'error removing %s from storage');
@@ -795,15 +795,12 @@ class Storage {
       debug('attachments to remove %s', attachments?.length);
       for (let attachment of attachments) {
         debug('remove attachment %s', attachment);
-        await storage.deletePackage(attachment);
+        await storage.deleteTarball(attachment);
         this.logger.info({ attachment }, 'attachment @{attachment} removed');
       }
-      // remove package.json
-      debug('remove package.json');
-      await storage.deletePackage(STORAGE.PACKAGE_FILE_NAME);
-      // remove folder
-      debug('remove package folder');
-      await storage.removePackage();
+      // remove package.json and folder
+      debug('remove package');
+      await storage.removePackage(pkgName);
       this.logger.info({ pkgName }, 'package @{pkgName} removed');
     } catch (err: any) {
       this.logger.error({ err }, 'removed package has failed @{err.message}');
@@ -1087,8 +1084,8 @@ class Storage {
     if (typeof storage === 'undefined') {
       throw errorUtils.getNotFound();
     }
-    const hasPackage = await storage.hasPackage();
-    debug('has package %o for %o', pkgName, hasPackage);
+    const hasPackage = await storage.hasPackage(pkgName);
+    debug('has package %o is %o', pkgName, hasPackage);
     return hasPackage;
   }
 

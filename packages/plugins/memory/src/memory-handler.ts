@@ -58,16 +58,17 @@ class MemoryHandler implements pluginUtils.StorageHandler {
     throw new Error('not  implemented');
   }
 
-  public async hasPackage(): Promise<boolean> {
+  public async hasPackage(pkgName: string): Promise<boolean> {
     return false;
   }
 
-  public async deletePackage(pkgName: string): Promise<void> {
-    delete this.data[pkgName];
+  public async deleteTarball(fileName: string): Promise<void> {
+    delete this.data[fileName];
     return;
   }
 
-  public removePackage() {
+  public removePackage(pkgName: string) {
+    delete this.data[pkgName];
     return Promise.resolve();
   }
 

@@ -131,14 +131,23 @@ export default class LocalFS implements ILocalFSPackageManager {
     }
   }
 
-  public async deletePackage(packageName: string): Promise<void> {
-    debug('delete a file/package %o', packageName);
+  public async deleteTarball(fileName: string): Promise<void> {
+    debug('delete tarball %o', fileName);
 
-    return await unlinkPromise(this._getStorage(packageName));
+    return await unlinkPromise(this._getStorage(fileName));
   }
 
-  public async removePackage(): Promise<void> {
-    debug('remove a package folder %o', this.path);
+  public async removePackage(packageName: string): Promise<void> {
+    debug('remove a package %o folder %o', packageName, this.path);
+
+    try {
+      await unlinkPromise(this._getStorage(packageJSONFileName));
+    } catch (err: any) {
+      // ignore if package.json does not exist
+      if (err.code === noSuchFile) {
+        debug('file %o does not exist', packageJSONFileName);
+      }
+    }
 
     await rmdirPromise(this._getStorage('.'));
   }

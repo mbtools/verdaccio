@@ -1,5 +1,5 @@
-import PGDatabase from './pg-database';
+import SqlStoragePlugin from './storage-plugin';
 
-export { PGDatabase };
+export { SqlStoragePlugin };
 
-export default PGDatabase;
+export default SqlStoragePlugin;

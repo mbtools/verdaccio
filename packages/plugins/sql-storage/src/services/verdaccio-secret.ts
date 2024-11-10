@@ -14,7 +14,7 @@ export class VerdaccioSecretService {
     this.logger = logger;
   }
 
-  public set = async (secret: string): Promise<void> => {
+  public set = async (secret: string): Promise<string> => {
     this.logger.debug('[sql-storage/verdaccio-secret]: save secret');
     const sql = await this.database.sql();
 
@@ -27,6 +27,8 @@ export class VerdaccioSecretService {
     `;
 
     this.logger.debug('[sql-storage/verdaccio-secret]: secret saved');
+
+    return secret;
   };
 
   public get = async (): Promise<string> => {

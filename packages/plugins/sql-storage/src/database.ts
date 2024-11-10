@@ -17,7 +17,7 @@ export class Database {
       await this.ready;
     } catch (err) {
       throw errorUtils.getServiceUnavailable(
-        `[sql-storage/database]: can't get database ready with error ${(err as Error).message}`
+        `[sql-storage]: can't get database ready with error ${(err as Error).message}`
       );
     }
     return this._sql;

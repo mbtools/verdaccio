@@ -15,6 +15,9 @@ function getConfig(file: string) {
 const authSanitize = function (plugin) {
   return plugin.authenticate || plugin.allow_access || plugin.allow_publish;
 };
+const storeSanitize = function (plugin) {
+  return typeof plugin.getPackageStorage !== 'undefined';
+};
 
 const pluginsPartialsFolder = path.join(__dirname, './partials/test-plugin-storage');
 
@@ -27,6 +30,14 @@ describe('plugin loader', () => {
         const config = getConfig('valid-plugin.yaml');
         config.plugins = pluginsPartialsFolder;
         const plugins = await asyncLoadPlugin(config.auth, { config, logger }, authSanitize);
+
+        expect(plugins).toHaveLength(1);
+      });
+
+      test('testing storage valid plugin loader', async () => {
+        const config = getConfig('valid-plugin-store.yaml');
+        config.plugins = pluginsPartialsFolder;
+        const plugins = await asyncLoadPlugin(config.store, { config, logger }, storeSanitize);
 
         expect(plugins).toHaveLength(1);
       });

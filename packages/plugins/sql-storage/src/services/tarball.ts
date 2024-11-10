@@ -12,14 +12,12 @@ export class TarballService {
   private logger: Logger;
 
   private storage: string;
-  private name: string;
   private org: OrgService;
 
-  public constructor(database: Database, logger: Logger, storage: string, name: string) {
+  public constructor(database: Database, logger: Logger, storage: string) {
     this.database = database;
     this.logger = logger;
     this.storage = storage;
-    this.name = name;
     this.org = new OrgService(database, logger);
   }
 
@@ -29,11 +27,11 @@ export class TarballService {
       '[sql-storage/tarball] check if tarball exists for package @{name}'
     );
     const sql = await this.database.sql();
-    const orgId = await this.org.getOrgIdfromPackage(this.name);
+    const orgId = await this.org.getOrgIdfromPackage(name);
 
     const [exists] = await sql`
       SELECT name FROM tarball
-        WHERE org_id = ${orgId} AND storage = ${this.storage} AND name = ${this.name}
+        WHERE org_id = ${orgId} AND storage = ${this.storage} AND name = ${name}
     `;
 
     this.logger.debug(
@@ -47,14 +45,16 @@ export class TarballService {
   public read = async (filename: string, read: ReadTarball): Promise<void> => {
     this.logger.debug({ filename }, '[sql-storage/package] read tarball @{filename}');
 
+    const { name } = this.getPackageInfoFromFilename(filename);
+
     const sql = await this.database.sql();
-    const orgId = await this.org.getOrgIdfromPackage(this.name);
+    const orgId = await this.org.getOrgIdfromPackage(name);
 
     await sql.begin(async (trx) => {
       const manager = new LargeObjectManager(trx as any);
       const [{ data }] = await trx`
         SELECT data FROM tarball
-          WHERE org_id = ${orgId} AND storage = ${this.storage} AND name = ${this.name} AND filename = ${filename}
+          WHERE org_id = ${orgId} AND storage = ${this.storage} AND name = ${name} AND filename = ${filename}
       `;
 
       const [size, stream] = await manager.openAndReadableStreamAsync(data);
@@ -76,14 +76,16 @@ export class TarballService {
   public write = async (filename: string, upload: UploadTarball): Promise<void> => {
     this.logger.debug({ filename }, '[sql-storage/tarball] write tarball @{filename}');
 
+    const { name, version } = this.getPackageInfoFromFilename(filename);
+
     const sql = await this.database.sql();
-    const orgId = await this.org.getOrgIdfromPackage(this.name);
+    const orgId = await this.org.getOrgIdfromPackage(name);
 
     await sql.begin(async (trx) => {
       const manager = new LargeObjectManager(trx as any);
       const [exists] = await trx`
         SELECT name FROM tarball
-          WHERE org_id = ${orgId} AND storage = ${this.storage} AND name = ${this.name} AND filename = ${filename}
+          WHERE org_id = ${orgId} AND storage = ${this.storage} AND name = ${name} AND filename = ${filename}
       `;
 
       const [oid, stream] = await manager.createAndWritableStreamAsync();
@@ -98,9 +100,9 @@ export class TarballService {
 
       await trx`
         INSERT INTO tarball
-          (org_id, storage, name, filename, data)
+          (org_id, storage, name, version, filename, data)
         VALUES
-          (${orgId}, ${this.storage}, ${this.name}, ${filename}, ${oid})
+          (${orgId}, ${this.storage}, ${name}, ${version}, ${filename}, ${oid})
         ON CONFLICT (storage, package, name)
         DO UPDATE
         SET
@@ -113,20 +115,22 @@ export class TarballService {
       }
     });
 
-    this.logger.debug({ filename }, '[sql-storage/tarball] tarball @{filename} written');
+    this.logger.debug({ filename }, '[sql-storage] tarball @{filename} written');
   };
 
   public delete = async (filename: string): Promise<void> => {
-    this.logger.debug({ filename }, '[sql-storage/package] delete tarball @{filename}');
+    this.logger.debug({ filename }, '[sql-storage] delete tarball @{filename}');
+
+    const { name } = this.getPackageInfoFromFilename(filename);
 
     const sql = await this.database.sql();
-    const orgId = await this.org.getOrgIdfromPackage(this.name);
+    const orgId = await this.org.getOrgIdfromPackage(name);
 
     await sql.begin(async (trx) => {
       const manager = new LargeObjectManager(trx as any);
       const rows = await trx`
         DELETE FROM tarball 
-          WHERE org_id = ${orgId} AND storage = ${this.storage} AND name = ${this.name} 
+          WHERE org_id = ${orgId} AND storage = ${this.storage} AND name = ${name} 
           AND filename = ${filename} RETURNING *
       `;
 
@@ -135,32 +139,35 @@ export class TarballService {
       }
     });
 
-    this.logger.debug({ filename }, '[sql-storage/package] tarball @{filename} deleted');
+    this.logger.debug({ filename }, '[sql-storage] tarball @{filename} deleted');
   };
 
-  public remove = async (): Promise<void> => {
-    this.logger.debug(
-      { name: this.name },
-      '[sql-storage/package] remove all tarballs for package: @{name}'
-    );
+  public remove = async (name: string): Promise<void> => {
+    this.logger.debug({ name }, '[sql-storage] remove all tarballs for package: @{name}');
 
     const sql = await this.database.sql();
-    const orgId = await this.org.getOrgIdfromPackage(this.name);
+    const orgId = await this.org.getOrgIdfromPackage(name);
 
     await sql.begin(async (trx) => {
       const manager = new LargeObjectManager(trx as any);
       const rows = await trx`
         DELETE FROM tarball 
-          WHERE org_id = ${orgId} AND storage = ${this.storage} AND name = ${this.name} RETURNING *
+          WHERE org_id = ${orgId} AND storage = ${this.storage} AND name = ${name} RETURNING *
       `;
       for (const row of rows) {
         await manager.unlinkAsync(row.file);
       }
     });
 
-    this.logger.debug(
-      { name: this.name },
-      '[sql-storage/package] all tarballs for package @{name} removed'
-    );
+    this.logger.debug({ name }, '[sql-storage] all tarballs for package @{name} removed');
   };
+
+  private getPackageInfoFromFilename(filename: string): { name: string; version: string } {
+    // filename is in the format of `name-version.tgz`
+    const match = filename.match(/^(.*)-(.*)\.tgz$/);
+    if (!match) {
+      throw new Error(`Invalid tarball filename: ${filename}`);
+    }
+    return { name: match[1], version: match[2] };
+  }
 }

@@ -1,7 +1,7 @@
 {
   "name": "verdaccio-sql-storage",
   "version": "1.0.0",
-  "description": "Storage plugin for PostgreSQL",
+  "description": "Storage plugin for Postgres SQL database",
   "keywords": [
     "private",
     "package",
@@ -13,26 +13,25 @@
     "server",
     "verdaccio"
   ],
-  "author": "Marc Bernard <marc@abappm.com>",
+  "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
-  "homepage": "https://abappm.com",
+  "homepage": "https://verdaccio.org",
   "repository": {
     "type": "https",
-    "url": "https://github.com/abapPM/verdaccio-apm-middleware"
+    "url": "https://github.com/verdaccio/verdaccio",
+    "directory": "packages/plugins/sql-storage"
   },
   "bugs": {
     "url": "https://github.com/verdaccio/verdaccio/issues"
   },
   "main": "build/index.js",
   "types": "build/index.d.ts",
-  "files": [
-    "build/"
-  ],
   "engines": {
     "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/core": "8.0.0-next-8.3",
+    "@verdaccio/core": "workspace:8.0.0-next-8.3",
+    "debug": "4.3.7",
     "dotenv": "^16.4.5",
     "dotenv-expand": "^11.0.6",
     "drizzle-orm": "^0.36.1",
@@ -44,20 +43,25 @@
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.9.0",
-    "@verdaccio/config": "8.0.0-next-8.3",
-    "@verdaccio/logger": "8.0.0-next-8.3",
-    "@verdaccio/types": "13.0.0-next-8.1",
+    "@verdaccio/config": "workspace:8.0.0-next-8.3",
+    "@verdaccio/logger": "workspace:8.0.0-next-8.3",
+    "@verdaccio/types": "workspace:13.0.0-next-8.1",
     "cross-env": "7.0.3",
     "drizzle-kit": "^0.28.0",
-    "tsx": "^4.19.2",
+    "rimraf": "^6.0.1",
     "typescript": "^5.6.3"
   },
   "scripts": {
     "clean": "rimraf ./build",
-    "build": "tsc --resolveJsonModule",
-    "db:generate": "drizzle-kit generate --config src/drizzle.config.ts",
-    "db:migrate": "cross-env DB_MIGRATING=true tsx src/db/migrate.ts",
-    "db:seed": "cross-env DB_SEEDING=true tsx src/db/seed.ts",
-    "db:studio": "drizzle-kit studio --config src/drizzle.config.ts"
+    "type-check": "tsc --noEmit -p tsconfig.build.json",
+    "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
+    "build:js": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
+    "build": "pnpm run build:js && pnpm run build:types",
+    "watch": "pnpm build:js -- --watch",
+    "test": "cross-env NODE_ENV=test vitest run"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/verdaccio"
   }
 }

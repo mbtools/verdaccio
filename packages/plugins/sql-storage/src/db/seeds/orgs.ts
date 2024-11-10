@@ -1,5 +1,4 @@
-import type db from '@/db';
-
+import type db from '../';
 import { orgs } from '../schema';
 import orgData from './data/orgs.json';
 
