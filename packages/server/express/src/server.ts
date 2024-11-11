@@ -84,7 +84,13 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
   }
 
   plugins.forEach((plugin: pluginUtils.ExpressMiddleware<IConfig, {}, Auth>) => {
-    plugin.register_middlewares(app, auth, storage);
+    try {
+      plugin.register_middlewares(app, auth, storage);
+    } catch (err: any) {
+      debug('error: %o', err.message.split('\n')[0]);
+      logger.error({ error: err.message }, 'middleware has failed: @{error}');
+      throw new Error(err);
+    }
   });
 
   // For  npm request
@@ -153,7 +159,8 @@ const startServer = async function startServer(configHash: ConfigYaml): Promise<
     await storage.init(config);
     debug('storage init end');
   } catch (err: any) {
-    logger.error({ error: err.msg }, 'storage has failed: @{error}');
+    debug('error: %o', err.message.split('\n')[0]);
+    logger.error({ error: err.message }, 'storage has failed: @{error}');
     throw new Error(err);
   }
   return await defineAPI(config, storage);
