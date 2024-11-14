@@ -136,7 +136,7 @@ export async function asyncLoadPlugin<T extends pluginUtils.Plugin<T>>(
       }
     }
   }
-  debug('%s plugins found: %s', pluginCategory, plugins.length);
+  debug('%o plugins found: %o', pluginCategory, plugins.length);
   return plugins;
 }
 

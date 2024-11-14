@@ -1461,6 +1461,7 @@ class Storage {
     name: string,
     username: string | undefined
   ): Promise<void> {
+    debug('creating new package %o for user %o', name, username);
     const storage: pluginUtils.StorageHandler = this.getPrivatePackageStorage(name);
 
     if (!storage) {
