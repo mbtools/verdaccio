@@ -107,7 +107,7 @@ export default class LocalFS implements ILocalFSPackageManager {
       // we ensure lock the file
       this.logger.error(
         { err, packageName },
-        'error on update package @{packageName}: @{err.message}'
+        'error @{err.message}  on update package @{packageName}'
       );
       if (locked) {
         // eslint-disable-next-line no-useless-catch
@@ -131,14 +131,23 @@ export default class LocalFS implements ILocalFSPackageManager {
     }
   }
 
-  public async deletePackage(packageName: string): Promise<void> {
-    debug('delete a file/package %o', packageName);
+  public async deleteTarball(fileName: string): Promise<void> {
+    debug('delete tarball %o', fileName);
 
-    return await unlinkPromise(this._getStorage(packageName));
+    return await unlinkPromise(this._getStorage(fileName));
   }
 
-  public async removePackage(): Promise<void> {
-    debug('remove a package folder %o', this.path);
+  public async removePackage(packageName: string): Promise<void> {
+    debug('remove a package %o folder %o', packageName, this.path);
+
+    try {
+      await unlinkPromise(this._getStorage(packageJSONFileName));
+    } catch (err: any) {
+      // ignore if package.json does not exist
+      if (err.code === noSuchFile) {
+        debug('file %o does not exist', packageJSONFileName);
+      }
+    }
 
     await rmdirPromise(this._getStorage('.'));
   }
@@ -158,7 +167,7 @@ export default class LocalFS implements ILocalFSPackageManager {
         debug('dir: %o does not exist %s', pathName, err?.code);
         return false;
       } else {
-        this.logger.error({ err }, 'error on verify a package exist: @{err.message}');
+        this.logger.error('error on verify a package exist %o', err);
         throw errorUtils.getInternalError('error on verify a package exist');
       }
     }
@@ -183,7 +192,7 @@ export default class LocalFS implements ILocalFSPackageManager {
         throw fSError(fileExist);
       }
     }
-    // Create a new file and it´s folder if does not exist previously
+    // Create a new file and it�s folder if does not exist previously
     await this.writeFile(pathPackage, this._convertToString(manifest));
   }
 
@@ -204,7 +213,7 @@ export default class LocalFS implements ILocalFSPackageManager {
     } catch (err: any) {
       if (err.code !== noSuchFile) {
         debug('parse error');
-        this.logger.error({ err, name }, 'error on parse @{name}: @{err.message}');
+        this.logger.error({ err, name }, 'error @{err.message}  on parse @{name}');
       }
       throw err;
     }
@@ -255,8 +264,8 @@ export default class LocalFS implements ILocalFSPackageManager {
     writeStream.on('error', async (err) => {
       if (opened) {
         this.logger.error(
-          { err, fileName },
-          'error on open write tarball for @{fileName}: @{err.message}'
+          { err: err.message, fileName },
+          'error on open write tarball for @{pkgName}'
         );
         // TODO: maybe add .once
         writeStream.on('close', async () => {
@@ -264,8 +273,8 @@ export default class LocalFS implements ILocalFSPackageManager {
         });
       } else {
         this.logger.error(
-          { err, fileName },
-          'error on writing tarball for @{fileName}: @{err.message}'
+          { err: err.message, fileName },
+          'error a non open write tarball for @{pkgName}'
         );
         await this.removeTempFile(temporalName);
       }
@@ -279,9 +288,8 @@ export default class LocalFS implements ILocalFSPackageManager {
         await renameTmp(temporalName, pathName);
       } catch (err) {
         this.logger.error(
-          { err, temporalName, pathName },
-          'error on rename temporal file @{temporalName} to @{pathName}: @{err.message},' +
-            'please report this bug'
+          { err },
+          'error on rename temporal file, please report this is a bug @{err}'
         );
       }
     });
@@ -378,7 +386,7 @@ export default class LocalFS implements ILocalFSPackageManager {
         await this.writeTempFileAndRename(destiny, fileContent);
         debug('write file success %s', destiny);
       } else {
-        this.logger.error({ err }, 'error on write file: @{err.message}');
+        this.logger.error({ err: err.message }, 'error on write file @{err}');
         throw err;
       }
     }
@@ -411,7 +419,7 @@ export default class LocalFS implements ILocalFSPackageManager {
       });
       return data;
     } catch (err) {
-      this.logger.error({ err }, 'error on lock file: @{err.message}');
+      this.logger.error({ err }, 'error on lock file @{err.message}');
       debug('error on lock and read json for file: %o', name);
 
       throw err;
