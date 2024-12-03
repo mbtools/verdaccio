@@ -164,7 +164,12 @@ export function getDefaultPlugins(logger: Logger): pluginUtils.Auth<Config> {
       cb(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
     },
 
-    adduser(_user: string, _password: string, cb: pluginUtils.AuthUserCallback): void {
+    adduser(
+      _user: string,
+      _password: string,
+      _email: string,
+      cb: pluginUtils.AuthUserCallback
+    ): void {
       debug('triggered default adduser method');
       return cb(errorUtils.getConflict(API_ERROR.BAD_USERNAME_PASSWORD));
     },
