@@ -48,7 +48,12 @@ export default class Memory
     return cb(null, [user]);
   }
 
-  public adduser(user: string, password: string, cb: pluginUtils.AuthUserCallback): void {
+  public adduser(
+    user: string,
+    password: string,
+    email: string,
+    cb: pluginUtils.AuthUserCallback
+  ): void {
     if (this._users[user]) {
       debug('user %o already exist', user);
       return cb(null, true);
