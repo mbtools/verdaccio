@@ -40,7 +40,7 @@ export function lockAndRead(name: string, cb: Callback): void {
 export function parseHTPasswd(input: string): Record<string, any> {
   // The input is split on line ending styles that are both windows and unix compatible
   return input.split(/[\r]?[\n]/).reduce((result, line) => {
-    const args = line.split(':', 3).map((str) => str.trim());
+    const args = line.split(':', 4).map((str) => str.trim()); // APM
     if (args.length > 1) {
       result[args[0]] = args[1];
     }
@@ -82,6 +82,7 @@ export async function verifyPassword(passwd: string, hash: string): Promise<bool
 export async function generateHtpasswdLine(
   user: string,
   passwd: string,
+  email: string, // APM
   hashConfig: HtpasswdHashConfig
 ): Promise<string> {
   let hash: string;
@@ -105,7 +106,7 @@ export async function generateHtpasswdLine(
   }
 
   const comment = 'autocreated ' + new Date().toJSON();
-  return `${user}:${hash}:${comment}\n`;
+  return `${user}:${hash}:${comment}:${email}\n`;
 }
 
 /**
@@ -120,6 +121,7 @@ export async function addUserToHTPasswd(
   body: string,
   user: string,
   passwd: string,
+  email: string, // APM
   hashConfig: HtpasswdHashConfig
 ): Promise<string> {
   if (user !== encodeURIComponent(user)) {
@@ -129,7 +131,7 @@ export async function addUserToHTPasswd(
     throw err;
   }
 
-  let newline = await generateHtpasswdLine(user, passwd, hashConfig);
+  let newline = await generateHtpasswdLine(user, passwd, email, hashConfig); // APM
 
   if (body.length && body[body.length - 1] !== '\n') {
     newline = '\n' + newline;
@@ -219,13 +221,14 @@ export async function changePasswordToHTPasswd(
     debug('user %o does not exist', user);
     throw new Error(`Unable to change password for user '${user}': user does not currently exist`);
   }
-  const [username, hash] = lines[userLineIndex].split(':', 2);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [username, hash, created, email] = lines[userLineIndex].split(':', 4); // APM
   const passwordValid = await verifyPassword(passwd, hash);
   if (!passwordValid) {
     debug(`invalid old password`);
     throw new Error(`Unable to change password for user '${user}': invalid old password`);
   }
-  const updatedUserLine = await generateHtpasswdLine(username, newPasswd, hashConfig);
+  const updatedUserLine = await generateHtpasswdLine(username, newPasswd, email, hashConfig); // APM
   lines.splice(userLineIndex, 1, updatedUserLine);
   debug('password changed');
   return lines.join('\n');

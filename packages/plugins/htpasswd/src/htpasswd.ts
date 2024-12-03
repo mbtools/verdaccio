@@ -167,7 +167,12 @@ export default class HTPasswd
    * @param {function} realCb
    * @returns {Promise<any>}
    */
-  public async adduser(user: string, password: string, realCb: Callback): Promise<any> {
+  public async adduser(
+    user: string,
+    password: string,
+    email: string, // APM
+    realCb: Callback
+  ): Promise<any> {
     const pathPass = this.path;
     debug('adduser %s', user);
     let sanity = await sanityCheck(user, password, verifyPassword, this.users, this.maxUsers);
@@ -219,7 +224,7 @@ export default class HTPasswd
 
       try {
         debug('add user to htpasswd file');
-        this._writeFile(await addUserToHTPasswd(body, user, password, this.hashConfig), cb);
+        this._writeFile(await addUserToHTPasswd(body, user, password, email, this.hashConfig), cb); // APM
         debug('user added');
       } catch (err: any) {
         debug('error %o', err);

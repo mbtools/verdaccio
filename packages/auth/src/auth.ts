@@ -222,7 +222,8 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   public add_user(
     user: string,
     password: string,
-    cb: (error: VerdaccioError | null, user?: RemoteUser) => void
+    cb: (error: VerdaccioError | null, user?: RemoteUser) => void,
+    email?: string // APM
   ): void {
     const self = this;
     const plugins = this.plugins.slice(0);
@@ -245,6 +246,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         plugin[method](
           user,
           password,
+          email, // APM
           function (err: VerdaccioError | null, ok?: boolean | string): void {
             if (err) {
               debug('the user %o could not be added. Error: %o', user, err?.message);

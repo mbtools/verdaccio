@@ -165,7 +165,7 @@ export interface Auth<T> extends Plugin<T> {
    *  }
    * ```
    */
-  adduser?(user: string, password: string, cb: AuthUserCallback): void;
+  adduser?(user: string, password: string, email: string, cb: AuthUserCallback): void; // APM
   changePassword?(
     user: string,
     password: string,
@@ -190,7 +190,7 @@ export interface IBasicAuth {
   invalidateToken?(token: string): Promise<void>;
   changePassword(user: string, password: string, newPassword: string, cb: Callback): void;
   allow_access(pkg: AuthPluginPackage, user: RemoteUser, callback: Callback): void;
-  add_user(user: string, password: string, cb: Callback): any;
+  add_user(user: string, password: string, cb: Callback, email?: string): any; // APM
 }
 
 // --- FILTER PLUGIN ---
