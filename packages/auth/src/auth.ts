@@ -58,7 +58,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   public config: Config;
   public secret: string;
   public logger: Logger;
-  public plugins: pluginUtils.Auth<Config>[];
+  public plugins: pluginUtils.Auth<Config, Storage>[];
 
   public constructor(config: Config, logger: Logger) {
     this.config = config;
@@ -70,13 +70,26 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     }
   }
 
-  public async init() {
-    let plugins = (await this.loadPlugin()) as pluginUtils.Auth<unknown>[];
+  public async init(storage: Storage) {
+    let plugins = (await this.loadPlugin()) as pluginUtils.Auth<unknown, Storage>[];
 
     debug('auth plugins found %s', plugins.length);
     if (!plugins || plugins.length === 0) {
       plugins = this.loadDefaultPlugin();
     }
+
+    plugins.forEach((plugin: pluginUtils.Auth<unknown, Storage>) => {
+      try {
+        if (isFunction(plugin.init)) {
+          plugin.init!(storage);
+        }
+      } catch (err: any) {
+        debug('error: %o', err.message.split('\n')[0]);
+        this.logger.error({ err }, 'initializing auth plugin has failed: @{err.message}');
+        throw new Error(err);
+      }
+    });
+
     this.plugins = plugins;
 
     this._applyDefaultPlugins();
@@ -108,7 +121,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   }
 
   private async loadPlugin() {
-    return asyncLoadPlugin<pluginUtils.Auth<unknown>>(
+    return asyncLoadPlugin<pluginUtils.Auth<unknown, Storage>>(
       this.config.auth,
       {
         config: this.config,
@@ -181,7 +194,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   ): void {
     const plugins = this.plugins.slice(0);
     (function next(): void {
-      const plugin = plugins.shift() as pluginUtils.Auth<Config>;
+      const plugin = plugins.shift() as pluginUtils.Auth<Config, Storage>;
 
       if (isFunction(plugin.authenticate) === false) {
         return next();
@@ -230,7 +243,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
 
     (function next(): void {
       let method = 'adduser';
-      const plugin = plugins.shift() as pluginUtils.Auth<Config>;
+      const plugin = plugins.shift() as pluginUtils.Auth<Config, Storage>;
       // @ts-expect-error future major (7.x) should remove this section
       if (typeof plugin.adduser === 'undefined' && typeof plugin.add_user === 'function') {
         method = 'add_user';
@@ -280,7 +293,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     debug('allow access for %o', packageName);
 
     (function next(): void {
-      const plugin: pluginUtils.Auth<unknown> = plugins.shift() as pluginUtils.Auth<unknown>;
+      const plugin = plugins.shift() as pluginUtils.Auth<unknown, Storage>;
 
       if (_.isNil(plugin) || isFunction(plugin.allow_access) === false) {
         return next();

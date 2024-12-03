@@ -9,7 +9,9 @@ export default fp(
   async function (fastify: FastifyInstance, opts: { config: IConfig; filters?: unknown }) {
     const { config } = opts;
     const auth = new Auth(config, logger);
-    await auth.init();
+    // TODO: Pass the storage instance to the auth plugin
+    // const storage = fastify.storage;
+    // await auth.init(storage);
     fastify.decorate('auth', auth);
   },
   {

@@ -137,7 +137,8 @@ export interface AuthPluginPackage {
  *
  * https://verdaccio.org/docs/next/plugin-auth
  */
-export interface Auth<T> extends Plugin<T> {
+export interface Auth<T, Storage> extends Plugin<T> {
+  init?(storage: Storage): void;
   /**
    * Handles the authenticated method.
    * ```ts

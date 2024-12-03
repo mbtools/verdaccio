@@ -11,7 +11,7 @@ const { Plugin } = pluginUtils;
 
 export default class Memory
   extends Plugin<VerdaccioMemoryConfig>
-  implements pluginUtils.Auth<VerdaccioMemoryConfig>
+  implements pluginUtils.Auth<VerdaccioMemoryConfig, Storage>
 {
   public _logger: Logger;
   public _users: Users;

@@ -157,7 +157,7 @@ export function isAuthHeaderValid(authorization: string): boolean {
  * @param logger {Logger}
  * @returns object of default implementations.
  */
-export function getDefaultPlugins(logger: Logger): pluginUtils.Auth<Config> {
+export function getDefaultPlugins(logger: Logger): pluginUtils.Auth<Config, Storage> {
   return {
     authenticate(_user: string, _password: string, cb: pluginUtils.AuthCallback): void {
       debug('triggered default authenticate method');

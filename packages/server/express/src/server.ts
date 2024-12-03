@@ -19,7 +19,6 @@ import {
   rateLimit,
   userAgent,
 } from '@verdaccio/middleware';
-import { Storage } from '@verdaccio/store';
 import { ConfigYaml } from '@verdaccio/types';
 import { Config as IConfig } from '@verdaccio/types';
 import webMiddleware from '@verdaccio/web';
@@ -32,7 +31,7 @@ const { version } = require('../package.json');
 
 const defineAPI = async function (config: IConfig, storage: Storage): Promise<Express> {
   const auth: Auth = new Auth(config, logger);
-  await auth.init();
+  await auth.init(storage);
   const app = express();
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway
