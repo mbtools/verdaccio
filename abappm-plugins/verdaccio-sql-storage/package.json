@@ -1,0 +1,74 @@
+{
+  "name": "@mbtools/verdaccio-sql-storage",
+  "version": "1.4.1",
+  "description": "Storage plugin for Postgres SQL database",
+  "keywords": [
+    "sql",
+    "database",
+    "plugin",
+    "postgres",
+    "verdaccio"
+  ],
+  "author": "Marc Bernard",
+  "license": "MIT",
+  "homepage": "https://github.com/mbtools",
+  "repository": {
+    "type": "https",
+    "url": "git+https://github.com/mbtools/verdaccio-sql-storage.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mbtools/verdaccio-sql-storage/issues"
+  },
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@verdaccio/config": "8.0.0-next-8.3",
+    "@verdaccio/core": "8.0.0-next-8.3",
+    "@verdaccio/logger": "8.0.0-next-8.3",
+    "debug": "4.3.7",
+    "dotenv": "^16.4.7",
+    "dotenv-expand": "^12.0.1",
+    "drizzle-orm": "^0.37.0",
+    "pg": "^8.13.1",
+    "postgres": "^3.4.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.16.0",
+    "@stylistic/eslint-plugin": "^2.11.0",
+    "@types/debug": "^4.1.12",
+    "@types/eslint__js": "^8.42.3",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.1",
+    "@types/pg": "^8.11.10",
+    "@verdaccio/types": "13.0.0-next-8.1",
+    "cross-env": "7.0.3",
+    "drizzle-kit": "^0.29.0",
+    "eslint": "^9.16.0",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.17.0",
+    "vitest": "^2.1.8"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "cross-env NODE_ENV=test vitest run --max-concurrency=1",
+    "lint": "eslint src",
+    "db:studio": "npx drizzle-kit studio",
+    "db:generate": "npx drizzle-kit generate",
+    "db:migrate": "cross-env DB_MIGRATING=true tsx src/db/tools/migrate.ts",
+    "db:seed": "cross-env DB_SEEDING=true tsx src/db/tools/seed.ts",
+    "db:reset": "cross-env DB_RESET=true tsx src/db/tools/reset.ts"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/mbtools"
+  }
+}

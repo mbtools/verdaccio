@@ -39,14 +39,14 @@ web:
   pkgManagers:
     - apm
   showInfo: false
-  showUplinks: false
   showSettings: false
   # In combination with darkMode you can force specific theme
   # showThemeSwitch: true
   # showFooter: true
-  # showSearch: false
+  # showSearch: true
   # showRaw: true
   # showDownloadTarball: true
+  showUplinks: false
   #  HTML tags injected after manifest <scripts/>
   # scriptsBodyAfter:
   #    - '<script type="text/javascript" src="https://my.company.com/customJS.min.js"></script>'
@@ -58,37 +58,29 @@ web:
   #    - '<script type="text/javascript" src="https://browser.sentry-cdn.com/5.15.5/bundle.min.js"></script>'
   #  HTML tags injected first child at <body/>
   scriptsbodyBefore:
-  #  - '<div id="beta" style="color:white;background-color:blue;margin:auto;text-align:center;font-size:12px;"><strong>***PLAYGROUND***</strong>  Packages will be deleted every Sunday night!  <strong>***PLAYGROUND***</strong></div>'
+    - '<div id="beta" style="color:white;background-color:blue;margin:auto;text-align:center;font-size:12px;"><strong>***PLAYGROUND***</strong>  Expect the unexpected! Please post bugs and feedback to <a href="https://github.com/abapPM/abapPM/issues>GitHub</a>. Thank You!  <strong>***PLAYGROUND***</strong></div>'
   #  Public path for template manifest scripts (only manifest)
-  # publicPath: https://playground.abappm.com/
-
-auth:
-  htpasswd:
-    file: /verdaccio/storage/htpasswd
-    # Maximum amount of users allowed to register, defaults to "+inf".
-    # You can set this to -1 to disable registration.
-    max_users: 10
-    algorithm: bcrypt
+  publicPath: https://playground.abappm.com/
 
 # https://verdaccio.org/docs/configuration#uplinks
 # a list of other known repositories we can talk to
-uplinks:
+#uplinks:
+#  npmjs:
+#    url: https://registry.npmjs.org/
+#    timeout: 120s
 
 # Learn how to protect your packages
 # https://verdaccio.org/docs/protect-your-dependencies/
 # https://verdaccio.org/docs/configuration#packages
 packages:
   '@*/*':
-    # scoped packages
     access: $all
-    publish: $authenticated
-    unpublish: $authenticated
-
+    publish: $all
+    unpublish: $all
   '**':
-    # global packages
     access: $all
-    publish: $authenticated
-    unpublish: $authenticated
+    publish: $all
+    unpublish: $all
 
 # To improve your security configuration and  avoid dependency confusion
 # consider removing the proxy property for private packages
@@ -104,6 +96,7 @@ server:
 # https://verdaccio.org/docs/configuration#offline-publish
 publish:
   check_owner: true
+  allow_overwrite: true
 #   allow_offline: false
 
 # https://verdaccio.org/docs/configuration#url-prefix
@@ -172,7 +165,7 @@ max_body_size: 1mb
 # https://verdaccio.org/docs/logger
 # log settings
 log: { type: stdout, format: pretty, level: http }
-# { type: file, path: /verdaccio/storage/verdaccio.log, level: info }
+# log: { type: file, path: /verdaccio/storage/verdaccio.log, format: pretty, level: http }
 
 # experiments:
 #  # support for npm token command
@@ -190,25 +183,16 @@ log: { type: stdout, format: pretty, level: http }
 # list of the available translations https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md
 #   web: en-US
 
-middlewares:
-  audit:
-    enabled: true
-#  install-counts:
-#    enabled: true
-#    redis:
-#      host: red-ckfit036fquc73egihn0
-#      port: 6379
+# https://verdaccio.org/docs/configuration#authentication
+auth:
+  apm-authentication:
+    max_users: 100
 
-# Using Redis as storage
-# https://github.com/openupm/verdaccio-redis-storage
-#store:
-#  storage-proxy:
-#    database_backend: redis-storage
-#    search_backend: redis-storage
-#    packument_backend: redis-storage
-#    tarball_backend: '@verdaccio/local-storage'
-#    backends:
-#      '@verdaccio/local-storage': {}
-#      redis-storage:
-#        host: red-ckfit036fquc73egihn0
-#        port: 6379
+middlewares:
+  apm-middleware:
+    enabled: true
+
+store:
+  sql-storage:
+
+_debug:

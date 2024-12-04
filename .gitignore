@@ -56,3 +56,6 @@ packages/ui-components/storybook-static
 
 # plugin generator
 packages/tools/generator-verdaccio-plugin/generators/
+
+# apm
+!abappm-plugins/**/build/

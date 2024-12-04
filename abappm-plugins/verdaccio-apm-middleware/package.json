@@ -1,0 +1,60 @@
+{
+  "name": "@mbtools/verdaccio-apm-middleware",
+  "version": "1.0.0",
+  "description": "Shortcut for apm packages",
+  "keywords": [
+    "verdaccio",
+    "apm",
+    "middleware",
+    "shortcut"
+  ],
+  "author": {
+    "name": "Marc Bernard",
+    "email": "support@abappm.com",
+    "url": "https://github.com/sponsors/abappm"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/abappm",
+  "repository": {
+    "type": "https",
+    "url": "git+https://github.com/abappm/verdaccio-apm-middleware.git"
+  },
+  "bugs": {
+    "url": "https://github.com/abappm/verdaccio-apm-middleware/issues"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/abappm"
+  },
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@verdaccio/config": "8.0.0-next-8.3",
+    "@verdaccio/core": "8.0.0-next-8.3",
+    "@verdaccio/logger": "8.0.0-next-8.3",
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "@stylistic/eslint-plugin": "^2.10.1",
+    "@types/debug": "^4.1.12",
+    "@types/eslint__js": "^8.42.3",
+    "@types/express": "^5.0.0",
+    "@verdaccio/types": "13.0.0-next-8.1",
+    "eslint": "9.14.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.15.0"
+  },
+  "scripts": {
+    "build": "npx tsup",
+    "lint": "npx eslint src",
+    "test": "echo 0"
+  }
+}
