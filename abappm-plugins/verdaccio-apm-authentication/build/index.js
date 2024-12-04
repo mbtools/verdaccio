@@ -44,35 +44,29 @@ var import_node_postgres = require("drizzle-orm/node-postgres");
 
 // src/env.ts
 var import_dotenv = require("dotenv");
-var import_dotenv_expand = require("dotenv-expand");
-var import_zod = require("zod");
-var stringBoolean = import_zod.z.coerce.string().transform((val) => {
+var import_zod = __toESM(require("zod"));
+var stringBoolean = import_zod.default.coerce.string().transform((val) => {
   return val === "true";
 }).default("false");
-var EnvSchema = import_zod.z.object({
-  NODE_ENV: import_zod.z.string().default("development"),
-  DATABASE_SECRET: import_zod.z.string().min(32).max(32),
-  DATABASE_URL: import_zod.z.string(),
-  DB_POOL_SIZE: import_zod.z.coerce.number().default(22),
+var envSchema = import_zod.default.object({
+  NODE_ENV: import_zod.default.string().default("development"),
+  DATABASE_SECRET: import_zod.default.string().trim().min(1),
+  DATABASE_URL: import_zod.default.string().trim().min(1),
+  DB_POOL_SIZE: import_zod.default.coerce.number().default(22),
   DB_LOGGING: stringBoolean
 });
-try {
-  const dotenv = (0, import_dotenv_expand.expand)((0, import_dotenv.config)());
-  EnvSchema.parse(dotenv.parsed);
-} catch (error) {
-  if (error instanceof import_zod.ZodError) {
-    let message = "Missing required values in .env:\n";
-    error.issues.forEach((issue) => {
-      message += issue.path[0] + "\n";
-    });
-    const e = new Error(message);
-    e.stack = "";
-    throw e;
-  } else {
-    console.error(error);
-  }
+(0, import_dotenv.config)();
+var envServer = envSchema.safeParse({
+  NODE_ENV: process.env.NODE_ENV,
+  DATABASE_SECRET: process.env.DATABASE_SECRET,
+  DATABASE_URL: process.env.DATABASE_URL,
+  DB_POOL_SIZE: process.env.DB_POOL_SIZE,
+  DB_LOGGING: process.env.DB_LOGGING
+});
+if (!envServer.success) {
+  throw new Error(envServer.error.message);
 }
-var env_default = EnvSchema.parse(process.env);
+var ENV = envSchema.parse(process.env);
 
 // src/db/logger.ts
 var import_logger = require("drizzle-orm/logger");
@@ -118,7 +112,7 @@ var getDatabase = (url, logger) => {
   const db = (0, import_node_postgres.drizzle)({
     connection: {
       connectionString: url,
-      max: env_default.DB_POOL_SIZE,
+      max: ENV.DB_POOL_SIZE,
       ssl: true
     },
     logger: drizzleLogger
@@ -134,7 +128,7 @@ var import_core = require("@verdaccio/core");
 // src/cipher.ts
 var import_node_crypto = require("crypto");
 var import_node_util = require("util");
-var password = env_default.DATABASE_SECRET;
+var password = ENV.DATABASE_SECRET;
 var algorithm = "aes-192-cbc";
 var keyLength = 24;
 var salt = "saltypretzel";
@@ -298,7 +292,7 @@ var AuthPlugin = class extends import_core3.pluginUtils.Plugin {
     this.config = options.config;
     this.logger = options.logger;
     this.authConfig = {
-      url: config2.url || env_default.DATABASE_URL,
+      url: config2.url || ENV.DATABASE_URL,
       rounds: config2.rounds || DEFAULT_ROUNDS,
       max_users: config2.max_users || DEFAULT_MAX_USERS,
       slow_verify_ms: config2.slow_verify_ms || DEFAULT_SLOW_VERIFY_MS

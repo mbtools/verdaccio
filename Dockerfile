@@ -53,6 +53,7 @@ ADD config.yaml /verdaccio/conf/config.yaml
 RUN cd /verdaccio/plugins/verdaccio-apm-authentication && npm install --production
 RUN cd /verdaccio/plugins/verdaccio-apm-middleware && npm install --production
 RUN cd /verdaccio/plugins/verdaccio-sql-storage && npm install --production
+RUN cd /verdaccio
 
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
     chmod -R +x $VERDACCIO_APPDIR/packages/verdaccio/bin $VERDACCIO_APPDIR/docker-bin && \
