@@ -1,3 +1,6 @@
+#
+# *** BUILD ***
+#
 FROM --platform=${BUILDPLATFORM:-linux/amd64} node:21-alpine AS builder
 
 ENV NODE_ENV=development \
@@ -22,6 +25,9 @@ RUN npm -g i pnpm@8.14.0 && \
 # NODE_ENV=production pnpm install --frozen-lockfile --ignore-scripts
 # RUN pnpm install --prod --ignore-scripts
 
+#
+# *** SETUP ***
+#
 FROM node:21-alpine
 LABEL maintainer="https://github.com/abapPM/abapPM"
 
@@ -55,6 +61,9 @@ RUN cd /verdaccio/plugins/verdaccio-apm-middleware && npm install --production
 RUN cd /verdaccio/plugins/verdaccio-sql-storage && npm install --production
 RUN cd /verdaccio
 
+#
+# *** RUN ***
+#
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
     chmod -R +x $VERDACCIO_APPDIR/packages/verdaccio/bin $VERDACCIO_APPDIR/docker-bin && \
     chown -R $VERDACCIO_USER_UID:root /verdaccio/storage && \
@@ -68,4 +77,4 @@ VOLUME /verdaccio/storage
 
 ENTRYPOINT ["uid_entrypoint"]
 
-CMD ["$VERDACCIO_APPDIR/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT"]
+CMD exec $VERDACCIO_APPDIR/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT

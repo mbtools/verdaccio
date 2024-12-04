@@ -58,7 +58,7 @@ web:
   #    - '<script type="text/javascript" src="https://browser.sentry-cdn.com/5.15.5/bundle.min.js"></script>'
   #  HTML tags injected first child at <body/>
   scriptsbodyBefore:
-    - '<div id="beta" style="color:white;background-color:blue;margin:auto;text-align:center;font-size:12px;"><strong>***PLAYGROUND***</strong>  Expect the unexpected! Please post bugs and feedback to <a href="https://github.com/abapPM/abapPM/issues>GitHub</a>. Thank You!  <strong>***PLAYGROUND***</strong></div>'
+    - '<div id="beta" style="color:white !important;background-color:blue;margin:auto;text-align:center;font-size:12px;"><strong>***PLAYGROUND***</strong>  Expect the unexpected! Please post bugs and feedback to <a href="https://github.com/abapPM/abapPM/issues" target="_blank">GitHub</a>. Thank You!  <strong>***PLAYGROUND***</strong></div>'
   #  Public path for template manifest scripts (only manifest)
   publicPath: https://playground.abappm.com/
 
@@ -97,6 +97,7 @@ server:
 publish:
   check_owner: true
   allow_overwrite: true
+  keep_readmes: all
 #   allow_offline: false
 
 # https://verdaccio.org/docs/configuration#url-prefix
@@ -185,8 +186,10 @@ log: { type: stdout, format: pretty, level: http }
 
 # https://verdaccio.org/docs/configuration#authentication
 auth:
-  apm-authentication:
-    max_users: 100
+  htpasswd:
+    file: ./htpasswd
+#  apm-authentication:
+#    max_users: 100
 
 middlewares:
   apm-middleware:
