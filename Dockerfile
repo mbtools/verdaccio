@@ -52,7 +52,7 @@ ADD config.yaml /verdaccio/conf/config.yaml
 # install plugins
 RUN cd /verdaccio/plugins/verdaccio-apm-authentication && npm install --production
 RUN cd /verdaccio/plugins/verdaccio-apm-middleware && npm install --production
-RUN cd /verdaccio/plugins/verdaccio-apm-sql-storage && npm install --production
+RUN cd /verdaccio/plugins/verdaccio-sql-storage && npm install --production
 
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
     chmod -R +x $VERDACCIO_APPDIR/packages/verdaccio/bin $VERDACCIO_APPDIR/docker-bin && \
@@ -67,4 +67,4 @@ VOLUME /verdaccio/storage
 
 ENTRYPOINT ["uid_entrypoint"]
 
-CMD $VERDACCIO_APPDIR/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT
+CMD ["/bin/sh" "-c" "verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT"]
