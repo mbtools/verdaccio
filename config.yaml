@@ -60,7 +60,7 @@ web:
   scriptsbodyBefore:
     - '<div id="beta" style="color:white;background-color:blue;margin:auto;text-align:center;font-size:12px;"><strong>***PLAYGROUND***</strong>  Expect the unexpected! Please post bugs and feedback to <a href="https://github.com/abapPM/abapPM/issues" target="_blank" style="color:white !important;">GitHub</a>. Thank You!  <strong>***PLAYGROUND***</strong></div>'
   #  Public path for template manifest scripts (only manifest)
-  publicPath: https://registry.abappm.com/
+  publicPath: https://playground.abappm.com/
 
 # https://verdaccio.org/docs/configuration#uplinks
 # a list of other known repositories we can talk to
