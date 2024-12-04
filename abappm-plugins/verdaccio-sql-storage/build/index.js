@@ -520,8 +520,14 @@ var mergeReadmesIntoManifest = (manifest, readmes2) => {
   const manifestCopy = JSON.parse(JSON.stringify(manifest));
   for (const readme of readmes2) {
     if (readme.version === "latest") {
+      if (!manifestCopy.readme) {
+        manifestCopy.readme = "";
+      }
       manifestCopy.readme = readme.markdown;
     } else {
+      if (!manifestCopy.versions[readme.version].readme) {
+        manifestCopy.versions[readme.version].readme = "";
+      }
       manifestCopy.versions[readme.version].readme = readme.markdown;
     }
   }
@@ -803,13 +809,14 @@ var PackageService = class {
         org_id,
         name,
         version: row.version,
-        markdown: row.markdown
+        markdown: row.markdown,
+        deleted: null
       }));
       if (readmesData && readmesData.length > 0) {
         try {
           await tx.insert(readmes).values(readmesData).onConflictDoUpdate({
             target: [readmes.org_id, readmes.name, readmes.version],
-            set: { markdown: import_drizzle_orm6.sql`excluded.markdown`, updated: /* @__PURE__ */ new Date() }
+            set: { markdown: import_drizzle_orm6.sql`excluded.markdown`, updated: /* @__PURE__ */ new Date(), deleted: null }
           });
           debug4("readmes saved successfully");
         } catch (error) {
