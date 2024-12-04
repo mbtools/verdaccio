@@ -549,6 +549,9 @@ var getISODates = (start, end) => {
   dates.push(getISODate(end || start));
   return dates;
 };
+var unescapeHtmlEntities = (json) => {
+  return json.replace(/\\u003e/g, ">").replace(/\\u003c/g, "<").replace(/\\u0026/g, "&");
+};
 
 // src/services/downloads.ts
 var debug2 = (0, import_debug2.default)("verdaccio:plugin:storage:sql");
@@ -766,7 +769,7 @@ var PackageService = class {
       }
       throw import_core4.errorUtils.getNotFound("package.json not found");
     }
-    const manifest = packageJson.json;
+    const manifest = JSON.parse(unescapeHtmlEntities(JSON.stringify(packageJson.json)));
     const markdown = await this.db.select({ version: readmes.version, markdown: readmes.markdown }).from(readmes).where((0, import_drizzle_orm6.and)(
       (0, import_drizzle_orm6.eq)(readmes.org_id, org_id),
       (0, import_drizzle_orm6.eq)(readmes.name, name),
