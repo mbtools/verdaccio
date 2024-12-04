@@ -195,7 +195,7 @@ middlewares:
   apm-middleware:
     enabled: true
 
-store:
-  sql-storage:
+#store:
+#  sql-storage:
 
 _debug:
