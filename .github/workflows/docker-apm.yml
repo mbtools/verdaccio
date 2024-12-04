@@ -12,6 +12,9 @@ on:
       - '.dockerignore'
       - 'docker-compose.yml'
       - 'Dockerfile'
+      - 'config.yaml'
+      - 'abappm/**'
+      - 'abappm-plugins/**'
     branches:
       - 'apm'
 

@@ -16,7 +16,7 @@ RUN apk add --force-overwrite && \
 WORKDIR /opt/verdaccio-build
 COPY . .
 
-RUN npm -g i pnpm@8.14.0 && \
+RUN npm -g i pnpm@9.14.4 && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm install --frozen-lockfile --ignore-scripts && \
     rm -Rf test && \
