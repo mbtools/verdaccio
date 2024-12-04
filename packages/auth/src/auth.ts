@@ -222,8 +222,8 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   public add_user(
     user: string,
     password: string,
-    cb: (error: VerdaccioError | null, user?: RemoteUser) => void,
-    email?: string // APM
+    email: string, // APM
+    cb: (error: VerdaccioError | null, user?: RemoteUser) => void
   ): void {
     const self = this;
     const plugins = this.plugins.slice(0);

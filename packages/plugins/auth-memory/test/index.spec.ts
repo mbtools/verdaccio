@@ -24,6 +24,7 @@ describe('Memory', function () {
     test: {
       name: 'foo',
       password: 'foo',
+      email: 'foo@bar.com',
     },
   };
 
@@ -40,7 +41,7 @@ describe('Memory', function () {
   describe('#adduser', function () {
     test('adds users', function () {
       return new Promise((done) => {
-        auth.adduser?.('test', 'secret', function (err, user) {
+        auth.adduser?.('test', 'secret', 'foo@bar.com', function (err, user) {
           expect(err).toBeNull();
           expect(user).toEqual(true);
           done(true);
@@ -50,10 +51,10 @@ describe('Memory', function () {
 
     test('login existing users', function () {
       return new Promise((done) => {
-        auth.adduser?.('test', 'secret', function (err, user) {
+        auth.adduser?.('test', 'secret', 'foo@bar.com', function (err, user) {
           expect(err).toBeNull();
           expect(user).toEqual(true);
-          auth.adduser?.('test', 'secret', function (err, user) {
+          auth.adduser?.('test', 'secret', 'foo@bar.com', function (err, user) {
             expect(err).toBeNull();
             expect(user).toBe(true);
             done(true);
@@ -69,7 +70,7 @@ describe('Memory', function () {
           config: { ...config, max_users: -1 },
           logger,
         });
-        auth.adduser?.('fooooooooo', 'secret', function (err) {
+        auth.adduser?.('fooooooooo', 'secret', 'fooooooooo@bar.com', function (err) {
           expect(err).not.toBeNull();
           expect(err?.message).toMatch(/maximum amount of users reached/);
           done(true);
@@ -81,7 +82,7 @@ describe('Memory', function () {
   describe('#allow_access', function () {
     beforeEach(function () {
       return new Promise((done) => {
-        auth.adduser?.('test', 'secret', function () {
+        auth.adduser?.('test', 'secret', 'test@bar.com', function () {
           done();
         });
       });
@@ -157,7 +158,7 @@ describe('Memory', function () {
   describe('#allow_publish', function () {
     beforeEach(function () {
       return new Promise((done) => {
-        auth.adduser?.('test', 'secret', function () {
+        auth.adduser?.('test', 'secret', 'test@bar.com', function () {
           done();
         });
       });
@@ -242,7 +243,7 @@ describe('Memory', function () {
             logger,
           }
         );
-        auth.adduser('test', 'secret', function () {
+        auth.adduser('test', 'secret', 'test@bar.com', function () {
           done();
         });
       });
@@ -279,7 +280,7 @@ describe('Memory', function () {
             logger,
           }
         );
-        auth.adduser?.('test', 'secret', function () {
+        auth.adduser?.('test', 'secret', 'test@bar.com', function () {
           done();
         });
       });

@@ -7,7 +7,7 @@ module.exports = function () {
       and success types respectively for testing purposes */
       callback(errorUtils.getInternalError(), false);
     },
-    adduser(user, password, cb) {
+    adduser(user, password, email, cb) {
       return cb(null, false);
     },
   };

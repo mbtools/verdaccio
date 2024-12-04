@@ -126,7 +126,7 @@ describe('Auth utilities', () => {
     test('add user should fail by default (default)', () => {
       const plugin = getDefaultPlugins({ trace: vi.fn() });
       // @ts-ignore
-      plugin.adduser('foo', 'bar', (error: any) => {
+      plugin.adduser('foo', 'bar', 'foo@bar.com', (error: any) => {
         expect(error).toEqual(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
       });
     });

@@ -35,7 +35,7 @@ describe('HTPasswd', () => {
     vi.resetModules();
     vi.clearAllMocks();
     await new Promise((done) => {
-      wrapper.adduser('sanityCheck', 'test', () => {
+      wrapper.adduser('sanityCheck', 'test', 'sanityCheck@bar.com', () => {
         done(true);
       });
     });

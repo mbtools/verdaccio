@@ -190,7 +190,7 @@ export interface IBasicAuth {
   invalidateToken?(token: string): Promise<void>;
   changePassword(user: string, password: string, newPassword: string, cb: Callback): void;
   allow_access(pkg: AuthPluginPackage, user: RemoteUser, callback: Callback): void;
-  add_user(user: string, password: string, cb: Callback, email?: string): any; // APM
+  add_user(user: string, password: string, email: string, cb: Callback): any; // APM
 }
 
 // --- FILTER PLUGIN ---

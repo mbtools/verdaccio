@@ -53,7 +53,7 @@ describe('HTPasswd', () => {
           expect(error.message).toEqual(API_ERROR.UNAUTHORIZED_ACCESS);
           done(true);
         };
-        wrapper.adduser('test', 'somerandompassword', callback);
+        wrapper.adduser('test', 'somerandompassword', 'test@bar.com', callback);
       });
     });
 
@@ -74,7 +74,7 @@ describe('HTPasswd', () => {
           expect(b).toBeTruthy();
           done(true);
         };
-        wrapper.adduser('usernotpresent', 'somerandompassword', callback);
+        wrapper.adduser('usernotpresent', 'somerandompassword', 'usernotpresent@bar.com', callback);
       });
     });
 
@@ -89,7 +89,7 @@ describe('HTPasswd', () => {
         const HTPasswd = (await import('../src/htpasswd')).default;
         await new Promise((done) => {
           const wrapper = new HTPasswd(config, options);
-          wrapper.adduser('sanityCheck', 'test', (sanity) => {
+          wrapper.adduser('sanityCheck', 'test', 'sanityCheck@bar.com', (sanity) => {
             expect(sanity.message).toBeDefined();
             expect(sanity.message).toMatch('some error');
             done(true);
@@ -108,7 +108,7 @@ describe('HTPasswd', () => {
         const HTPasswd = (await import('../src/htpasswd')).default;
         await new Promise((done) => {
           const wrapper = new HTPasswd(config, options);
-          wrapper.adduser('lockAndRead', 'test', (sanity) => {
+          wrapper.adduser('lockAndRead', 'test', 'lockAndRead@bar.com', (sanity) => {
             expect(sanity.message).toBeDefined();
             expect(sanity.message).toMatch('lock error');
             done(true);
@@ -131,7 +131,7 @@ describe('HTPasswd', () => {
         const HTPasswd = (await import('../src/htpasswd')).default;
         await new Promise((done) => {
           const wrapper = new HTPasswd(config, options);
-          wrapper.adduser('addUserToHTPasswd', 'test', () => {
+          wrapper.adduser('addUserToHTPasswd', 'test', 'addUserToHTPasswd@bar.com', () => {
             done(true);
           });
         });
@@ -160,7 +160,7 @@ describe('HTPasswd', () => {
           });
 
           const wrapper = new HTPasswd(config, options);
-          wrapper.adduser('addUserToHTPasswd', 'test', (err) => {
+          wrapper.adduser('addUserToHTPasswd', 'test', 'addUserToHTPasswd@bar.com', (err) => {
             expect(err).not.toBeNull();
             expect(err.message).toMatch('write error');
             done(true);
@@ -172,7 +172,7 @@ describe('HTPasswd', () => {
   describe('reload()', () => {
     test('it should read the file and set the users', () => {
       return new Promise((done) => {
-        wrapper.adduser('sanityCheck', 'test', () => {
+        wrapper.adduser('sanityCheck', 'test', 'sanityCheck@bar.com', () => {
           const callback = (): void => {
             expect(wrapper.users).toHaveProperty('sanityCheck');
             done(true);
@@ -193,7 +193,7 @@ describe('HTPasswd', () => {
       });
       const HTPasswd = (await import('../src/htpasswd')).default;
       await new Promise((done) => {
-        wrapper.adduser('sanityCheck', 'test', () => {
+        wrapper.adduser('sanityCheck', 'test', 'sanityCheck@bar.com', () => {
           const callback = (err): void => {
             expect(err).not.toBeNull();
             expect(err.message).toMatch('stat error');

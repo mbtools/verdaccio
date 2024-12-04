@@ -125,48 +125,41 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
           return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT));
         }
 
-        auth.add_user(
-          name,
-          password,
-          async function (err, user): Promise<void> {
-            if (err) {
-              if (
-                err.status >= HTTP_STATUS.BAD_REQUEST &&
-                err.status < HTTP_STATUS.INTERNAL_ERROR
-              ) {
-                debug('adduser: error on create user');
-                // With npm registering is the same as logging in,
-                // and npm accepts only an 409 error.
-                // So, changing status code here.
-                return next(
-                  errorUtils.getCode(err.status, err.message) || errorUtils.getConflict(err.message)
-                );
-              }
-              return next(err);
+        // APM
+        auth.add_user(name, password, email, async function (err, user): Promise<void> {
+          if (err) {
+            if (err.status >= HTTP_STATUS.BAD_REQUEST && err.status < HTTP_STATUS.INTERNAL_ERROR) {
+              debug('adduser: error on create user');
+              // With npm registering is the same as logging in,
+              // and npm accepts only an 409 error.
+              // So, changing status code here.
+              return next(
+                errorUtils.getCode(err.status, err.message) || errorUtils.getConflict(err.message)
+              );
             }
+            return next(err);
+          }
 
-            const token =
-              name && password
-                ? await getApiToken(auth, config, user as RemoteUser, password)
-                : undefined;
-            if (token) {
-              debug('adduser: new token %o', mask(token as string, 4));
-            }
-            if (!token) {
-              return next(errorUtils.getUnauthorized());
-            }
+          const token =
+            name && password
+              ? await getApiToken(auth, config, user as RemoteUser, password)
+              : undefined;
+          if (token) {
+            debug('adduser: new token %o', mask(token as string, 4));
+          }
+          if (!token) {
+            return next(errorUtils.getUnauthorized());
+          }
 
-            req.remote_user = user;
-            res.status(HTTP_STATUS.CREATED);
-            res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
-            debug('adduser: user has been created');
-            return next({
-              ok: `user '${req.body.name}' created`,
-              token,
-            });
-          },
-          email // APM
-        );
+          req.remote_user = user;
+          res.status(HTTP_STATUS.CREATED);
+          res.set(HEADERS.CACHE_CONTROL, 'no-cache, no-store');
+          debug('adduser: user has been created');
+          return next({
+            ok: `user '${req.body.name}' created`,
+            token,
+          });
+        });
       }
     }
   );

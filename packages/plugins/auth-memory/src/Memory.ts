@@ -67,7 +67,7 @@ export default class Memory
       }
     }
 
-    this._users[user] = { name: user, password: password };
+    this._users[user] = { name: user, password: password, email: email };
 
     debug('user added succeeded for %o', user);
     cb(null, user);

@@ -74,7 +74,7 @@ describe('HTPasswd', () => {
           expect(userGroups).toContain(username);
           done();
         };
-        wrapper.adduser(username, password, () => {
+        wrapper.adduser(username, password, 'foo@bar.com', () => {
           wrapper.authenticate(username, password, generateCallback(username));
         });
       });

@@ -111,21 +111,21 @@ describe('verifyPassword', () => {
 describe('generateHtpasswdLine', () => {
   beforeAll(mockTimeAndRandomBytes);
 
-  const [user, passwd] = ['username', 'password'];
+  const [user, passwd, email] = ['username', 'password', 'foo@bar.com'];
 
   test('should correctly generate line for md5', async () => {
     const md5Conf = { algorithm: constants.HtpasswdHashAlgorithm.md5 };
-    expect(await generateHtpasswdLine(user, passwd, md5Conf)).toMatchSnapshot();
+    expect(await generateHtpasswdLine(user, passwd, email, md5Conf)).toMatchSnapshot();
   });
 
   test('should correctly generate line for sha1', async () => {
     const sha1Conf = { algorithm: constants.HtpasswdHashAlgorithm.sha1 };
-    expect(await generateHtpasswdLine(user, passwd, sha1Conf)).toMatchSnapshot();
+    expect(await generateHtpasswdLine(user, passwd, email, sha1Conf)).toMatchSnapshot();
   });
 
   test('should correctly generate line for crypt', async () => {
     const cryptConf = { algorithm: constants.HtpasswdHashAlgorithm.crypt };
-    expect(await generateHtpasswdLine(user, passwd, cryptConf)).toMatchSnapshot();
+    expect(await generateHtpasswdLine(user, passwd, email, cryptConf)).toMatchSnapshot();
   });
 
   test('should correctly generate line for bcrypt', async () => {
@@ -133,7 +133,7 @@ describe('generateHtpasswdLine', () => {
       algorithm: constants.HtpasswdHashAlgorithm.bcrypt,
       rounds: 2,
     };
-    expect(await generateHtpasswdLine(user, passwd, bcryptAlgoConfig)).toMatchSnapshot();
+    expect(await generateHtpasswdLine(user, passwd, email, bcryptAlgoConfig)).toMatchSnapshot();
   });
 });
 
@@ -141,25 +141,25 @@ describe('addUserToHTPasswd - bcrypt', () => {
   beforeAll(mockTimeAndRandomBytes);
 
   test('should add new htpasswd to the end', async () => {
-    const input = ['', 'username', 'password'];
+    const input = ['', 'username', 'password', 'foo@bar.com'];
     expect(
-      await addUserToHTPasswd(input[0], input[1], input[2], defaultHashConfig)
+      await addUserToHTPasswd(input[0], input[1], input[2], input[3], defaultHashConfig)
     ).toMatchSnapshot();
   });
 
   test('should add new htpasswd to the end in multiline input', async () => {
     const body = `test1:$6b9MlB3WUELU:autocreated 2017-11-06T18:17:21.957Z
     test2:$6FrCaT/v0dwE:autocreated 2017-12-14T13:30:20.838Z`;
-    const input = [body, 'username', 'password'];
+    const input = [body, 'username', 'password', 'foo@bar.com'];
     expect(
-      await addUserToHTPasswd(input[0], input[1], input[2], defaultHashConfig)
+      await addUserToHTPasswd(input[0], input[1], input[2], input[3], defaultHashConfig)
     ).toMatchSnapshot();
   });
 
   test('should throw an error for incorrect username with space', async () => {
-    const [a, b, c] = ['', 'firstname lastname', 'password'];
+    const [a, b, c, d] = ['', 'firstname lastname', 'password', 'foo@bar.com'];
     await expect(
-      addUserToHTPasswd(a, b, c, defaultHashConfig)
+      addUserToHTPasswd(a, b, c, d, defaultHashConfig)
     ).rejects.toThrowErrorMatchingSnapshot();
   });
 });
@@ -289,6 +289,14 @@ describe('changePasswordToHTPasswd', () => {
 
   test('should change the password', async () => {
     const body = 'root:$6qLTHoPfGLy2:autocreated 2018-08-20T13:38:12.164Z';
+
+    expect(
+      await changePasswordToHTPasswd(body, 'root', 'demo123', 'newPassword', defaultHashConfig)
+    ).toMatchSnapshot();
+  });
+
+  test('should change the password with email', async () => {
+    const body = 'root:$6qLTHoPfGLy2:autocreated 2018-08-20T13:38:12.164Z,foo@bar.com';
 
     expect(
       await changePasswordToHTPasswd(body, 'root', 'demo123', 'newPassword', defaultHashConfig)

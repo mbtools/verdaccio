@@ -5,7 +5,7 @@ module.exports = function () {
       // this is a successful login and return a simple group
       callback(null, ['test']);
     },
-    add_user(user, password, cb) {
+    add_user(user, password, email, cb) {
       if (user === 'fail') {
         return cb(Error('bad username'));
       }

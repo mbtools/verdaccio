@@ -40,7 +40,7 @@ export function lockAndRead(name: string, cb: Callback): void {
 export function parseHTPasswd(input: string): Record<string, any> {
   // The input is split on line ending styles that are both windows and unix compatible
   return input.split(/[\r]?[\n]/).reduce((result, line) => {
-    const args = line.split(':', 4).map((str) => str.trim()); // APM
+    const args = line.split(':', 3).map((str) => str.trim()); // APM
     if (args.length > 1) {
       result[args[0]] = args[1];
     }
@@ -106,7 +106,8 @@ export async function generateHtpasswdLine(
   }
 
   const comment = 'autocreated ' + new Date().toJSON();
-  return `${user}:${hash}:${comment}:${email}\n`;
+  const emailComment = email ? `,${email}` : ''; // APM
+  return `${user}:${hash}:${comment}${emailComment}\n`; // APM
 }
 
 /**
@@ -221,8 +222,8 @@ export async function changePasswordToHTPasswd(
     debug('user %o does not exist', user);
     throw new Error(`Unable to change password for user '${user}': user does not currently exist`);
   }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [username, hash, created, email] = lines[userLineIndex].split(':', 4); // APM
+  const [username, hash] = lines[userLineIndex].split(':', 3); // APM
+  const email = lines[userLineIndex].match(/,([^,]+)$/)?.[1] || ''; // APM
   const passwordValid = await verifyPassword(passwd, hash);
   if (!passwordValid) {
     debug(`invalid old password`);

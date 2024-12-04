@@ -1,6 +1,7 @@
 export interface UserMemory {
   name: string;
   password: string;
+  email: string;
 }
 
 export interface Users {

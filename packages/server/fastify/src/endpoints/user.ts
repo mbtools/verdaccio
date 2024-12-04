@@ -50,10 +50,10 @@ async function userRoute(fastify: FastifyInstance) {
   }
 
   fastify.put<{
-    Body: { name: string; password: string };
+    Body: { name: string; password: string; email: string }; // APM
     Params: UpdateUserParamsInterface;
   }>('/:username', async (request, reply) => {
-    const { name, password } = request.body;
+    const { name, password, email } = request.body; // APM
     const remoteName = request.userRemote.name;
     if (_.isNil(remoteName) === false && _.isNil(name) === false && remoteName === name) {
       //   debug('login: no remote user detected');
@@ -113,7 +113,8 @@ async function userRoute(fastify: FastifyInstance) {
         );
         return;
       }
-      fastify.auth.add_user(name, password, async function (err, user): Promise<void> {
+      // APM
+      fastify.auth.add_user(name, password, email, async function (err, user): Promise<void> {
         if (err) {
           if (
             err.status >= fastify.statusCode.BAD_REQUEST &&

@@ -12,7 +12,7 @@ module.exports = function () {
       }
       return cb(null, true);
     },
-    adduser(user, password, cb) {
+    adduser(user, password, email, cb) {
       if (user === 'fail') {
         return cb(Error('bad username'));
       }

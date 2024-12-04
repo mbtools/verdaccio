@@ -248,7 +248,7 @@ describe('AuthTest', () => {
       await auth.init();
       expect(auth).toBeDefined();
       const callback = vi.fn();
-      auth.add_user('foo', 'bar', vi.fn());
+      auth.add_user('foo', 'bar', 'foo@bar.com', vi.fn()); // APM
       auth.changePassword('foo', 'bar', 'newFoo', callback);
       expect(callback).toHaveBeenCalledTimes(1);
       expect(callback).toHaveBeenCalledWith(null, true);
@@ -448,7 +448,7 @@ describe('AuthTest', () => {
 
         const callback = vi.fn();
 
-        auth.add_user('juan', 'password', callback);
+        auth.add_user('juan', 'password', 'juan@bar.com', callback); // APM
 
         expect(callback).toHaveBeenCalledTimes(1);
         expect(callback).toHaveBeenCalledWith(
@@ -472,7 +472,7 @@ describe('AuthTest', () => {
         const callback = vi.fn();
 
         // note: fail uas username make plugin fails
-        auth.add_user('fail', 'password', callback);
+        auth.add_user('fail', 'password', 'fail@bar.com', callback); // APM
 
         expect(callback).toHaveBeenCalledTimes(1);
         expect(callback).toHaveBeenCalledWith(new Error('bad username'));
@@ -496,7 +496,7 @@ describe('AuthTest', () => {
         const callback = vi.fn();
 
         // note: fail uas username make plugin fails
-        auth.add_user('skip', 'password', callback);
+        auth.add_user('skip', 'password', 'skip@bar.com', callback); // APM
 
         expect(callback).toHaveBeenCalledTimes(1);
         expect(callback).toHaveBeenCalledWith(
@@ -519,7 +519,7 @@ describe('AuthTest', () => {
 
       const callback = vi.fn();
 
-      auth.add_user('something', 'password', callback);
+      auth.add_user('something', 'password', 'something@bar.com', callback); // APM
 
       expect(callback).toHaveBeenCalledTimes(1);
       expect(callback).toHaveBeenCalledWith(null, {
@@ -543,7 +543,7 @@ describe('AuthTest', () => {
 
       const callback = vi.fn();
 
-      auth.add_user('something', 'password', callback);
+      auth.add_user('something', 'password', 'something@bar.com', callback); // APM
 
       expect(callback).toHaveBeenCalledTimes(1);
       expect(callback).toHaveBeenCalledWith(null, {
@@ -695,7 +695,7 @@ describe('AuthTest', () => {
             await auth.init();
             const token = (await auth.jwtEncrypt(
               createRemoteUser('jwt_user', [ROLES.ALL]),
-              config.security.api.jwt.sign
+              config.security.api.jwt!.sign
             )) as string;
             const app = await getServer(auth);
             const res = await supertest(app)
