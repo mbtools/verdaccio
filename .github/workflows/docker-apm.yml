@@ -21,6 +21,10 @@ on:
 permissions:
   contents: read  #  to fetch code (actions/checkout)
 
+concurrency:
+  group: apm-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   docker:
     runs-on: ubuntu-latest
