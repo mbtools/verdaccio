@@ -1,5 +1,49 @@
 # verdaccio
 
+## 8.0.0-next-8.7
+
+### Patch Changes
+
+- Updated dependencies [589ea7f]
+- Updated dependencies [139861e]
+  - @verdaccio/utils@8.1.0-next-8.7
+  - verdaccio-audit@13.0.0-next-8.7
+  - @verdaccio/cli@8.0.0-next-8.7
+  - @verdaccio/hooks@8.0.0-next-8.7
+  - @verdaccio/node-api@8.0.0-next-8.7
+  - verdaccio-htpasswd@13.0.0-next-8.7
+  - @verdaccio/ui-theme@8.0.0-next-8.7
+  - @verdaccio/logger@8.0.0-next-8.7
+
+## 8.0.0-next-8.6
+
+### Patch Changes
+
+- @verdaccio/node-api@8.0.0-next-8.6
+- @verdaccio/cli@8.0.0-next-8.6
+- @verdaccio/ui-theme@8.0.0-next-8.6
+- @verdaccio/hooks@8.0.0-next-8.6
+- verdaccio-audit@13.0.0-next-8.6
+- verdaccio-htpasswd@13.0.0-next-8.6
+- @verdaccio/utils@8.1.0-next-8.6
+- @verdaccio/logger@8.0.0-next-8.6
+
+## 8.0.0-next-8.5
+
+### Patch Changes
+
+- 5cbee6f: fix: unpublish a package on storage package
+- a049bba: chore(tests): temp folder naming
+- Updated dependencies [0225c80]
+  - @verdaccio/ui-theme@8.0.0-next-8.5
+  - @verdaccio/logger@8.0.0-next-8.5
+  - @verdaccio/hooks@8.0.0-next-8.5
+  - @verdaccio/node-api@8.0.0-next-8.5
+  - verdaccio-audit@13.0.0-next-8.5
+  - verdaccio-htpasswd@13.0.0-next-8.5
+  - @verdaccio/cli@8.0.0-next-8.5
+  - @verdaccio/utils@8.1.0-next-8.5
+
 ## 8.0.0-next-8.4
 
 ### Patch Changes

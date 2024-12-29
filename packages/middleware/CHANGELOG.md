@@ -1,5 +1,41 @@
 # @verdaccio/middleware
 
+## 8.0.0-next-8.7
+
+### Patch Changes
+
+- 589ea7f: chore: move tarball utils to core
+- 139861e: fix: crashes with path-to-regexp v0.1.12 express
+- Updated dependencies [589ea7f]
+  - @verdaccio/core@8.0.0-next-8.7
+  - @verdaccio/utils@8.1.0-next-8.7
+  - @verdaccio/config@8.0.0-next-8.7
+  - @verdaccio/url@13.0.0-next-8.7
+
+## 8.0.0-next-8.6
+
+### Patch Changes
+
+- 8995041: fix(middleware): allow content-type with charset
+  - @verdaccio/core@8.0.0-next-8.6
+  - @verdaccio/config@8.0.0-next-8.6
+  - @verdaccio/url@13.0.0-next-8.6
+  - @verdaccio/utils@8.1.0-next-8.6
+
+## 8.0.0-next-8.5
+
+### Patch Changes
+
+- Updated dependencies [ba71932]
+- Updated dependencies [64a7fc0]
+- Updated dependencies [4adaa83]
+- Updated dependencies [5cbee6f]
+- Updated dependencies [a049bba]
+  - @verdaccio/config@8.0.0-next-8.5
+  - @verdaccio/core@8.0.0-next-8.5
+  - @verdaccio/url@13.0.0-next-8.5
+  - @verdaccio/utils@8.1.0-next-8.5
+
 ## 8.0.0-next-8.4
 
 ### Patch Changes

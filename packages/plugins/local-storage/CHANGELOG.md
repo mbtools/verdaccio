@@ -1,5 +1,34 @@
 # Change Log
 
+## 13.0.0-next-8.7
+
+### Patch Changes
+
+- Updated dependencies [589ea7f]
+  - @verdaccio/core@8.0.0-next-8.7
+  - @verdaccio/utils@8.1.0-next-8.7
+
+## 13.0.0-next-8.6
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.6
+- @verdaccio/utils@8.1.0-next-8.6
+
+## 13.0.0-next-8.5
+
+### Patch Changes
+
+- a049bba: chore(tests): temp folder naming
+- ff78ea6: chore: local storage debug messages
+- 3967a52: chore: tweak error logging messages
+- Updated dependencies [64a7fc0]
+- Updated dependencies [5cbee6f]
+- Updated dependencies [a049bba]
+  - @verdaccio/core@8.0.0-next-8.5
+  - @verdaccio/file-locking@13.0.0-next-8.2
+  - @verdaccio/utils@8.1.0-next-8.5
+
 ## 13.0.0-next-8.4
 
 ### Patch Changes
