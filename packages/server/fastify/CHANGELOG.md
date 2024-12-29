@@ -1,5 +1,53 @@
 # @verdaccio/server-fastify
 
+## 8.0.0-next-8.7
+
+### Patch Changes
+
+- Updated dependencies [589ea7f]
+- Updated dependencies [139861e]
+  - @verdaccio/tarball@13.0.0-next-8.7
+  - @verdaccio/core@8.0.0-next-8.7
+  - @verdaccio/utils@8.1.0-next-8.7
+  - @verdaccio/store@8.0.0-next-8.7
+  - @verdaccio/auth@8.0.0-next-8.7
+  - @verdaccio/config@8.0.0-next-8.7
+  - @verdaccio/logger@8.0.0-next-8.7
+
+## 8.0.0-next-8.6
+
+### Patch Changes
+
+- @verdaccio/auth@8.0.0-next-8.6
+- @verdaccio/core@8.0.0-next-8.6
+- @verdaccio/config@8.0.0-next-8.6
+- @verdaccio/tarball@13.0.0-next-8.6
+- @verdaccio/store@8.0.0-next-8.6
+- @verdaccio/utils@8.1.0-next-8.6
+- @verdaccio/logger@8.0.0-next-8.6
+
+## 8.0.0-next-8.5
+
+### Patch Changes
+
+- Updated dependencies [ba71932]
+- Updated dependencies [64a7fc0]
+- Updated dependencies [9041b0f]
+- Updated dependencies [eca6259]
+- Updated dependencies [4adaa83]
+- Updated dependencies [80e4cb8]
+- Updated dependencies [5cbee6f]
+- Updated dependencies [538bb8f]
+- Updated dependencies [a049bba]
+- Updated dependencies [3967a52]
+  - @verdaccio/config@8.0.0-next-8.5
+  - @verdaccio/core@8.0.0-next-8.5
+  - @verdaccio/store@8.0.0-next-8.5
+  - @verdaccio/auth@8.0.0-next-8.5
+  - @verdaccio/logger@8.0.0-next-8.5
+  - @verdaccio/tarball@13.0.0-next-8.5
+  - @verdaccio/utils@8.1.0-next-8.5
+
 ## 8.0.0-next-8.4
 
 ### Patch Changes

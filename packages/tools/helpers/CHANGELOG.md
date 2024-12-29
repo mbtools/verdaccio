@@ -1,5 +1,17 @@
 # Change Log
 
+## 4.0.0-next-8.3
+
+### Patch Changes
+
+- 139861e: fix: crashes with path-to-regexp v0.1.12 express
+
+## 4.0.0-next-8.2
+
+### Patch Changes
+
+- a049bba: chore(tests): temp folder naming
+
 ## 4.0.0-next-8.1
 
 ### Patch Changes
