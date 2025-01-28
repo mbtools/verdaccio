@@ -38,7 +38,7 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Install dependencies with a custom registry
-        uses: ./.github/actions/install-app
+        uses: ./.github/actions/install-app-win
   test:
     needs: [prepare]
     strategy:
@@ -52,7 +52,7 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - name: Build application with Node ${{ matrix.node_version }}
-        uses: ./.github/actions/build-app
+        uses: ./.github/actions/build-app-win
         with:
           node-version: ${{ matrix.node_version }}
       - name: Test
