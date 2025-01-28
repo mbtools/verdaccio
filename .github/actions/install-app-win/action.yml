@@ -22,14 +22,17 @@ runs:
       run: |
         corepack enable
         corepack prepare
+      shell: pwsh
     - name: set store
       run: |
         mkdir ~/.pnpm-store
         pnpm config set store-dir ~/.pnpm-store
+      shell: pwsh
     - name: Restore cache pnpm store
       uses: ./.github/actions/cache-store
     - name: Install
       run: pnpm install --reporter=${{inputs.reporter}} --ignore-scripts --registry ${{ inputs.registry-url }}
+      shell: pwsh
     - name: Save cache pnpm store
       if: steps.cache-npm.outputs.cache-hit == 'false'
       uses: ./.github/actions/cache-store
