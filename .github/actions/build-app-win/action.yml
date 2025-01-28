@@ -19,3 +19,4 @@ runs:
         node-version: ${{ inputs.node_version }}
     - name: build
       run: pnpm build
+      shell: pwsh
