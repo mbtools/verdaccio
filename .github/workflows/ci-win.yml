@@ -1,6 +1,7 @@
 name: CI Windows
 
 on:
+  workflow_dispatch:
   push:
   pull_request:
     paths:
@@ -15,7 +16,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ci-win-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
