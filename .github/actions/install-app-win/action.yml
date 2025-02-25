@@ -19,9 +19,7 @@ runs:
       with:
         node-version-file: '.nvmrc'
     - name: Install pnpm
-      run: |
-        corepack enable
-        corepack prepare
+      run: npm install -g pnpm
       shell: pwsh
     - name: set store
       run: |
