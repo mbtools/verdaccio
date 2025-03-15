@@ -3,11 +3,11 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { vi } from 'vitest';
 
+import data from '../../../vitest/__partials__/Versions/data.json';
+import dataDeprecated from '../../../vitest/__partials__/Versions/deprecated-versions.json';
+import dataUnsorted from '../../../vitest/__partials__/Versions/unsorted-versions.json';
 import { fireEvent, render, screen } from '../../test/test-react-testing-library';
 import Versions, { Props } from './Versions';
-import data from './__partials__/data.json';
-import dataDeprecated from './__partials__/deprecated-versions.json';
-import dataUnsorted from './__partials__/unsorted-versions.json';
 
 const VersionsComponent: React.FC<Props> = (props) => (
   <MemoryRouter>

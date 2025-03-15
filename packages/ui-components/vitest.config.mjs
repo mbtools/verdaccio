@@ -13,6 +13,9 @@ export default defineConfig({
       printBasicPrototype: true,
     },
     snapshotSerializers: ['./vitest/vitestSerializer.ts'],
+    resolveSnapshotPath: (testPath, snapshotExtension) => {
+      return testPath.replace('src/', 'vitest/__snapshots__/') + snapshotExtension;
+    },
     alias: {
       // https://github.com/vitest-dev/vitest/issues/5664#issuecomment-2093986338
       '@emotion/react': path.resolve('node_modules/@emotion/react/dist/emotion-react.cjs.mjs'),

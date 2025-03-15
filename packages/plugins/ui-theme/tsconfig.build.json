@@ -18,6 +18,6 @@
       "verdaccio-ui/utils/*": ["src/utils/*"]
     }
   },
-  "include": ["src/**/*.ts", "types/*.d.ts", "i18n/**/*.json"],
-  "exclude": ["src/**/*.test.ts"]
+  "include": ["src/**/*.ts*", "types/*.d.ts", "src/i18n/**/*.json"],
+  "exclude": ["src/**/*.test.ts*"]
 }

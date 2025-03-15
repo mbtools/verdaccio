@@ -12,5 +12,7 @@
       }
     ],
     "@babel/preset-react"
-  ]
+  ],
+  "sourceMaps": true,
+  "ignore": ["src/**/*.stories.tsx", "src/**/*.test.tsx", "src/**/*.test.ts"]
 }

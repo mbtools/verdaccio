@@ -1,6 +1,6 @@
 import MockDate from 'mockdate';
 
-import { packageMeta } from './__partials__/packageMeta';
+import { packageMeta } from '../../vitest/__partials__/Utils/packageMeta';
 import {
   fileSizeSI,
   formatDate,
