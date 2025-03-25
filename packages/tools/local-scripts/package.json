@@ -1,11 +1,11 @@
 {
   "name": "@verdaccio/local-scripts",
-  "version": "1.0.0",
+  "version": "1.0.1-next-8.0",
   "bin": {
     "local-crowdin-api": "./index.js"
   },
   "private": "true",
-  "description": "update translations percentage for website data",
+  "description": "Update Website Data",
   "main": "./build/index.js",
   "scripts": {
     "build": "babel src/ --out-dir build/ --copy-files --extensions \".ts,.tsx\" --source-maps",
