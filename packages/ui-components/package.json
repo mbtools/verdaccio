@@ -37,6 +37,7 @@
     "dayjs": "1.11.13",
     "dompurify": "3.2.3",
     "highlight.js": "11.11.1",
+    "highlightjs-sap-abap": "0.3.0",
     "history": "4.10.1",
     "i18next": "20.6.1",
     "js-base64": "3.7.7",
