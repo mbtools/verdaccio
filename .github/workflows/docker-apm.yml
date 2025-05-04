@@ -17,6 +17,7 @@ on:
       - 'abappm-plugins/**'
     branches:
       - 'apm'
+      - 'apm-2025-04-27'
 
 permissions:
   contents: read  #  to fetch code (actions/checkout)
