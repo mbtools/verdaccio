@@ -1,0 +1,7 @@
+plugins: '../test-plugin-storage'
+
+auth:
+  plugin-auth:
+    enabled: true
+
+log: { type: stdout, format: pretty, level: trace }

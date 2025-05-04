@@ -1,0 +1,7 @@
+plugins: '../test-plugin-storage'
+
+store:
+  plugin-store:
+    enabled: true
+
+log: { type: stdout, format: pretty, level: trace }

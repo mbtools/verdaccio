@@ -1,0 +1,7 @@
+plugins: '../test-plugin-storage'
+
+middleware:
+  plugin-middleware:
+    enabled: true
+
+log: { type: stdout, format: pretty, level: trace }
