@@ -222,7 +222,10 @@ export function publishPackage(storage: Storage, logger: Logger, origin: string)
     debug('publishing package %s', packageName);
     debug('revision %s', revision);
     if (debug.enabled) {
-      debug('body %o', JSON.stringify(req.body, null, 2));
+      const randomNum = Math.floor(Math.random() * 10000);
+      const logPath = `/verdaccio/storage/publish-body-${randomNum}.json`;
+      require('fs').writeFileSync(logPath, JSON.stringify(req.body, null, 2));
+      debug('body saved to %s', logPath);
     }
     const metadata = req.body;
     const username = req?.remote_user?.name;
