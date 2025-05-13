@@ -222,7 +222,7 @@ export function publishPackage(storage: Storage, logger: Logger, origin: string)
     debug('publishing package %s', packageName);
     debug('revision %s', revision);
     if (debug.enabled) {
-      debug('body %o', req.body);
+      debug('body %o', JSON.stringify(req.body, null, 2));
     }
     const metadata = req.body;
     const username = req?.remote_user?.name;
