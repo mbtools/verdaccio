@@ -1,4 +1,4 @@
-# Middleware Plugin for Verdaccio Pro
+# SQL Storage Plugin for Verdaccio Pro
 
 [![Verdaccio Pro Home](https://img.shields.io/badge/Homepage-Verdaccio%20Pro-405236?style=flat)](https://verdaccio.pro)
 [![MIT License](https://img.shields.io/github/license/verdaccio-pro/verdaccio-pro?label=License&color=405236)](https://github.com/verdaccio-pro/verdaccio-pro/blob/main/LICENSE)
@@ -12,28 +12,33 @@
 
 ## Description
 
-The `@verdaccio-pro/middleware` package is a plugin for Verdaccio that enhances security and user experience by providing a set of Express middlewares. It is designed for easy integration and robust protection for your private npm registry.
+The `@verdaccio-pro/sql-storage` package is a Verdaccio plugin that enables fast, reliable storage of npm packages and metadata in a PostgreSQL database. It is designed for scalability, data integrity, and easy integration with enterprise workflows.
+
+NO WARRANTIES, [Functional Source License](https://fsl.software), [MIT Future License](LICENSE)
 
 ## Features
 
-### Security Headers
-
-Automatically sets HTTP security headers (Strict-Transport-Security, Content-Security-Policy, Permissions-Policy, Referrer-Policy, X-Robots-Tag, X-Powered-By) on all responses to improve security and privacy.
-
-### Block Unwanted Requests
-
-Blocks requests for common unwanted file extensions (e.g., `.php`, `.exe`, `.cmd`, `.ps1`, `.txt`, `.pdf`, `.doc`, `.docx`, `.xls`, `.xlsx`, `.ppt`, `.pptx`) to reduce attack surface and bot noise.
-
-### NPM-style URL Redirect
-
-Redirects NPM-style package URLs (e.g., `/package/@scope/pkg`) to the Verdaccio web UI for a better user experience.
+- Supports PostgreSQL via Drizzel ORM
+- Fast package publishing and retrieval
+- Transactional operations for data consistency
+- Flexible schema migrations
+- Easy setup and configuration
+- Optimized for performance and reliability
 
 ## Quickstart
 
 Add the following to your Verdaccio configuration:
 
 ```yaml
-middleware:
-  '@verdaccio-pro/middleware':
-    enabled: true
+store:
+  '@verdaccio-pro/sql-storage':
+    url: <your-database-url> # can also be set via DATABASE_URL environment variable
 ```
+
+## About
+
+Made with ❤ in Canada
+
+Copyright 2025 apm.to Inc. <https://apm.to>
+
+Follow [@marcf.be](https://bsky.app/profile/marcf.be) on Blueksy and [@marcfbe](https://linkedin.com/in/marcfbe) or LinkedIn

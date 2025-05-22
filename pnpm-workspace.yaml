@@ -14,4 +14,4 @@ packages:
   - e2e/cli/*
   - e2e/ui
   - website
-  - abappm/plugins/*
+  - abappm/plugins/@verdaccio-pro/*

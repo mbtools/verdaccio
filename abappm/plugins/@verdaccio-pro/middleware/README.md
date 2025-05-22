@@ -1,4 +1,4 @@
-# Auth Plugin for Verdaccio Pro
+# Middleware Plugin for Verdaccio Pro
 
 [![Verdaccio Pro Home](https://img.shields.io/badge/Homepage-Verdaccio%20Pro-405236?style=flat)](https://verdaccio.pro)
 [![MIT License](https://img.shields.io/github/license/verdaccio-pro/verdaccio-pro?label=License&color=405236)](https://github.com/verdaccio-pro/verdaccio-pro/blob/main/LICENSE)
@@ -12,29 +12,38 @@
 
 ## Description
 
-The `@verdaccio-pro/auth` package is a secure authentication plugin for Verdaccio, providing user management and password handling with database-backed storage and encryption. It is designed for modern Verdaccio deployments requiring robust, scalable, and secure authentication.
+The `@verdaccio-pro/middleware` package is a plugin for Verdaccio that enhances security and user experience by providing a set of Express middlewares. It is designed for easy integration and robust protection for your private npm registry.
+
+NO WARRANTIES, [Functional Source License](https://fsl.software), [MIT Future License](LICENSE)
 
 ## Features
 
-- **User Authentication**: Secure login with bcrypt password hashing.
-- **User Management**: Add, remove, and update users and passwords.
-- **Email Support**: Store and update user emails (for future features).
-- **Database Storage**: Uses SQL database for storing user credentials.
-- **Password Encryption**: All sensitive data is encrypted at rest.
-- **Configurable Security**: Adjustable bcrypt rounds, user limits, and slow verification warnings.
-- **Verdaccio Integration**: Seamless integration with Verdaccio plugin system.
-- **Access Control**: Simple allow-all access/publish/unpublish hooks (customize as needed).
+### Security Headers
+
+Automatically sets HTTP security headers (Strict-Transport-Security, Content-Security-Policy, Permissions-Policy, Referrer-Policy, X-Robots-Tag, X-Powered-By) on all responses to improve security and privacy.
+
+### Block Unwanted Requests
+
+Blocks requests for common unwanted file extensions (e.g., `.php`, `.exe`, `.cmd`, `.ps1`, `.txt`, `.pdf`, `.doc`, `.docx`, `.xls`, `.xlsx`, `.ppt`, `.pptx`) to reduce attack surface and bot noise.
+
+### NPM-style URL Redirect
+
+Redirects NPM-style package URLs (e.g., `/package/@scope/pkg`) to the Verdaccio web UI for a better user experience.
 
 ## Quickstart
 
 Add the following to your Verdaccio configuration:
 
 ```yaml
-auth:
-  '@verdaccio-pro/auth':
+middleware:
+  '@verdaccio-pro/middleware':
     enabled: true
-    url: <your-database-url> # can also be set via DATABASE_URL environment variable
-    rounds: 10 # bcrypt rounds (default: 10)
-    max_users: 1000 # maximum allowed users (default: Infinity)
-    slow_verify_ms: 300 # log warning if password check is slow (ms)
 ```
+
+## About
+
+Made with ❤ in Canada
+
+Copyright 2025 apm.to Inc. <https://apm.to>
+
+Follow [@marcf.be](https://bsky.app/profile/marcf.be) on Blueksy and [@marcfbe](https://linkedin.com/in/marcfbe) or LinkedIn

@@ -1,25 +1,25 @@
 {
-  "name": "@verdaccio-pro/auth",
-  "version": "1.1.0",
-  "description": "Auth Plugin for Verdaccio Pro",
+  "name": "@verdaccio-pro/storage-sql",
+  "version": "1.0.0",
+  "description": "SQL Storage Plugin for Verdaccio Pro (Postgres)",
   "keywords": [
     "verdaccio",
     "verdaccio-pro",
     "plugin",
-    "security",
-    "authentication",
-    "authorization"
+    "sql",
+    "database",
+    "postgres"
   ],
   "author": {
     "name": "Marc Bernard",
     "url": "https://github.com/mbtools"
   },
-  "license": "MIT",
+  "license": "FSL-1.1-MIT",
   "homepage": "https://verdaccio.pro",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/verdaccio-pro/verdaccio-pro.git",
-    "directory": "packages/auth"
+    "directory": "packages/storage-sql"
   },
   "bugs": {
     "url": "https://github.com/verdaccio-pro/verdaccio-pro/issues"
@@ -40,12 +40,10 @@
     "@verdaccio/config": "8.0.0-next-8.15",
     "@verdaccio/core": "8.0.0-next-8.15",
     "@verdaccio/logger": "8.0.0-next-8.15",
-    "bcryptjs": "3.0.2",
     "debug": "4.4.1",
     "dotenv": "16.5.0",
     "dotenv-expand": "12.0.2",
     "drizzle-orm": "0.43.1",
-    "http-errors": "2.0.0",
     "pg": "8.16.0",
     "postgres": "3.4.5",
     "zod": "3.25.7"
@@ -54,20 +52,26 @@
     "@eslint/js": "9.27.0",
     "@stylistic/eslint-plugin": "4.2.0",
     "@types/debug": "4.1.12",
-    "@types/http-errors": "2.0.4",
+    "@types/node": "22.15.19",
     "@types/pg": "8.15.2",
     "@verdaccio/types": "13.0.0-next-8.5",
     "cross-env": "7.0.3",
     "drizzle-kit": "0.31.1",
     "eslint": "9.27.0",
     "tsup": "8.5.0",
+    "tsx": "4.19.4",
     "typescript": "5.8.3",
     "typescript-eslint": "8.32.1",
     "vitest": "3.1.4"
   },
   "scripts": {
     "build": "tsup",
+    "test": "cross-env NODE_ENV=test vitest run --max-concurrency=1",
     "lint": "eslint src",
-    "test": "cross-env NODE_ENV=test vitest run"
+    "db:studio": "npx drizzle-kit studio",
+    "db:generate": "npx drizzle-kit generate",
+    "db:migrate": "cross-env DB_MIGRATING=true tsx src/db/tools/migrate.ts",
+    "db:seed": "cross-env DB_SEEDING=true tsx src/db/tools/seed.ts",
+    "db:reset": "cross-env DB_RESET=true tsx src/db/tools/reset.ts"
   }
 }

@@ -23,6 +23,8 @@ Access types:
 - Packument: accesses related to packument CRUD.
 - Tarball: accesses related to tarball read and write.
 
+NO WARRANTIES, [BSD-3 License](LICENSE)
+
 ## Quickstart
 
 ```yaml
@@ -40,3 +42,17 @@ store:
         url: <database_url>
         ...
 ```
+
+## Attribution
+
+This plugin is a port of the following open-source project to the latest Verdaccio version. Please support them if you can!
+
+- [Verdaccio Storage Proxy](https://github.com/openupm/verdaccio-storage-proxy), Zhongwei (Favo) Yang and OpenUPM (openupm.com), [BSD-3](https://github.com/openupm/verdaccio-storage-proxy/blob/master/LICENSE)
+
+## About
+
+Made with ❤ in Canada
+
+Copyright 2025 apm.to Inc. <https://apm.to>
+
+Follow [@marcf.be](https://bsky.app/profile/marcf.be) on Blueksy and [@marcfbe](https://linkedin.com/in/marcfbe) or LinkedIn
