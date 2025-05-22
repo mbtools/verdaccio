@@ -1,0 +1,206 @@
+{
+  "copy-to-clipboard": "Zkopírovat do schránky",
+  "author-anonymous": "Anonymní",
+  "author-unknown": "Neznámý",
+  "action-bar-action": {
+    "visit-home-page": "Navštívit domovskou stránku",
+    "open-an-issue": "Otevřít otázku",
+    "download-tarball": "Stáhnout archív (Tar)",
+    "raw": "View manifest",
+    "raw-title": "Manifest of {{package}}"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "Information"
+    },
+    "settings": {
+      "title": "Configuration"
+    },
+    "license": "Licence",
+    "totalContributors": "Počet přispěvovatelů"
+  },
+  "header": {
+    "documentation": "Dokumentace",
+    "registry-info": "Informace o registru",
+    "registry-info-link": "Více informací",
+    "settings": "Nastavení",
+    "help": "Help",
+    "registry-no-conf": "Hledat balíčky",
+    "greetings": "Ahoj "
+  },
+  "search": {
+    "packages": "Hledat balíčky",
+    "isPrivate": "Private",
+    "isRemote": "Remote",
+    "isCached": "Cached"
+  },
+  "autoComplete": {
+    "loading": "Načítání...",
+    "no-results-found": "Nebyly nalezeny žádné výsledky",
+    "clear": "Vyčistit",
+    "expand": "Otevřít",
+    "collapse": "Zavřít"
+  },
+  "tab": {
+    "uplinks": "Uplinky",
+    "versions": "Verze",
+    "dependencies": "Závislosti",
+    "readme": "Přečti si mě"
+  },
+  "uplinks": {
+    "title": "Uplinky",
+    "no-items": "{{name}} nemá žádné uplinky."
+  },
+  "versions": {
+    "current-tags": "Aktuální značky",
+    "version-history": "Version History",
+    "not-available": "Nedostupné",
+    "deprecated": "Deprecated",
+    "search.placeholder": "Search for a version by semver range, e.g., ^1.0.0.",
+    "hide-deprecated": "All deprecated versions are hidden by global configuration"
+  },
+  "package": {
+    "published-on": "Published {{time}}",
+    "version": "v{{version}}",
+    "visit-home-page": "Navštívit domovskou stránku",
+    "homepage": "Domovská stránka",
+    "open-an-issue": "Otevřít otázku",
+    "bugs": "Chyby",
+    "download": "Stáhnout {{what}}",
+    "the-tar-file": "tar soubor",
+    "tarball": "Archív (Tar)"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}} nemá žádné závislosti.",
+    "dependency-block": "{{package}}: {{version}}",
+    "dependency-block-bundle": "{{package}}"
+  },
+  "form": {
+    "username": "Uživatelské jméno",
+    "password": "Heslo"
+  },
+  "form-placeholder": {
+    "username": "Vaše uživatelské jméno",
+    "password": "Vaše silné heslo\""
+  },
+  "form-validation": {
+    "required-field": "Toto pole je povinné",
+    "required-min-length": "This field required with a minimum length of {{length}}",
+    "unable-to-sign-in": "Přihlášení se nezdařilo",
+    "username-or-password-cant-be-empty": "Uživatelské jméno nebo heslo nemohou být prázdné!"
+  },
+  "help": {
+    "title": "Zatím nebyl zveřejně žádný balíček.",
+    "sub-title": "Pro zveřejnění vašeho prvního balíčku proveďte následující:",
+    "first-step": "1. Create user",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. Zveřejněte balíček",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. Obnovte tuto stránku."
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "Nejnovější v{{version}}",
+      "version": "v{{version}}",
+      "published": "Published"
+    },
+    "installation": {
+      "title": "Instalace",
+      "latest": "latest version",
+      "global": "global package",
+      "yarnModern": "yarn modern syntax"
+    },
+    "repository": {
+      "title": "Repozitář"
+    },
+    "author": {
+      "title": "Autor"
+    },
+    "distribution": {
+      "title": "Distribution",
+      "license": "Licence",
+      "size": "Velikost",
+      "file-count": "File Count"
+    },
+    "keywords": {
+      "title": "Keywords"
+    },
+    "maintainers": {
+      "title": "Správci"
+    },
+    "contributors": {
+      "title": "Přispěvatelé"
+    },
+    "engines": {
+      "npm-version": "Npm Version",
+      "pnpm-version": "Pnpm Version",
+      "yarn-version": "Yarn Version",
+      "node-js": "Node.js"
+    }
+  },
+  "footer": {
+    "powered-by": "Pohání",
+    "made-with-love-on": "Tvořeno s <0>♥</0> na"
+  },
+  "button": {
+    "close": "Zavřít",
+    "cancel": "Zrušit",
+    "login": "Přihlásit se",
+    "logout": "Odhlásit se",
+    "go-to-the-home-page": "Přejít na domovskou stránku",
+    "learn-more": "Více informací",
+    "fund-this-package": "<0>Sponzorovat</0> tento balíček"
+  },
+  "error": {
+    "unspecific": "Něco se pokazilo.",
+    "404": {
+      "sorry-we-could-not-find-it": "Omlouváme se, ale nepodařilo se nám to najít..."
+    },
+    "401": {
+      "sorry-no-access": "Sorry, you need credentials access to see this page."
+    },
+    "app-context-not-correct-used": "Kontext aplikace nebyl použit správným způsobem",
+    "theme-context-not-correct-used": "Kontext šablony nebyl použit správným způsobem",
+    "package-meta-is-required-at-detail-context": "packageMeta je vyžadováno v DetailContext"
+  },
+  "lng": {
+    "english": "Anglicky",
+    "czech": "Čeština",
+    "japanese": "Japonština",
+    "portuguese": "Portugalština",
+    "spanish": "Španělsky",
+    "irish": "Irish",
+    "german": "Německy",
+    "italian": "Italian",
+    "french": "Francouzsky",
+    "russian": "Ruský",
+    "turkish": "Turečtina",
+    "ukraine": "Ukrajinština",
+    "khmer": "Khmerština",
+    "chinese": "Chinese Simplified",
+    "chineseTraditional": "Chinese Traditional"
+  },
+  "flag": {
+    "austria": "Rakousko",
+    "australia": "Australia",
+    "brazil": "Brazílie",
+    "canada": "Canada",
+    "spain": "Španělsko",
+    "nicaragua": "Nikaragua",
+    "india": "Indie",
+    "china": "Čína",
+    "germany": "Německo",
+    "taiwan": "Tchaj-wan"
+  },
+  "packageManagers": {
+    "title": "Package Managers",
+    "description": "This is the configuration details for the registry. Each package manager could have different configuration, expand each section for more details. If the section is disable review your configuration.",
+    "yarnclassicDetails": "Yarn classic configuration differs from Yarn 2+ configuration. For more details, please visit [Yarn Classic](https://verdaccio.org/docs/cli-registry#yarn-1x).",
+    "yarnBerryDetails": "Yarn Berry does not support the `--registry` flag, instead all configurarion should be defined on the `yarnrc.yaml` file in the root of your project. For more details, please visit [Yarn Berry](https://verdaccio.org/docs/cli-registry#yarn-berry-2x)."
+  },
+  "language": {
+    "title": "Překlady",
+    "contribute": "Pokud zde není uveden Váš jazyk nebo není zcela přeložen, prosím přispějte svým překladem. Postup naleznete na stránce [s repozitářem aplikace](https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md)",
+    "description": "This is the configuration details for the language. Select a language to select a client side translation."
+  }
+}

@@ -23,9 +23,9 @@ plugins: /verdaccio/plugins
 web:
   enable: true
   title: apm - A Package Manager for ABAP
-  logo: /verdaccio/abappm/apm_banner.png
-  logoDark: /verdaccio/abappm/apm_banner_gray.png
-  favicon: /verdaccio/abappm/apm.ico
+  logo: /verdaccio/assets/apm_banner.png
+  logoDark: /verdaccio/assets/apm_banner_gray.png
+  favicon: /verdaccio/assets/apm.ico
   primaryColor: '#c0c0c0'
   darkMode: true
   gravatar: true
@@ -133,7 +133,7 @@ security:
 #   max: 1000
 
 # https://verdaccio.org/docs/configuration#max-body-size
-max_body_size: 1mb
+max_body_size: 2mb
 
 # https://verdaccio.org/docs/configuration#listen-port
 # listen:
@@ -183,18 +183,47 @@ log: { type: stdout, format: pretty, level: http }
 # list of the available translations https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md
 #   web: en-US
 
-# https://verdaccio.org/docs/configuration#authentication
+###
+### PLUGINS
+###
+
 auth:
   htpasswd:
     file: /verdaccio/storage/htpasswd
-#  apm-authentication:
-#    max_users: 100
+  # '@verdaccio-pro/auth':
+  #   enabled: true
+  #   url: <your-database-url> # can also be set via DATABASE_URL environment variable
+  #   rounds: 10               # bcrypt rounds (default: 10)
+  #   max_users: 1000          # maximum allowed users (default: Infinity)
+  #   slow_verify_ms: 300      # log warning if password check is slow (ms)
+
+filter:
+  '@verdaccio-pro/filter':
+    enabled: false
+    # block:
+    #   # block all packages in a scope
+    #   - scope: @evil
+    #   # block a malicious package
+    #   - package: semvver
+    #   # block some malicious versions of previously ok package
+    #   - package: @coolauthor/stolen
+    #     versions: '>2.0.1'
+    #   # block some malicious versions of previously ok package, replacing them with older, correct versions
+    #   - package: @coolauthor/stolen
+    #     versions: '>2.0.1'
+    #     strategy: replace
+    # # emergency switch: block all packages published after a certain timestamp
+    # dateThreshold: '2025-02-08T03:52:00.000Z'
 
 middlewares:
-  apm-middleware:
+  '@verdaccio-pro/middleware':
     enabled: true
 
-#store:
-#  sql-storage:
+store:
+  '@verdaccio-pro/sql-storage':
+
+###
+### DEBUG
+###
 
 _debug:

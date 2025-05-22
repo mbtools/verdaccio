@@ -1,0 +1,206 @@
+{
+  "copy-to-clipboard": "Panoya kopyala",
+  "author-anonymous": "Anonim",
+  "author-unknown": "Bilinmeyen",
+  "action-bar-action": {
+    "visit-home-page": "Ana sayfayı ziyaret et",
+    "open-an-issue": "Sorunları aç",
+    "download-tarball": "Arşivi indir",
+    "raw": "View manifest",
+    "raw-title": "Manifest of {{package}}"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "Bilgi"
+    },
+    "settings": {
+      "title": "Konfigürasyon"
+    },
+    "license": "Lisans",
+    "totalContributors": "Toplam katkıda bulunanlar"
+  },
+  "header": {
+    "documentation": "Dokümantasyon",
+    "registry-info": "Kayıt Bilgileri",
+    "registry-info-link": "Daha fazla öğren",
+    "settings": "Ayarlar",
+    "help": "Yardım",
+    "registry-no-conf": "Kullanabilir yapılandırma yok",
+    "greetings": "Merhaba "
+  },
+  "search": {
+    "packages": "Paket Ara",
+    "isPrivate": "Private",
+    "isRemote": "Uzak",
+    "isCached": "Önbelleğe alınmış"
+  },
+  "autoComplete": {
+    "loading": "Yükleniyor...",
+    "no-results-found": "Sonuç bulunamadı",
+    "clear": "Temizle",
+    "expand": "Genişlet",
+    "collapse": "Dök"
+  },
+  "tab": {
+    "uplinks": "Bağlantılar",
+    "versions": "Versiyonlar",
+    "dependencies": "Bağımlılıklar",
+    "readme": "Beni Oku"
+  },
+  "uplinks": {
+    "title": "Bağlantılar",
+    "no-items": "{{name}} bağlantısı yok"
+  },
+  "versions": {
+    "current-tags": "Mevcut Etiketler",
+    "version-history": "Sürüm Geçmişi",
+    "not-available": "Mevcut değil",
+    "deprecated": "Deprecated",
+    "search.placeholder": "Search for a version by semver range, e.g., ^1.0.0.",
+    "hide-deprecated": "All deprecated versions are hidden by global configuration"
+  },
+  "package": {
+    "published-on": "Published {{time}}",
+    "version": "v{{version}}",
+    "visit-home-page": "Ana sayfayı ziyaret et",
+    "homepage": "Ana sayfa",
+    "open-an-issue": "Sorunları aç",
+    "bugs": "Hatalar",
+    "download": "İndir {{what}}",
+    "the-tar-file": "arşiv dosyası",
+    "tarball": "Arşiv"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}} bağımlılığı yok.",
+    "dependency-block": "{{package}}: {{version}}",
+    "dependency-block-bundle": "{{package}}"
+  },
+  "form": {
+    "username": "Kullanıcı Adı",
+    "password": "Parola"
+  },
+  "form-placeholder": {
+    "username": "Kullanıcı adınız",
+    "password": "Parolanız"
+  },
+  "form-validation": {
+    "required-field": "Bu alan gereklidir",
+    "required-min-length": "This field required with a minimum length of {{length}}",
+    "unable-to-sign-in": "Oturum açılamıyor",
+    "username-or-password-cant-be-empty": "Kullanıcı adı veya parola boş olamaz!"
+  },
+  "help": {
+    "title": "Henüz Paket Yayınlanmadı.",
+    "sub-title": "İlk paketinizi yayınlamak için:",
+    "first-step": "1. Kullanıcı oluştur",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. Yayınla",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. Sayfayı yenile."
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "En son sürüm v{{version}}",
+      "version": "v{{version}}",
+      "published": "Yayınlanan"
+    },
+    "installation": {
+      "title": "Kurulum",
+      "latest": "latest version",
+      "global": "global package",
+      "yarnModern": "yarn modern syntax"
+    },
+    "repository": {
+      "title": "Depo"
+    },
+    "author": {
+      "title": "Yazar"
+    },
+    "distribution": {
+      "title": "Distribution",
+      "license": "Lisans",
+      "size": "Boyut",
+      "file-count": "File Count"
+    },
+    "keywords": {
+      "title": "Keywords"
+    },
+    "maintainers": {
+      "title": "Bakımcılar"
+    },
+    "contributors": {
+      "title": "Katkıda bulunanlar"
+    },
+    "engines": {
+      "npm-version": "Npm Version",
+      "pnpm-version": "Pnpm Version",
+      "yarn-version": "Yarn Version",
+      "node-js": "Node.js"
+    }
+  },
+  "footer": {
+    "powered-by": "Destekleyen",
+    "made-with-love-on": "<0>♥</0> ile yapılmıştı"
+  },
+  "button": {
+    "close": "Kapat",
+    "cancel": "İptal",
+    "login": "Giriş",
+    "logout": "Çıkış",
+    "go-to-the-home-page": "Ana sayfaya git",
+    "learn-more": "Daha Fazlasını Öğren",
+    "fund-this-package": "Bu paketi <0>fonla</0>"
+  },
+  "error": {
+    "unspecific": "Bir şeyler ters gitti.",
+    "404": {
+      "sorry-we-could-not-find-it": "Üzgünüz, bunu bulamadık.."
+    },
+    "401": {
+      "sorry-no-access": "Sorry, you need credentials access to see this page."
+    },
+    "app-context-not-correct-used": "The app context was not used correctly",
+    "theme-context-not-correct-used": "The theme context was not used correctly",
+    "package-meta-is-required-at-detail-context": "packageMeta is required at DetailContext"
+  },
+  "lng": {
+    "english": "English",
+    "czech": "Czech",
+    "japanese": "Japanese",
+    "portuguese": "Portuguese",
+    "spanish": "Spanish",
+    "irish": "Irish",
+    "german": "German",
+    "italian": "Italian",
+    "french": "French",
+    "russian": "Russian",
+    "turkish": "Turkish",
+    "ukraine": "Ukraine",
+    "khmer": "Khmer",
+    "chinese": "Chinese Simplified",
+    "chineseTraditional": "Chinese Traditional"
+  },
+  "flag": {
+    "austria": "Austria",
+    "australia": "Australia",
+    "brazil": "Brazil",
+    "canada": "Canada",
+    "spain": "Spain",
+    "nicaragua": "Nicaragua",
+    "india": "India",
+    "china": "China",
+    "germany": "Germany",
+    "taiwan": "Taiwan"
+  },
+  "packageManagers": {
+    "title": "Paket Yöneticileri",
+    "description": "Bu kayıt defteri için yapılandırma ayrıntılarıdır. Her paket yöneticisinin farklı yapılandırması olabilir, daha fazla ayrıntı için her bölümü genişletin. Bölüm devre dışı ise, yapılandırmanızı gözden geçirin.",
+    "yarnclassicDetails": "Yarn classic konfigürasyonu Yarn 2+ konfigürasyonundan farklıdır. Daha fazla ayrıntı için lütfen [Yarn Classic](https://verdaccio.org/docs/cli-registry#yarn-1x) adresini ziyaret edin.",
+    "yarnBerryDetails": "Yarn Berry, \"--registry\" işaretini desteklemez, bunun yerine tüm yapılandırma, projenizin kök dizinindeki \"yarnrc.yaml\" dosyasında tanımlanmalıdır. Daha fazla ayrıntı için lütfen [Yarn Berry](https://verdaccio.org/docs/cli-registry#yarn-berry-2x) adresini ziyaret edin."
+  },
+  "language": {
+    "title": "Çeviriler",
+    "contribute": "Diliniz burada listelenmiyorsa veya tam olarak çevrilmemişse, lütfen çeviriye katkıda bulunun. Kaynak kodunu [ana depomuzda](https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md) bulabilirsiniz",
+    "description": "Bu, dil için yapılandırma ayrıntılarıdır. Bir istemci tarafı çevirisi seçmek için bir dil seçin."
+  }
+}

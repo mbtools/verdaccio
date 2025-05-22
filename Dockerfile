@@ -15,12 +15,9 @@ COPY . .
 
 RUN npm -g i pnpm@10.5.2 && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
-    pnpm install --frozen-lockfile --ignore-scripts && \
+    pnpm install --prod --no-optional --frozen-lockfile --ignore-scripts
     rm -Rf test && \
     pnpm run build
-# FIXME: need to remove devDependencies from the build    
-# NODE_ENV=production pnpm install --frozen-lockfile --ignore-scripts
-# RUN pnpm install --prod --ignore-scripts
 
 FROM node:24-alpine
 LABEL maintainer="https://github.com/abapPM/abapPM"
@@ -38,16 +35,16 @@ WORKDIR $VERDACCIO_APPDIR
 # https://github.com/Yelp/dumb-init
 RUN apk --no-cache add openssl dumb-init
 
-RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
+RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf /verdaccio/assets
 
 COPY --from=builder /opt/verdaccio-build .
 
-RUN ls packages/config/src/conf
-
-# apm assets and config
-ADD abappm /verdaccio/abappm
-
-ADD config.yaml /verdaccio/conf/config.yaml
+# apm
+ADD abappm/assets /verdaccio/assets
+ADD abappm/conf /verdaccio/conf
+ADD abappm/i18n $VERDACCIO_APPDIR/packages/config/i18n/build/downloaded_translations
+COPY --from=builder /opt/verdaccio-build/abappm/plugins /verdaccio/plugins
+RUN rm pnpm-*.yaml && rm -Rf *.md && rm -Rf abappm
 
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
     chmod -R +x $VERDACCIO_APPDIR/packages/verdaccio/bin $VERDACCIO_APPDIR/docker-bin && \

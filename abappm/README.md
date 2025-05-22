@@ -1,3 +1,6 @@
-# abapPM
+# apm
 
-Assets for Verdaccio
+- Assets
+- Config
+- Translations
+- Plugins

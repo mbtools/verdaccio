@@ -1,0 +1,206 @@
+{
+  "copy-to-clipboard": "클립보드에 복사",
+  "author-anonymous": "익명",
+  "author-unknown": "알 수 없는",
+  "action-bar-action": {
+    "visit-home-page": "홈페이지 방문",
+    "open-an-issue": "이슈 열기",
+    "download-tarball": "Tarball 다운로드",
+    "raw": "View manifest",
+    "raw-title": "Manifest of {{package}}"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "정보"
+    },
+    "settings": {
+      "title": "구성"
+    },
+    "license": "라이선스",
+    "totalContributors": "총 기여자"
+  },
+  "header": {
+    "documentation": "문서",
+    "registry-info": "레지스트리 정보",
+    "registry-info-link": "더 알아보기",
+    "settings": "설정",
+    "help": "도움",
+    "registry-no-conf": "사용 가능한 구성이 없습니다.",
+    "greetings": "안녕 "
+  },
+  "search": {
+    "packages": "패키지 검색",
+    "isPrivate": "Private",
+    "isRemote": "원격",
+    "isCached": "캐시됨"
+  },
+  "autoComplete": {
+    "loading": "로딩 중...",
+    "no-results-found": "결과를 찾을 수 없음",
+    "clear": "삭제",
+    "expand": "펼치기",
+    "collapse": "접기"
+  },
+  "tab": {
+    "uplinks": "Uplinks",
+    "versions": "버전",
+    "dependencies": "의존성",
+    "readme": "읽어보기"
+  },
+  "uplinks": {
+    "title": "Uplinks",
+    "no-items": "{{name}} 에 uplink가 없습니다."
+  },
+  "versions": {
+    "current-tags": "현재 태그",
+    "version-history": "버전 기록",
+    "not-available": "사용할 수 없음",
+    "deprecated": "Deprecated",
+    "search.placeholder": "Search for a version by semver range, e.g., ^1.0.0.",
+    "hide-deprecated": "All deprecated versions are hidden by global configuration"
+  },
+  "package": {
+    "published-on": "Published {{time}}",
+    "version": "v{{version}}",
+    "visit-home-page": "홈페이지 방문",
+    "homepage": "홈페이지",
+    "open-an-issue": "이슈 열기",
+    "bugs": "버그",
+    "download": "{{what}} 다운로드",
+    "the-tar-file": "tar 파일",
+    "tarball": "Tarball"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}} 에는 의존성이 없습니다.",
+    "dependency-block": "{{package}}: {{version}}",
+    "dependency-block-bundle": "{{package}}"
+  },
+  "form": {
+    "username": "사용자 이름",
+    "password": "비밀번호"
+  },
+  "form-placeholder": {
+    "username": "사용자 이름",
+    "password": "강력한 암호"
+  },
+  "form-validation": {
+    "required-field": "이 필드는 필수입니다",
+    "required-min-length": "This field required with a minimum length of {{length}}",
+    "unable-to-sign-in": "로그인 할 수 없습니다",
+    "username-or-password-cant-be-empty": "사용자 이름 또는 암호는 비워 둘 수 없습니다!"
+  },
+  "help": {
+    "title": "아직 게시된 패키지가 없습니다.",
+    "sub-title": "첫 번째 패키지를 게시하려면:",
+    "first-step": "1. 유저 생성",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. 게시하기",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. 이 페이지 새로 고침"
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "최신 v{{version}}",
+      "version": "v{{version}}",
+      "published": "게시됨"
+    },
+    "installation": {
+      "title": "설치",
+      "latest": "최신 버전",
+      "global": "글로벌 패키지",
+      "yarnModern": "yarn modern syntax"
+    },
+    "repository": {
+      "title": "저장소"
+    },
+    "author": {
+      "title": "게시자"
+    },
+    "distribution": {
+      "title": "Distribution",
+      "license": "라이선스",
+      "size": "크기",
+      "file-count": "File Count"
+    },
+    "keywords": {
+      "title": "Keywords"
+    },
+    "maintainers": {
+      "title": "관리자"
+    },
+    "contributors": {
+      "title": "기여자"
+    },
+    "engines": {
+      "npm-version": "Npm Version",
+      "pnpm-version": "Pnpm Version",
+      "yarn-version": "Yarn Version",
+      "node-js": "Node.js"
+    }
+  },
+  "footer": {
+    "powered-by": "Powered by",
+    "made-with-love-on": "Made with <0>♥</0> on"
+  },
+  "button": {
+    "close": "닫기",
+    "cancel": "취소",
+    "login": "로그인",
+    "logout": "로그아웃",
+    "go-to-the-home-page": "홈으로",
+    "learn-more": "더 알아보기",
+    "fund-this-package": "이 패키지를 위한 <0>지원</0>"
+  },
+  "error": {
+    "unspecific": "문제가 발생했습니다.",
+    "404": {
+      "sorry-we-could-not-find-it": "죄송합니다. 찾지 못했습니다..."
+    },
+    "401": {
+      "sorry-no-access": "Sorry, you need credentials access to see this page."
+    },
+    "app-context-not-correct-used": "The app context was not used correctly",
+    "theme-context-not-correct-used": "The theme context was not used correctly",
+    "package-meta-is-required-at-detail-context": "packageMeta is required at DetailContext"
+  },
+  "lng": {
+    "english": "English",
+    "czech": "Czech",
+    "japanese": "Japanese",
+    "portuguese": "Portuguese",
+    "spanish": "Spanish",
+    "irish": "Irish",
+    "german": "German",
+    "italian": "Italian",
+    "french": "French",
+    "russian": "Russian",
+    "turkish": "Turkish",
+    "ukraine": "Ukraine",
+    "khmer": "Khmer",
+    "chinese": "Chinese Simplified",
+    "chineseTraditional": "Chinese Traditional"
+  },
+  "flag": {
+    "austria": "Austria",
+    "australia": "Australia",
+    "brazil": "Brazil",
+    "canada": "Canada",
+    "spain": "Spain",
+    "nicaragua": "Nicaragua",
+    "india": "India",
+    "china": "China",
+    "germany": "Germany",
+    "taiwan": "Taiwan"
+  },
+  "packageManagers": {
+    "title": "패키지 관리자",
+    "description": "레지스트리에 대한 구성 세부 정보입니다. 각 패키지 관리자의 구성이 다를 수 있습니다. 자세한 내용을 보려면 각 섹션을 확장하십시오. 섹션이 비활성화되면 구성을 검토하십시오. ",
+    "yarnclassicDetails": "Yarn 클래식 구성은 Yarn 2+ 구성과 다릅니다. 자세한 내용은 [Yarn Classic](https://verdaccio.org/docs/cli-registry#yarn-1x)을 참조하십시오.",
+    "yarnBerryDetails": "Yann Berry는 \"--registry\" 플래그를 지원하지 않습니다. 대신 모든 구성은 프로젝트의 루트에 있는 \"yarnrc.yaml\" 파일에 정의되어야 합니다. 자세한 내용은 [Yarn Berry](https://verdaccio.org/docs/cli-registry#yarn-berry-2x)을 참조하십시오."
+  },
+  "language": {
+    "title": "번역",
+    "contribute": "귀하의 언어가 여기에 나열되지 않았거나 완전히 번역되지 않은 경우 번역에 기여하십시오. 소스 코드는 [우리의 메인 저장소](https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md)에서 확인할 수 있습니다.",
+    "description": "언어에 대한 구성 세부 정보입니다. 클라이언트 측 번역을 선택하려면 언어를 선택하십시오."
+  }
+}

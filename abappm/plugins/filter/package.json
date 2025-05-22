@@ -1,0 +1,64 @@
+{
+  "name": "@verdaccio-pro/filter",
+  "version": "1.0.0",
+  "description": "Filter Plugin for Verdaccio Pro",
+  "keywords": [
+    "verdaccio",
+    "verdaccio-pro",
+    "plugin",
+    "filter",
+    "security"
+  ],
+  "author": {
+    "name": "Marc Bernard",
+    "url": "https://github.com/mbtools"
+  },
+  "license": "MIT",
+  "homepage": "https://verdaccio.pro",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/verdaccio-pro/verdaccio-pro.git",
+    "directory": "packages/filter"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio-pro/verdaccio-pro/issues"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/verdaccio-pro"
+  },
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@verdaccio/config": "8.0.0-next-8.15",
+    "@verdaccio/core": "8.0.0-next-8.15",
+    "@verdaccio/logger": "8.0.0-next-8.15",
+    "debug": "4.4.1",
+    "semver": "7.7.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.27.0",
+    "@stylistic/eslint-plugin": "4.2.0",
+    "@types/debug": "4.1.12",
+    "@types/node": "22.15.19",
+    "@types/semver": "7.7.0",
+    "@verdaccio/types": "13.0.0-next-8.5",
+    "cross-env": "7.0.3",
+    "eslint": "9.27.0",
+    "tsup": "8.5.0",
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.32.1",
+    "vitest": "3.1.4"
+  },
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint src",
+    "test": "cross-env NODE_ENV=test vitest run"
+  }
+}

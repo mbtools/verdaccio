@@ -1,0 +1,206 @@
+{
+  "copy-to-clipboard": "Копировать в буфер обмена",
+  "author-anonymous": "Анонимный",
+  "author-unknown": "неизвестно",
+  "action-bar-action": {
+    "visit-home-page": "Посетить домашнюю страницу",
+    "open-an-issue": "Открыть вопрос, проблему",
+    "download-tarball": "Скачать архив",
+    "raw": "View manifest",
+    "raw-title": "Manifest of {{package}}"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "Информация"
+    },
+    "settings": {
+      "title": "Конфигурация"
+    },
+    "license": "Лицензия",
+    "totalContributors": "Всего разработчиков"
+  },
+  "header": {
+    "documentation": "Документация",
+    "registry-info": "Информация о реестре",
+    "registry-info-link": "Подробнее",
+    "settings": "Настройки",
+    "help": "Помощь",
+    "registry-no-conf": "Нет доступных конфигураций",
+    "greetings": "Привет "
+  },
+  "search": {
+    "packages": "Поиск пакетов",
+    "isPrivate": "Приватный",
+    "isRemote": "Удаленно",
+    "isCached": "Кэшированный"
+  },
+  "autoComplete": {
+    "loading": "Загрузка ...",
+    "no-results-found": "Ничего не найдено",
+    "clear": "Очистить",
+    "expand": "Развернуть",
+    "collapse": "Свернуть"
+  },
+  "tab": {
+    "uplinks": "Аплинки",
+    "versions": "Версии",
+    "dependencies": "Зависимости",
+    "readme": "Описание"
+  },
+  "uplinks": {
+    "title": "Аплинки",
+    "no-items": "{{name}} не опубликован."
+  },
+  "versions": {
+    "current-tags": "Текущие теги",
+    "version-history": "История Версий",
+    "not-available": "Недоступен",
+    "deprecated": "Устаревшие",
+    "search.placeholder": "Найдите версию по диапазону значений, например ^1.0.0.",
+    "hide-deprecated": "Все устаревшие версии скрыты глобальной конфигурацией"
+  },
+  "package": {
+    "published-on": "Published {{time}}",
+    "version": "v{{version}}",
+    "visit-home-page": "Посетить домашнюю страницу",
+    "homepage": "Домашняя страница",
+    "open-an-issue": "Открыть вопрос, проблему, ...",
+    "bugs": "Ошибки",
+    "download": "Скачать {{what}}",
+    "the-tar-file": "файл tar",
+    "tarball": "Скачать"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}} не имеет зависимостей.",
+    "dependency-block": "{{package}}: {{version}}",
+    "dependency-block-bundle": "{{package}}"
+  },
+  "form": {
+    "username": "Имя пользователя",
+    "password": "Пароль"
+  },
+  "form-placeholder": {
+    "username": "Ваше имя пользователя",
+    "password": "Ваш надежный пароль"
+  },
+  "form-validation": {
+    "required-field": "Это поле является обязательны",
+    "required-min-length": "This field required with a minimum length of {{length}}",
+    "unable-to-sign-in": "Невозможно войти",
+    "username-or-password-cant-be-empty": "Имя пользователя или пароль не могут быть пустыми!"
+  },
+  "help": {
+    "title": "Нет опубликованных пакетов.",
+    "sub-title": "Опубликовать свой первый пакет просто:",
+    "first-step": "1. Создать пользователя",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. Опубликуйте",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. Обновите эту страницу."
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "Последняя версия v{{version}}",
+      "version": "v{{version}}",
+      "published": "Опубликованные"
+    },
+    "installation": {
+      "title": "Установка",
+      "latest": "последняя версия",
+      "global": "глобальный пакет",
+      "yarnModern": "современный синтаксис yarn"
+    },
+    "repository": {
+      "title": "Хранилище"
+    },
+    "author": {
+      "title": "Автор"
+    },
+    "distribution": {
+      "title": "Distribution",
+      "license": "Лицензия",
+      "size": "Размер",
+      "file-count": "File Count"
+    },
+    "keywords": {
+      "title": "Keywords"
+    },
+    "maintainers": {
+      "title": "Техническое сопровождени"
+    },
+    "contributors": {
+      "title": "Авторы"
+    },
+    "engines": {
+      "npm-version": "Версия npm",
+      "pnpm-version": "Версия pnpm",
+      "yarn-version": "Версия yarn",
+      "node-js": "Node.js"
+    }
+  },
+  "footer": {
+    "powered-by": "Работает на",
+    "made-with-love-on": "Сделано с <0>♥</0> на"
+  },
+  "button": {
+    "close": "Закрыть",
+    "cancel": "Отмена",
+    "login": "Войти",
+    "logout": "Выйти",
+    "go-to-the-home-page": "Перейдите на главную страницу",
+    "learn-more": "Изучайте больше",
+    "fund-this-package": "<0>Поддержать</0> этот паке"
+  },
+  "error": {
+    "unspecific": "Что-то пошло не так.",
+    "404": {
+      "sorry-we-could-not-find-it": "К сожалению, мы не смогли его найти ..."
+    },
+    "401": {
+      "sorry-no-access": "Извините, вам требуется доступ через учетные данные, чтобы увидеть эту страницу."
+    },
+    "app-context-not-correct-used": "The app context was not used correctly",
+    "theme-context-not-correct-used": "The theme context was not used correctly",
+    "package-meta-is-required-at-detail-context": "packageMeta is required at DetailContext"
+  },
+  "lng": {
+    "english": "Английский",
+    "czech": "Czech",
+    "japanese": "Японский",
+    "portuguese": "Portuguese",
+    "spanish": "Испанский",
+    "irish": "Irish",
+    "german": "Немецкий",
+    "italian": "Italian",
+    "french": "Французский",
+    "russian": "Russian",
+    "turkish": "Turkish",
+    "ukraine": "Ukraine",
+    "khmer": "Khmer",
+    "chinese": "Chinese Simplified",
+    "chineseTraditional": "Chinese Traditional"
+  },
+  "flag": {
+    "austria": "Austria",
+    "australia": "Australia",
+    "brazil": "Brazil",
+    "canada": "Canada",
+    "spain": "Spain",
+    "nicaragua": "Nicaragua",
+    "india": "India",
+    "china": "China",
+    "germany": "Germany",
+    "taiwan": "Taiwan"
+  },
+  "packageManagers": {
+    "title": "Менеджеры пакетов",
+    "description": "Это детали конфигурации для рапозитория. Каждый менеджер пакетов может иметь различную конфигурацию, разверните каждый раздел для получения более подробной информации. Если раздел недоступен, проверьте свою конфигурацию.",
+    "yarnclassicDetails": "Классическая конфигурация Yarn отличается от конфигурации Yarn 2+. Для получения более подробной информации, пожалуйста, посетите [Yarn Classic](https://verdaccio.org/docs/cli-registry#yarn-1x).",
+    "yarnBerryDetails": "Yarn Berry не поддерживает `--registry` флаг, вместо этого вся конфигурация должна быть определена в `yarnrc.yaml` файле в корне вашего проекта. Для получения более подробной информации, пожалуйста, посетите [Yarn Berry](https://verdaccio.org/docs/cli-registry#yarn-berry-2x)."
+  },
+  "language": {
+    "title": "Переводы",
+    "contribute": "Если ваш язык не указан здесь или переведен не полностью, пожалуйста, внесите свой вклад в перевод. Вы можете найти исходный код в [нашем основном репозитории](https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md)",
+    "description": "Это детали конфигурации языка. Выберите язык для перевода клиентской части."
+  }
+}
