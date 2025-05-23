@@ -15,8 +15,9 @@ COPY . .
 
 RUN npm -g i pnpm@10.5.2 && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
-    pnpm install --prod --no-optional --frozen-lockfile --ignore-scripts && \
-    rm -Rf test && \
+    pnpm install --prod --no-optional --frozen-lockfile --ignore-scripts
+
+RUN rm -Rf test && \
     pnpm run build
 
 FROM node:24-alpine
