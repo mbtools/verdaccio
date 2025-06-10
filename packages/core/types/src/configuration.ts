@@ -76,6 +76,7 @@ export type RateLimit = {
 export type FlagsConfig = {
   searchRemote?: boolean;
   changePassword?: boolean;
+  webLogin?: boolean;
 };
 
 export type PackageManagers = 'pnpm' | 'yarn' | 'npm' | string;
@@ -287,6 +288,7 @@ export interface Config extends Omit<ConfigYaml, 'packages' | 'security' | 'conf
   security: Security;
   // @deprecated (pending adding the replacement)
   checkSecretKey(token: string | void): string;
+  // @deprecated use core.authUtils instead
   getMatchedPackagesSpec(storage: string): PackageAccess | void;
   // TODO: verify how to handle this in the future
   [key: string]: any;
