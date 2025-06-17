@@ -1,8 +1,8 @@
 import buildDebug from 'debug';
-import _ from 'lodash';
+import _, { isFunction } from 'lodash';
 import { HTPasswd } from 'verdaccio-htpasswd';
 
-import { createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
+import { TOKEN_VALID_LENGTH, createAnonymousRemoteUser, createRemoteUser } from '@verdaccio/config';
 import {
   API_ERROR,
   PLUGIN_CATEGORY,
@@ -11,6 +11,7 @@ import {
   TOKEN_BASIC,
   TOKEN_BEARER,
   VerdaccioError,
+  authUtils,
   errorUtils,
   pluginUtils,
   warningUtils,
@@ -21,7 +22,6 @@ import {
   aesEncryptDeprecated,
   parseBasicPayload,
   signPayload,
-  utils as signatureUtils,
 } from '@verdaccio/signature';
 import {
   AllowAccess,
@@ -33,7 +33,6 @@ import {
   RemoteUser,
   Security,
 } from '@verdaccio/types';
-import { getMatchedPackagesSpec, isFunction, isNil } from '@verdaccio/utils';
 
 import {
   $RequestExtend,
@@ -143,14 +142,14 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     newPassword: string,
     cb: Callback
   ): void {
-    const validPlugins = _.filter(this.plugins, (plugin) => isFunction(plugin.changePassword));
+    const validPlugins = _.filter(this.plugins, (plugin) => _.isFunction(plugin.changePassword));
 
     if (_.isEmpty(validPlugins)) {
       return cb(errorUtils.getInternalError(SUPPORT_ERRORS.PLUGIN_MISSING_INTERFACE));
     }
 
     for (const plugin of validPlugins) {
-      if (isNil(plugin) || isFunction(plugin.changePassword) === false) {
+      if (_.isNil(plugin) || _.isFunction(plugin.changePassword) === false) {
         debug('auth plugin does not implement changePassword, trying next one');
         continue;
       } else {
@@ -279,7 +278,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     const pkg = Object.assign(
       {},
       pkgAllowAccess,
-      getMatchedPackagesSpec(packageName, this.config.packages)
+      authUtils.getMatchedPackagesSpec(packageName, this.config.packages)
     ) as AllowAccess & PackageAccess;
     debug('allow access for %o', packageName);
 
@@ -313,7 +312,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   ): void {
     const pkg = Object.assign(
       { name: packageName, version: packageVersion },
-      getMatchedPackagesSpec(packageName, this.config.packages)
+      authUtils.getMatchedPackagesSpec(packageName, this.config.packages)
     );
     debug('allow unpublish for %o', packageName);
 
@@ -356,7 +355,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     const plugins = this.plugins.slice(0);
     const pkg = Object.assign(
       { name: packageName, version: packageVersion },
-      getMatchedPackagesSpec(packageName, this.config.packages)
+      authUtils.getMatchedPackagesSpec(packageName, this.config.packages)
     );
     debug('allow publish for %o init | plugins: %o', packageName, plugins.length);
 
@@ -595,7 +594,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
    * Encrypt a string.
    */
   public aesEncrypt(value: string): string | void {
-    if (this.secret.length === signatureUtils.TOKEN_VALID_LENGTH) {
+    if (this.secret.length === TOKEN_VALID_LENGTH) {
       debug('signing with enhanced aes legacy');
       const token = aesEncrypt(value, this.secret);
       return token;
