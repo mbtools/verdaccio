@@ -1,5 +1,37 @@
 # @verdaccio/store
 
+## 8.0.0-next-8.18
+
+### Patch Changes
+
+- Updated dependencies [23296a2]
+  - @verdaccio/loaders@8.0.0-next-8.8
+  - @verdaccio/hooks@8.0.0-next-8.18
+  - @verdaccio/core@8.0.0-next-8.18
+  - @verdaccio/config@8.0.0-next-8.18
+  - @verdaccio/tarball@13.0.0-next-8.18
+  - @verdaccio/url@13.0.0-next-8.18
+  - @verdaccio/local-storage@13.0.0-next-8.18
+  - @verdaccio/proxy@8.0.0-next-8.18
+  - @verdaccio/search@8.0.0-next-8.18
+  - @verdaccio/logger@8.0.0-next-8.18
+
+## 8.0.0-next-8.17
+
+### Patch Changes
+
+- Updated dependencies [96d2f0f]
+  - @verdaccio/core@8.0.0-next-8.17
+  - @verdaccio/config@8.0.0-next-8.17
+  - @verdaccio/tarball@13.0.0-next-8.17
+  - @verdaccio/url@13.0.0-next-8.17
+  - @verdaccio/hooks@8.0.0-next-8.17
+  - @verdaccio/loaders@8.0.0-next-8.7
+  - @verdaccio/local-storage@13.0.0-next-8.17
+  - @verdaccio/proxy@8.0.0-next-8.17
+  - @verdaccio/search@8.0.0-next-8.17
+  - @verdaccio/logger@8.0.0-next-8.17
+
 ## 8.0.0-next-8.16
 
 ### Patch Changes

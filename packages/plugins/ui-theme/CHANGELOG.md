@@ -1,5 +1,9 @@
 # @verdaccio/ui-theme
 
+## 8.0.0-next-8.18
+
+## 8.0.0-next-8.17
+
 ## 8.0.0-next-8.16
 
 ### Minor Changes
