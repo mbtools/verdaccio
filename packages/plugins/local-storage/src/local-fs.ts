@@ -341,6 +341,9 @@ export default class LocalFS implements ILocalFSPackageManager {
   }
 
   private _convertToString(value: Manifest): string {
+    if (debug.enabled) {
+      return JSON.stringify(value, null, 2); // APM
+    }
     return JSON.stringify(value);
   }
 
