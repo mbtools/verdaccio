@@ -1,5 +1,33 @@
 # @verdaccio/utils
 
+## 8.1.0-next-8.21
+
+### Patch Changes
+
+- Updated dependencies [f8a321f]
+  - @verdaccio/core@8.0.0-next-8.21
+
+## 8.1.0-next-8.20
+
+### Patch Changes
+
+- Updated dependencies [6a4d6dd]
+  - @verdaccio/core@8.0.0-next-8.20
+
+## 8.1.0-next-8.19
+
+### Patch Changes
+
+- 4e14aff: chore(deps): signature, utils
+- Updated dependencies [9350431]
+  - @verdaccio/core@8.0.0-next-8.19
+
+## 8.1.0-next-8.18
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.18
+
 ## 8.1.0-next-8.17
 
 ### Patch Changes

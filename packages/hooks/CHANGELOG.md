@@ -1,5 +1,38 @@
 # @verdaccio/hooks
 
+## 8.0.0-next-8.21
+
+### Patch Changes
+
+- Updated dependencies [f8a321f]
+  - @verdaccio/core@8.0.0-next-8.21
+  - @verdaccio/logger@8.0.0-next-8.21
+
+## 8.0.0-next-8.20
+
+### Patch Changes
+
+- 08e1b21: chore(deps): built-in node imports
+- Updated dependencies [6a4d6dd]
+  - @verdaccio/core@8.0.0-next-8.20
+  - @verdaccio/logger@8.0.0-next-8.20
+
+## 8.0.0-next-8.19
+
+### Patch Changes
+
+- 95e6c8f: chore(deps): hooks, loaders, logger
+- Updated dependencies [9350431]
+  - @verdaccio/core@8.0.0-next-8.19
+  - @verdaccio/logger@8.0.0-next-8.19
+
+## 8.0.0-next-8.18
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.18
+- @verdaccio/logger@8.0.0-next-8.18
+
 ## 8.0.0-next-8.17
 
 ### Patch Changes

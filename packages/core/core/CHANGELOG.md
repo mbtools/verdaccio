@@ -1,5 +1,25 @@
 # @verdaccio/core
 
+## 8.0.0-next-8.21
+
+### Patch Changes
+
+- f8a321f: fix: restore minimatch major version
+
+## 8.0.0-next-8.20
+
+### Minor Changes
+
+- 6a4d6dd: feat: getListenAddress getConfigParsed methods
+
+## 8.0.0-next-8.19
+
+### Patch Changes
+
+- 9350431: chore(deps): clean up core modules
+
+## 8.0.0-next-8.18
+
 ## 8.0.0-next-8.17
 
 ### Patch Changes

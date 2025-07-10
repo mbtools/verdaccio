@@ -1,5 +1,34 @@
 # @verdaccio/loaders
 
+## 8.0.0-next-8.11
+
+### Patch Changes
+
+- Updated dependencies [f8a321f]
+  - @verdaccio/core@8.0.0-next-8.21
+
+## 8.0.0-next-8.10
+
+### Patch Changes
+
+- Updated dependencies [6a4d6dd]
+  - @verdaccio/core@8.0.0-next-8.20
+
+## 8.0.0-next-8.9
+
+### Patch Changes
+
+- 95e6c8f: chore(deps): hooks, loaders, logger
+- Updated dependencies [9350431]
+  - @verdaccio/core@8.0.0-next-8.19
+
+## 8.0.0-next-8.8
+
+### Patch Changes
+
+- 23296a2: add `@verdaccio/core` as a dependency
+  - @verdaccio/core@8.0.0-next-8.18
+
 ## 8.0.0-next-8.7
 
 ### Minor Changes

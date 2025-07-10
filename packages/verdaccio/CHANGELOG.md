@@ -1,5 +1,61 @@
 # verdaccio
 
+## 8.0.0-next-8.21
+
+### Patch Changes
+
+- @verdaccio/cli@8.0.0-next-8.21
+- @verdaccio/hooks@8.0.0-next-8.21
+- @verdaccio/node-api@8.0.0-next-8.21
+- verdaccio-audit@13.0.0-next-8.21
+- verdaccio-htpasswd@13.0.0-next-8.21
+- @verdaccio/logger@8.0.0-next-8.21
+- @verdaccio/ui-theme@8.0.0-next-8.21
+
+## 8.0.0-next-8.20
+
+### Patch Changes
+
+- 08e1b21: chore(deps): built-in node imports
+- Updated dependencies [08e1b21]
+- Updated dependencies [6a4d6dd]
+  - @verdaccio/ui-theme@8.0.0-next-8.20
+  - @verdaccio/node-api@8.0.0-next-8.20
+  - @verdaccio/hooks@8.0.0-next-8.20
+  - verdaccio-htpasswd@13.0.0-next-8.20
+  - @verdaccio/cli@8.0.0-next-8.20
+  - verdaccio-audit@13.0.0-next-8.20
+  - @verdaccio/logger@8.0.0-next-8.20
+
+## 8.0.0-next-8.19
+
+### Patch Changes
+
+- 1a3a088: chore(deps): verdaccio package
+- Updated dependencies [6e404a0]
+- Updated dependencies [95e6c8f]
+- Updated dependencies [07a0ecb]
+- Updated dependencies [54b1906]
+  - verdaccio-htpasswd@13.0.0-next-8.19
+  - verdaccio-audit@13.0.0-next-8.19
+  - @verdaccio/hooks@8.0.0-next-8.19
+  - @verdaccio/ui-theme@8.0.0-next-8.19
+  - @verdaccio/node-api@8.0.0-next-8.19
+  - @verdaccio/cli@8.0.0-next-8.19
+  - @verdaccio/logger@8.0.0-next-8.19
+
+## 8.0.0-next-8.18
+
+### Patch Changes
+
+- @verdaccio/hooks@8.0.0-next-8.18
+- verdaccio-audit@13.0.0-next-8.18
+- @verdaccio/node-api@8.0.0-next-8.18
+- @verdaccio/cli@8.0.0-next-8.18
+- @verdaccio/ui-theme@8.0.0-next-8.18
+- verdaccio-htpasswd@13.0.0-next-8.18
+- @verdaccio/logger@8.0.0-next-8.18
+
 ## 8.0.0-next-8.17
 
 ### Patch Changes

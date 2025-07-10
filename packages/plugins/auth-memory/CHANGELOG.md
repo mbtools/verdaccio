@@ -1,5 +1,32 @@
 # Change Log
 
+## 13.0.0-next-8.21
+
+### Patch Changes
+
+- Updated dependencies [f8a321f]
+  - @verdaccio/core@8.0.0-next-8.21
+
+## 13.0.0-next-8.20
+
+### Patch Changes
+
+- Updated dependencies [6a4d6dd]
+  - @verdaccio/core@8.0.0-next-8.20
+
+## 13.0.0-next-8.19
+
+### Patch Changes
+
+- Updated dependencies [9350431]
+  - @verdaccio/core@8.0.0-next-8.19
+
+## 13.0.0-next-8.18
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.18
+
 ## 13.0.0-next-8.17
 
 ### Patch Changes

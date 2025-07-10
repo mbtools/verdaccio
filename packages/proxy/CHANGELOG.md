@@ -1,5 +1,41 @@
 # @verdaccio/proxy
 
+## 8.0.0-next-8.21
+
+### Patch Changes
+
+- Updated dependencies [f8a321f]
+  - @verdaccio/core@8.0.0-next-8.21
+  - @verdaccio/config@8.0.0-next-8.21
+
+## 8.0.0-next-8.20
+
+### Patch Changes
+
+- 08e1b21: chore(deps): built-in node imports
+- d92ba65: chore(proxy): update tests
+- Updated dependencies [08e1b21]
+- Updated dependencies [a1a73e9]
+- Updated dependencies [6a4d6dd]
+  - @verdaccio/config@8.0.0-next-8.20
+  - @verdaccio/core@8.0.0-next-8.20
+
+## 8.0.0-next-8.19
+
+### Patch Changes
+
+- 54b1906: chore(deps): node-api, proxy, search, search-indexer
+- Updated dependencies [9350431]
+  - @verdaccio/core@8.0.0-next-8.19
+  - @verdaccio/config@8.0.0-next-8.19
+
+## 8.0.0-next-8.18
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.18
+- @verdaccio/config@8.0.0-next-8.18
+
 ## 8.0.0-next-8.17
 
 ### Patch Changes

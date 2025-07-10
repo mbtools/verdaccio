@@ -1,5 +1,57 @@
 # @verdaccio/auth
 
+## 8.0.0-next-8.21
+
+### Patch Changes
+
+- Updated dependencies [f8a321f]
+  - @verdaccio/core@8.0.0-next-8.21
+  - @verdaccio/config@8.0.0-next-8.21
+  - @verdaccio/loaders@8.0.0-next-8.11
+  - verdaccio-htpasswd@13.0.0-next-8.21
+  - @verdaccio/signature@8.0.0-next-8.13
+
+## 8.0.0-next-8.20
+
+### Patch Changes
+
+- 08e1b21: chore(deps): built-in node imports
+- 73c0194: chore(auth): typings
+- 5fef0b6: chore(auth): multiple plugins test
+- Updated dependencies [08e1b21]
+- Updated dependencies [a1a73e9]
+- Updated dependencies [6a4d6dd]
+  - @verdaccio/config@8.0.0-next-8.20
+  - @verdaccio/core@8.0.0-next-8.20
+  - verdaccio-htpasswd@13.0.0-next-8.20
+  - @verdaccio/loaders@8.0.0-next-8.10
+  - @verdaccio/signature@8.0.0-next-8.12
+
+## 8.0.0-next-8.19
+
+### Patch Changes
+
+- Updated dependencies [6e404a0]
+- Updated dependencies [4e14aff]
+- Updated dependencies [9350431]
+- Updated dependencies [95e6c8f]
+  - verdaccio-htpasswd@13.0.0-next-8.19
+  - @verdaccio/signature@8.0.0-next-8.11
+  - @verdaccio/core@8.0.0-next-8.19
+  - @verdaccio/loaders@8.0.0-next-8.9
+  - @verdaccio/config@8.0.0-next-8.19
+
+## 8.0.0-next-8.18
+
+### Patch Changes
+
+- Updated dependencies [23296a2]
+  - @verdaccio/loaders@8.0.0-next-8.8
+  - @verdaccio/core@8.0.0-next-8.18
+  - @verdaccio/config@8.0.0-next-8.18
+  - verdaccio-htpasswd@13.0.0-next-8.18
+  - @verdaccio/signature@8.0.0-next-8.10
+
 ## 8.0.0-next-8.17
 
 ### Patch Changes
