@@ -2,5 +2,5 @@
 
 - Assets
 - Config
-- Translations
+- Translations (i18n)
 - Plugins

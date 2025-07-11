@@ -3,41 +3,40 @@
 # please read carefully the documentation and best practices to
 # improve security.
 #
-# Do not configure host and port under `listen` in this file
-# as it will be ignored when using docker.
-# see https://verdaccio.org/docs/en/docker#docker-and-custom-port-configuration
-#
 # Look here for more config file examples:
-# https://github.com/verdaccio/verdaccio/tree/5.x/conf
+# https://github.com/verdaccio/verdaccio/blob/master/docker-examples/README.md
 #
 # Read about the best practices
 # https://verdaccio.org/docs/best
 
-# path to a directory with all packages
+# Path to a directory with all packages
 storage: /verdaccio/storage/data
 
-# path to a directory with plugins to include
+# Path to a directory with plugins to include, the plugins folder has the higher priority for loading plugins
+# Disable this folder to avoid warnings if is not used
 plugins: /verdaccio/plugins
 
+# Web UI settings
 # https://verdaccio.org/docs/webui
 web:
-  enable: true
   title: apm - A Package Manager for ABAP
-  logo: /verdaccio/assets/apm_banner.png
-  logoDark: /verdaccio/assets/apm_banner_gray.png
-  favicon: /verdaccio/assets/apm.ico
+  # Disable complete web UI
+  enable: true
+  # Custom colors for header background and font
   primaryColor: '#c0c0c0'
-  darkMode: true
+  # Custom logos and favicon
+  logo: /verdaccio/conf/apm_banner.png
+  logoDark: /verdaccio/conf/apm_banner_gray.png
+  favicon: /verdaccio/conf/apm.ico
+  # Disable gravatar support
   gravatar: true
-  # by default packages are ordercer ascendant (asc|desc)
-  # sort_packages: asc
-  # convert your UI to the dark side
-  # darkMode: true
+  # By default, packages are ordered ascending
+  # sort_packages: asc | desc
+  # Convert your UI to the dark side
+  darkMode: true
   # html_cache: true
-  # by default all features are displayed
+  # By default, all features are displayed
   # login: true
-  pkgManagers:
-    - apm
   showInfo: false
   showSettings: false
   # In combination with darkMode you can force specific theme
@@ -47,27 +46,41 @@ web:
   # showRaw: true
   # showDownloadTarball: true
   showUplinks: false
-  #  HTML tags injected after manifest <scripts/>
-  # scriptsBodyAfter:
-  #    - '<script type="text/javascript" src="https://my.company.com/customJS.min.js"></script>'
-  #  HTML tags injected before ends </head>
+  #
+  # HTML tags injected before ends </head>
   metaScripts:
+    #   - '<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>'
+    #   - '<script type="text/javascript" src="https://browser.sentry-cdn.com/5.15.5/bundle.min.js"></script>'
     - '<meta name="robots" content="noindex" />'
     - '<meta name="description" content="apm - A Package Manager 📦, a Website 🌐, and a Registry 📑 for ABAP" />'
-  #    - '<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>'
-  #    - '<script type="text/javascript" src="https://browser.sentry-cdn.com/5.15.5/bundle.min.js"></script>'
-  #  HTML tags injected first child at <body/>
-  scriptsbodyBefore:
+  #
+  # HTML tags injected as first child in <body>
+  scriptsBodyBefore:
     - '<div id="beta" style="color:white;background-color:blue;margin:auto;text-align:center;font-size:12px;"><strong>***PLAYGROUND***</strong>  Expect the unexpected! Please post bugs and feedback to <a href="https://github.com/abapPM/abapPM/issues" target="_blank" style="color:white !important;">GitHub</a>. Thank You!  <strong>***PLAYGROUND***</strong></div>'
-  #  Public path for template manifest scripts (only manifest)
+  #
+  # HTML tags injected as last child in </body>
+  # scriptsBodyAfter:
+  #   - '<script type="text/javascript" src="https://my.company.com/customJS.min.js"></script>'
+  #
+  # Public path for template manifest scripts (only manifest)
   publicPath: https://playground.abappm.com/
+  pkgManagers:
+    - apm
 
+# Settings for authentication plugin
+# https://verdaccio.org/docs/configuration#authentication
+# auth:
+#   htpasswd:
+#     file: ./htpasswd
+# Maximum amount of users allowed to register, defaults to "+inf".
+# You can set this to -1 to disable registration.
+# max_users: 1000
+
+# A list of other known repositories we can talk to
 # https://verdaccio.org/docs/configuration#uplinks
-# a list of other known repositories we can talk to
-#uplinks:
-#  npmjs:
-#    url: https://registry.npmjs.org/
-#    timeout: 120s
+uplinks:
+  npmjs:
+    url: https://registry.npmjs.org/
 
 # Learn how to protect your packages
 # https://verdaccio.org/docs/protect-your-dependencies/
@@ -82,7 +95,7 @@ packages:
     publish: $all
     unpublish: $all
 
-# To improve your security configuration and  avoid dependency confusion
+# To improve your security configuration and avoid dependency confusion
 # consider removing the proxy property for private packages
 # https://verdaccio.org/docs/best#remove-proxy-to-increase-security-at-private-packages
 
@@ -92,26 +105,41 @@ packages:
 # WORKAROUND: Through given configuration you can workaround following issue https://github.com/verdaccio/verdaccio/issues/301. Set to 0 in case 60 is not enough.
 server:
   keepAliveTimeout: 60
+  # The pluginPrefix replaces the default plugins prefix which is `verdaccio`. Please don't include `-`. If `something` is provided
+  # the resolved package will be `something-xxxx`.
+  # pluginPrefix: something
+  # A regex for the password validation /.{3}$/ (3 characters min)
+  # An example to limit to 10 characters minimum
+  # passwordValidationRegex: /.{10}$/
+  # Allow `req.ip` to resolve properly when Verdaccio is behind a proxy or load-balancer
+  # https://expressjs.com/en/guide/behind-proxies.html
+  # trustProxy: '127.0.0.1'
 
 # https://verdaccio.org/docs/configuration#offline-publish
 publish:
-  check_owner: true
+  #   allow_offline: false
+  check_owners: true
   keep_readmes: all
-#   allow_offline: false
 
+# Define public URL of registry in combination with VERDACCIO_PUBLIC_URL environment variable
 # https://verdaccio.org/docs/configuration#url-prefix
 # url_prefix: /verdaccio/
-# VERDACCIO_PUBLIC_URL='https://somedomain.org';
+#
+# Examples:
+# VERDACCIO_PUBLIC_URL='https://somedomain.org'
 # url_prefix: '/my_prefix'
 # // url -> https://somedomain.org/my_prefix/
-# VERDACCIO_PUBLIC_URL='https://somedomain.org';
+#
+# VERDACCIO_PUBLIC_URL='https://somedomain.org'
 # url_prefix: '/'
 # // url -> https://somedomain.org/
-# VERDACCIO_PUBLIC_URL='https://somedomain.org/first_prefix';
+#
+# VERDACCIO_PUBLIC_URL='https://somedomain.org/first_prefix'
 # url_prefix: '/second_prefix'
-# // url -> https://somedomain.org/second_prefix/'
+# // url -> https://somedomain.org/second_prefix/
 url_prefix: '/'
 
+# Security settings
 # https://verdaccio.org/docs/configuration#security
 security:
   api:
@@ -137,12 +165,12 @@ max_body_size: 2mb
 
 # https://verdaccio.org/docs/configuration#listen-port
 # listen:
-# - localhost:4873            # default value
-# - http://localhost:4873     # same thing
-# - 0.0.0.0:4873              # listen on all addresses (INADDR_ANY)
-# - https://example.org:4873  # if you want to use https
-# - "[::1]:4873"                # ipv6
-# - unix:/tmp/verdaccio.sock    # unix socket
+#   - localhost:4873            # default value
+#   - http://localhost:4873     # same thing
+#   - 0.0.0.0:4873              # listen on all addresses (INADDR_ANY)
+#   - https://example.org:4873  # if you want to use https
+#   - "[::1]:4873"              # ipv6
+#   - unix:/tmp/verdaccio.sock  # unix socket
 
 # The HTTPS configuration is useful if you do not consider use a HTTP Proxy
 # https://verdaccio.org/docs/configuration#https
@@ -154,34 +182,68 @@ max_body_size: 2mb
 # https://verdaccio.org/docs/configuration#proxy
 # http_proxy: http://something.local/
 # https_proxy: https://something.local/
+# no_proxy: localhost,127.0.0.1,server.local
 
 # https://verdaccio.org/docs/configuration#notifications
 # notify:
-#   method: POST
-#   headers: [{ "Content-Type": "application/json" }]
-#   endpoint: https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken
+#   method: 'POST'
+#   headers: '[{ "Content-Type": "application/json" }]'
+#   endpoint: 'https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken'
 #   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
 
-# https://verdaccio.org/docs/logger
-# log settings
-log: { type: stdout, format: pretty, level: http }
-# log: { type: file, path: /verdaccio/storage/verdaccio.log, format: pretty, level: http }
+# Settings for middleware plugins
+# https://verdaccio.org/docs/plugins#middleware-configuration
+# middlewares:
+#   audit:
+#     enabled: true
+# timeout: 10000
 
+# Log settings
+# https://verdaccio.org/docs/logger
+# Redaction: https://getpino.io/#/docs/redaction
+# Synchronous logging: https://getpino.io/#/docs/asynchronous
+log:
+  type: stdout
+  format: pretty
+  level: http
+  redact:
+    paths:
+      [
+        'req.header.authorization',
+        'req.header.cookie',
+        'req.remoteAddress',
+        'req.remotePort',
+        'ip',
+        'remoteIP',
+        'user',
+        'msg',
+      ]
+    censor: '<redacted>'
+#  sync: true
+
+# Feature flags (experimental settings that can be changed or removed in the future)
+# https://verdaccio.org/docs/configuration#experiments
 # experiments:
-#  # support for npm token command
+#  # Support for npm token command
 #  token: false
-#  # enable tarball URL redirect for hosting tarball with a different server, the tarball_url_redirect can be a template string
+#  # Enable tarball URL redirect for hosting tarball with a different server.
+#  # The tarball_url_redirect can be a template string
 #  tarball_url_redirect: 'https://mycdn.com/verdaccio/${packageName}/${filename}'
-#  # the tarball_url_redirect can be a function, takes packageName and filename and returns the url, when working with a js configuration file
+#  # The tarball_url_redirect can be a function, takes packageName and filename and returns the url,
+#  # when working with a js configuration file
 #  tarball_url_redirect(packageName, filename) {
 #    const signedUrl = // generate a signed url
 #    return signedUrl;
 #  }
+# Renamed from "experiments" to "flags" in next major release
+# flags:
+#  changePassword: true
+#  searchRemote: true
 
-# translate your registry, api i18n not available yet
-# i18n:
-# list of the available translations https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md
-#   web: en-US
+# Translate your registry, API and web UI
+# List of the available translations https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md
+i18n:
+  web: en-US
 
 ###
 ### PLUGINS
@@ -221,9 +283,8 @@ middlewares:
 
 store:
   '@verdaccio-pro/sql-storage':
-
 ###
 ### DEBUG
 ###
 
-_debug:
+# _debug:
