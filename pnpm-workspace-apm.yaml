@@ -3,7 +3,11 @@ packages:
   - packages/core/*
   - packages/logger/*
   - packages/plugins/audit
+  - packages/plugins/auth-memory
   - packages/plugins/htpasswd
+  - packages/plugins/memory
   - packages/plugins/ui-theme
   - packages/plugins/local-storage
-  - packages/server/express
+  - packages/server/*
+  - packages/tools/helpers
+  - packages/tools/verdaccio-prefix-fake-plugin
