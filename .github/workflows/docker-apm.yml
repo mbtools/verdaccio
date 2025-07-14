@@ -32,7 +32,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: apm override
+      - name: apm override!
         run: |
           cp pnpm-workspace-apm.yaml pnpm-workspace.yaml
           cp package-apm.json package.json
