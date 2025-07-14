@@ -34,8 +34,6 @@ jobs:
 
       - name: apm override
         run: |
-          cp pnpm-workspace-apm.yaml pnpm-workspace.yaml
-          cp package-apm.json package.json
           cp Dockerfile-apm Dockerfile
 
       - name: Set up QEMU
