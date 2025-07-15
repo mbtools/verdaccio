@@ -48,7 +48,7 @@ RUN cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/auth && \
     npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund && \
     cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/filter && \
     npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund && \
-    cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/metrics && \
+    cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/middleware && \
     npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund && \
     cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/storage-proxy && \
     npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund && \
