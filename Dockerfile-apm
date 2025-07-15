@@ -20,6 +20,7 @@ WORKDIR $VERDACCIO_BUILD_DIR
 RUN corepack enable && corepack prepare pnpm@$PNPM_VERSION --activate
 
 # Copy only package files to benefit from Docker cache
+COPY .babelrc ./
 COPY pnpm-lock.yaml ./ 
 COPY pnpm-workspace.yaml ./
 COPY package.json ./
@@ -44,15 +45,15 @@ WORKDIR $VERDACCIO_PLUGINS_DIR
 COPY abappm/plugins/ ./
 
 RUN cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/auth && \
-    npm install --install-strategy=shallow --no-bin-links && \
+    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund && \
     cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/filter && \
-    npm install --install-strategy=shallow --no-bin-links && \
+    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund && \
     cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/metrics && \
-    npm install --install-strategy=shallow --no-bin-links && \
+    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund && \
     cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/storage-proxy && \
-    npm install --install-strategy=shallow --no-bin-links && \
+    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund && \
     cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/storage-sql && \
-    npm install --install-strategy=shallow --no-bin-links
+    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund
 
 #
 # --- Production Stage ---
@@ -78,6 +79,7 @@ WORKDIR $VERDACCIO_APP_DIR
 RUN corepack enable && corepack prepare pnpm@$PNPM_VERSION --activate
 
 # Copy only package files to benefit from Docker cache
+COPY .babelrc ./
 COPY pnpm-lock.yaml ./ 
 COPY pnpm-workspace.yaml ./
 COPY package.json ./
