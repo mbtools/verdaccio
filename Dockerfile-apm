@@ -4,7 +4,7 @@
 FROM node:24-alpine AS builder
 
 ENV NODE_ENV=production \
-    PNPM_VERSION=10.5.2 \
+    PNPM_VERSION=10.13.1 \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org \
     VERDACCIO_BUILD_DIR=/opt/verdaccio-build
 
@@ -88,16 +88,15 @@ RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm install --frozen-lockfile --prod --no-optional --ignore-scripts
 
 # Clean up
-RUN rm $VERDACCIO_BUILD_DIR/pnpm-lock.yaml $VERDACCIO_BUILD_DIR/pnpm-workspace.yaml
+RUN rm ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
+    rm -rf *.md
+
+RUN find ./packages -type d -name "src" -o -name "test" -o -name "tests" | xargs rm -rf
+
+# Prepare directories
+RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
 # Copy build artifacts (only packages relevant to apm)
-COPY --from=builder $VERDACCIO_BUILD_DIR/package.json ./
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/*/package.json ./packages/*/
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/core/*/package.json ./packages/core/*/
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/logger/*/package.json ./packages/logger/*/
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/plugins/*/package.json ./packages/plugins/*/
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/server/express/package.json ./packages/server/express/
-
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/*/build ./packages/*/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/core/*/build ./packages/core/*/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/logger/*/build ./packages/logger/*/build
@@ -106,8 +105,6 @@ COPY --from=builder $VERDACCIO_BUILD_DIR/packages/server/express/build ./package
 
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/cli/bin ./packages/cli/bin
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/verdaccio/bin ./packages/verdaccio/bin
-
-RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
 # apm >>>
 COPY --from=plugins $VERDACCIO_PLUGINS_DIR /verdaccio/plugins
