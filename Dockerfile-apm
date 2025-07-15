@@ -1,10 +1,10 @@
 #
 # --- Build Stage ---
 #
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24-alpine AS builder
+FROM node:24-alpine AS builder
 
 ENV NODE_ENV=production \
-    PNPM_VERSION=10.13.1 \
+    PNPM_VERSION=10.5.2 \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org \
     VERDACCIO_BUILD_DIR=/opt/verdaccio-build
 
@@ -43,7 +43,7 @@ RUN pnpm run build
 #
 # --- Plugin Stage ---
 #
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24-alpine AS plugins
+FROM node:24-alpine AS plugins
 
 ENV VERDACCIO_PLUGINS_DIR=/opt/verdaccio-plugins
 

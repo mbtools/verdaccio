@@ -26138,7 +26138,7 @@ snapshots:
       '@babel/core': 7.27.4
       '@babel/generator': 7.27.5
       '@babel/plugin-syntax-jsx': 7.27.1(@babel/core@7.27.4)
-      '@babel/plugin-syntax-typescript': 7.24.7(@babel/core@7.27.4)
+      '@babel/plugin-syntax-typescript': 7.27.1(@babel/core@7.27.4)
       '@babel/types': 7.27.6
       '@jest/expect-utils': 29.7.0
       '@jest/transform': 29.7.0
