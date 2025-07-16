@@ -23,6 +23,8 @@ RUN corepack enable && corepack prepare pnpm@$PNPM_VERSION --activate
 COPY .babelrc ./
 COPY pnpm-lock.yaml ./ 
 COPY pnpm-workspace.yaml ./
+COPY tsconfig.base.json ./
+COPY tsconfig.reference.json ./
 COPY package.json ./
 COPY packages/ ./packages/
 
