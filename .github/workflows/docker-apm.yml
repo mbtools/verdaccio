@@ -32,10 +32,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: apm override
-        run: |
-          cp Dockerfile-apm Dockerfile
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -62,7 +58,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./Dockerfile
+          file: ./Dockerfile-apm
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.docker_meta.outputs.tags }}
