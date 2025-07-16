@@ -88,6 +88,7 @@ COPY tsconfig.base.json ./
 COPY tsconfig.reference.json ./
 COPY package.json ./
 COPY packages/ ./packages/
+COPY docker-bin/ ./docker-bin/
 
 # Only install production dependencies (omit devDependencies)
 RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
