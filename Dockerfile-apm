@@ -100,24 +100,18 @@ RUN rm ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
 
 RUN find ./packages -type d -name "src" -o -name "test" -o -name "tests" | xargs rm -rf
 
-# Prepare directories
+# Copy build artifacts
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages.json ./
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/ ./packages/
+COPY --from=builder $VERDACCIO_BUILD_DIR/docker-bin/ ./docker-bin/
+
+# Prepare Verdaccio directories
 RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
-# Copy build artifacts (only packages relevant to apm)
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/*/build ./packages/*/build
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/core/*/build ./packages/core/*/build
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/logger/*/build ./packages/logger/*/build
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/plugins/*/build ./packages/plugins/*/build
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/server/express/build ./packages/server/express/build
-
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/cli/bin ./packages/cli/bin
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/verdaccio/bin ./packages/verdaccio/bin
-
-# apm >>>
+# Copy plugins and config
 COPY --from=plugins $VERDACCIO_PLUGINS_DIR /verdaccio/plugins
-ADD abappm/conf /verdaccio/conf
-ADD abappm/i18n $VERDACCIO_APP_DIR/packages/config/i18n/build/downloaded_translations
-# <<< apm
+COPY abappm/conf /verdaccio/conf
+COPY abappm/i18n $VERDACCIO_APP_DIR/packages/config/i18n/build/downloaded_translations
 
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APP_DIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
     chmod -R +x $VERDACCIO_APP_DIR/packages/verdaccio/bin $VERDACCIO_APP_DIR/docker-bin && \
