@@ -107,7 +107,7 @@ COPY abappm/i18n $VERDACCIO_APP_DIR/packages/config/i18n/build/downloaded_transl
 
 # Clean up
 RUN rm ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
-    rm -rf *.md .* tsconfig.* && \
+    rm -rf *.md tsconfig.* .??* && \
     find ./packages -type d -name "src" -o -name "test" -o -name "tests" -o -name "vitest" | xargs rm -rf
 
 # Set user, permissions, ownership
