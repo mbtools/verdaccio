@@ -103,7 +103,6 @@ RUN find ./packages -type d -name "src" -o -name "test" -o -name "tests" | xargs
 # Copy build artifacts
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages.json ./
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/ ./packages/
-COPY --from=builder $VERDACCIO_BUILD_DIR/docker-bin/ ./docker-bin/
 
 # Prepare Verdaccio directories
 RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
