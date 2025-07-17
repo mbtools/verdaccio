@@ -94,14 +94,7 @@ COPY docker-bin/ ./docker-bin/
 RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm install --frozen-lockfile --prod --no-optional --ignore-scripts
 
-# Clean up
-RUN rm ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
-    rm -rf *.md
-
-RUN find ./packages -type d -name "src" -o -name "test" -o -name "tests" | xargs rm -rf
-
 # Copy build artifacts
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages.json ./
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/ ./packages/
 
 # Prepare Verdaccio directories
@@ -112,6 +105,12 @@ COPY --from=plugins $VERDACCIO_PLUGINS_DIR /verdaccio/plugins
 COPY abappm/conf /verdaccio/conf
 COPY abappm/i18n $VERDACCIO_APP_DIR/packages/config/i18n/build/downloaded_translations
 
+# Clean up
+RUN rm ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
+    rm -rf *.md .* tsconfig.* && \
+    find ./packages -type d -name "src" -o -name "test" -o -name "tests" -o -name "vitest" | xargs rm -rf
+
+# Set user, permissions, ownership
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APP_DIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
     chmod -R +x $VERDACCIO_APP_DIR/packages/verdaccio/bin $VERDACCIO_APP_DIR/docker-bin && \
     chown -R $VERDACCIO_USER_UID:root /verdaccio/storage /verdaccio/plugins /verdaccio/conf && \
