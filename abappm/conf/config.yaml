@@ -206,19 +206,18 @@ log:
   type: stdout
   format: pretty
   level: http
-  redact:
-    paths:
-      [
-        'req.header.authorization',
-        'req.header.cookie',
-        'req.remoteAddress',
-        'req.remotePort',
-        'ip',
-        'remoteIP',
-        'user',
-        'msg',
-      ]
-    censor: '<redacted>'
+  # redact:
+  #   paths:
+  #     [
+  #       'req.header.authorization',
+  #       'req.header.cookie',
+  #       'req.remoteAddress',
+  #       'req.remotePort',
+  #       'ip',
+  #       'remoteIP',
+  #       'user'
+  #     ]
+  #   censor: '<redacted>'
 #  sync: true
 
 # Feature flags (experimental settings that can be changed or removed in the future)
