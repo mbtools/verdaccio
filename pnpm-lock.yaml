@@ -5974,7 +5974,7 @@ packages:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==, tarball: https://registry.npmjs.org/@types/node/-/node-17.0.45.tgz}
 
   '@types/node@20.14.12':
-    resolution: {integrity: sha512-r7wNXakLeSsGT0H1AU863vS2wa5wBOK4bWMjZz2wj+8nBx+m5PeIn0k8AloSLpRuiwdRQZwarZqHE4FNArPuJQ==}
+    resolution: {integrity: sha512-r7wNXakLeSsGT0H1AU863vS2wa5wBOK4bWMjZz2wj+8nBx+m5PeIn0k8AloSLpRuiwdRQZwarZqHE4FNArPuJQ==, tarball: https://registry.npmjs.org/@types/node/-/node-20.14.12.tgz}
 
   '@types/node@22.15.19':
     resolution: {integrity: sha512-3vMNr4TzNQyjHcRZadojpRaD9Ofr6LsonZAoQ+HMUa/9ORTPoxVIw0e0mpqWpdjj8xybyCM+oKOUH2vwFu/oEw==, tarball: https://registry.npmjs.org/@types/node/-/node-22.15.19.tgz}
@@ -20446,7 +20446,7 @@ snapshots:
   '@types/body-parser@1.19.5':
     dependencies:
       '@types/connect': 3.4.38
-      '@types/node': 22.15.19
+      '@types/node': 20.14.12
 
   '@types/bonjour@3.5.13':
     dependencies:
@@ -20468,7 +20468,7 @@ snapshots:
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 22.15.19
+      '@types/node': 20.14.12
 
   '@types/cookie@0.6.0': {}
 
@@ -20623,7 +20623,7 @@ snapshots:
 
   '@types/express-serve-static-core@4.19.5':
     dependencies:
-      '@types/node': 22.15.19
+      '@types/node': 20.14.12
       '@types/qs': 6.9.15
       '@types/range-parser': 1.2.7
       '@types/send': 0.17.4
@@ -20748,12 +20748,12 @@ snapshots:
 
   '@types/node-fetch@2.6.11':
     dependencies:
-      '@types/node': 22.15.19
+      '@types/node': 20.14.12
       form-data: 4.0.0
 
   '@types/node-forge@1.3.10':
     dependencies:
-      '@types/node': 22.15.19
+      '@types/node': 20.14.12
 
   '@types/node@12.20.55': {}
 
@@ -20851,7 +20851,7 @@ snapshots:
   '@types/send@0.17.4':
     dependencies:
       '@types/mime': 1.3.3
-      '@types/node': 22.15.19
+      '@types/node': 20.14.12
 
   '@types/serve-index@1.9.4':
     dependencies:
@@ -20860,7 +20860,7 @@ snapshots:
   '@types/serve-static@1.15.7':
     dependencies:
       '@types/http-errors': 2.0.4
-      '@types/node': 22.15.19
+      '@types/node': 20.14.12
       '@types/send': 0.17.4
 
   '@types/sinonjs__fake-timers@8.1.1': {}
@@ -20878,7 +20878,7 @@ snapshots:
   '@types/superagent@4.1.24':
     dependencies:
       '@types/cookiejar': 2.1.5
-      '@types/node': 22.15.19
+      '@types/node': 20.14.12
 
   '@types/supertest@2.0.16':
     dependencies:
@@ -20914,7 +20914,7 @@ snapshots:
 
   '@types/webpack@5.28.5':
     dependencies:
-      '@types/node': 22.15.19
+      '@types/node': 20.14.12
       tapable: 2.2.1
       webpack: 5.99.9(webpack-cli@4.10.0)
     transitivePeerDependencies:
@@ -20943,7 +20943,7 @@ snapshots:
       '@types/diff': 5.2.1
       '@types/inquirer': 8.2.10
       '@types/mem-fs': 1.1.5
-      '@types/node': 22.15.19
+      '@types/node': 20.14.12
       '@types/text-table': 0.2.5
       '@types/vinyl': 2.0.12
       '@types/yeoman-generator': 5.2.14
@@ -20958,7 +20958,7 @@ snapshots:
       '@types/ejs': 3.1.5
       '@types/inquirer': 8.2.10
       '@types/mem-fs-editor': 7.0.7
-      '@types/node': 22.15.19
+      '@types/node': 20.14.12
       '@types/yeoman-environment': 2.10.11
       rxjs: 6.6.7
 

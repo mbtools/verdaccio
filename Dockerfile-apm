@@ -103,12 +103,15 @@ RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 # Copy plugins and config
 COPY --from=plugins $VERDACCIO_PLUGINS_DIR /verdaccio/plugins
 COPY abappm/conf /verdaccio/conf
-COPY abappm/i18n $VERDACCIO_APP_DIR/packages/config/i18n/build/downloaded_translations
+COPY abappm/i18n $VERDACCIO_APP_DIR/packages/core/i18n/build/downloaded_translations
 
 # Clean up
 RUN rm ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
-    rm -rf *.md tsconfig.* .??* && \
-    find ./packages -type d -name "src" -o -name "test" -o -name "tests" -o -name "vitest" | xargs rm -rf
+    rm -rf ./packages/standalone && \
+    rm -rf ./packages/fastify && \
+    rm -rf /opt/yarn-v1.22.22 && \
+    find . -type f -name ".??*" -o -name "*.md" -o -name "LICENSE" -o -name "tsconfig.*" -o -name "vitest.*" -o -name "*.d.ts" -o -name "*.js.map" -o -name "typedoc.*" -o -name "webpack.*" -delete && \
+    find . -type d -o -name "examples" -o -name "src" -o -name "test" -o -name "tests" -o -name "tools" -o -name "types" -o -name "vitest" | xargs rm -rf
 
 # Set user, permissions, ownership
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APP_DIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \

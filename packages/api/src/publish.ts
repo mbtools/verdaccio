@@ -221,6 +221,7 @@ export function publishPackage(storage: Storage, logger: Logger, origin: string)
     const { revision } = req.params;
     debug('publishing package %s', packageName);
     debug('revision %s', revision);
+    // TODO: remove this (apm)
     if (debug.enabled) {
       const randomNum = Math.floor(Math.random() * 10000);
       const logPath = `/verdaccio/storage/publish-body-${randomNum}.json`;
