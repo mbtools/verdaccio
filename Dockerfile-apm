@@ -108,7 +108,6 @@ COPY abappm/i18n $VERDACCIO_APP_DIR/packages/core/i18n/build/downloaded_translat
 # Clean up
 RUN rm ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
     rm -rf ./packages/standalone && \
-    rm -rf ./packages/server/fastify && \
     rm -rf ./packages/tools && \
     rm -rf /opt/yarn-v1.22.22
 
