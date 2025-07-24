@@ -281,9 +281,9 @@ middlewares:
     enabled: true
 
 store:
-  '@verdaccio-pro/sql-storage':
+  '@verdaccio-pro/storage-sql':
 ###
 ### DEBUG
 ###
 
-# _debug:
+_debug: true
