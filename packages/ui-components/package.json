@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/ui-components",
-  "version": "4.0.0-next-8.10",
+  "version": "4.0.0-next-8.11",
   "description": "Verdaccio UI Components",
   "author": "Juan Picado <juanpicado19@gmail.com>",
   "license": "MIT",
@@ -30,7 +30,7 @@
     "@verdaccio/ui-i18n": "workspace:*",
     "country-flag-icons": "1.5.19",
     "dayjs": "1.11.18",
-    "dompurify": "3.2.6",
+    "dompurify": "3.2.7",
     "highlight.js": "11.11.1",
     "highlightjs-sap-abap": "0.3.0",
     "i18next": "20.6.1",
