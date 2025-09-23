@@ -47,7 +47,7 @@ var import_dotenv = require("dotenv");
 var import_zod = __toESM(require("zod"));
 var stringBoolean = import_zod.default.coerce.string().transform((val) => {
   return val === "true";
-}).default("false");
+}).default(false);
 var envSchema = import_zod.default.object({
   NODE_ENV: import_zod.default.string().default("development"),
   DATABASE_SECRET: import_zod.default.string().trim().min(1),
@@ -303,6 +303,7 @@ var AuthPlugin = class extends import_core3.pluginUtils.Plugin {
     }
     this.db = getDatabase(this.authConfig.url, this.logger);
     this.userSecretService = new UserSecretsService(this.db, this.logger);
+    debug3("Verdaccio Pro auth plugin is enabled");
   }
   async authenticate(user, password2, cb) {
     debug3("authenticate user %o", user);

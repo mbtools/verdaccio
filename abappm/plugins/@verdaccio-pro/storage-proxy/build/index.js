@@ -42,7 +42,7 @@ var import_core2 = require("@verdaccio/core");
 // src/storage-handler.ts
 var import_debug = __toESM(require("debug"));
 
-// src/helper.ts
+// src/utils.ts
 var import_core = require("@verdaccio/core");
 var import_loaders = require("@verdaccio/loaders");
 var PLUGIN_PREFIX = "verdaccio";
@@ -142,6 +142,7 @@ var ProxyStoragePlugin = class extends import_core2.pluginUtils.Plugin {
     this.config = options.config;
     this.logger = options.logger;
     this.storageConfig = config;
+    debug2("Verdaccio Pro storage proxy plugin is enabled");
   }
   async init() {
     debug2("init storage plugin");

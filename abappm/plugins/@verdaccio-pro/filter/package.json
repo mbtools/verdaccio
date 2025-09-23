@@ -36,25 +36,25 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/config": "8.0.0-next-8.21",
-    "@verdaccio/core": "8.0.0-next-8.21",
-    "@verdaccio/logger": "8.0.0-next-8.21",
-    "debug": "4.4.1",
-    "semver": "7.7.2"
+    "@verdaccio/config": "catalog:",
+    "@verdaccio/core": "catalog:",
+    "@verdaccio/logger": "catalog:",
+    "debug": "catalog:",
+    "semver": "catalog:"
   },
   "devDependencies": {
-    "@eslint/js": "9.31.0",
-    "@stylistic/eslint-plugin": "5.2.2",
-    "@types/debug": "4.1.12",
-    "@types/node": "24.1.0",
-    "@types/semver": "7.7.0",
-    "@verdaccio/types": "13.0.0-next-8.7",
-    "cross-env": "7.0.3",
-    "eslint": "9.31.0",
-    "tsup": "8.5.0",
-    "typescript": "5.8.3",
-    "typescript-eslint": "8.38.0",
-    "vitest": "3.2.4"
+    "@eslint/js": "catalog:",
+    "@stylistic/eslint-plugin": "catalog:",
+    "@types/debug": "catalog:",
+    "@types/node": "catalog:",
+    "@types/semver": "catalog:",
+    "@verdaccio/types": "catalog:",
+    "cross-env": "catalog:",
+    "eslint": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:",
+    "vitest": "catalog:"
   },
   "scripts": {
     "build": "tsup",

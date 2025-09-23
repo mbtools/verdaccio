@@ -1,7 +1,9 @@
 "use strict";
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -15,6 +17,14 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // src/index.ts
@@ -26,6 +36,7 @@ __export(index_exports, {
 module.exports = __toCommonJS(index_exports);
 
 // src/plugin.ts
+var import_debug = __toESM(require("debug"));
 var import_semver2 = require("semver");
 var import_core = require("@verdaccio/core");
 
@@ -129,6 +140,7 @@ Some versions of package are replaced by other: ${removedVersions.map((a) => `${
 }
 
 // src/plugin.ts
+var debug = (0, import_debug.default)("verdaccio:plugin:pro:filter");
 var FilterPlugin = class extends import_core.pluginUtils.Plugin {
   constructor(config, options) {
     super(config, options);
@@ -173,6 +185,7 @@ var FilterPlugin = class extends import_core.pluginUtils.Plugin {
         this.parsedConfig.block.entries()
       )}`
     );
+    debug("Verdaccio Pro filter plugin is enabled");
   }
   filter_metadata(packageInfo) {
     if (!this.parsedConfig.enabled) {

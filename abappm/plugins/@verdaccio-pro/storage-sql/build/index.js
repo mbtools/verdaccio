@@ -47,7 +47,7 @@ var import_dotenv = require("dotenv");
 var import_zod = __toESM(require("zod"));
 var stringBoolean = import_zod.default.coerce.string().transform((val) => {
   return val === "true";
-}).default("false");
+}).default(false);
 var envSchema = import_zod.default.object({
   NODE_ENV: import_zod.default.string().default("development"),
   DATABASE_SECRET: import_zod.default.string().trim().min(1),
@@ -149,6 +149,15 @@ var methodEnum = (0, import_pg_core.pgEnum)("methods", ["get", "post", "put", "d
 var bytea = (0, import_pg_core.customType)({
   dataType() {
     return "bytea";
+  },
+  fromDriver(value) {
+    if (value instanceof Buffer) {
+      return value;
+    }
+    if (typeof value === "string") {
+      return Buffer.from(value.replace(/\\x/g, ""), "hex");
+    }
+    throw new Error(`Cannot convert type: ${typeof value} to buffer`);
   }
 });
 var users = (0, import_pg_core.pgTable)("users", {
@@ -717,7 +726,8 @@ var debug4 = (0, import_debug4.default)("verdaccio:plugin:storage:sql");
 var PackageService = class {
   static async search(db, query) {
     const results = [];
-    const rows = await db.select({ name: packages.name, json: packages.json, updated: packages.updated }).from(packages).where((0, import_drizzle_orm6.ilike)(packages.json, query.text)).orderBy(packages.name);
+    const searchPattern = `%${query.text}%`;
+    const rows = await db.select({ name: packages.name, json: packages.json, updated: packages.updated }).from(packages).where((0, import_drizzle_orm6.ilike)(import_drizzle_orm6.sql`${packages.json}::text`, searchPattern)).orderBy(packages.name);
     if (!rows || rows.length === 0) {
       debug4("no results found");
       return results;
@@ -1234,6 +1244,7 @@ var SqlStoragePlugin = class extends import_core8.pluginUtils.Plugin {
     this.verdaccioSecret = new VerdaccioSecretService(this.db, this.logger);
     this.downloads = new DownloadsService(this.db, this.logger);
     this.eventLog = new EventLogService(this.db, this.logger);
+    debug9("Verdaccio Pro storage sql plugin is enabled");
   }
   async init() {
     debug9("init plugin");
