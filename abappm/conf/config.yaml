@@ -79,8 +79,6 @@ web:
 # A list of other known repositories we can talk to
 # https://verdaccio.org/docs/configuration#uplinks
 uplinks:
-  npmjs:
-    url: https://registry.npmjs.org/
 
 # Learn how to protect your packages
 # https://verdaccio.org/docs/protect-your-dependencies/
@@ -282,6 +280,7 @@ middlewares:
 
 store:
   '@verdaccio-pro/storage-sql':
+
 ###
 ### DEBUG
 ###
