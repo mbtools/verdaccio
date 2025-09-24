@@ -56,7 +56,7 @@ var envSchema = import_zod.default.object({
   DB_LOGGING: stringBoolean,
   DB_SALT: import_zod.default.string().default("saltypretzel")
 });
-(0, import_dotenv.config)();
+(0, import_dotenv.config)({ debug: false, quiet: true });
 var envServer = envSchema.safeParse({
   NODE_ENV: process.env.NODE_ENV,
   DATABASE_SECRET: process.env.DATABASE_SECRET,
