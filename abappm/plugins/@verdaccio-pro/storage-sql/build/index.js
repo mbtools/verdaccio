@@ -291,7 +291,14 @@ var packages = (0, import_pg_core.pgTable)(
     json: (0, import_pg_core.jsonb)().notNull(),
     ...timestampsDeleted
   },
-  (t) => [(0, import_pg_core.primaryKey)({ columns: [t.org_id, t.name] })]
+  (t) => [
+    (0, import_pg_core.primaryKey)({ columns: [t.org_id, t.name] }),
+    // Fulltext search on JSON fields (name, description, keywords)
+    (0, import_pg_core.index)("package_search_index").using("gin", import_drizzle_orm.sql`to_tsvector('english',
+    coalesce(${t.json}->>'name', '') || ' ' ||
+    coalesce(${t.json}->>'description', '') || ' ' ||
+    coalesce(${t.json}->>'keywords', ''))`)
+  ]
 );
 var readmes = (0, import_pg_core.pgTable)(
   "readmes",
@@ -305,7 +312,7 @@ var readmes = (0, import_pg_core.pgTable)(
   },
   (t) => [
     (0, import_pg_core.primaryKey)({ columns: [t.org_id, t.name, t.version] }),
-    (0, import_pg_core.index)("search_index").using("gin", import_drizzle_orm.sql`to_tsvector('english', ${t.markdown})`)
+    (0, import_pg_core.index)("readme_search_index").using("gin", import_drizzle_orm.sql`to_tsvector('english', ${t.markdown})`)
   ]
 );
 var distTags = (0, import_pg_core.pgTable)(
@@ -529,14 +536,8 @@ var mergeReadmesIntoManifest = (manifest, readmes2) => {
   const manifestCopy = JSON.parse(JSON.stringify(manifest));
   for (const readme of readmes2) {
     if (readme.version === "latest") {
-      if (!manifestCopy.readme) {
-        manifestCopy.readme = "";
-      }
       manifestCopy.readme = readme.markdown;
-    } else {
-      if (!manifestCopy.versions[readme.version].readme) {
-        manifestCopy.versions[readme.version].readme = "";
-      }
+    } else if (manifestCopy.versions[readme.version]) {
       manifestCopy.versions[readme.version].readme = readme.markdown;
     }
   }
@@ -724,25 +725,6 @@ var import_drizzle_orm6 = require("drizzle-orm");
 var import_core4 = require("@verdaccio/core");
 var debug4 = (0, import_debug4.default)("verdaccio:plugin:storage:sql");
 var PackageService = class {
-  static async search(db, query) {
-    const results = [];
-    const searchPattern = `%${query.text}%`;
-    const rows = await db.select({ name: packages.name, json: packages.json, updated: packages.updated }).from(packages).where((0, import_drizzle_orm6.ilike)(import_drizzle_orm6.sql`${packages.json}::text`, searchPattern)).orderBy(packages.name);
-    if (!rows || rows.length === 0) {
-      debug4("no results found");
-      return results;
-    }
-    debug4("%o results found", rows.length);
-    for (const row of rows) {
-      results.push({
-        name: row.name,
-        scoped: void 0,
-        path: void 0,
-        time: row.updated
-      });
-    }
-    return results.slice(query.from, query.size);
-  }
   constructor(database, logger) {
     this.db = database;
     this.logger = logger;
@@ -893,6 +875,41 @@ var PackageService = class {
         debug4("dist-tags error: %o", error);
       }
     });
+  }
+  static async search(db, query) {
+    const results = [];
+    const rows = await db.select({
+      name: packages.name,
+      json: packages.json,
+      updated: packages.updated,
+      rank: import_drizzle_orm6.sql`ts_rank(
+          to_tsvector('english',
+            coalesce(${packages.json}->>'name', '') || ' ' ||
+            coalesce(${packages.json}->>'description', '') || ' ' ||
+            coalesce(${packages.json}->>'keywords', '')
+          ),
+          plainto_tsquery('english', ${query.text})
+        )`
+    }).from(packages).where(import_drizzle_orm6.sql`to_tsvector('english',
+        coalesce(${packages.json}->>'name', '') || ' ' ||
+        coalesce(${packages.json}->>'description', '') || ' ' ||
+        coalesce(${packages.json}->>'keywords', '')
+      ) @@ plainto_tsquery('english', ${query.text}) AND ${packages.deleted} IS NULL`).orderBy(import_drizzle_orm6.sql`rank DESC`);
+    for (const row of rows) {
+      results.push({
+        name: row.name,
+        scoped: row.name,
+        path: void 0,
+        time: row.rank
+      });
+    }
+    debug4("%o packages found", results.length);
+    if (!results || results.length === 0) {
+      debug4("no results found");
+      return results;
+    }
+    debug4("%o results found", results.length);
+    return results.slice(query.from, query.size);
   }
   async getDistTags(names) {
     const result = {};
@@ -1281,12 +1298,17 @@ var SqlStoragePlugin = class extends import_core8.pluginUtils.Plugin {
     const results = [];
     const localResults = await PackageService.search(this.db, query);
     debug9("total results %o", localResults.length);
-    const filteredResults = await this.filterByQuery(localResults, query);
-    debug9("filtered results %o", filteredResults.length);
     const allPackages = await this.get();
-    for (const result of filteredResults) {
+    for (const result of localResults) {
       const isPrivate = allPackages.includes(result.name);
-      const score = await this.getScore(result);
+      const score = {
+        final: result.time,
+        detail: {
+          maintenance: 1,
+          popularity: 1,
+          quality: 1
+        }
+      };
       results.push({
         package: result,
         verdaccioPrivate: isPrivate,
@@ -1295,12 +1317,6 @@ var SqlStoragePlugin = class extends import_core8.pluginUtils.Plugin {
       });
     }
     return results;
-  }
-  async filterByQuery(results, query) {
-    return results.filter((item) => {
-      const safeText = this.escapeRegExp(query.text);
-      return item?.name?.match(safeText) !== null;
-    });
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getScore(item) {

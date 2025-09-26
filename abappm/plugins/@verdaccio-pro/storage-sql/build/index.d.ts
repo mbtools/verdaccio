@@ -60,7 +60,6 @@ declare class SqlStoragePlugin extends pluginUtils.Plugin<StorageConfig> impleme
     add(packageName: string): Promise<void>;
     remove(packageName: string): Promise<void>;
     search(query: searchUtils.SearchQuery): Promise<searchUtils.SearchItem[]>;
-    private filterByQuery;
     private getScore;
     readTokens(filter: TokenFilter): Promise<Token[]>;
     saveToken(token: Token): Promise<any>;
