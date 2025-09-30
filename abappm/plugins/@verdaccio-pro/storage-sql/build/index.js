@@ -9,11 +9,11 @@ var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
 };
-var __copyProps = (to, from, except, desc) => {
+var __copyProps = (to, from, except, desc2) => {
   if (from && typeof from === "object" || typeof from === "function") {
     for (let key of __getOwnPropNames(from))
       if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc2 = __getOwnPropDesc(from, key)) || desc2.enumerable });
   }
   return to;
 };
@@ -31,7 +31,11 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 var index_exports = {};
 __export(index_exports, {
   SqlStoragePlugin: () => storage_plugin_default,
-  default: () => index_default
+  default: () => index_default,
+  getMetadataFromManifest: () => getMetadataFromManifest,
+  metadata: () => metadata,
+  packages: () => packages,
+  unescapeHtmlEntities: () => unescapeHtmlEntities
 });
 module.exports = __toCommonJS(index_exports);
 
@@ -158,6 +162,14 @@ var bytea = (0, import_pg_core.customType)({
       return Buffer.from(value.replace(/\\x/g, ""), "hex");
     }
     throw new Error(`Cannot convert type: ${typeof value} to buffer`);
+  }
+});
+var tsVector = (0, import_pg_core.customType)({
+  dataType() {
+    return "tsvector";
+  },
+  fromDriver(value) {
+    return value;
   }
 });
 var users = (0, import_pg_core.pgTable)("users", {
@@ -291,14 +303,7 @@ var packages = (0, import_pg_core.pgTable)(
     json: (0, import_pg_core.jsonb)().notNull(),
     ...timestampsDeleted
   },
-  (t) => [
-    (0, import_pg_core.primaryKey)({ columns: [t.org_id, t.name] }),
-    // Fulltext search on JSON fields (name, description, keywords)
-    (0, import_pg_core.index)("package_search_index").using("gin", import_drizzle_orm.sql`to_tsvector('english',
-    coalesce(${t.json}->>'name', '') || ' ' ||
-    coalesce(${t.json}->>'description', '') || ' ' ||
-    coalesce(${t.json}->>'keywords', ''))`)
-  ]
+  (t) => [(0, import_pg_core.primaryKey)({ columns: [t.org_id, t.name] })]
 );
 var readmes = (0, import_pg_core.pgTable)(
   "readmes",
@@ -308,11 +313,49 @@ var readmes = (0, import_pg_core.pgTable)(
     name: (0, import_pg_core.text)().notNull(),
     version: (0, import_pg_core.text)().notNull(),
     markdown: (0, import_pg_core.text)().notNull(),
+    search_english: tsVector().generatedAlwaysAs(
+      () => import_drizzle_orm.sql`to_tsvector('english', coalesce(${readmes.markdown}, ''))`
+    ),
+    search_german: tsVector().generatedAlwaysAs(
+      () => import_drizzle_orm.sql`to_tsvector('german', coalesce(${readmes.markdown}, ''))`
+    ),
     ...timestampsDeleted
   },
   (t) => [
     (0, import_pg_core.primaryKey)({ columns: [t.org_id, t.name, t.version] }),
-    (0, import_pg_core.index)("readme_search_index").using("gin", import_drizzle_orm.sql`to_tsvector('english', ${t.markdown})`)
+    (0, import_pg_core.index)("readme_search_english").using("gin", t.search_english),
+    (0, import_pg_core.index)("readme_search_german").using("gin", t.search_german)
+  ]
+);
+var metadata = (0, import_pg_core.pgTable)(
+  "metadata",
+  {
+    id: (0, import_pg_core.serial)().unique(),
+    org_id: (0, import_pg_core.integer)().references(() => orgs.id),
+    name: (0, import_pg_core.text)().notNull(),
+    version: (0, import_pg_core.text)().notNull(),
+    description: (0, import_pg_core.text)(),
+    keywords: (0, import_pg_core.text)(),
+    search_english: tsVector().generatedAlwaysAs(
+      () => import_drizzle_orm.sql`
+      setweight(to_tsvector('english', coalesce(${metadata.name}, '')), 'A') || ' ' ||
+      setweight(to_tsvector('english', coalesce(${metadata.version}, '')), 'B') || ' ' ||
+      setweight(to_tsvector('english', coalesce(${metadata.description}, '')), 'C') || ' ' ||
+      setweight(to_tsvector('english', coalesce(${metadata.keywords}, '')), 'D')`
+    ),
+    search_german: tsVector().generatedAlwaysAs(
+      () => import_drizzle_orm.sql`
+      setweight(to_tsvector('german', coalesce(${metadata.name}, '')), 'A') || ' ' ||
+      setweight(to_tsvector('german', coalesce(${metadata.version}, '')), 'B') || ' ' ||
+      setweight(to_tsvector('german', coalesce(${metadata.description}, '')), 'C') || ' ' ||
+      setweight(to_tsvector('german', coalesce(${metadata.keywords}, '')), 'D')`
+    ),
+    ...timestampsDeleted
+  },
+  (t) => [
+    (0, import_pg_core.primaryKey)({ columns: [t.org_id, t.name, t.version] }),
+    (0, import_pg_core.index)("metadata_search_english").using("gin", t.search_english),
+    (0, import_pg_core.index)("metadata_search_german").using("gin", t.search_german)
   ]
 );
 var distTags = (0, import_pg_core.pgTable)(
@@ -561,6 +604,16 @@ var getISODates = (start, end) => {
 };
 var unescapeHtmlEntities = (json) => {
   return json.replace(/\\u003e/g, ">").replace(/\\u003c/g, "<").replace(/\\u0026/g, "&");
+};
+var getMetadataFromManifest = (manifest) => {
+  const metadata2 = [];
+  for (const version in manifest.versions) {
+    const packageVersion = manifest.versions[version];
+    const description = packageVersion.description || "";
+    const keywords = Array.isArray(packageVersion.keywords) ? packageVersion.keywords.join(" ") : packageVersion.keywords || "";
+    metadata2.push({ version, description, keywords });
+  }
+  return metadata2;
 };
 
 // src/services/downloads.ts
@@ -819,6 +872,27 @@ var PackageService = class {
           tx.rollback();
         }
       }
+      const meta = getMetadataFromManifest(manifest);
+      const metadataData = meta.map((row) => ({
+        org_id,
+        name,
+        version: row.version,
+        description: row.description,
+        keywords: row.keywords,
+        deleted: null
+      }));
+      if (metadataData && metadataData.length > 0) {
+        try {
+          await tx.insert(metadata).values(metadataData).onConflictDoUpdate({
+            target: [metadata.org_id, metadata.name, metadata.version],
+            set: { description: import_drizzle_orm6.sql`excluded.description`, keywords: import_drizzle_orm6.sql`excluded.keywords`, updated: /* @__PURE__ */ new Date() }
+          });
+          debug4("package metadata saved successfully");
+        } catch (error) {
+          debug4("package metadata error: %o", error);
+          tx.rollback();
+        }
+      }
       const manifestClean = clearReadmesFromManifest(manifest);
       try {
         await tx.insert(packages).values({
@@ -874,27 +948,26 @@ var PackageService = class {
       } catch (error) {
         debug4("dist-tags error: %o", error);
       }
+      try {
+        await tx.delete(metadata).where((0, import_drizzle_orm6.and)(
+          (0, import_drizzle_orm6.eq)(metadata.org_id, org_id),
+          (0, import_drizzle_orm6.eq)(metadata.name, name)
+        ));
+        debug4("package metadata deleted successfully");
+      } catch (error) {
+        debug4("package metadata error: %o", error);
+      }
     });
   }
   static async search(db, query) {
     const results = [];
+    const matchQuery = import_drizzle_orm6.sql`websearch_to_tsquery('english', ${query.text})`;
     const rows = await db.select({
-      name: packages.name,
-      json: packages.json,
-      updated: packages.updated,
-      rank: import_drizzle_orm6.sql`ts_rank(
-          to_tsvector('english',
-            coalesce(${packages.json}->>'name', '') || ' ' ||
-            coalesce(${packages.json}->>'description', '') || ' ' ||
-            coalesce(${packages.json}->>'keywords', '')
-          ),
-          plainto_tsquery('english', ${query.text})
-        )`
-    }).from(packages).where(import_drizzle_orm6.sql`to_tsvector('english',
-        coalesce(${packages.json}->>'name', '') || ' ' ||
-        coalesce(${packages.json}->>'description', '') || ' ' ||
-        coalesce(${packages.json}->>'keywords', '')
-      ) @@ plainto_tsquery('english', ${query.text}) AND ${packages.deleted} IS NULL`).orderBy(import_drizzle_orm6.sql`rank DESC`);
+      name: metadata.name,
+      version: metadata.version,
+      updated: metadata.updated,
+      rank: import_drizzle_orm6.sql`ts_rank(search_english, ${matchQuery})`
+    }).from(metadata).where(import_drizzle_orm6.sql`search_english @@ ${matchQuery}`).orderBy((t) => (0, import_drizzle_orm6.desc)(t.rank)).limit(100);
     for (const row of rows) {
       results.push({
         name: row.name,
@@ -1377,6 +1450,10 @@ var storage_plugin_default = SqlStoragePlugin;
 var index_default = storage_plugin_default;
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  SqlStoragePlugin
+  SqlStoragePlugin,
+  getMetadataFromManifest,
+  metadata,
+  packages,
+  unescapeHtmlEntities
 });
 //# sourceMappingURL=index.js.map
