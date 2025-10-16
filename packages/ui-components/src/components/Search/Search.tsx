@@ -15,7 +15,7 @@ import SearchItem from './SearchItem';
 import { StyledInputAdornment, StyledTextField } from './styles';
 
 const CONSTANTS = {
-  API_DELAY: 300,
+  API_DELAY: 500,
   ABORT_ERROR: 'AbortError',
 };
 

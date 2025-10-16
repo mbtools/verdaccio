@@ -200,17 +200,17 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
     const packagePath: string = this._getLocalStoragePath(
       packageAccess ? packageAccess.storage : undefined
     );
-    debug('storage path selected %o', packagePath);
+    debug('storage path for package %o', packagePath);
     if (_.isString(packagePath) === false) {
       debug('the package %o has no storage defined ', packageName);
       throw errorUtils.getInternalError('storage not found or implemented');
     }
 
     const storagePath = this.getStoragePath();
-    const packageStoragePath: string = path.join(
-      path.resolve(storagePath, packagePath),
-      packageName
-    );
+    const packageFolder = path.resolve(storagePath, packagePath);
+    debug('package folder %o', packageFolder);
+
+    const packageStoragePath: string = path.join(packageFolder, packageName);
 
     // Verify that the file path is under the storage root directory
     // to avoid "uncontrolled data used in path expression" issues

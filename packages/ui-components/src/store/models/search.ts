@@ -9,7 +9,7 @@ import { APIRoute } from './routes';
 import { stripTrailingSlash } from './utils';
 
 const CONSTANTS = {
-  API_DELAY: 300,
+  API_DELAY: 500,
   ABORT_ERROR: 'AbortError',
 };
 
