@@ -37,32 +37,28 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/config": "8.0.0-next-8.22",
-    "@verdaccio/core": "8.0.0-next-8.22",
-    "@verdaccio/logger": "8.0.0-next-8.22",
+    "@verdaccio/config": "8.0.0-next-8.23",
+    "@verdaccio/core": "8.0.0-next-8.23",
+    "@verdaccio/logger": "8.0.0-next-8.23",
     "bcryptjs": "3.0.2",
     "debug": "4.4.3",
-    "dotenv": "17.2.2",
+    "dotenv": "17.2.3",
     "dotenv-expand": "12.0.3",
-    "drizzle-orm": "0.44.5",
+    "drizzle-orm": "0.44.6",
     "http-errors": "2.0.0",
     "pg": "8.16.3",
     "postgres": "3.4.7",
-    "zod": "4.1.11"
+    "zod": "4.1.12"
   },
   "devDependencies": {
-    "@eslint/js": "9.36.0",
-    "@stylistic/eslint-plugin": "5.4.0",
     "@types/debug": "4.1.12",
     "@types/http-errors": "2.0.5",
     "@types/pg": "8.15.5",
-    "@verdaccio/types": "13.0.0-next-8.7",
-    "cross-env": "10.0.0",
-    "drizzle-kit": "0.31.4",
-    "eslint": "9.36.0",
+    "@verdaccio/types": "13.0.0-next-8.8",
+    "cross-env": "10.1.0",
+    "drizzle-kit": "0.31.5",
     "tsup": "8.5.0",
-    "typescript": "5.9.2",
-    "typescript-eslint": "8.44.1",
+    "typescript": "5.9.3",
     "vitest": "3.2.4"
   },
   "scripts": {
