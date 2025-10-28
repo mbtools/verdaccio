@@ -1810,7 +1810,9 @@ class Storage {
         [...uplinksErrors, ...filtersErrors],
       ];
     } else if (found && _.isNil(localManifest) === false) {
-      return [localManifest, uplinksErrors];
+      // apply filter to local manifest (it is cached in unfiltered state)
+      const [filteredManifest, filtersErrors] = await this.applyFilters(localManifest);
+      return [{ ...localManifest, ...filteredManifest }, [...uplinksErrors, ...filtersErrors]];
     } else {
       // if is not found, calculate the right error to return
       debug('uplinks sync failed with %o errors', uplinksErrors.length);
