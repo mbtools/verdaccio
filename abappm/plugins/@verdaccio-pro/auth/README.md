@@ -29,6 +29,8 @@ NO WARRANTIES, [Functional Source License](https://fsl.software), [MIT Future Li
 
 ## Quickstart
 
+### 1. Configure Verdaccio
+
 Add the following to your Verdaccio configuration:
 
 ```yaml
@@ -40,6 +42,10 @@ auth:
     max_users: 1000 # maximum allowed users (default: Infinity)
     slow_verify_ms: 300 # log warning if password check is slow (ms)
 ```
+
+### 2. Environment Variables
+
+To customize the database connection, follow the instructions for the [SQL Storage Plugin](../storage-sql/README.md).
 
 ## About
 

@@ -37,14 +37,14 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/config": "8.0.0-next-8.23",
-    "@verdaccio/core": "8.0.0-next-8.23",
-    "@verdaccio/logger": "8.0.0-next-8.23",
+    "@verdaccio/config": "8.0.0-next-8.24",
+    "@verdaccio/core": "8.0.0-next-8.24",
+    "@verdaccio/logger": "8.0.0-next-8.24",
     "bcryptjs": "3.0.2",
     "debug": "4.4.3",
     "dotenv": "17.2.3",
     "dotenv-expand": "12.0.3",
-    "drizzle-orm": "0.44.6",
+    "drizzle-orm": "0.44.7",
     "http-errors": "2.0.0",
     "pg": "8.16.3",
     "postgres": "3.4.7",
@@ -53,13 +53,13 @@
   "devDependencies": {
     "@types/debug": "4.1.12",
     "@types/http-errors": "2.0.5",
-    "@types/pg": "8.15.5",
+    "@types/pg": "8.15.6",
     "@verdaccio/types": "13.0.0-next-8.8",
     "cross-env": "10.1.0",
-    "drizzle-kit": "0.31.5",
+    "drizzle-kit": "0.31.6",
     "tsup": "8.5.0",
     "typescript": "5.9.3",
-    "vitest": "3.2.4"
+    "vitest": "4.0.5"
   },
   "scripts": {
     "build": "tsup",

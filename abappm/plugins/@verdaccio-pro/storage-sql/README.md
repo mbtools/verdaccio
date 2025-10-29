@@ -27,12 +27,48 @@ NO WARRANTIES, [Functional Source License](https://fsl.software), [MIT Future Li
 
 ## Quickstart
 
+### 1. Run Database Migrations
+
+Before using the plugin, run the migrations to create required database tables:
+
+```bash
+nx db:migrate storage-sql
+```
+
+### 2. Configure Verdaccio
+
 Add the following to your Verdaccio configuration:
 
 ```yaml
 store:
   '@verdaccio-pro/sql-storage':
     url: <your-database-url> # can also be set via DATABASE_URL environment variable
+```
+
+### 3. Environment Variables
+
+To customize the database connection, you can set the following environment variables:
+
+| Variable                     | Default    | Description                                                                |
+| ---------------------------- | ---------- | -------------------------------------------------------------------------- |
+| `DATABASE_URL`               | _required_ | PostgreSQL connection string (e.g., `postgresql://user:pass@host:5432/db`) |
+| `DATABASE_SECRET`            | _required_ | Secret key for encryption                                                  |
+| `DB_SSL`                     | `true`     | Enable SSL connection to database                                          |
+| `DB_SSL_REJECT_UNAUTHORIZED` | `true`     | Reject self-signed SSL certificates (set to `false` for development)       |
+| `DB_POOL_SIZE`               | `22`       | Database connection pool size                                              |
+| `DB_LOGGING`                 | `false`    | Enable SQL query logging                                                   |
+
+**Example for development (local database without SSL):**
+
+```bash
+DB_SSL=false
+```
+
+**Example for production with self-signed certificate:**
+
+```bash
+DB_SSL=true
+DB_SSL_REJECT_UNAUTHORIZED=false
 ```
 
 ## About

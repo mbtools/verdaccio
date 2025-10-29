@@ -53,6 +53,8 @@ var envSchema = import_zod.default.object({
   DATABASE_SECRET: import_zod.default.string().trim().min(1),
   DATABASE_URL: import_zod.default.string().trim().min(1),
   DB_POOL_SIZE: import_zod.default.coerce.number().default(22),
+  DB_SSL: stringBoolean.default(true),
+  DB_SSL_REJECT_UNAUTHORIZED: stringBoolean.default(true),
   DB_LOGGING: stringBoolean,
   DB_SALT: import_zod.default.string().default("saltypretzel")
 });
@@ -62,6 +64,8 @@ var envServer = envSchema.safeParse({
   DATABASE_SECRET: process.env.DATABASE_SECRET,
   DATABASE_URL: process.env.DATABASE_URL,
   DB_POOL_SIZE: process.env.DB_POOL_SIZE,
+  DB_SSL: process.env.DB_SSL,
+  DB_SSL_REJECT_UNAUTHORIZED: process.env.DB_SSL_REJECT_UNAUTHORIZED,
   DB_LOGGING: process.env.DB_LOGGING,
   DB_SALT: process.env.DB_SALT
 });
@@ -111,15 +115,15 @@ var loggerFactory = (logger) => {
 // src/db/index.ts
 var getDatabase = (url, logger) => {
   const drizzleLogger = loggerFactory(logger);
+  const sslConfig = ENV.DB_SSL ? { rejectUnauthorized: ENV.DB_SSL_REJECT_UNAUTHORIZED } : false;
   const db = (0, import_node_postgres.drizzle)({
     connection: {
       connectionString: url,
       max: ENV.DB_POOL_SIZE,
-      ssl: true
+      ssl: sslConfig
     },
     logger: drizzleLogger
   });
-  if (logger) logger.info("database connected");
   return db;
 };
 

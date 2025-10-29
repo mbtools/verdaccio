@@ -41,6 +41,7 @@ module.exports = __toCommonJS(index_exports);
 
 // src/storage-plugin.ts
 var import_debug9 = __toESM(require("debug"));
+var import_drizzle_orm10 = require("drizzle-orm");
 var import_core8 = require("@verdaccio/core");
 
 // src/db/index.ts
@@ -57,6 +58,8 @@ var envSchema = import_zod.default.object({
   DATABASE_SECRET: import_zod.default.string().trim().min(1),
   DATABASE_URL: import_zod.default.string().trim().min(1),
   DB_POOL_SIZE: import_zod.default.coerce.number().default(22),
+  DB_SSL: stringBoolean.default(true),
+  DB_SSL_REJECT_UNAUTHORIZED: stringBoolean.default(true),
   DB_LOGGING: stringBoolean,
   DB_MIGRATING: stringBoolean,
   DB_SEEDING: stringBoolean,
@@ -68,6 +71,8 @@ var envServer = envSchema.safeParse({
   DATABASE_SECRET: process.env.DATABASE_SECRET,
   DATABASE_URL: process.env.DATABASE_URL,
   DB_POOL_SIZE: process.env.DB_POOL_SIZE,
+  DB_SSL: process.env.DB_SSL,
+  DB_SSL_REJECT_UNAUTHORIZED: process.env.DB_SSL_REJECT_UNAUTHORIZED,
   DB_LOGGING: process.env.DB_LOGGING,
   DB_MIGRATING: process.env.DB_MIGRATING,
   DB_SEEDING: process.env.DB_SEEDING,
@@ -119,15 +124,15 @@ var loggerFactory = (logger) => {
 // src/db/index.ts
 var getDatabase = (url, logger) => {
   const drizzleLogger = loggerFactory(logger);
+  const sslConfig = ENV.DB_SSL ? { rejectUnauthorized: ENV.DB_SSL_REJECT_UNAUTHORIZED } : false;
   const db = (0, import_node_postgres.drizzle)({
     connection: {
       connectionString: url,
       max: ENV.DB_MIGRATING || ENV.DB_SEEDING || ENV.DB_RESET ? 1 : ENV.DB_POOL_SIZE,
-      ssl: true
+      ssl: sslConfig
     },
     logger: drizzleLogger
   });
-  if (logger) logger.info("database connected");
   return db;
 };
 
@@ -154,14 +159,21 @@ var bytea = (0, import_pg_core.customType)({
   dataType() {
     return "bytea";
   },
+  toDriver(value) {
+    if (!(value instanceof Buffer)) {
+      throw new Error(`Value of type ${typeof value} is not a Buffer`);
+    }
+    return import_drizzle_orm.sql`decode(${value.toString("hex")}, 'hex')`;
+  },
   fromDriver(value) {
     if (value instanceof Buffer) {
       return value;
     }
     if (typeof value === "string") {
-      return Buffer.from(value.replace(/\\x/g, ""), "hex");
+      const HEX_ESCAPE_REGEX = /\\x/g;
+      return Buffer.from(value.replace(HEX_ESCAPE_REGEX, ""), "hex");
     }
-    throw new Error(`Cannot convert type: ${typeof value} to buffer`);
+    throw new Error(`Cannot convert value of type ${typeof value} to a Buffer`);
   }
 });
 var tsVector = (0, import_pg_core.customType)({
@@ -1338,6 +1350,48 @@ var SqlStoragePlugin = class extends import_core8.pluginUtils.Plugin {
   }
   async init() {
     debug9("init plugin");
+    try {
+      await this.db.execute(import_drizzle_orm10.sql`SELECT 1 as connection_test`);
+      this.logger.info("database connection verified");
+    } catch (error) {
+      const errorMsg = error instanceof Error ? error.message : String(error);
+      this.logger.error({ error: errorMsg }, "database connection failed");
+      if (errorMsg.includes("ENOTFOUND") || errorMsg.includes("ECONNREFUSED")) {
+        throw import_core8.errorUtils.getServiceUnavailable(
+          `[sql-storage] Cannot reach database server. Check DATABASE_URL is correct: ${this.storageConfig.url}`
+        );
+      } else if (errorMsg.includes("self signed certificate") || errorMsg.includes("certificate")) {
+        throw import_core8.errorUtils.getServiceUnavailable(
+          `[sql-storage] SSL certificate error. Try setting DB_SSL_REJECT_UNAUTHORIZED=false for self-signed certificates.`
+        );
+      } else if (errorMsg.includes("password authentication failed")) {
+        throw import_core8.errorUtils.getServiceUnavailable(
+          "[sql-storage] Database authentication failed. Check your credentials in DATABASE_URL."
+        );
+      } else {
+        throw import_core8.errorUtils.getServiceUnavailable(
+          `[sql-storage] Database connection failed: ${errorMsg}`
+        );
+      }
+    }
+    try {
+      await this.db.execute(import_drizzle_orm10.sql`SELECT to_regclass('public.secrets')`);
+      const result = await this.db.execute(
+        import_drizzle_orm10.sql`SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'secrets') as exists`
+      );
+      const tableExists = result.rows[0]?.exists;
+      if (!tableExists) {
+        throw new Error("Required database tables do not exist");
+      }
+      this.logger.info("database schema verified");
+    } catch (error) {
+      const errorMsg = error instanceof Error ? error.message : String(error);
+      this.logger.error({ error: errorMsg }, "database schema verification failed");
+      throw import_core8.errorUtils.getServiceUnavailable(
+        `[sql-storage] Database tables are missing. Please run migrations first: nx db:migrate storage-sql`
+      );
+    }
+    debug9("storage plugin initialized successfully");
   }
   // Storage API
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
