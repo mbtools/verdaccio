@@ -59,7 +59,7 @@
     "drizzle-kit": "0.31.6",
     "tsup": "8.5.0",
     "typescript": "5.9.3",
-    "vitest": "4.0.5"
+    "vitest": "4.0.6"
   },
   "scripts": {
     "build": "tsup",
