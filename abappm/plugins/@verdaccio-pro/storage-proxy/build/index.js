@@ -142,7 +142,7 @@ var ProxyStoragePlugin = class extends import_core2.pluginUtils.Plugin {
     this.config = options.config;
     this.logger = options.logger;
     this.storageConfig = config;
-    debug2("Verdaccio Pro storage proxy plugin is enabled");
+    debug2("Verdaccio Pro Storage Proxy plugin is enabled");
   }
   async init() {
     debug2("init storage plugin");
@@ -159,6 +159,7 @@ var ProxyStoragePlugin = class extends import_core2.pluginUtils.Plugin {
     await packument.init();
     const tarball = getBackend(this.loadedBackends, this.storageConfig.tarball_backend);
     await tarball.init();
+    debug2("Verdaccio Pro Storage Proxy plugin initialized");
   }
   // Storage API
   getPackageStorage(packageName) {

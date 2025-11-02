@@ -295,19 +295,19 @@ var AuthPlugin = class extends import_core3.pluginUtils.Plugin {
     this.config = options.config;
     this.logger = options.logger;
     this.authConfig = {
-      url: config2.url || ENV.DATABASE_URL,
-      rounds: config2.rounds || 10 /* ROUNDS */,
-      max_users: config2.max_users || Infinity /* MAX_USERS */,
-      slow_verify_ms: config2.slow_verify_ms || 300 /* SLOW_VERIFY_MS */
+      url: config2?.url || ENV.DATABASE_URL,
+      rounds: config2?.rounds || 10 /* ROUNDS */,
+      max_users: config2?.max_users || Infinity /* MAX_USERS */,
+      slow_verify_ms: config2?.slow_verify_ms || 300 /* SLOW_VERIFY_MS */
     };
     if (!this.authConfig.url) {
       throw import_core3.errorUtils.getServiceUnavailable(
-        "[sql-storage] missing config. Add `store.@verdaccio-pro/sql-storage.url` to your config file or use environtment DATABASE_URL"
+        "[auth] missing config. Add `url` to Auth plugin config or use environment variable DATABASE_URL"
       );
     }
     this.db = getDatabase(this.authConfig.url, this.logger);
     this.userSecretService = new UserSecretsService(this.db, this.logger);
-    debug3("Verdaccio Pro auth plugin is enabled");
+    debug3("Verdaccio Pro Auth plugin is enabled");
   }
   async authenticate(user, password2, cb) {
     debug3("authenticate user %o", user);

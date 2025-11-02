@@ -1333,10 +1333,10 @@ var SqlStoragePlugin = class extends import_core8.pluginUtils.Plugin {
     super(config2, options);
     this.config = options.config;
     this.logger = options.logger;
-    this.storageConfig = { url: config2.url || ENV.DATABASE_URL };
+    this.storageConfig = { url: config2?.url || ENV.DATABASE_URL };
     if (!this.storageConfig.url) {
       throw import_core8.errorUtils.getServiceUnavailable(
-        "[sql-storage] missing config. Add `store.sql-storage.url` to your config file or use environtment DATABASE_URL"
+        "[sql-storage] missing config. Add `url` to SQL Storage plugin config or use environment variable DATABASE_URL"
       );
     }
     this.db = getDatabase(this.storageConfig.url, this.logger);
@@ -1345,7 +1345,7 @@ var SqlStoragePlugin = class extends import_core8.pluginUtils.Plugin {
     this.verdaccioSecret = new VerdaccioSecretService(this.db, this.logger);
     this.downloads = new DownloadsService(this.db, this.logger);
     this.eventLog = new EventLogService(this.db, this.logger);
-    debug9("Verdaccio Pro storage sql plugin is enabled");
+    debug9("Verdaccio Pro SQL Storage plugin is enabled");
   }
   async init() {
     debug9("init plugin");
@@ -1390,7 +1390,7 @@ var SqlStoragePlugin = class extends import_core8.pluginUtils.Plugin {
         `[sql-storage] Database tables are missing. Please run migrations first: nx db:migrate storage-sql`
       );
     }
-    debug9("storage plugin initialized successfully");
+    debug9("Verdaccio Pro SQL Storage plugin initialized");
   }
   // Storage API
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
