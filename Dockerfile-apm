@@ -4,7 +4,7 @@
 FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24-alpine AS builder
 
 ENV NODE_ENV=production \
-    PNPM_VERSION=10.13.1 \
+    PNPM_VERSION=10.20.0 \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org \
     VERDACCIO_BUILD_DIR=/opt/verdaccio-build
 
