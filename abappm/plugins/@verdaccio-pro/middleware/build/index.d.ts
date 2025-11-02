@@ -8,7 +8,7 @@ interface MiddlewareConfig {
 declare class MiddlewarePlugin extends pluginUtils.Plugin<MiddlewareConfig> implements pluginUtils.ExpressMiddleware<MiddlewareConfig, pluginUtils.Storage<MiddlewareConfig>, pluginUtils.Auth<MiddlewareConfig>> {
     config: Config;
     logger: Logger;
-    private pluginConfig;
+    private middlewareConfig;
     constructor(config: MiddlewareConfig, options: pluginUtils.PluginOptions);
     register_middlewares(app: Express, _auth: pluginUtils.Auth<MiddlewareConfig>, _storage: pluginUtils.Storage<MiddlewareConfig>): void;
 }

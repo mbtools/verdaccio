@@ -83,10 +83,10 @@ var MiddlewarePlugin = class extends import_core.pluginUtils.Plugin {
     super(config, options);
     this.config = options.config;
     this.logger = options.logger;
-    this.pluginConfig = config;
+    this.middlewareConfig = config;
   }
   register_middlewares(app, _auth, _storage) {
-    if (!this.pluginConfig.enabled) {
+    if (!this.middlewareConfig.enabled) {
       return;
     }
     debug2("Verdaccio Pro middleware plugin is enabled");

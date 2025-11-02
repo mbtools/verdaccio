@@ -40,7 +40,7 @@ declare class SqlStorageHandler implements pluginUtils.StorageHandler {
 }
 
 interface StorageConfig {
-    url: string;
+    url?: string;
 }
 declare class SqlStoragePlugin extends pluginUtils.Plugin<StorageConfig> implements pluginUtils.Storage<StorageConfig> {
     logger: Logger;
