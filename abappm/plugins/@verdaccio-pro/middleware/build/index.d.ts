@@ -2,7 +2,7 @@ import { Express } from 'express';
 import { pluginUtils } from '@verdaccio/core';
 import { Config, Logger } from '@verdaccio/types';
 
-interface MiddlewareConfig extends Config {
+interface MiddlewareConfig {
     enabled: boolean;
 }
 declare class MiddlewarePlugin extends pluginUtils.Plugin<MiddlewareConfig> implements pluginUtils.ExpressMiddleware<MiddlewareConfig, pluginUtils.Storage<MiddlewareConfig>, pluginUtils.Auth<MiddlewareConfig>> {

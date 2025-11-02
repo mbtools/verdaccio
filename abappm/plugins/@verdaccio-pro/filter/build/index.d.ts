@@ -10,14 +10,14 @@ type PackageBlockRule = {
     versions: string;
 };
 
-interface FilterConfig extends Config {
+interface FilterConfig {
     enabled: boolean;
     block?: Array<PackageBlockRule>;
 }
 declare class FilterPlugin extends pluginUtils.Plugin<FilterConfig> implements pluginUtils.ManifestFilter<FilterConfig> {
     config: Config;
     logger: Logger;
-    private readonly parsedConfig;
+    private readonly filterConfig;
     constructor(config: FilterConfig, options: pluginUtils.PluginOptions);
     filter_metadata(packageInfo: Readonly<Manifest>): Promise<Manifest>;
 }

@@ -39,9 +39,9 @@ declare class SqlStorageHandler implements pluginUtils.StorageHandler {
     deleteTarball(fileName: string): Promise<void>;
 }
 
-type StorageConfig = {
+interface StorageConfig {
     url: string;
-};
+}
 declare class SqlStoragePlugin extends pluginUtils.Plugin<StorageConfig> implements pluginUtils.Storage<StorageConfig> {
     logger: Logger;
     config: Config;

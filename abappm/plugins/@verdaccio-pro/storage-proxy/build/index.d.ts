@@ -25,13 +25,13 @@ declare class ProxyStorageHandler implements pluginUtils.StorageHandler {
     }): Promise<Writable>;
 }
 
-type StorageConfig = {
+interface StorageConfig {
     database_backend: string;
     search_backend: string;
     packument_backend: string;
     tarball_backend: string;
     backends: any;
-};
+}
 declare class ProxyStoragePlugin extends pluginUtils.Plugin<StorageConfig> implements pluginUtils.Storage<StorageConfig> {
     logger: Logger;
     config: Config;

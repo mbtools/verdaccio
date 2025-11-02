@@ -1333,8 +1333,7 @@ var SqlStoragePlugin = class extends import_core8.pluginUtils.Plugin {
     super(config2, options);
     this.config = options.config;
     this.logger = options.logger;
-    const url = ENV.DATABASE_URL || config2?.url;
-    this.storageConfig = { url };
+    this.storageConfig = { url: config2.url || ENV.DATABASE_URL };
     if (!this.storageConfig.url) {
       throw import_core8.errorUtils.getServiceUnavailable(
         "[sql-storage] missing config. Add `store.sql-storage.url` to your config file or use environtment DATABASE_URL"

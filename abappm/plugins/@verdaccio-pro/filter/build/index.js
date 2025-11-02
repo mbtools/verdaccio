@@ -176,24 +176,24 @@ var FilterPlugin = class extends import_core.pluginUtils.Plugin {
       }
       throw new TypeError(`Could not parse rule ${JSON.stringify(value, null, 4)} in skipChecksFor`);
     }, /* @__PURE__ */ new Map());
-    this.parsedConfig = {
+    this.filterConfig = {
       enabled: config.enabled ?? false,
       block: blockMap
     };
     this.logger.debug(
-      `Loaded plugin-secfilter, ${JSON.stringify(this.parsedConfig, null, 4)}, ${Array.from(
-        this.parsedConfig.block.entries()
+      `Loaded plugin-secfilter, ${JSON.stringify(this.filterConfig, null, 4)}, ${Array.from(
+        this.filterConfig.block.entries()
       )}`
     );
     debug("Verdaccio Pro filter plugin is enabled");
   }
   filter_metadata(packageInfo) {
-    if (!this.parsedConfig.enabled) {
+    if (!this.filterConfig.enabled) {
       return Promise.resolve(packageInfo);
     }
     let newPackageInfo = packageInfo;
-    if (this.parsedConfig.block.size > 0) {
-      newPackageInfo = filterBlockedVersions(packageInfo, this.parsedConfig.block, this.logger);
+    if (this.filterConfig.block.size > 0) {
+      newPackageInfo = filterBlockedVersions(packageInfo, this.filterConfig.block, this.logger);
     }
     return Promise.resolve(newPackageInfo);
   }
