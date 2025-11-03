@@ -59,11 +59,12 @@ var envSchema = import_zod.default.object({
   DATABASE_URL: import_zod.default.string().trim().min(1),
   DB_POOL_SIZE: import_zod.default.coerce.number().default(22),
   DB_SSL: stringBoolean.default(true),
-  DB_SSL_REJECT_UNAUTHORIZED: stringBoolean.default(true),
-  DB_LOGGING: stringBoolean,
-  DB_MIGRATING: stringBoolean,
-  DB_SEEDING: stringBoolean,
-  DB_RESET: stringBoolean
+  DB_SSL_REJECT_UNAUTHORIZED: stringBoolean.default(false),
+  DB_LOGGING: stringBoolean.default(false),
+  DB_MIGRATING: stringBoolean.default(false),
+  DB_SEEDING: stringBoolean.default(false),
+  DB_RESET: stringBoolean.default(false),
+  DB_FALLBACK: stringBoolean.default(false)
 });
 (0, import_dotenv.config)({ debug: false, quiet: true });
 var envServer = envSchema.safeParse({
@@ -76,7 +77,8 @@ var envServer = envSchema.safeParse({
   DB_LOGGING: process.env.DB_LOGGING,
   DB_MIGRATING: process.env.DB_MIGRATING,
   DB_SEEDING: process.env.DB_SEEDING,
-  DB_RESET: process.env.DB_RESET
+  DB_RESET: process.env.DB_RESET,
+  DB_FALLBACK: process.env.DB_FALLBACK
 });
 if (!envServer.success) {
   throw new Error(envServer.error.message);
@@ -1330,6 +1332,9 @@ var debug9 = (0, import_debug9.default)("verdaccio:plugin:pro:storage:sql");
 var SqlStoragePlugin = class extends import_core8.pluginUtils.Plugin {
   constructor(config2, options) {
     debug9("start storage plugin");
+    if (ENV.DB_FALLBACK) {
+      throw import_core8.errorUtils.getServiceUnavailable("[sql-storage] Fallback to local storage plugin enabled");
+    }
     super(config2, options);
     this.config = options.config;
     this.logger = options.logger;

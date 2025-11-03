@@ -54,8 +54,9 @@ var envSchema = import_zod.default.object({
   DATABASE_URL: import_zod.default.string().trim().min(1),
   DB_POOL_SIZE: import_zod.default.coerce.number().default(22),
   DB_SSL: stringBoolean.default(true),
-  DB_SSL_REJECT_UNAUTHORIZED: stringBoolean.default(true),
-  DB_LOGGING: stringBoolean,
+  DB_SSL_REJECT_UNAUTHORIZED: stringBoolean.default(false),
+  DB_LOGGING: stringBoolean.default(false),
+  DB_FALLBACK: stringBoolean.default(false),
   DB_SALT: import_zod.default.string().default("saltypretzel")
 });
 (0, import_dotenv.config)({ debug: false, quiet: true });
@@ -67,6 +68,7 @@ var envServer = envSchema.safeParse({
   DB_SSL: process.env.DB_SSL,
   DB_SSL_REJECT_UNAUTHORIZED: process.env.DB_SSL_REJECT_UNAUTHORIZED,
   DB_LOGGING: process.env.DB_LOGGING,
+  DB_FALLBACK: process.env.DB_FALLBACK,
   DB_SALT: process.env.DB_SALT
 });
 if (!envServer.success) {
@@ -291,6 +293,9 @@ var debug3 = (0, import_debug3.default)("verdaccio:plugin:pro:auth");
 var AuthPlugin = class extends import_core3.pluginUtils.Plugin {
   constructor(config2, options) {
     debug3("start auth plugin");
+    if (ENV.DB_FALLBACK) {
+      throw import_core3.errorUtils.getServiceUnavailable("[auth] Fallback to default authentication plugin enabled");
+    }
     super(config2, options);
     this.config = options.config;
     this.logger = options.logger;
