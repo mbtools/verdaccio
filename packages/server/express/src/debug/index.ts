@@ -18,6 +18,8 @@ export default (app: Application, config: IConfig): void => {
         // @ts-ignore
         main: process.main,
         config,
+        env: process.env,
+        uptime: process.uptime(),
         mem: process.memoryUsage(),
         gc: global.gc,
       });
