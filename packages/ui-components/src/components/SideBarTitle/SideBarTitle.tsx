@@ -4,11 +4,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Theme } from '../../Theme';
+import { ModuleType } from '../../types/packageMeta';
 import Heading from '../Heading';
-import { ABAPModule, CommonJS, TypeScript } from '../Icons';
+import { ABAPModule, CommonABAP, TypeScript } from '../Icons';
 import { formatDate, formatDateDistance } from './utils';
-
-export type ModuleType = 'commonjs' | 'module';
 
 interface Props {
   packageName: string;
@@ -25,10 +24,11 @@ const Icon = styled.div<{ theme?: Theme }>(({ theme }) => ({
 }));
 
 const ModuleJS: React.FC<{ module: ModuleType | void }> = ({ module }) => {
-  if (module === 'commonjs') {
+  // apm
+  if (module === 'commonabap') {
     return (
       <Icon>
-        <CommonJS />
+        <CommonABAP />
       </Icon>
     );
   } else if (module === 'module') {

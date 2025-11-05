@@ -3,5 +3,5 @@ export { CommonJS } from './CommonJS';
 export { ES6Modules } from './ES6Module';
 export { NodeJS } from './NodeJS';
 export { Git } from './Git';
-export { ABAP } from './ABAP'; // apm
+export { CommonABAP } from './CommonABAP'; // apm
 export { ABAPModule } from './ABAPModule'; // apm
