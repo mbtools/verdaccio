@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Theme } from '../../Theme';
 import { ModuleType } from '../../types/packageMeta';
 import Heading from '../Heading';
-import { ABAPModule, CommonABAP, TypeScript } from '../Icons';
+import { ABAPModule, CommonJS, TypeScript } from '../Icons';
 import { formatDate, formatDateDistance } from './utils';
 
 interface Props {
@@ -24,14 +24,14 @@ const Icon = styled.div<{ theme?: Theme }>(({ theme }) => ({
 }));
 
 const ModuleJS: React.FC<{ module: ModuleType | void }> = ({ module }) => {
-  // apm
-  if (module === 'commonabap') {
+  if (module === 'commonjs') {
     return (
       <Icon>
-        <CommonABAP />
+        <CommonJS />
       </Icon>
     );
   } else if (module === 'module') {
+    // apm
     return (
       <Icon>
         <ABAPModule />

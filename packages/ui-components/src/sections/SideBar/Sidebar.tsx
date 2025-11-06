@@ -18,7 +18,7 @@ import { ModuleType, PackageMetaInterface } from '../../types/packageMeta';
 const getModuleTypes = (manifest: PackageMetaInterface) => {
   if (!manifest.latest) return [];
 
-  // apm
+  // apm: no default
   const moduleTypes: ModuleType[] = [];
 
   if (manifest.latest.type) {
@@ -26,7 +26,7 @@ const getModuleTypes = (manifest: PackageMetaInterface) => {
   }
 
   if (manifest.latest.main) {
-    moduleTypes.push('commonabap');
+    moduleTypes.push('commonjs');
   }
 
   return Array.from(new Set(moduleTypes));

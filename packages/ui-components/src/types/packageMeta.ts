@@ -1,4 +1,4 @@
-export type ModuleType = 'commonabap' | 'module'; // apm
+export type ModuleType = 'commonjs' | 'module';
 
 export type Latest = {
   author?: string | Author;
