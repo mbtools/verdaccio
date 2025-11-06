@@ -122,14 +122,16 @@ COPY --from=builder $VERDACCIO_BUILD_DIR/packages/proxy/build ./packages/proxy/b
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/search/build ./packages/search/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/search-indexer/build ./packages/search-indexer/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/server/express/build ./packages/server/express/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/server/fastify/build ./packages/server/fastify/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/signature/build ./packages/signature/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/standalone/bin ./packages/standalone/bin
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/standalone/build.js ./packages/standalone/build.js
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/store/build ./packages/store/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/ui-components/build ./packages/ui-components/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/ui-components/public ./packages/ui-components/public
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/utils/build ./packages/utils/build
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/verdaccio/build ./packages/verdaccio/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/verdaccio/bin ./packages/verdaccio/bin
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/verdaccio/build ./packages/verdaccio/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/web/build ./packages/web/build
 
 # Prepare Verdaccio directories
