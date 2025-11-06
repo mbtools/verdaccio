@@ -32,6 +32,7 @@ COPY packages/ ./packages/
 RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm install --frozen-lockfile
 
+
 # Build the repo
 RUN pnpm run build
 
@@ -47,15 +48,15 @@ WORKDIR $VERDACCIO_PLUGINS_DIR
 COPY abappm/plugins/ ./
 
 RUN cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/auth && \
-    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund && \
+    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund --production && \
     cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/filter && \
-    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund && \
+    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund --production && \
     cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/middleware && \
-    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund && \
+    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund --production && \
     cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/storage-proxy && \
-    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund && \
+    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund --production && \
     cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/storage-sql && \
-    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund
+    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund --production
 
 #
 # --- Production Stage ---
@@ -95,7 +96,40 @@ RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm install --frozen-lockfile --prod --no-optional --ignore-scripts
 
 # Copy build artifacts
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/ ./packages/
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/api/build ./packages/api/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/auth/build ./packages/auth/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/cli/build ./packages/cli/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/cli/bin ./packages/cli/bin
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/config/build ./packages/config/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/core/core/build ./packages/core/core/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/core/file-locking/build ./packages/core/file-locking/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/core/i18n/build ./packages/core/i18n/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/core/tarball/build ./packages/core/tarball/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/core/types/build ./packages/core/types/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/core/url/build ./packages/core/url/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/hooks/build ./packages/hooks/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/loaders/build ./packages/loaders/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/logger/logger/build ./packages/logger/logger/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/logger/logger-commons/build ./packages/logger/logger-commons/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/logger/logger-prettify/build ./packages/logger/logger-prettify/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/middlewares/build ./packages/middlewares/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/node-api/build ./packages/node-api/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/plugins/audit/build ./packages/plugins/audit/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/plugins/htpasswd/build ./packages/plugins/htpasswd/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/plugins/local-storage/build ./packages/plugins/local-storage/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/plugins/ui-theme/build ./packages/plugins/ui-theme/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/proxy/build ./packages/proxy/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/search/build ./packages/search/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/search-indexer/build ./packages/search-indexer/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/server/express/build ./packages/server/express/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/signature/build ./packages/signature/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/standalone/build ./packages/standalone/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/store/build ./packages/store/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/ui-components/build ./packages/ui-components/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/utils/build ./packages/utils/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/verdaccio/build ./packages/verdaccio/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/verdaccio/bin ./packages/verdaccio/bin
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/web/build ./packages/web/build
 
 # Prepare Verdaccio directories
 RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
