@@ -45,6 +45,8 @@ var import_drizzle_orm10 = require("drizzle-orm");
 var import_core8 = require("@verdaccio/core");
 
 // src/db/index.ts
+var import_node_fs = require("fs");
+var import_node_path = require("path");
 var import_node_postgres = require("drizzle-orm/node-postgres");
 
 // src/env.ts
@@ -60,6 +62,12 @@ var envSchema = import_zod.default.object({
   DB_POOL_SIZE: import_zod.default.coerce.number().default(22),
   DB_SSL: stringBoolean.default(true),
   DB_SSL_REJECT_UNAUTHORIZED: stringBoolean.default(false),
+  DB_SSL_CA_PATH: import_zod.default.string().trim().optional(),
+  DB_SSL_CERT_PATH: import_zod.default.string().trim().optional(),
+  DB_SSL_KEY_PATH: import_zod.default.string().trim().optional(),
+  DB_SSL_CA: import_zod.default.string().trim().optional(),
+  DB_SSL_CERT: import_zod.default.string().trim().optional(),
+  DB_SSL_KEY: import_zod.default.string().trim().optional(),
   DB_LOGGING: stringBoolean.default(false),
   DB_MIGRATING: stringBoolean.default(false),
   DB_SEEDING: stringBoolean.default(false),
@@ -74,6 +82,12 @@ var envServer = envSchema.safeParse({
   DB_POOL_SIZE: process.env.DB_POOL_SIZE,
   DB_SSL: process.env.DB_SSL,
   DB_SSL_REJECT_UNAUTHORIZED: process.env.DB_SSL_REJECT_UNAUTHORIZED,
+  DB_SSL_CA_PATH: process.env.DB_SSL_CA_PATH,
+  DB_SSL_CERT_PATH: process.env.DB_SSL_CERT_PATH,
+  DB_SSL_KEY_PATH: process.env.DB_SSL_KEY_PATH,
+  DB_SSL_CA: process.env.DB_SSL_CA,
+  DB_SSL_CERT: process.env.DB_SSL_CERT,
+  DB_SSL_KEY: process.env.DB_SSL_KEY,
   DB_LOGGING: process.env.DB_LOGGING,
   DB_MIGRATING: process.env.DB_MIGRATING,
   DB_SEEDING: process.env.DB_SEEDING,
@@ -126,7 +140,12 @@ var loggerFactory = (logger) => {
 // src/db/index.ts
 var getDatabase = (url, logger) => {
   const drizzleLogger = loggerFactory(logger);
-  const sslConfig = ENV.DB_SSL ? { rejectUnauthorized: ENV.DB_SSL_REJECT_UNAUTHORIZED } : false;
+  const sslConfig = ENV.DB_SSL ? {
+    rejectUnauthorized: ENV.DB_SSL_REJECT_UNAUTHORIZED,
+    ca: ENV.DB_SSL_CA_PATH ? (0, import_node_fs.readFileSync)((0, import_node_path.resolve)(ENV.DB_SSL_CA_PATH), "utf8") : ENV.DB_SSL_CA ?? void 0,
+    cert: ENV.DB_SSL_CERT_PATH ? (0, import_node_fs.readFileSync)((0, import_node_path.resolve)(ENV.DB_SSL_CERT_PATH), "utf8") : ENV.DB_SSL_CERT ?? void 0,
+    key: ENV.DB_SSL_KEY_PATH ? (0, import_node_fs.readFileSync)((0, import_node_path.resolve)(ENV.DB_SSL_KEY_PATH), "utf8") : ENV.DB_SSL_KEY ?? void 0
+  } : false;
   const db = (0, import_node_postgres.drizzle)({
     connection: {
       connectionString: url,
