@@ -6,6 +6,7 @@ export default defineConfig({
     coverage: {
       exclude: ['./build', 'test'],
     },
+    globals: true,
     testTimeout: 20000,
   },
 });
