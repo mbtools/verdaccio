@@ -126,6 +126,14 @@ COPY packages/server/express/package.json ./packages/server/express/
 COPY packages/signature/package.json ./packages/signature/
 COPY packages/standalone/package.json ./packages/standalone/
 COPY packages/store/package.json ./packages/store/
+COPY packages/tools/docusaurus-plugin-contributors/package.json ./packages/tools/docusaurus-plugin-contributors/
+COPY packages/tools/docusaurus-plugin-downloads/package.json ./packages/tools/docusaurus-plugin-downloads/
+COPY packages/tools/eslint/package.json ./packages/tools/eslint/
+COPY packages/tools/generator-verdaccio-plugin/package.json ./packages/tools/generator-verdaccio-plugin/
+COPY packages/tools/helpers/package.json ./packages/tools/helpers/
+COPY packages/tools/local-publish/package.json ./packages/tools/local-publish/
+COPY packages/tools/local-scripts/package.json ./packages/tools/local-scripts/
+COPY packages/tools/verdaccio-prefix-fake-plugin/package.json ./packages/tools/verdaccio-prefix-fake-plugin/
 COPY packages/ui-components/package.json ./packages/ui-components/
 COPY packages/utils/package.json ./packages/utils/
 COPY packages/verdaccio/package.json ./packages/verdaccio/
