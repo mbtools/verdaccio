@@ -35,10 +35,6 @@ RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
 # Build the repo
 RUN pnpm run build
 
-# Remove devDependencies
-RUN pnpm prune --prod --no-optional --ignore-scripts && \
-    pnpm store prune
-
 #
 # --- Plugin Stage ---
 #
