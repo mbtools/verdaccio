@@ -32,9 +32,12 @@ COPY packages/ ./packages/
 RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm install --frozen-lockfile
 
-
 # Build the repo
 RUN pnpm run build
+
+# Remove devDependencies
+RUN pnpm prune --prod --no-optional --ignore-scripts && \
+    pnpm store prune
 
 #
 # --- Plugin Stage ---
@@ -87,9 +90,46 @@ COPY pnpm-lock.yaml ./
 COPY pnpm-workspace.yaml ./
 COPY tsconfig.base.json ./
 COPY tsconfig.reference.json ./
-COPY package.json ./
-COPY packages/ ./packages/
 COPY docker-bin/ ./docker-bin/
+COPY package.json ./
+# Copy package.json files from packages (excluding test directories)
+COPY packages/api/package.json ./packages/api/
+COPY packages/auth/package.json ./packages/auth/
+COPY packages/cli/package.json ./packages/cli/
+COPY packages/config/package.json ./packages/config/
+COPY packages/core/core/package.json ./packages/core/core/
+COPY packages/core/file-locking/package.json ./packages/core/file-locking/
+COPY packages/core/i18n/package.json ./packages/core/i18n/
+COPY packages/core/tarball/package.json ./packages/core/tarball/
+COPY packages/core/types/package.json ./packages/core/types/
+COPY packages/core/url/package.json ./packages/core/url/
+COPY packages/hooks/package.json ./packages/hooks/
+COPY packages/loaders/package.json ./packages/loaders/
+COPY packages/logger/logger/package.json ./packages/logger/logger/
+COPY packages/logger/logger-commons/package.json ./packages/logger/logger-commons/
+COPY packages/logger/logger-prettify/package.json ./packages/logger/logger-prettify/
+COPY packages/middleware/package.json ./packages/middleware/
+COPY packages/node-api/package.json ./packages/node-api/
+COPY packages/plugins/active-directory/package.json ./packages/plugins/active-directory/
+COPY packages/plugins/audit/package.json ./packages/plugins/audit/
+COPY packages/plugins/auth-memory/package.json ./packages/plugins/auth-memory/
+COPY packages/plugins/aws-storage/package.json ./packages/plugins/aws-storage/
+COPY packages/plugins/google-cloud-storage/package.json ./packages/plugins/google-cloud-storage/
+COPY packages/plugins/htpasswd/package.json ./packages/plugins/htpasswd/
+COPY packages/plugins/local-storage/package.json ./packages/plugins/local-storage/
+COPY packages/plugins/memory/package.json ./packages/plugins/memory/
+COPY packages/plugins/ui-theme/package.json ./packages/plugins/ui-theme/
+COPY packages/proxy/package.json ./packages/proxy/
+COPY packages/search/package.json ./packages/search/
+COPY packages/search-indexer/package.json ./packages/search-indexer/
+COPY packages/server/express/package.json ./packages/server/express/
+COPY packages/signature/package.json ./packages/signature/
+COPY packages/standalone/package.json ./packages/standalone/
+COPY packages/store/package.json ./packages/store/
+COPY packages/ui-components/package.json ./packages/ui-components/
+COPY packages/utils/package.json ./packages/utils/
+COPY packages/verdaccio/package.json ./packages/verdaccio/
+COPY packages/web/package.json ./packages/web/
 
 # Only install production dependencies (omit devDependencies)
 RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
