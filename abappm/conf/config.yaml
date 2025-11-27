@@ -49,23 +49,25 @@ web:
   #
   # HTML tags injected before ends </head>
   metaScripts:
-    #   - '<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>'
-    #   - '<script type="text/javascript" src="https://browser.sentry-cdn.com/5.15.5/bundle.min.js"></script>'
-    - '<meta name="robots" content="noindex" />'
-    - '<meta name="description" content="apm - A Package Manager 📦, a Website 🌐, and a Registry 📑 for ABAP" />'
+    - '<meta name="robots" content="noindex">'
+    - '<meta name="description" content="apm - A Package Manager 📦, a Website 🌐, and a Registry 📑 for ABAP">'
+    - '<meta http-equiv="X-Content-Type-Options" content="nosniff">'
   #
   # HTML tags injected as first child in <body>
   scriptsBodyBefore:
-    - '<div id="beta" style="color:white;background-color:blue;margin:auto;text-align:center;font-size:12px;"><strong>***PLAYGROUND***</strong>  Expect the unexpected! Please post bugs and feedback to <a href="https://github.com/abapPM/abapPM/issues" target="_blank" style="color:white !important;">GitHub</a>. Thank You!  <strong>***PLAYGROUND***</strong></div>'
+    - '<div id="beta" style="display:none;color:white;background-color:blue;margin:auto;text-align:center;font-size:12px;"><strong>***PLAYGROUND***</strong>  Expect the unexpected! Please post bugs and feedback to <a href="https://github.com/abapPM/abapPM/issues" target="_blank" style="color:white !important;">GitHub</a>. Thank You!  <strong>***PLAYGROUND***</strong></div>'
   #
   # HTML tags injected as last child in </body>
-  # scriptsBodyAfter:
-  #   - '<script type="text/javascript" src="https://my.company.com/customJS.min.js"></script>'
+  scriptsBodyAfter:
+    - '<script>if (window.location.hostname.includes("playground.abappm.com")) { document.getElementById("beta").style.display = "block"; }</script>'
   #
   # Public path for template manifest scripts (only manifest)
   publicPath: https://playground.abappm.com/
   pkgManagers:
     - apm
+  rateLimit:
+    windowMs: 60000 # 1 minute
+    max: 100
 
 # Settings for authentication plugin
 # https://verdaccio.org/docs/configuration#authentication
@@ -103,8 +105,8 @@ packages:
 # WORKAROUND: Through given configuration you can workaround following issue https://github.com/verdaccio/verdaccio/issues/301. Set to 0 in case 60 is not enough.
 server:
   rateLimit:
-    windowMs: 600000 # 10 minutes
-    max: 1000 # 1000 requests per 10 minutes
+    windowMs: 60000 # 1 minute
+    max: 100
   keepAliveTimeout: 60
   # The pluginPrefix replaces the default plugins prefix which is `verdaccio`. Please don't include `-`. If `something` is provided
   # the resolved package will be `something-xxxx`.
@@ -158,8 +160,8 @@ security:
 
 # https://verdaccio.org/docs/configuration#user-rate-limit
 userRateLimit:
-  windowMs: 600000 # 10 minutes
-  max: 100 # 100 requests per 10 minutes
+  windowMs: 60000 # 1 minute
+  max: 20
 
 # https://verdaccio.org/docs/configuration#max-body-size
 max_body_size: 2mb
