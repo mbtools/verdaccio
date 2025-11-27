@@ -139,6 +139,7 @@ RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 COPY --from=plugins $VERDACCIO_PLUGINS_DIR /verdaccio/plugins
 COPY abappm/conf /verdaccio/conf
 COPY abappm/i18n $VERDACCIO_APP_DIR/packages/core/i18n/build/download_translations
+COPY abappm/i18n $VERDACCIO_APP_DIR/packages/plugins/ui-theme/src/i18n/download_translations
 
 # Clean up
 RUN rm ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
