@@ -36,21 +36,21 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/config": "8.0.0-next-8.24",
-    "@verdaccio/core": "8.0.0-next-8.24",
-    "@verdaccio/logger": "8.0.0-next-8.24",
+    "@verdaccio/config": "8.0.0-next-8.28",
+    "@verdaccio/core": "8.0.0-next-8.28",
+    "@verdaccio/logger": "8.0.0-next-8.28",
     "debug": "4.4.3",
     "semver": "7.7.3"
   },
   "devDependencies": {
     "@types/debug": "4.1.12",
-    "@types/node": "24.9.2",
+    "@types/node": "24.10.1",
     "@types/semver": "7.7.1",
-    "@verdaccio/types": "13.0.0-next-8.8",
+    "@verdaccio/types": "13.0.0-next-8.10",
     "cross-env": "10.1.0",
-    "tsup": "8.5.0",
+    "tsup": "8.5.1",
     "typescript": "5.9.3",
-    "vitest": "4.0.6"
+    "vitest": "4.0.14"
   },
   "scripts": {
     "build": "tsup",

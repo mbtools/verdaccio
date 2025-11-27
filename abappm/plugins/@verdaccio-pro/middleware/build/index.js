@@ -37,14 +37,20 @@ module.exports = __toCommonJS(index_exports);
 
 // src/plugin.ts
 var import_debug2 = __toESM(require("debug"));
+var import_express = __toESM(require("express"));
 var import_core = require("@verdaccio/core");
 
 // src/middlewares/security-headers.ts
-var setSecurityHeaders = (_req, res, next) => {
-  res.setHeader("Strict-Transport-Security", "max-age=86400; includeSubDomains");
-  res.setHeader("Content-Security-Policy", "connect-src 'self'; default-src 'self'; object-src 'none'; script-src 'self'");
+var setSecurityHeaders = (req, res, next) => {
+  if (req.protocol === "https" || req.get("X-Forwarded-Proto") === "https") {
+    res.setHeader("Strict-Transport-Security", "max-age=86400; includeSubDomains; preload");
+  }
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' https:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
+  );
   res.setHeader("Permissions-Policy", "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(self), usb=(), fullscreen=(self), vibrate=()");
-  res.setHeader("Referrer-Policy", "no-referrer");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
   res.setHeader("X-Robots-Tag", "noindex");
   res.setHeader("X-Powered-By", "Verdaccio");
   next();
@@ -83,13 +89,24 @@ var MiddlewarePlugin = class extends import_core.pluginUtils.Plugin {
     super(config, options);
     this.config = options.config;
     this.logger = options.logger;
-    this.middlewareConfig = { enabled: config?.enabled ?? true };
+    this.middlewareConfig = config;
   }
   register_middlewares(app, _auth, _storage) {
     if (!this.middlewareConfig.enabled) {
       return;
     }
     debug2("Verdaccio Pro Middleware plugin is enabled");
+    app.use(import_express.default.json({
+      strict: false,
+      limit: this.config.max_body_size || "10mb",
+      // Explicitly reject __proto__ and constructor
+      verify: (_req, _res, buf) => {
+        const str = buf.toString();
+        if (str.includes("__proto__") || str.includes("constructor")) {
+          throw new Error("Invalid JSON");
+        }
+      }
+    }));
     app.use(security_headers_default);
     app.use(block_requests_default);
     app.use("/package", redirect_npm_default(this.logger));
