@@ -102,6 +102,9 @@ packages:
 # A value of 0 makes the http server behave similarly to Node.js versions prior to 8.0.0, which did not have a keep-alive timeout.
 # WORKAROUND: Through given configuration you can workaround following issue https://github.com/verdaccio/verdaccio/issues/301. Set to 0 in case 60 is not enough.
 server:
+  rateLimit:
+    windowMs: 600000 # 10 minutes
+    max: 1000 # 1000 requests per 10 minutes
   keepAliveTimeout: 60
   # The pluginPrefix replaces the default plugins prefix which is `verdaccio`. Please don't include `-`. If `something` is provided
   # the resolved package will be `something-xxxx`.
@@ -144,7 +147,7 @@ security:
     legacy: false
     jwt:
       sign:
-        expiresIn: 29d
+        expiresIn: 30d
   #       verify:
   #         someProp: [value]
   web:
@@ -154,9 +157,9 @@ security:
 #       someProp: [value]
 
 # https://verdaccio.org/docs/configuration#user-rate-limit
-# userRateLimit:
-#   windowMs: 50000
-#   max: 1000
+userRateLimit:
+  windowMs: 600000 # 10 minutes
+  max: 100 # 100 requests per 10 minutes
 
 # https://verdaccio.org/docs/configuration#max-body-size
 max_body_size: 2mb
