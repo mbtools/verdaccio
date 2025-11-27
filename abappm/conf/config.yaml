@@ -51,7 +51,6 @@ web:
   metaScripts:
     - '<meta name="robots" content="noindex">'
     - '<meta name="description" content="apm - A Package Manager 📦, a Website 🌐, and a Registry 📑 for ABAP">'
-    - '<meta http-equiv="X-Content-Type-Options" content="nosniff">'
   #
   # HTML tags injected as first child in <body>
   scriptsBodyBefore:
