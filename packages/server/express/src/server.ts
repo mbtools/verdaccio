@@ -1,5 +1,5 @@
 import compression from 'compression';
-// import cors from 'cors'; // APM: CORS is set in middleware
+import cors from 'cors';
 import buildDebug from 'debug';
 import express, { Express } from 'express';
 import _ from 'lodash';
@@ -46,10 +46,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
   if (config.server?.trustProxy) {
     app.set('trust proxy', config.server.trustProxy);
   }
-
-  // APM: CORS is set in middleware
-  // app.use(cors());
-
+  app.use(cors());
   app.use(rateLimit(config.server?.rateLimit));
 
   const errorReportingMiddlewareWrap = errorReportingMiddleware(logger);
