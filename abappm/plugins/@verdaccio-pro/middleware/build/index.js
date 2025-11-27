@@ -37,17 +37,31 @@ module.exports = __toCommonJS(index_exports);
 
 // src/plugin.ts
 var import_debug2 = __toESM(require("debug"));
-var import_express = __toESM(require("express"));
 var import_core = require("@verdaccio/core");
 
 // src/middlewares/security-headers.ts
 var setSecurityHeaders = (req, res, next) => {
+  const origin = req.get("Origin");
+  if (origin) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+  } else {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+  }
+  res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, PUT, POST, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept, Origin");
+  res.setHeader("Access-Control-Expose-Headers", "Content-Length, Content-Type, ETag, Last-Modified");
+  res.setHeader("Access-Control-Max-Age", "86400");
+  if (req.method === "OPTIONS") {
+    res.status(204).end();
+    return;
+  }
   if (req.protocol === "https" || req.get("X-Forwarded-Proto") === "https") {
     res.setHeader("Strict-Transport-Security", "max-age=86400; includeSubDomains; preload");
   }
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' https:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
+    "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self' *; font-src 'self' https:; object-src 'none'; base-uri 'self'; frame-ancestors *;"
   );
   res.setHeader("Permissions-Policy", "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(self), usb=(), fullscreen=(self), vibrate=()");
   res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
@@ -82,6 +96,23 @@ var redirectNpmStyleUrl = (logger) => {
 };
 var redirect_npm_default = redirectNpmStyleUrl;
 
+// src/middlewares/prototype-pollution.ts
+var import_express = __toESM(require("express"));
+var prototypePollutionProtection = (config) => {
+  return import_express.default.json({
+    strict: false,
+    limit: config.max_body_size || "10mb",
+    // Explicitly reject __proto__ and constructor
+    verify: (_req, _res, buf) => {
+      const str = buf.toString();
+      if (str.includes("__proto__") || str.includes("constructor")) {
+        throw new Error("Invalid JSON");
+      }
+    }
+  });
+};
+var prototype_pollution_default = prototypePollutionProtection;
+
 // src/plugin.ts
 var debug2 = (0, import_debug2.default)("verdaccio:plugin:pro:middleware");
 var MiddlewarePlugin = class extends import_core.pluginUtils.Plugin {
@@ -96,17 +127,7 @@ var MiddlewarePlugin = class extends import_core.pluginUtils.Plugin {
       return;
     }
     debug2("Verdaccio Pro Middleware plugin is enabled");
-    app.use(import_express.default.json({
-      strict: false,
-      limit: this.config.max_body_size || "10mb",
-      // Explicitly reject __proto__ and constructor
-      verify: (_req, _res, buf) => {
-        const str = buf.toString();
-        if (str.includes("__proto__") || str.includes("constructor")) {
-          throw new Error("Invalid JSON");
-        }
-      }
-    }));
+    app.use(prototype_pollution_default(this.config));
     app.use(security_headers_default);
     app.use(block_requests_default);
     app.use("/package", redirect_npm_default(this.logger));
