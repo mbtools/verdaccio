@@ -50,7 +50,7 @@ var setSecurityHeaders = (req, res, next) => {
   }
   res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, PUT, POST, DELETE, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept, Origin");
-  res.setHeader("Access-Control-Expose-Headers", "Content-Length, Content-Type, ETag, Last-Modified");
+  res.setHeader("Access-Control-Expose-Headers", "Content-Length, Content-Type, Content-Encoding, ETag, Last-Modified");
   res.setHeader("Access-Control-Max-Age", "86400");
   if (req.method === "OPTIONS") {
     res.status(204).end();
