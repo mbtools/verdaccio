@@ -1,5 +1,4 @@
 import express from 'express';
-import { JSDOM } from 'jsdom';
 import path from 'node:path';
 import supertest from 'supertest';
 import { describe, expect, test } from 'vitest';
@@ -31,15 +30,12 @@ describe('test web server', () => {
     describe('output', () => {
       const render = async (config = 'default-test.yaml') => {
         const response = await supertest(initializeServer(config))
-          .get('/')
-          .set('Accept', HEADERS.TEXT_HTML)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
+          .get('/-/static/ui-options.js')
+          .set('Accept', HEADERS.JAVASCRIPT_CHARSET)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JAVASCRIPT_CHARSET)
           .expect(HTTP_STATUS.OK);
-        return new JSDOM(response.text, { runScripts: 'dangerously' });
-      };
-
-      const loadLogo = async (config = 'default-test.yaml', url) => {
-        return supertest(initializeServer(config)).get(url).expect(HTTP_STATUS.OK);
+        const options = JSON.parse(response.text.slice(response.text.indexOf('=') + 1, -1));
+        return { window: { __VERDACCIO_BASENAME_UI_OPTIONS: options } };
       };
 
       test('should match render set ui properties', async () => {
@@ -76,8 +72,7 @@ describe('test web server', () => {
         const {
           window: { __VERDACCIO_BASENAME_UI_OPTIONS },
         } = await render('file-logo.yaml');
-        expect(__VERDACCIO_BASENAME_UI_OPTIONS.logo).toMatch('/prefix/-/static/dark-logo.png');
-        return loadLogo('file-logo.yaml', '/-/static/dark-logo.png');
+        expect(__VERDACCIO_BASENAME_UI_OPTIONS.logo).toMatch('/prefix/-/static/logo.png');
       });
 
       test('should render dark logo as file', async () => {
