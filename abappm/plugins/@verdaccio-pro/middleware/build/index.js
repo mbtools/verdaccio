@@ -61,7 +61,7 @@ var setSecurityHeaders = (req, res, next) => {
   }
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https:; connect-src 'self'; font-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests;"
+    "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self'; font-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests; report-uri https://csp.abappm.com/csp;"
   );
   res.setHeader("Permissions-Policy", "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(self), usb=(), fullscreen=(self)");
   res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
@@ -73,7 +73,7 @@ var security_headers_default = setSecurityHeaders;
 
 // src/middlewares/block-requests.ts
 var blockUnwantedRequests = (req, res, next) => {
-  const unwantedPattern = /\.(php|exe|cmd|ps1|txt|pdf|doc|docx|xls|xlsx|ppt|pptx)$/;
+  const unwantedPattern = /\.(php|exe|cmd|bat|sh|csh|ksh|zsh|ps1|txt|pdf|doc|docx|xls|xlsx|ppt|pptx)$/;
   if (unwantedPattern.test(req.url)) {
     res.status(404).send("Not Found");
   } else {
