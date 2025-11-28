@@ -58,7 +58,7 @@ web:
   #
   # HTML tags injected as last child in </body>
   scriptsBodyAfter:
-    - '<script src="/-/static/apm-beta-banner.js"></script>'
+    - '<script src="/-/assets/apm-beta-banner.js"></script>'
   #
   # Public path for template manifest scripts (only manifest)
   publicPath: https://playground.abappm.com/
