@@ -717,6 +717,9 @@ importers:
       process-warning:
         specifier: 1.0.0
         version: 1.0.0
+      sanitize-filename:
+        specifier: 1.6.3
+        version: 1.6.3
       semver:
         specifier: 7.7.3
         version: 7.7.3

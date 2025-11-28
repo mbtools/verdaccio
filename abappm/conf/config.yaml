@@ -67,6 +67,7 @@ web:
   rateLimit:
     windowMs: 60000 # 1 minute
     max: 100
+  assetFolder: /verdaccio/conf
 
 # Settings for authentication plugin
 # https://verdaccio.org/docs/configuration#authentication
