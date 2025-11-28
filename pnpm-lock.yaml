@@ -673,10 +673,10 @@ importers:
         version: link:../core/types
       ts-node:
         specifier: 10.9.2
-        version: 10.9.2(@types/node@20.14.12)(typescript@5.3.3)
+        version: 10.9.2(@types/node@24.10.0)(typescript@5.3.3)
       vitest:
         specifier: 3.2.4
-        version: 3.2.4(@types/debug@4.1.12)(@types/node@20.14.12)(jsdom@26.1.0)(msw@2.11.3(@types/node@20.14.12)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.10.0)(jsdom@26.1.0)(msw@2.11.3(@types/node@24.10.0)(typescript@5.3.3))(sass@1.93.2)(terser@5.31.3)
 
   packages/config:
     dependencies:
@@ -972,9 +972,6 @@ importers:
       '@verdaccio/types':
         specifier: workspace:13.0.0-next-8.10
         version: link:../core/types
-      baseline-browser-mapping:
-        specifier: ^2.8.31
-        version: 2.8.31
       http-errors:
         specifier: 2.0.0
         version: 2.0.0
@@ -1765,7 +1762,7 @@ importers:
         version: 11.8.6
       ts-node:
         specifier: 10.9.2
-        version: 10.9.2(@types/node@20.14.12)(typescript@5.3.3)
+        version: 10.9.2(@types/node@24.10.0)(typescript@5.3.3)
 
   packages/tools/verdaccio-prefix-fake-plugin: {}
 
@@ -29935,7 +29932,6 @@ snapshots:
       typescript: 5.3.3
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
-    optional: true
 
   tsconfig-paths@3.15.0:
     dependencies:
