@@ -26,14 +26,6 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
 
   router.use(setSecurityWebHeaders);
 
-  // any match within the asset folder is routed to the file system
-  if (config?.web?.assetFolder) {
-    router.get(WebUrlsNamespace.assets + '*', function (req, res, next) {
-      const filename = req.params[0];
-      sendFileSafe(config.web.assetFolder, filename, res, next);
-    });
-  }
-
   // any match within the static is routed to the file system
   router.get(WebUrlsNamespace.static + '*', function (req, res, next) {
     const filename = req.params[0];
@@ -110,6 +102,14 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
     renderHTML(config, manifest, manifestFiles, options, res);
     debug('render root');
   });
+
+  // any match within the asset folder is routed to the file system
+  if (config?.web?.assetFolder) {
+    router.get(WebUrlsNamespace.assets + '*', function (req, res, next) {
+      const filename = req.params[0];
+      sendFileSafe(config.web.assetFolder, filename, res, next);
+    });
+  }
 
   return router;
 }
