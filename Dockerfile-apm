@@ -67,6 +67,7 @@ ENV NODE_ENV=production \
     PNPM_VERSION=10.20.0 \
     VERDACCIO_APP_DIR=/opt/verdaccio \
     VERDACCIO_BUILD_DIR=/opt/verdaccio-build \
+    VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org \
     VERDACCIO_PLUGINS_DIR=/opt/verdaccio-plugins \
     VERDACCIO_USER_NAME=verdaccio \
     VERDACCIO_USER_UID=10001 \
@@ -97,6 +98,7 @@ RUN rm -rf ./packages/tools ./packages/standalone
 
 # Only install production dependencies (omit devDependencies)
 RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
+    pnpm config set store-dir $VERDACCIO_APP_DIR/.pnpm-store && \
     pnpm install --frozen-lockfile --prod --no-optional --ignore-scripts --filter "./packages/**"
 
 # Copy build artifacts
@@ -146,17 +148,17 @@ COPY abappm/plugins /verdaccio/plugins
 COPY abappm/conf /verdaccio/conf
 COPY abappm/i18n $VERDACCIO_APP_DIR/packages/core/i18n/build/download_translations
 
-# Install plugins
+# Install plugins with shared node_modules to avoid duplication
 RUN cd /verdaccio/plugins/@verdaccio-pro/auth && \
-    pnpm install --prod --no-optional --ignore-scripts && \
+    pnpm install --shamefully-hoist --prod --no-optional --ignore-scripts && \
     cd /verdaccio/plugins/@verdaccio-pro/filter && \
-    pnpm install --prod --no-optional --ignore-scripts && \
+    pnpm install --shamefully-hoist --prod --no-optional --ignore-scripts && \
     cd /verdaccio/plugins/@verdaccio-pro/middleware && \
-    pnpm install --prod --no-optional --ignore-scripts && \
+    pnpm install --shamefully-hoist --prod --no-optional --ignore-scripts && \
     cd /verdaccio/plugins/@verdaccio-pro/storage-proxy && \
-    pnpm install --prod --no-optional --ignore-scripts && \
+    pnpm install --shamefully-hoist --prod --no-optional --ignore-scripts && \
     cd /verdaccio/plugins/@verdaccio-pro/storage-sql && \
-    pnpm install --prod --no-optional --ignore-scripts
+    pnpm install --shamefully-hoist --prod --no-optional --ignore-scripts
 
 # Clean up
 RUN rm ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
