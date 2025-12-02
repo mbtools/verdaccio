@@ -69,7 +69,8 @@ ENV VERDACCIO_APP_DIR=/opt/verdaccio \
     VERDACCIO_USER_NAME=verdaccio \
     VERDACCIO_USER_UID=10001 \
     VERDACCIO_PORT=4873 \
-    VERDACCIO_PROTOCOL=http
+    VERDACCIO_PROTOCOL=http \
+    VERDACCIO_ADDRESS=0.0.0.0
 ENV PATH=$VERDACCIO_APP_DIR/docker-bin:$PATH \
     HOME=$VERDACCIO_APP_DIR
 
@@ -156,6 +157,9 @@ RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APP_DIR -g "$VERDACCIO_US
     chown -R $VERDACCIO_USER_UID:root /verdaccio/storage /verdaccio/plugins /verdaccio/conf && \
     chmod -R g=u /verdaccio/storage /verdaccio/plugins /verdaccio/conf /etc/passwd
 
+# For monitoring disk space
+RUN apk add --no-cache ncdu
+
 USER $VERDACCIO_USER_UID
 
 EXPOSE $VERDACCIO_PORT
@@ -164,4 +168,4 @@ VOLUME /verdaccio/storage
 
 ENTRYPOINT ["uid_entrypoint"]
 
-CMD $VERDACCIO_APP_DIR/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT
+CMD $VERDACCIO_APP_DIR/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://$VERDACCIO_ADDRESS:$VERDACCIO_PORT
