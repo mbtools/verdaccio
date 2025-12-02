@@ -93,8 +93,7 @@ COPY docker-bin/ ./docker-bin/
 
 # Only install production dependencies (omit devDependencies)
 RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
-    pnpm install --frozen-lockfile --prod --no-optional --ignore-scripts && \
-    pnpm cache clean --all
+    pnpm install --frozen-lockfile --prod --no-optional --ignore-scripts
 
 # Copy build artifacts
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/api/build ./packages/api/build
