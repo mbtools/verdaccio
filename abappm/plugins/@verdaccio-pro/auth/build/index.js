@@ -200,6 +200,7 @@ var userSecrets = (0, import_pg_core.pgTable)("user_secrets", {
 // src/services/user-secrets.ts
 var import_drizzle_orm = require("drizzle-orm");
 var debug = (0, import_debug.default)("verdaccio:plugin:apm:auth");
+var USER_HASH_SEPARATOR = "|";
 var UserSecretsService = class {
   constructor(database, logger) {
     this.db = database;
@@ -211,7 +212,7 @@ var UserSecretsService = class {
   }
   async add(user, hash, email) {
     try {
-      const encryptedHash = await encrypt(user + hash);
+      const encryptedHash = await encrypt(user + USER_HASH_SEPARATOR + hash);
       const encryptedEmail = await encrypt(email);
       const userSecret = { user, hash: encryptedHash, email: encryptedEmail };
       await this.db.insert(userSecrets).values(userSecret);
@@ -236,8 +237,8 @@ var UserSecretsService = class {
       debug("user %s not found", user);
       return null;
     }
-    const decryptedHash = decrypt(user + userSecret.hash);
-    return decryptedHash;
+    const decryptedHash = await decrypt(userSecret.hash);
+    return decryptedHash.split(USER_HASH_SEPARATOR)[1] ?? null;
   }
   async getEmail(user) {
     const [userSecret] = await this.db.select({ email: userSecrets.email }).from(userSecrets).where((0, import_drizzle_orm.and)((0, import_drizzle_orm.eq)(userSecrets.user, user), (0, import_drizzle_orm.isNull)(userSecrets.deleted)));
@@ -245,7 +246,7 @@ var UserSecretsService = class {
       debug("user %s not found", user);
       return null;
     }
-    const decryptedEmail = decrypt(user + userSecret.email);
+    const decryptedEmail = await decrypt(userSecret.email);
     return decryptedEmail;
   }
   async changePassword(user, hash) {
