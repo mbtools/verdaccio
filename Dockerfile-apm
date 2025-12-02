@@ -63,7 +63,9 @@ RUN cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/auth && \
 FROM node:24-alpine AS app
 LABEL maintainer="https://github.com/abapPM/abapPM"
 
-ENV VERDACCIO_APP_DIR=/opt/verdaccio \
+ENV NODE_ENV=production \
+    PNPM_VERSION=10.20.0 \
+    VERDACCIO_APP_DIR=/opt/verdaccio \
     VERDACCIO_BUILD_DIR=/opt/verdaccio-build \
     VERDACCIO_PLUGINS_DIR=/opt/verdaccio-plugins \
     VERDACCIO_USER_NAME=verdaccio \
@@ -91,10 +93,17 @@ COPY package.json ./
 COPY packages/ ./packages/
 COPY docker-bin/ ./docker-bin/
 
+# Remove development-only packages before installing dependencies
+# This prevents pnpm from installing dependencies for test/tool packages
+RUN rm -rf ./packages/tools ./packages/standalone
+
 # Only install production dependencies (omit devDependencies)
+# ISSUE: pnpm --prod in workspaces still processes ALL workspace packages and installs
+# dependencies for all of them. Even though root devDependencies are excluded, some may
+# still appear if workspace packages have transitive dependencies or if pnpm needs them
+# for workspace resolution. This is a known limitation of pnpm workspaces with --prod.
 RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
-    pnpm install --frozen-lockfile --prod --no-optional --ignore-scripts && \
-    pnpm store prune
+    pnpm install --frozen-lockfile --prod --no-optional --ignore-scripts --filter "./packages/**"
 
 # Copy build artifacts
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/api/build ./packages/api/build
@@ -142,6 +151,7 @@ COPY --from=plugins $VERDACCIO_PLUGINS_DIR /verdaccio/plugins
 COPY abappm/conf /verdaccio/conf
 COPY abappm/i18n $VERDACCIO_APP_DIR/packages/core/i18n/build/download_translations
 COPY abappm/i18n $VERDACCIO_APP_DIR/packages/plugins/ui-theme/src/i18n/download_translations
+COPY Dockerfile /verdaccio/conf
 
 # Clean up
 RUN rm ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
