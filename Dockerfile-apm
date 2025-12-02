@@ -93,7 +93,8 @@ COPY docker-bin/ ./docker-bin/
 
 # Only install production dependencies (omit devDependencies)
 RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
-    pnpm install --frozen-lockfile --prod --no-optional --ignore-scripts
+    pnpm install --frozen-lockfile --prod --no-optional --ignore-scripts && \
+    pnpm store prune
 
 # Copy build artifacts
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/api/build ./packages/api/build
@@ -144,12 +145,13 @@ COPY abappm/i18n $VERDACCIO_APP_DIR/packages/plugins/ui-theme/src/i18n/download_
 
 # Clean up
 RUN rm ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
+    rm -rf ./.cache && \
     rm -rf ./packages/standalone && \
     rm -rf ./packages/tools && \
     rm -rf /opt/yarn-v1.22.22
 
 RUN find . -type f -a \( -name ".*" -o -name "*.md" -o -name "LICENSE" -o -name "tsconfig.*" -o -name "vitest.*" -o -name "*.d.ts" -o -name "*.js.map" -o -name "typedoc.*" -o -name "webpack.*" \) -delete && \
-    find . -type d -a \( -name "examples" -o -name "src" -o -name "test" -o -name "tests" -o -name "tools" -o -name "types" -o -name "vitest" \) -not -path "*/node_modules/*" | xargs rm -rf
+    find . -type d -a \( -name "examples" -o -name "src" -o -name "test" -o -name "tests" -o -name "tools" -o -name "types" -o -name "vitest" -o -name "__partials__"  -o -name "__snapshots__" \) -not -path "*/node_modules/*" | xargs rm -rf
 
 # Set user, permissions, ownership
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APP_DIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
