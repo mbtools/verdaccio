@@ -84,6 +84,7 @@ WORKDIR $VERDACCIO_APP_DIR
 RUN corepack enable && corepack prepare pnpm@$PNPM_VERSION --activate
 
 # Copy only package files to benefit from Docker cache
+# Remove tools and standalone since we don't need them for production
 COPY .babelrc ./
 COPY pnpm-lock.yaml ./ 
 COPY pnpm-workspace.yaml ./
@@ -92,16 +93,9 @@ COPY tsconfig.reference.json ./
 COPY package.json ./
 COPY packages/ ./packages/
 COPY docker-bin/ ./docker-bin/
-
-# Remove development-only packages before installing dependencies
-# This prevents pnpm from installing dependencies for test/tool packages
 RUN rm -rf ./packages/tools ./packages/standalone
 
 # Only install production dependencies (omit devDependencies)
-# ISSUE: pnpm --prod in workspaces still processes ALL workspace packages and installs
-# dependencies for all of them. Even though root devDependencies are excluded, some may
-# still appear if workspace packages have transitive dependencies or if pnpm needs them
-# for workspace resolution. This is a known limitation of pnpm workspaces with --prod.
 RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm install --frozen-lockfile --prod --no-optional --ignore-scripts --filter "./packages/**"
 
@@ -133,8 +127,8 @@ COPY --from=builder $VERDACCIO_BUILD_DIR/packages/search/build ./packages/search
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/search-indexer/build ./packages/search-indexer/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/server/express/build ./packages/server/express/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/signature/build ./packages/signature/build
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/standalone/bin ./packages/standalone/bin
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/standalone/build.js ./packages/standalone/build.js
+# COPY --from=builder $VERDACCIO_BUILD_DIR/packages/standalone/bin ./packages/standalone/bin
+# COPY --from=builder $VERDACCIO_BUILD_DIR/packages/standalone/build.js ./packages/standalone/build.js
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/store/build ./packages/store/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/ui-components/build ./packages/ui-components/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/ui-components/public ./packages/ui-components/public
@@ -147,15 +141,26 @@ COPY --from=builder $VERDACCIO_BUILD_DIR/packages/web/build ./packages/web/build
 RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
 # Copy plugins and config
-COPY --from=plugins $VERDACCIO_PLUGINS_DIR /verdaccio/plugins
+### COPY --from=plugins $VERDACCIO_PLUGINS_DIR /verdaccio/plugins
+COPY abappm/plugins /verdaccio/plugins
 COPY abappm/conf /verdaccio/conf
 COPY abappm/i18n $VERDACCIO_APP_DIR/packages/core/i18n/build/download_translations
+
+# Install plugins
+RUN cd /verdaccio/plugins/@verdaccio-pro/auth && \
+    pnpm install --prod --no-optional --ignore-scripts && \
+    cd /verdaccio/plugins/@verdaccio-pro/filter && \
+    pnpm install --prod --no-optional --ignore-scripts && \
+    cd /verdaccio/plugins/@verdaccio-pro/middleware && \
+    pnpm install --prod --no-optional --ignore-scripts && \
+    cd /verdaccio/plugins/@verdaccio-pro/storage-proxy && \
+    pnpm install --prod --no-optional --ignore-scripts && \
+    cd /verdaccio/plugins/@verdaccio-pro/storage-sql && \
+    pnpm install --prod --no-optional --ignore-scripts
 
 # Clean up
 RUN rm ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
     rm -rf ./.cache && \
-    rm -rf ./packages/standalone && \
-    rm -rf ./packages/tools && \
     rm -rf /opt/yarn-v1.22.22
 
 RUN find . -type f -a \( -name ".*" -o -name "*.md" -o -name "LICENSE" -o -name "tsconfig.*" -o -name "vitest.*" -o -name "*.d.ts" -o -name "*.js.map" -o -name "typedoc.*" -o -name "webpack.*" \) -delete && \
