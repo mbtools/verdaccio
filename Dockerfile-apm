@@ -81,6 +81,8 @@ ENV PATH=$VERDACCIO_APP_DIR/docker-bin:$PATH \
 
 # https://github.com/Yelp/dumb-init
 RUN apk --no-cache add openssl dumb-init
+# For checking disk space
+RUN apk --no-cache add ncdu
 
 WORKDIR $VERDACCIO_APP_DIR
 
@@ -131,8 +133,6 @@ COPY --from=builder $VERDACCIO_BUILD_DIR/packages/search/build ./packages/search
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/search-indexer/build ./packages/search-indexer/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/server/express/build ./packages/server/express/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/signature/build ./packages/signature/build
-# COPY --from=builder $VERDACCIO_BUILD_DIR/packages/standalone/bin ./packages/standalone/bin
-# COPY --from=builder $VERDACCIO_BUILD_DIR/packages/standalone/build.js ./packages/standalone/build.js
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/store/build ./packages/store/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/ui-components/build ./packages/ui-components/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/ui-components/public ./packages/ui-components/public
@@ -145,13 +145,11 @@ COPY --from=builder $VERDACCIO_BUILD_DIR/packages/web/build ./packages/web/build
 RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
 # Copy plugins and config
-### COPY --from=plugins $VERDACCIO_PLUGINS_DIR /verdaccio/plugins
 COPY abappm/plugins /verdaccio/plugins
 COPY abappm/conf /verdaccio/conf
 COPY abappm/i18n $VERDACCIO_APP_DIR/packages/core/i18n/build/download_translations
-COPY Dockerfile-apm /verdaccio/conf/Dockerfile-apm
 
-# Install plugins with shared node_modules to avoid duplication
+# Install plugins
 RUN cd /verdaccio/plugins/@verdaccio-pro/auth && \
     pnpm install --prod --no-optional --ignore-scripts && \
     cd /verdaccio/plugins/@verdaccio-pro/filter && \
@@ -176,9 +174,6 @@ RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APP_DIR -g "$VERDACCIO_US
     chmod -R +x $VERDACCIO_APP_DIR/packages/verdaccio/bin $VERDACCIO_APP_DIR/docker-bin && \
     chown -R $VERDACCIO_USER_UID:root /verdaccio/storage /verdaccio/plugins /verdaccio/conf && \
     chmod -R g=u /verdaccio/storage /verdaccio/plugins /verdaccio/conf /etc/passwd
-
-# For monitoring disk space
-RUN apk add --no-cache ncdu
 
 USER $VERDACCIO_USER_UID
 
