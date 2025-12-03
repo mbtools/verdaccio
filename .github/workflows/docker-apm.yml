@@ -53,6 +53,7 @@ jobs:
           images: abappm/registry
           tags: |
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'apm') }}
+            type=sha
 
       - name: Docker Build & Push
         uses: docker/build-push-action@v6
