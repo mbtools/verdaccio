@@ -1,5 +1,4 @@
 import express from 'express';
-import { JSDOM } from 'jsdom';
 import path from 'node:path';
 import supertest from 'supertest';
 import { describe, expect, test } from 'vitest';
@@ -31,11 +30,12 @@ describe('test web server', () => {
     describe('output', () => {
       const render = async (config = 'default-test.yaml') => {
         const response = await supertest(initializeServer(config))
-          .get('/')
-          .set('Accept', HEADERS.TEXT_HTML)
-          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.TEXT_HTML_UTF8)
+          .get('/-/static/ui-options.js')
+          .set('Accept', HEADERS.JAVASCRIPT_CHARSET)
+          .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JAVASCRIPT_CHARSET)
           .expect(HTTP_STATUS.OK);
-        return new JSDOM(response.text, { runScripts: 'dangerously' });
+        const options = JSON.parse(response.text.slice(response.text.indexOf('=') + 1, -1));
+        return { window: { __VERDACCIO_BASENAME_UI_OPTIONS: options } };
       };
 
       const loadLogo = async (config = 'default-test.yaml', url) => {
