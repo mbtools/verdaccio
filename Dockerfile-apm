@@ -36,28 +36,6 @@ RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
 RUN pnpm run build
 
 #
-# --- Plugin Stage ---
-#
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24-alpine AS plugins
-
-ENV VERDACCIO_PLUGINS_DIR=/opt/verdaccio-plugins
-
-WORKDIR $VERDACCIO_PLUGINS_DIR
-
-COPY abappm/plugins/ ./
-
-RUN cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/auth && \
-    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund --production && \
-    cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/filter && \
-    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund --production && \
-    cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/middleware && \
-    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund --production && \
-    cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/storage-proxy && \
-    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund --production && \
-    cd $VERDACCIO_PLUGINS_DIR/@verdaccio-pro/storage-sql && \
-    npm install --install-strategy=shallow --no-bin-links --no-audit --no-fund --production
-
-#
 # --- Production Stage ---
 #
 FROM node:24-alpine AS app
