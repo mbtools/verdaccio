@@ -47,7 +47,7 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
   app.param('_rev', match(/^-rev$/));
   app.param('org_couchdb_user', match(/^org\.couchdb\.user:/));
 
-  app.use(auth.apiJWTmiddleware());
+  // Body parser must be registered before JWT middleware that pauses/resumes the stream
 
   // middleware might have registered a json parser already
   if (hasBodyParser(app)) {
@@ -55,6 +55,8 @@ export default function (config: Config, auth: Auth, storage: Storage, logger: L
   } else {
     app.use(express.json({ strict: false, limit: config.max_body_size || '10mb' }));
   }
+
+  app.use(auth.apiJWTmiddleware());
 
   app.use(antiLoop(config));
   app.use(makeURLrelative);
