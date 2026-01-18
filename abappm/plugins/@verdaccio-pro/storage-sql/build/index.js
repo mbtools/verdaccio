@@ -31,11 +31,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 var index_exports = {};
 __export(index_exports, {
   SqlStoragePlugin: () => storage_plugin_default,
-  default: () => index_default,
-  getMetadataFromManifest: () => getMetadataFromManifest,
-  metadata: () => metadata,
-  packages: () => packages,
-  unescapeHtmlEntities: () => unescapeHtmlEntities
+  default: () => index_default
 });
 module.exports = __toCommonJS(index_exports);
 
@@ -504,7 +500,7 @@ var OrgService = class {
       return this.orgCache.get(name);
     }
     let orgId;
-    if (name.includes("/")) {
+    if (name.startsWith("@")) {
       orgId = await this.getOrgId(name.split("/")[0]);
     } else {
       orgId = await this.getOrgId(PUBLIC_PACKAGES);
@@ -586,39 +582,6 @@ var import_debug2 = __toESM(require("debug"));
 var import_drizzle_orm4 = require("drizzle-orm");
 
 // src/services/utils.ts
-var getReadmesFromManifest = (manifest) => {
-  const readmes2 = [];
-  for (const version in manifest.versions) {
-    const readme = manifest.versions[version].readme;
-    if (readme) {
-      readmes2.push({ version, markdown: readme });
-    }
-  }
-  const latest = manifest.readme;
-  if (latest) {
-    readmes2.push({ version: "latest", markdown: latest });
-  }
-  return readmes2;
-};
-var clearReadmesFromManifest = (manifest) => {
-  const manifestCopy = JSON.parse(JSON.stringify(manifest));
-  for (const version in manifestCopy.versions) {
-    manifestCopy.versions[version].readme = "";
-  }
-  manifestCopy.readme = "";
-  return manifestCopy;
-};
-var mergeReadmesIntoManifest = (manifest, readmes2) => {
-  const manifestCopy = JSON.parse(JSON.stringify(manifest));
-  for (const readme of readmes2) {
-    if (readme.version === "latest") {
-      manifestCopy.readme = readme.markdown;
-    } else if (manifestCopy.versions[readme.version]) {
-      manifestCopy.versions[readme.version].readme = readme.markdown;
-    }
-  }
-  return manifestCopy;
-};
 var getPackageInfoFromFilename = (filename) => {
   const match = filename.match(/^(.*)-(\d+\.\d+\.\d+.*)\.tgz$/);
   if (!match) {
@@ -637,16 +600,6 @@ var getISODates = (start, end) => {
 };
 var unescapeHtmlEntities = (json) => {
   return json.replace(/\\u003e/g, ">").replace(/\\u003c/g, "<").replace(/\\u0026/g, "&");
-};
-var getMetadataFromManifest = (manifest) => {
-  const metadata2 = [];
-  for (const version in manifest.versions) {
-    const packageVersion = manifest.versions[version];
-    const description = packageVersion.description || "";
-    const keywords = Array.isArray(packageVersion.keywords) ? packageVersion.keywords.join(" ") : packageVersion.keywords || "";
-    metadata2.push({ version, description, keywords });
-  }
-  return metadata2;
 };
 
 // src/services/downloads.ts
@@ -809,6 +762,53 @@ var LocalPackagesService = class {
 var import_debug4 = __toESM(require("debug"));
 var import_drizzle_orm6 = require("drizzle-orm");
 var import_core4 = require("@verdaccio/core");
+
+// src/services/manifest.ts
+var getReadmesFromManifest = (manifest) => {
+  const readmes2 = [];
+  for (const version in manifest.versions) {
+    const readme = manifest.versions[version].readme;
+    if (readme) {
+      readmes2.push({ version, markdown: readme });
+    }
+  }
+  const latest = manifest.readme;
+  if (latest) {
+    readmes2.push({ version: "latest", markdown: latest });
+  }
+  return readmes2;
+};
+var clearReadmesFromManifest = (manifest) => {
+  const manifestCopy = JSON.parse(JSON.stringify(manifest));
+  for (const version in manifestCopy.versions) {
+    manifestCopy.versions[version].readme = "";
+  }
+  manifestCopy.readme = "";
+  return manifestCopy;
+};
+var mergeReadmesIntoManifest = (manifest, readmes2) => {
+  const manifestCopy = JSON.parse(JSON.stringify(manifest));
+  for (const readme of readmes2) {
+    if (readme.version === "latest") {
+      manifestCopy.readme = readme.markdown;
+    } else if (manifestCopy.versions[readme.version]) {
+      manifestCopy.versions[readme.version].readme = readme.markdown;
+    }
+  }
+  return manifestCopy;
+};
+var getMetadataFromManifest = (manifest) => {
+  const metadata2 = [];
+  for (const version in manifest.versions) {
+    const packageVersion = manifest.versions[version];
+    const description = packageVersion.description || "";
+    const keywords = Array.isArray(packageVersion.keywords) ? packageVersion.keywords.join(" ") : packageVersion.keywords || "";
+    metadata2.push({ version, description, keywords });
+  }
+  return metadata2;
+};
+
+// src/services/package.ts
 var debug4 = (0, import_debug4.default)("verdaccio:plugin:storage:sql");
 var PackageService = class {
   constructor(database, logger) {
@@ -1148,13 +1148,14 @@ var TarballService = class {
     this.logger = logger;
     this.tenant = new TenantService(database, logger);
   }
-  async exists(name) {
-    const org_id = await this.tenant.get(name);
+  async exists(packageName, fileName) {
+    const org_id = await this.tenant.get(packageName);
     const count = await this.db.$count(
       tarballs,
       (0, import_drizzle_orm9.and)(
         (0, import_drizzle_orm9.eq)(tarballs.org_id, org_id),
-        (0, import_drizzle_orm9.eq)(tarballs.name, name),
+        (0, import_drizzle_orm9.eq)(tarballs.name, packageName),
+        (0, import_drizzle_orm9.eq)(tarballs.filename, fileName),
         (0, import_drizzle_orm9.isNull)(tarballs.deleted)
       )
     );
@@ -1162,19 +1163,20 @@ var TarballService = class {
     debug7("tarball exists: %o", exists);
     return exists;
   }
-  async read(filename, { signal }) {
-    const { name } = getPackageInfoFromFilename(filename);
-    const org_id = await this.tenant.get(name);
+  async read(packageName, fileName, { signal }) {
+    const org_id = await this.tenant.get(packageName);
+    const { version } = getPackageInfoFromFilename(fileName);
     const [tarballData] = await this.db.select({
       data: tarballs.data,
       size: tarballs.size
     }).from(tarballs).where((0, import_drizzle_orm9.and)(
       (0, import_drizzle_orm9.eq)(tarballs.org_id, org_id),
-      (0, import_drizzle_orm9.eq)(tarballs.filename, filename),
+      (0, import_drizzle_orm9.eq)(tarballs.name, packageName),
+      (0, import_drizzle_orm9.eq)(tarballs.version, version),
       (0, import_drizzle_orm9.isNull)(tarballs.deleted)
     ));
     if (!tarballData) {
-      throw import_core7.errorUtils.getNotFound(`Tarball not found: ${filename}`);
+      throw import_core7.errorUtils.getNotFound(`Tarball not found: ${fileName}`);
     }
     const readable = new import_stream.Readable({
       read() {
@@ -1203,9 +1205,9 @@ var TarballService = class {
     debug7("returning readable stream");
     return readable;
   }
-  async write(filename, { signal }) {
-    const { name, version } = getPackageInfoFromFilename(filename);
-    const org_id = await this.tenant.get(name);
+  async write(packageName, fileName, { signal }) {
+    const org_id = await this.tenant.get(packageName);
+    const { version } = getPackageInfoFromFilename(fileName);
     const chunks = [];
     const writable = new import_stream.Writable({
       write(chunk, encoding, callback) {
@@ -1225,9 +1227,9 @@ var TarballService = class {
       const data = Buffer.concat(chunks);
       const tarballData = {
         org_id,
-        name,
+        name: packageName,
         version,
-        filename,
+        filename: fileName,
         data,
         size: data.length
       };
@@ -1255,15 +1257,14 @@ var TarballService = class {
     debug7("returning writable stream");
     return writable;
   }
-  async delete(filename) {
-    const { name, version } = getPackageInfoFromFilename(filename);
-    const org_id = await this.tenant.get(name);
+  async delete(packageName, fileName) {
+    const org_id = await this.tenant.get(packageName);
+    const { version } = getPackageInfoFromFilename(fileName);
     try {
       await this.db.update(tarballs).set({ deleted: /* @__PURE__ */ new Date() }).where((0, import_drizzle_orm9.and)(
         (0, import_drizzle_orm9.eq)(tarballs.org_id, org_id),
-        (0, import_drizzle_orm9.eq)(tarballs.name, name),
-        (0, import_drizzle_orm9.eq)(tarballs.version, version),
-        (0, import_drizzle_orm9.eq)(tarballs.filename, filename)
+        (0, import_drizzle_orm9.eq)(tarballs.name, packageName),
+        (0, import_drizzle_orm9.eq)(tarballs.version, version)
       ));
       debug7("tarball deleted");
     } catch (error) {
@@ -1271,12 +1272,12 @@ var TarballService = class {
       throw import_core7.errorUtils.getInternalError(`Error deleting tarball: ${error}`);
     }
   }
-  async remove(name) {
-    const org_id = await this.tenant.get(name);
+  async remove(packageName) {
+    const org_id = await this.tenant.get(packageName);
     try {
       await this.db.update(tarballs).set({ deleted: /* @__PURE__ */ new Date() }).where((0, import_drizzle_orm9.and)(
         (0, import_drizzle_orm9.eq)(tarballs.org_id, org_id),
-        (0, import_drizzle_orm9.eq)(tarballs.name, name)
+        (0, import_drizzle_orm9.eq)(tarballs.name, packageName)
       ));
       debug7("all tarballs removed");
     } catch (error) {
@@ -1289,11 +1290,12 @@ var TarballService = class {
 // src/storage-handler.ts
 var debug8 = (0, import_debug8.default)("verdaccio:plugin:pro:storage:sql:handler");
 var SqlStorageHandler = class {
-  constructor(database, logger) {
+  constructor(database, logger, packageName) {
     debug8("start storage handler");
     this.logger = logger;
     this.package = new PackageService(database, logger);
     this.tarball = new TarballService(database, logger);
+    this.packageName = packageName;
   }
   // Package API
   async readPackage(packageName) {
@@ -1308,10 +1310,10 @@ var SqlStorageHandler = class {
     debug8("update package %o", packageName);
     return this.package.update(packageName, handleUpdate);
   }
-  async deletePackage(filename) {
-    debug8("remove tarball %o", filename);
-    if (filename !== "package.json") {
-      await this.tarball.delete(filename);
+  async deletePackage(fileName) {
+    debug8("remove tarball %o", fileName);
+    if (fileName !== "package.json") {
+      await this.tarball.delete(this.packageName, fileName);
     }
   }
   async removePackage(packageName) {
@@ -1329,19 +1331,19 @@ var SqlStorageHandler = class {
   // Tarball API
   async hasTarball(fileName) {
     debug8("has tarball %o", fileName);
-    return this.tarball.exists(fileName);
+    return this.tarball.exists(this.packageName, fileName);
   }
   async readTarball(fileName, { signal }) {
     debug8("read tarball %o", fileName);
-    return this.tarball.read(fileName, { signal });
+    return this.tarball.read(this.packageName, fileName, { signal });
   }
   async writeTarball(fileName, { signal }) {
     debug8("write tarball %o", fileName);
-    return this.tarball.write(fileName, { signal });
+    return this.tarball.write(this.packageName, fileName, { signal });
   }
   async deleteTarball(fileName) {
     debug8("delete package %o", fileName);
-    return this.tarball.delete(fileName);
+    return this.tarball.delete(this.packageName, fileName);
   }
 };
 var storage_handler_default = SqlStorageHandler;
@@ -1417,9 +1419,8 @@ var SqlStoragePlugin = class extends import_core8.pluginUtils.Plugin {
     debug9("Verdaccio Pro SQL Storage plugin initialized");
   }
   // Storage API
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getPackageStorage(packageName) {
-    return new storage_handler_default(this.db, this.logger);
+    return new storage_handler_default(this.db, this.logger, packageName);
   }
   // Secret API
   async getSecret() {
@@ -1527,10 +1528,6 @@ var storage_plugin_default = SqlStoragePlugin;
 var index_default = storage_plugin_default;
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  SqlStoragePlugin,
-  getMetadataFromManifest,
-  metadata,
-  packages,
-  unescapeHtmlEntities
+  SqlStoragePlugin
 });
 //# sourceMappingURL=index.js.map

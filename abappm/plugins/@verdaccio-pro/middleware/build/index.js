@@ -73,7 +73,7 @@ var security_headers_default = setSecurityHeaders;
 
 // src/middlewares/block-requests.ts
 var blockUnwantedRequests = (req, res, next) => {
-  const unwantedPattern = /\.(php|exe|cmd|bat|sh|csh|ksh|zsh|ps1|txt|pdf|doc|docx|xls|xlsx|ppt|pptx)$/;
+  const unwantedPattern = /\.(env|php|exe|cmd|bat|sh|csh|ksh|zsh|ps1|txt|pdf|doc|docx|xls|xlsx|ppt|pptx)$/;
   if (unwantedPattern.test(req.url)) {
     res.status(404).send("Not Found");
   } else {
