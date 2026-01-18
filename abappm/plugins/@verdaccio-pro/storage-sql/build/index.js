@@ -521,7 +521,7 @@ var TenantService = class {
 };
 
 // src/services/event-log.ts
-var debug = (0, import_debug.default)("verdaccio:plugin:storage:sql");
+var debug = (0, import_debug.default)("verdaccio:plugin:pro:storage:sql");
 var ANONYMOUS_USER = "#";
 var EventLogService = class {
   constructor(database, logger) {
@@ -603,7 +603,7 @@ var unescapeHtmlEntities = (json) => {
 };
 
 // src/services/downloads.ts
-var debug2 = (0, import_debug2.default)("verdaccio:plugin:storage:sql");
+var debug2 = (0, import_debug2.default)("verdaccio:plugin:pro:storage:sql");
 var DownloadsService = class {
   constructor(database, logger) {
     this.db = database;
@@ -714,7 +714,7 @@ var DownloadsService = class {
 var import_debug3 = __toESM(require("debug"));
 var import_drizzle_orm5 = require("drizzle-orm");
 var import_core3 = require("@verdaccio/core");
-var debug3 = (0, import_debug3.default)("verdaccio:plugin:storage:sql");
+var debug3 = (0, import_debug3.default)("verdaccio:plugin:pro:storage:sql");
 var LocalPackagesService = class {
   constructor(database, logger) {
     this.db = database;
@@ -809,7 +809,7 @@ var getMetadataFromManifest = (manifest) => {
 };
 
 // src/services/package.ts
-var debug4 = (0, import_debug4.default)("verdaccio:plugin:storage:sql");
+var debug4 = (0, import_debug4.default)("verdaccio:plugin:pro:storage:sql");
 var PackageService = class {
   constructor(database, logger) {
     this.db = database;
@@ -1039,7 +1039,7 @@ var PackageService = class {
 var import_debug5 = __toESM(require("debug"));
 var import_core5 = require("@verdaccio/core");
 var import_drizzle_orm7 = require("drizzle-orm");
-var debug5 = (0, import_debug5.default)("verdaccio:plugin:storage:sql");
+var debug5 = (0, import_debug5.default)("verdaccio:plugin:pro:storage:sql");
 var TokenService = class _TokenService {
   constructor(database, logger) {
     this.db = database;
@@ -1106,7 +1106,7 @@ var TokenService = class _TokenService {
 var import_debug6 = __toESM(require("debug"));
 var import_core6 = require("@verdaccio/core");
 var import_drizzle_orm8 = require("drizzle-orm");
-var debug6 = (0, import_debug6.default)("verdaccio:plugin:storage:sql");
+var debug6 = (0, import_debug6.default)("verdaccio:plugin:pro:storage:sql");
 var SECRET_NAME = "verdaccio";
 var VerdaccioSecretService = class {
   constructor(database, logger) {
@@ -1140,7 +1140,7 @@ var import_debug7 = __toESM(require("debug"));
 var import_drizzle_orm9 = require("drizzle-orm");
 var import_stream = require("stream");
 var import_core7 = require("@verdaccio/core");
-var debug7 = (0, import_debug7.default)("verdaccio:plugin:storage:sql");
+var debug7 = (0, import_debug7.default)("verdaccio:plugin:pro:storage:sql");
 var CHUNK_SIZE = 256 * 1024;
 var TarballService = class {
   constructor(database, logger) {

@@ -199,7 +199,7 @@ var userSecrets = (0, import_pg_core.pgTable)("user_secrets", {
 
 // src/services/user-secrets.ts
 var import_drizzle_orm = require("drizzle-orm");
-var debug = (0, import_debug.default)("verdaccio:plugin:apm:auth");
+var debug = (0, import_debug.default)("verdaccio:plugin:pro:auth");
 var USER_HASH_SEPARATOR = "|";
 var UserSecretsService = class {
   constructor(database, logger) {

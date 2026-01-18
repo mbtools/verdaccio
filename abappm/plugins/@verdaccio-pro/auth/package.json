@@ -44,22 +44,22 @@
     "debug": "4.4.3",
     "dotenv": "17.2.3",
     "dotenv-expand": "12.0.3",
-    "drizzle-orm": "0.44.7",
+    "drizzle-orm": "0.45.1",
     "http-errors": "2.0.1",
-    "pg": "8.16.3",
-    "postgres": "3.4.7",
-    "zod": "4.1.13"
+    "pg": "8.17.1",
+    "postgres": "3.4.8",
+    "zod": "4.3.5"
   },
   "devDependencies": {
     "@types/debug": "4.1.12",
     "@types/http-errors": "2.0.5",
-    "@types/pg": "8.15.6",
+    "@types/pg": "8.16.0",
     "@verdaccio/types": "13.0.0-next-8.10",
     "cross-env": "10.1.0",
-    "drizzle-kit": "0.31.7",
+    "drizzle-kit": "0.31.8",
     "tsup": "8.5.1",
     "typescript": "5.9.3",
-    "vitest": "4.0.14"
+    "vitest": "4.0.17"
   },
   "scripts": {
     "build": "tsup",

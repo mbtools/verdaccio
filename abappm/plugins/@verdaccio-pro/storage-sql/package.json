@@ -43,22 +43,22 @@
     "debug": "4.4.3",
     "dotenv": "17.2.3",
     "dotenv-expand": "12.0.3",
-    "drizzle-orm": "0.44.7",
-    "pg": "8.16.3",
-    "postgres": "3.4.7",
-    "zod": "4.1.13"
+    "drizzle-orm": "0.45.1",
+    "pg": "8.17.1",
+    "postgres": "3.4.8",
+    "zod": "4.3.5"
   },
   "devDependencies": {
     "@types/debug": "4.1.12",
-    "@types/node": "24.10.1",
-    "@types/pg": "8.15.6",
+    "@types/node": "25.0.9",
+    "@types/pg": "8.16.0",
     "@verdaccio/types": "13.0.0-next-8.10",
     "cross-env": "10.1.0",
-    "drizzle-kit": "0.31.7",
+    "drizzle-kit": "0.31.8",
     "tsup": "8.5.1",
-    "tsx": "4.20.6",
+    "tsx": "4.21.0",
     "typescript": "5.9.3",
-    "vitest": "4.0.14"
+    "vitest": "4.0.17"
   },
   "scripts": {
     "build": "tsup",
@@ -66,6 +66,7 @@
     "lint": "eslint src",
     "db:studio": "npx drizzle-kit studio",
     "db:generate": "npx drizzle-kit generate",
+    "db:check": "cross-env tsx src/db/tools/check.ts",
     "db:migrate": "cross-env DB_MIGRATING=true tsx src/db/tools/migrate.ts",
     "db:seed": "cross-env DB_SEEDING=true tsx src/db/tools/seed.ts",
     "db:reset": "cross-env DB_RESET=true tsx src/db/tools/reset.ts"

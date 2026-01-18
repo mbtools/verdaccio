@@ -71,7 +71,7 @@ function getBackend(backends, pluginId) {
 }
 
 // src/storage-handler.ts
-var debug = (0, import_debug.default)("verdaccio:plugin:pro:storage:proxy:handler");
+var debug = (0, import_debug.default)("verdaccio:plugin:pro:storage:proxy");
 var ProxyStorageHandler = class {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(config, logger, loadedBackends, packageName) {

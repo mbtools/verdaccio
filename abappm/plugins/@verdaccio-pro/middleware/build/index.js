@@ -84,7 +84,7 @@ var block_requests_default = blockUnwantedRequests;
 
 // src/middlewares/redirect-npm.ts
 var import_debug = __toESM(require("debug"));
-var debug = (0, import_debug.default)("verdaccio:plugin:pro:middleware:redirect");
+var debug = (0, import_debug.default)("verdaccio:plugin:pro:middleware");
 var redirectNpmStyleUrl = (logger) => {
   return (req, res, _next) => {
     debug("redirect from %o", req.url);

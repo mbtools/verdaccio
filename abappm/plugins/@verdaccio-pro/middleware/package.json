@@ -40,11 +40,11 @@
     "@verdaccio/core": "8.0.0-next-8.28",
     "@verdaccio/logger": "8.0.0-next-8.28",
     "debug": "4.4.3",
-    "express": "5.1.0"
+    "express": "5.2.1"
   },
   "devDependencies": {
     "@types/debug": "4.1.12",
-    "@types/express": "5.0.5",
+    "@types/express": "5.0.6",
     "@verdaccio/types": "13.0.0-next-8.10",
     "tsup": "8.5.1",
     "typescript": "5.9.3"
