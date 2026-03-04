@@ -9,6 +9,7 @@ export type TypeToken = 'Bearer' | 'Basic';
 export interface Logger {
   child: (conf: any) => any;
   debug: (conf: any, template?: string) => void;
+  fatal: (conf: any, template?: string) => void;
   error: (conf: any, template?: string) => void;
   http: (conf: any, template?: string) => void;
   trace: (conf: any, template?: string) => void;
@@ -20,13 +21,20 @@ export type LoggerType = 'stdout' | 'file';
 export type LoggerFormat = 'pretty' | 'pretty-timestamped' | 'json';
 export type LoggerLevel = 'fatal' | 'error' | 'warn' | 'info' | 'http' | 'debug' | 'trace';
 
+export type LoggerRedact = {
+  paths: string[];
+  censor?: string;
+  remove?: boolean;
+};
+
 export type LoggerConfigItem = {
   type?: LoggerType;
   format?: LoggerFormat;
   path?: string;
   level?: LoggerLevel;
   colors?: boolean;
-  async?: boolean;
+  sync?: boolean;
+  redact?: LoggerRedact;
 };
 
 export interface ConfigWithHttps extends Config {
@@ -76,6 +84,7 @@ export type RateLimit = {
 export type FlagsConfig = {
   searchRemote?: boolean;
   changePassword?: boolean;
+  webLogin?: boolean;
 };
 
 export type PackageManagers = 'pnpm' | 'yarn' | 'npm' | string;
@@ -203,12 +212,30 @@ export interface HttpsConfPfx {
 export type HttpsConf = HttpsConfKeyCert | HttpsConfPfx;
 
 export interface Notifications {
-  method: string;
-  packagePattern: RegExp;
-  packagePatternFlags: string;
+  /**
+   * The endpoint URL to send the notification request to
+   */
   endpoint: string;
+  /**
+   * The content to send in the notification request body
+   */
   content: string;
-  headers: Headers;
+  /**
+   * Only run this notification if the package name matches the regular expression
+   */
+  packagePattern?: RegExp;
+  /**
+   * Any flags to be used with the regular expression
+   */
+  packagePatternFlags?: string;
+  /**
+   * By default use POST method
+   */
+  method?: string;
+  /**
+   * Optional headers to send with the notification request
+   */
+  headers?: Headers;
 }
 
 export type Notification = Notifications;
@@ -287,6 +314,7 @@ export interface Config extends Omit<ConfigYaml, 'packages' | 'security' | 'conf
   security: Security;
   // @deprecated (pending adding the replacement)
   checkSecretKey(token: string | void): string;
+  // @deprecated use core.authUtils instead
   getMatchedPackagesSpec(storage: string): PackageAccess | void;
   // TODO: verify how to handle this in the future
   [key: string]: any;

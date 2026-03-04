@@ -1,5 +1,259 @@
 # @verdaccio/store
 
+## 8.0.0-next-8.30
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.30
+- @verdaccio/config@8.0.0-next-8.30
+- @verdaccio/tarball@13.0.0-next-8.30
+- @verdaccio/url@13.0.0-next-8.30
+- @verdaccio/loaders@8.0.0-next-8.20
+- @verdaccio/local-storage@13.0.0-next-8.30
+- @verdaccio/proxy@8.0.0-next-8.30
+- @verdaccio/search@8.0.0-next-8.30
+- @verdaccio/logger@8.0.0-next-8.30
+
+## 8.0.0-next-8.29
+
+### Patch Changes
+
+- Updated dependencies [4edcae8]
+- Updated dependencies [184632c]
+  - @verdaccio/core@8.0.0-next-8.29
+  - @verdaccio/config@8.0.0-next-8.29
+  - @verdaccio/tarball@13.0.0-next-8.29
+  - @verdaccio/url@13.0.0-next-8.29
+  - @verdaccio/loaders@8.0.0-next-8.19
+  - @verdaccio/local-storage@13.0.0-next-8.29
+  - @verdaccio/proxy@8.0.0-next-8.29
+  - @verdaccio/search@8.0.0-next-8.29
+  - @verdaccio/logger@8.0.0-next-8.29
+
+## 8.0.0-next-8.28
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.28
+- @verdaccio/config@8.0.0-next-8.28
+- @verdaccio/tarball@13.0.0-next-8.28
+- @verdaccio/url@13.0.0-next-8.28
+- @verdaccio/loaders@8.0.0-next-8.18
+- @verdaccio/local-storage@13.0.0-next-8.28
+- @verdaccio/proxy@8.0.0-next-8.28
+- @verdaccio/search@8.0.0-next-8.28
+- @verdaccio/logger@8.0.0-next-8.28
+
+## 8.0.0-next-8.27
+
+### Patch Changes
+
+- Updated dependencies [d028ce1]
+  - @verdaccio/loaders@8.0.0-next-8.17
+  - @verdaccio/config@8.0.0-next-8.27
+  - @verdaccio/core@8.0.0-next-8.27
+  - @verdaccio/tarball@13.0.0-next-8.27
+  - @verdaccio/logger@8.0.0-next-8.27
+  - @verdaccio/local-storage@13.0.0-next-8.27
+  - @verdaccio/proxy@8.0.0-next-8.27
+  - @verdaccio/search@8.0.0-next-8.27
+  - @verdaccio/url@13.0.0-next-8.27
+
+## 8.0.0-next-8.26
+
+### Patch Changes
+
+- 1b9bf90: chore(store): nock replywitherror
+  - @verdaccio/config@8.0.0-next-8.26
+  - @verdaccio/core@8.0.0-next-8.26
+  - @verdaccio/tarball@13.0.0-next-8.26
+  - @verdaccio/logger@8.0.0-next-8.26
+  - @verdaccio/local-storage@13.0.0-next-8.26
+  - @verdaccio/proxy@8.0.0-next-8.26
+  - @verdaccio/search@8.0.0-next-8.26
+  - @verdaccio/loaders@8.0.0-next-8.16
+  - @verdaccio/url@13.0.0-next-8.26
+
+## 8.0.0-next-8.25
+
+### Patch Changes
+
+- b24f513: chore(lint): switch rules from jest to vitest
+- Updated dependencies [3aff890]
+- Updated dependencies [265c94a]
+- Updated dependencies [b24f513]
+  - @verdaccio/url@13.0.0-next-8.25
+  - @verdaccio/config@8.0.0-next-8.25
+  - @verdaccio/proxy@8.0.0-next-8.25
+  - @verdaccio/local-storage@13.0.0-next-8.25
+  - @verdaccio/tarball@13.0.0-next-8.25
+  - @verdaccio/loaders@8.0.0-next-8.15
+  - @verdaccio/search@8.0.0-next-8.25
+  - @verdaccio/core@8.0.0-next-8.25
+  - @verdaccio/logger@8.0.0-next-8.25
+
+## 8.0.0-next-8.24
+
+### Patch Changes
+
+- 71587f3: Fix inconsistency in filter plugin invocation upon receiving 304 from uplink after uplink.maxage has passed
+  - @verdaccio/core@8.0.0-next-8.24
+  - @verdaccio/config@8.0.0-next-8.24
+  - @verdaccio/tarball@13.0.0-next-8.24
+  - @verdaccio/url@13.0.0-next-8.24
+  - @verdaccio/loaders@8.0.0-next-8.14
+  - @verdaccio/local-storage@13.0.0-next-8.24
+  - @verdaccio/proxy@8.0.0-next-8.24
+  - @verdaccio/search@8.0.0-next-8.24
+  - @verdaccio/logger@8.0.0-next-8.24
+
+## 8.0.0-next-8.23
+
+### Patch Changes
+
+- Updated dependencies [b671a38]
+  - @verdaccio/config@8.0.0-next-8.23
+  - @verdaccio/loaders@8.0.0-next-8.13
+  - @verdaccio/proxy@8.0.0-next-8.23
+  - @verdaccio/search@8.0.0-next-8.23
+  - @verdaccio/core@8.0.0-next-8.23
+  - @verdaccio/tarball@13.0.0-next-8.23
+  - @verdaccio/url@13.0.0-next-8.23
+  - @verdaccio/logger@8.0.0-next-8.23
+  - @verdaccio/local-storage@13.0.0-next-8.23
+
+## 8.0.0-next-8.22
+
+### Patch Changes
+
+- 60ef8ff: fix(storage): check_owners with anonymous access
+- Updated dependencies [67e667b]
+- Updated dependencies [60ef8ff]
+- Updated dependencies [05f03b3]
+- Updated dependencies [f443f81]
+  - @verdaccio/local-storage@13.0.0-next-8.22
+  - @verdaccio/core@8.0.0-next-8.22
+  - @verdaccio/loaders@8.0.0-next-8.12
+  - @verdaccio/config@8.0.0-next-8.22
+  - @verdaccio/tarball@13.0.0-next-8.22
+  - @verdaccio/proxy@8.0.0-next-8.22
+  - @verdaccio/url@13.0.0-next-8.22
+  - @verdaccio/search@8.0.0-next-8.22
+  - @verdaccio/logger@8.0.0-next-8.22
+
+## 8.0.0-next-8.21
+
+### Patch Changes
+
+- Updated dependencies [f8a321f]
+  - @verdaccio/core@8.0.0-next-8.21
+  - @verdaccio/config@8.0.0-next-8.21
+  - @verdaccio/tarball@13.0.0-next-8.21
+  - @verdaccio/url@13.0.0-next-8.21
+  - @verdaccio/loaders@8.0.0-next-8.11
+  - @verdaccio/local-storage@13.0.0-next-8.21
+  - @verdaccio/proxy@8.0.0-next-8.21
+  - @verdaccio/search@8.0.0-next-8.21
+  - @verdaccio/logger@8.0.0-next-8.21
+
+## 8.0.0-next-8.20
+
+### Patch Changes
+
+- 08e1b21: chore(deps): built-in node imports
+- Updated dependencies [08e1b21]
+- Updated dependencies [a1a73e9]
+- Updated dependencies [6a4d6dd]
+- Updated dependencies [d92ba65]
+  - @verdaccio/config@8.0.0-next-8.20
+  - @verdaccio/proxy@8.0.0-next-8.20
+  - @verdaccio/core@8.0.0-next-8.20
+  - @verdaccio/local-storage@13.0.0-next-8.20
+  - @verdaccio/loaders@8.0.0-next-8.10
+  - @verdaccio/search@8.0.0-next-8.20
+  - @verdaccio/logger@8.0.0-next-8.20
+  - @verdaccio/tarball@13.0.0-next-8.20
+  - @verdaccio/url@13.0.0-next-8.20
+
+## 8.0.0-next-8.19
+
+### Patch Changes
+
+- 3f71267: chore(deps): storage
+- Updated dependencies [75a6b32]
+- Updated dependencies [9350431]
+- Updated dependencies [95e6c8f]
+- Updated dependencies [54b1906]
+  - @verdaccio/local-storage@13.0.0-next-8.19
+  - @verdaccio/tarball@13.0.0-next-8.19
+  - @verdaccio/core@8.0.0-next-8.19
+  - @verdaccio/url@13.0.0-next-8.19
+  - @verdaccio/loaders@8.0.0-next-8.9
+  - @verdaccio/search@8.0.0-next-8.19
+  - @verdaccio/proxy@8.0.0-next-8.19
+  - @verdaccio/config@8.0.0-next-8.19
+  - @verdaccio/logger@8.0.0-next-8.19
+
+## 8.0.0-next-8.18
+
+### Patch Changes
+
+- Updated dependencies [23296a2]
+  - @verdaccio/loaders@8.0.0-next-8.8
+  - @verdaccio/hooks@8.0.0-next-8.18
+  - @verdaccio/core@8.0.0-next-8.18
+  - @verdaccio/config@8.0.0-next-8.18
+  - @verdaccio/tarball@13.0.0-next-8.18
+  - @verdaccio/url@13.0.0-next-8.18
+  - @verdaccio/local-storage@13.0.0-next-8.18
+  - @verdaccio/proxy@8.0.0-next-8.18
+  - @verdaccio/search@8.0.0-next-8.18
+  - @verdaccio/logger@8.0.0-next-8.18
+
+## 8.0.0-next-8.17
+
+### Patch Changes
+
+- Updated dependencies [96d2f0f]
+  - @verdaccio/core@8.0.0-next-8.17
+  - @verdaccio/config@8.0.0-next-8.17
+  - @verdaccio/tarball@13.0.0-next-8.17
+  - @verdaccio/url@13.0.0-next-8.17
+  - @verdaccio/hooks@8.0.0-next-8.17
+  - @verdaccio/loaders@8.0.0-next-8.7
+  - @verdaccio/local-storage@13.0.0-next-8.17
+  - @verdaccio/proxy@8.0.0-next-8.17
+  - @verdaccio/search@8.0.0-next-8.17
+  - @verdaccio/logger@8.0.0-next-8.17
+
+## 8.0.0-next-8.16
+
+### Patch Changes
+
+- 72c3cbb: chore(utils): replace @verdaccio/utils dependency with core
+- d33266b: chore(types): use "Person" instead of "Author"
+- b19ddca: fix(config): server settings
+- Updated dependencies [6add153]
+- Updated dependencies [72c3cbb]
+- Updated dependencies [9509b63]
+- Updated dependencies [7751a55]
+- Updated dependencies [76308ff]
+- Updated dependencies [626ae6a]
+- Updated dependencies [2fef671]
+- Updated dependencies [acb8a99]
+- Updated dependencies [b19ddca]
+- Updated dependencies [7513899]
+  - @verdaccio/loaders@8.0.0-next-8.7
+  - @verdaccio/local-storage@13.0.0-next-8.16
+  - @verdaccio/tarball@13.0.0-next-8.16
+  - @verdaccio/config@8.0.0-next-8.16
+  - @verdaccio/proxy@8.0.0-next-8.16
+  - @verdaccio/core@8.0.0-next-8.16
+  - @verdaccio/url@13.0.0-next-8.16
+  - @verdaccio/hooks@8.0.0-next-8.16
+  - @verdaccio/logger@8.0.0-next-8.16
+  - @verdaccio/search@8.0.0-next-8.16
+
 ## 8.0.0-next-8.15
 
 ### Patch Changes

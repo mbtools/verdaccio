@@ -1,5 +1,194 @@
 # @verdaccio/auth
 
+## 8.0.0-next-8.30
+
+### Patch Changes
+
+- 0a6c53c: fix: handle malformed Basic auth credentials nicely
+  - @verdaccio/core@8.0.0-next-8.30
+  - @verdaccio/config@8.0.0-next-8.30
+  - @verdaccio/loaders@8.0.0-next-8.20
+  - verdaccio-htpasswd@13.0.0-next-8.30
+  - @verdaccio/signature@8.0.0-next-8.22
+
+## 8.0.0-next-8.29
+
+### Patch Changes
+
+- Updated dependencies [4edcae8]
+- Updated dependencies [184632c]
+  - @verdaccio/core@8.0.0-next-8.29
+  - @verdaccio/config@8.0.0-next-8.29
+  - @verdaccio/loaders@8.0.0-next-8.19
+  - verdaccio-htpasswd@13.0.0-next-8.29
+  - @verdaccio/signature@8.0.0-next-8.21
+
+## 8.0.0-next-8.28
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.28
+- @verdaccio/config@8.0.0-next-8.28
+- @verdaccio/loaders@8.0.0-next-8.18
+- verdaccio-htpasswd@13.0.0-next-8.28
+- @verdaccio/signature@8.0.0-next-8.20
+
+## 8.0.0-next-8.27
+
+### Patch Changes
+
+- ab8fccd: chore(auth): rename applyFallbackPluginMethods
+- d028ce1: fix: running without auth plugin
+- Updated dependencies [d028ce1]
+  - @verdaccio/loaders@8.0.0-next-8.17
+  - @verdaccio/config@8.0.0-next-8.27
+  - @verdaccio/core@8.0.0-next-8.27
+  - verdaccio-htpasswd@13.0.0-next-8.27
+  - @verdaccio/signature@8.0.0-next-8.19
+
+## 8.0.0-next-8.26
+
+### Patch Changes
+
+- 0321120: chore(auth): package access unpublish
+  - @verdaccio/config@8.0.0-next-8.26
+  - @verdaccio/core@8.0.0-next-8.26
+  - verdaccio-htpasswd@13.0.0-next-8.26
+  - @verdaccio/signature@8.0.0-next-8.18
+  - @verdaccio/loaders@8.0.0-next-8.16
+
+## 8.0.0-next-8.25
+
+### Patch Changes
+
+- 3aff890: chore(deps): api, auth, cli, config, url
+- Updated dependencies [3aff890]
+- Updated dependencies [b24f513]
+  - @verdaccio/config@8.0.0-next-8.25
+  - @verdaccio/loaders@8.0.0-next-8.15
+  - verdaccio-htpasswd@13.0.0-next-8.25
+  - @verdaccio/signature@8.0.0-next-8.17
+  - @verdaccio/core@8.0.0-next-8.25
+
+## 8.0.0-next-8.24
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.24
+- @verdaccio/config@8.0.0-next-8.24
+- @verdaccio/loaders@8.0.0-next-8.14
+- verdaccio-htpasswd@13.0.0-next-8.24
+- @verdaccio/signature@8.0.0-next-8.16
+
+## 8.0.0-next-8.23
+
+### Patch Changes
+
+- Updated dependencies [b671a38]
+  - @verdaccio/config@8.0.0-next-8.23
+  - @verdaccio/loaders@8.0.0-next-8.13
+  - verdaccio-htpasswd@13.0.0-next-8.23
+  - @verdaccio/signature@8.0.0-next-8.15
+  - @verdaccio/core@8.0.0-next-8.23
+
+## 8.0.0-next-8.22
+
+### Patch Changes
+
+- Updated dependencies [67e667b]
+- Updated dependencies [60ef8ff]
+- Updated dependencies [05f03b3]
+  - @verdaccio/core@8.0.0-next-8.22
+  - @verdaccio/loaders@8.0.0-next-8.12
+  - @verdaccio/config@8.0.0-next-8.22
+  - verdaccio-htpasswd@13.0.0-next-8.22
+  - @verdaccio/signature@8.0.0-next-8.14
+
+## 8.0.0-next-8.21
+
+### Patch Changes
+
+- Updated dependencies [f8a321f]
+  - @verdaccio/core@8.0.0-next-8.21
+  - @verdaccio/config@8.0.0-next-8.21
+  - @verdaccio/loaders@8.0.0-next-8.11
+  - verdaccio-htpasswd@13.0.0-next-8.21
+  - @verdaccio/signature@8.0.0-next-8.13
+
+## 8.0.0-next-8.20
+
+### Patch Changes
+
+- 08e1b21: chore(deps): built-in node imports
+- 73c0194: chore(auth): typings
+- 5fef0b6: chore(auth): multiple plugins test
+- Updated dependencies [08e1b21]
+- Updated dependencies [a1a73e9]
+- Updated dependencies [6a4d6dd]
+  - @verdaccio/config@8.0.0-next-8.20
+  - @verdaccio/core@8.0.0-next-8.20
+  - verdaccio-htpasswd@13.0.0-next-8.20
+  - @verdaccio/loaders@8.0.0-next-8.10
+  - @verdaccio/signature@8.0.0-next-8.12
+
+## 8.0.0-next-8.19
+
+### Patch Changes
+
+- Updated dependencies [6e404a0]
+- Updated dependencies [4e14aff]
+- Updated dependencies [9350431]
+- Updated dependencies [95e6c8f]
+  - verdaccio-htpasswd@13.0.0-next-8.19
+  - @verdaccio/signature@8.0.0-next-8.11
+  - @verdaccio/core@8.0.0-next-8.19
+  - @verdaccio/loaders@8.0.0-next-8.9
+  - @verdaccio/config@8.0.0-next-8.19
+
+## 8.0.0-next-8.18
+
+### Patch Changes
+
+- Updated dependencies [23296a2]
+  - @verdaccio/loaders@8.0.0-next-8.8
+  - @verdaccio/core@8.0.0-next-8.18
+  - @verdaccio/config@8.0.0-next-8.18
+  - verdaccio-htpasswd@13.0.0-next-8.18
+  - @verdaccio/signature@8.0.0-next-8.10
+
+## 8.0.0-next-8.17
+
+### Patch Changes
+
+- Updated dependencies [96d2f0f]
+  - @verdaccio/core@8.0.0-next-8.17
+  - @verdaccio/config@8.0.0-next-8.17
+  - @verdaccio/loaders@8.0.0-next-8.7
+  - verdaccio-htpasswd@13.0.0-next-8.17
+  - @verdaccio/signature@8.0.0-next-8.9
+
+## 8.0.0-next-8.16
+
+### Patch Changes
+
+- 72c3cbb: chore(utils): replace @verdaccio/utils dependency with core
+- b19ddca: fix(config): server settings
+- 3ef4a49: fix: support JWT sign and verify options
+- Updated dependencies [6add153]
+- Updated dependencies [72c3cbb]
+- Updated dependencies [9509b63]
+- Updated dependencies [76308ff]
+- Updated dependencies [626ae6a]
+- Updated dependencies [2fef671]
+- Updated dependencies [acb8a99]
+- Updated dependencies [b19ddca]
+- Updated dependencies [3ef4a49]
+  - @verdaccio/loaders@8.0.0-next-8.7
+  - @verdaccio/config@8.0.0-next-8.16
+  - @verdaccio/core@8.0.0-next-8.16
+  - @verdaccio/signature@8.0.0-next-8.8
+  - verdaccio-htpasswd@13.0.0-next-8.16
+
 ## 8.0.0-next-8.15
 
 ### Patch Changes

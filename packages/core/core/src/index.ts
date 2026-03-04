@@ -1,4 +1,6 @@
+import * as authUtils from './auth-utils';
 import * as constants from './constants';
+import * as cryptoUtils from './crypto-utils';
 import * as errorUtils from './error-utils';
 import * as fileUtils from './file-utils';
 import * as pkgUtils from './pkg-utils';
@@ -23,12 +25,20 @@ export {
   LATEST,
   DEFAULT_PASSWORD_VALIDATION,
   DEFAULT_USER,
+  ANONYMOUS_USER,
   USERS,
   MAINTAINERS,
   PLUGIN_CATEGORY,
+  PLUGIN_PREFIX,
+  PLUGIN_UI_PREFIX,
   HtpasswdHashAlgorithm,
+  DEFAULT_DOMAIN,
+  DEFAULT_PORT,
+  DEFAULT_PROTOCOL,
 } from './constants';
 export {
+  authUtils,
+  cryptoUtils,
   fileUtils,
   pkgUtils,
   searchUtils,

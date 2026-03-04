@@ -1,8 +1,8 @@
 import { Agents } from 'got-cjs';
 import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
-import { Agent as HttpAgent } from 'http';
-import { Agent as HttpsAgent } from 'https';
-import { URL } from 'url';
+import { Agent as HttpAgent } from 'node:http';
+import { Agent as HttpsAgent } from 'node:https';
+import { URL } from 'node:url';
 
 import { AgentOptionsConf } from '@verdaccio/types';
 
@@ -15,7 +15,9 @@ class CustomAgents {
     this.proxy = proxy;
     this.url = url;
     this.agentOptions = agentOptions;
-    const { protocol } = this.getParsedUrl();
+    // Type of agent depends on the protocol of the server URL (no on the proxy)
+    // See https://www.npmjs.com/package/hpagent
+    const { protocol } = new URL(this.url);
     this.agent = this.getAgent(protocol);
   }
 
@@ -40,10 +42,6 @@ class CustomAgents {
         ? { https: new HttpsAgent(this.agentOptions) }
         : { http: new HttpAgent(this.agentOptions) };
     }
-  }
-
-  private getParsedUrl() {
-    return this.proxy ? new URL(this.proxy) : new URL(this.url);
   }
 }
 

@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import semver from 'semver';
 
 import { Manifest } from '@verdaccio/types';
@@ -18,6 +20,17 @@ export function semverSort(listVersions: string[]): string[] {
     })
     .sort(semver.compareLoose)
     .map(String);
+}
+
+/**
+ * Sanitize a version string to a valid semver version.
+ * @param version - The version string to sanitize.
+ * @returns The sanitized version string.
+ */
+export function semverSanitize(version: string): string {
+  return (
+    semver.valid(version) || semver.coerce(version, { includePrerelease: true })?.version || ''
+  );
 }
 
 /**
@@ -65,4 +78,14 @@ export function mergeVersions(local: Manifest, upstream: Manifest) {
       }
     }
   }
+}
+
+/**
+ * Get package informations from package.json
+ * @param packagePath - The path to the package.json file.
+ * @returns The package.json content
+ */
+export function getPackageJson(packagePath: string, relativePath: string): Record<string, unknown> {
+  const packageJsonPath = path.join(packagePath, relativePath, 'package.json');
+  return JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 }

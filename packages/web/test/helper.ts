@@ -1,5 +1,5 @@
 import { Application } from 'express';
-import path from 'path';
+import path from 'node:path';
 
 import apiMiddleware from '@verdaccio/api';
 import { parseConfigFile } from '@verdaccio/config';
@@ -17,7 +17,7 @@ export const getConf = (configName: string) => {
 };
 
 // @deprecated
-export async function initializeServer(configName): Promise<Application> {
+export async function initializeServer(configName: string): Promise<Application> {
   return initializeServerHelper(
     getConf(configName),
     [apiMiddleware, { async: true, routes }],

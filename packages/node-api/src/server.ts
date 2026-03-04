@@ -1,20 +1,17 @@
 /* eslint-disable */
-import constants from 'constants';
 import buildDebug from 'debug';
-import fs from 'fs';
-import http from 'http';
-import https from 'https';
-import _, { assign, isFunction } from 'lodash';
-import url from 'url';
+import { assign, isFunction } from 'lodash';
+import constants from 'node:constants';
+import fs from 'node:fs';
+import http from 'node:http';
+import https from 'node:https';
+import url from 'node:url';
 
-import { findConfigFile, parseConfigFile } from '@verdaccio/config';
-import { API_ERROR } from '@verdaccio/core';
-import { setup } from '@verdaccio/logger';
+import { getConfigParsed, getListenAddress } from '@verdaccio/config';
+import { logger, setup } from '@verdaccio/logger';
 import expressServer from '@verdaccio/server';
-import fastifyServer from '@verdaccio/server-fastify';
 import { ConfigYaml, HttpsConfKeyCert, HttpsConfPfx } from '@verdaccio/types';
 
-import { getListListenAddresses } from './cli-utils';
 import { displayExperimentsInfoBox } from './experiments';
 
 const debug = buildDebug('verdaccio:node-api');
@@ -108,7 +105,7 @@ export function createServerFactory(config: ConfigYaml, addr, app) {
 }
 
 /**
- * Start the server on the port defined
+ * Start the server on the port defined (or the port defined in the config file)
  * @param config
  * @param port
  * @param version
@@ -121,65 +118,52 @@ export async function initServer(
   pkgName: string
 ): Promise<void> {
   return new Promise(async (resolve, reject) => {
-    // FIXME: get only the first match, the multiple address will be removed
-    const [addr] = getListListenAddresses(port, config.listen);
     const logger = setup(config?.log as any);
+    const addr = getListenAddress(port ?? config?.listen, logger);
     displayExperimentsInfoBox(config.flags);
 
-    let app;
-    if (process.env.VERDACCIO_SERVER === 'fastify') {
-      app = await fastifyServer(config);
-      app.listen({ port: addr.port, host: addr.host }, (err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve();
+    let app = await expressServer(config);
+    const serverFactory = createServerFactory(config, addr, app);
+    serverFactory
+      .listen(addr.port || addr.path, addr.host, (): void => {
+        // send a message for test
+        if (isFunction(process.send)) {
+          process.send({
+            verdaccio_started: true,
+          });
         }
+        const addressServer = `${
+          addr.path
+            ? url.format({
+                protocol: 'unix',
+                pathname: addr.path,
+              })
+            : url.format({
+                protocol: addr.proto,
+                hostname: addr.host,
+                port: addr.port,
+                pathname: '/',
+              })
+        }`;
+        logger.info({ addressServer }, 'http address: @{addressServer}');
+        logger.info({ version }, 'version: @{version}');
+        resolve();
+      })
+      .on('error', function (err): void {
+        reject(err);
+        process.exitCode = 1;
       });
-    } else {
-      app = await expressServer(config);
-      const serverFactory = createServerFactory(config, addr, app);
-      serverFactory
-        .listen(addr.port || addr.path, addr.host, (): void => {
-          // send a message for test
-          if (isFunction(process.send)) {
-            process.send({
-              verdaccio_started: true,
-            });
-          }
-          const addressServer = `${
-            addr.path
-              ? url.format({
-                  protocol: 'unix',
-                  pathname: addr.path,
-                })
-              : url.format({
-                  protocol: addr.proto,
-                  hostname: addr.host,
-                  port: addr.port,
-                  pathname: '/',
-                })
-          }`;
-          logger.info({ addressServer }, 'http address: @{addressServer}');
-          logger.info({ version }, 'version: @{version}');
-          resolve();
-        })
-        .on('error', function (err): void {
-          reject(err);
-          process.exitCode = 1;
-        });
-      function handleShutdownGracefully() {
-        logger.info('received shutdown signal - closing server gracefully...');
-        serverFactory.close(() => {
-          logger.info('server closed.');
-          process.exit(0);
-        });
-      }
+    function handleShutdownGracefully() {
+      logger.info('received shutdown signal - closing server gracefully...');
+      serverFactory.close(() => {
+        logger.info('server closed.');
+        process.exit(0);
+      });
+    }
 
-      for (const signal of ['SIGINT', 'SIGTERM', 'SIGHUP']) {
-        // Use once() so that receiving double signals exit the app.
-        process.once(signal, handleShutdownGracefully);
-      }
+    for (const signal of ['SIGINT', 'SIGTERM', 'SIGHUP']) {
+      // Use once() so that receiving double signals exit the app.
+      process.once(signal, handleShutdownGracefully);
     }
   });
 }
@@ -198,20 +182,10 @@ export async function initServer(
  * @param config
  */
 export async function runServer(config?: string | ConfigYaml): Promise<any> {
-  let configurationParsed: ConfigYaml;
-  if (config === undefined || typeof config === 'string') {
-    const configPathLocation = findConfigFile(config);
-    configurationParsed = parseConfigFile(configPathLocation);
-  } else if (_.isObject(config)) {
-    configurationParsed = config;
-  } else {
-    throw new Error(API_ERROR.CONFIG_BAD_FORMAT);
-  }
-
+  const configurationParsed = getConfigParsed(config);
   setup(configurationParsed.log as any);
   displayExperimentsInfoBox(configurationParsed.flags);
-  // FIXME: get only the first match, the multiple address will be removed
-  const [addr] = getListListenAddresses(undefined, configurationParsed.listen);
+  const addr = getListenAddress(configurationParsed.listen, logger);
   const app = await expressServer(configurationParsed);
   return createServerFactory(configurationParsed, addr, app);
 }

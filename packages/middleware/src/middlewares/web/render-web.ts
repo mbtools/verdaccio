@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import express from 'express';
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 import { HTTP_STATUS } from '@verdaccio/core';
 import { isURLhasValidProtocol } from '@verdaccio/url';
@@ -93,7 +93,8 @@ export function renderWebMiddleware(config, tokenMiddleware, pluginOptions) {
     config.web.logoDark = logoDark;
   }
 
-  router.get(WebUrlsNamespace.web + ':section/*', function (req, res) {
+  // Handle all web routes including security routes
+  router.get(WebUrlsNamespace.web + '*', function (req, res) {
     renderHTML(config, manifest, manifestFiles, req, res);
     debug('render html section');
   });

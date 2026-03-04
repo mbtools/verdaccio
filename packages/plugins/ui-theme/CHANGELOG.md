@@ -1,5 +1,59 @@
 # @verdaccio/ui-theme
 
+## 8.0.0-next-8.30
+
+## 8.0.0-next-8.29
+
+## 8.0.0-next-8.28
+
+## 8.0.0-next-8.27
+
+## 8.0.0-next-8.26
+
+## 8.0.0-next-8.25
+
+### Patch Changes
+
+- b24f513: chore(lint): switch rules from jest to vitest
+
+## 8.0.0-next-8.24
+
+## 8.0.0-next-8.23
+
+## 8.0.0-next-8.22
+
+### Patch Changes
+
+- f443f81: chore(deps): sync and pin dependencies
+
+## 8.0.0-next-8.21
+
+## 8.0.0-next-8.20
+
+### Patch Changes
+
+- 08e1b21: chore(deps): built-in node imports
+
+## 8.0.0-next-8.19
+
+### Patch Changes
+
+- 07a0ecb: chore(ui): update deps and storybook
+
+## 8.0.0-next-8.18
+
+## 8.0.0-next-8.17
+
+## 8.0.0-next-8.16
+
+### Minor Changes
+
+- 626ae6a: feat: web v1 login frontend (experimental)
+
+### Patch Changes
+
+- 04c4e5b: chore(ui): minor app improvements
+
 ## 8.0.0-next-8.15
 
 ## 8.0.0-next-8.14

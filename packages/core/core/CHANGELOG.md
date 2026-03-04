@@ -1,5 +1,68 @@
 # @verdaccio/core
 
+## 8.0.0-next-8.30
+
+## 8.0.0-next-8.29
+
+### Patch Changes
+
+- 4edcae8: chore: replacing require('package.json')
+- 184632c: chore: fix links to docs
+
+## 8.0.0-next-8.28
+
+## 8.0.0-next-8.27
+
+## 8.0.0-next-8.26
+
+## 8.0.0-next-8.25
+
+## 8.0.0-next-8.24
+
+## 8.0.0-next-8.23
+
+## 8.0.0-next-8.22
+
+### Patch Changes
+
+- 67e667b: chore: replace conditional require(fs/promises) pattern
+- 60ef8ff: fix(storage): check_owners with anonymous access
+
+## 8.0.0-next-8.21
+
+### Patch Changes
+
+- f8a321f: fix: restore minimatch major version
+
+## 8.0.0-next-8.20
+
+### Minor Changes
+
+- 6a4d6dd: feat: getListenAddress getConfigParsed methods
+
+## 8.0.0-next-8.19
+
+### Patch Changes
+
+- 9350431: chore(deps): clean up core modules
+
+## 8.0.0-next-8.18
+
+## 8.0.0-next-8.17
+
+### Patch Changes
+
+- 96d2f0f: fix(core): remove `lodash` from a dependency
+
+## 8.0.0-next-8.16
+
+### Patch Changes
+
+- 9509b63: chore(core): http status codes
+- 626ae6a: feat: web v1 login backend (experimental)
+- acb8a99: chore(core): move more utils to core
+- b19ddca: fix(config): server settings
+
 ## 8.0.0-next-8.15
 
 ## 8.0.0-next-8.14

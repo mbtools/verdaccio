@@ -8,7 +8,14 @@ import AuditMiddleware from 'verdaccio-audit';
 import apiEndpoint from '@verdaccio/api';
 import { Auth } from '@verdaccio/auth';
 import { Config as AppConfig } from '@verdaccio/config';
-import { API_ERROR, PLUGIN_CATEGORY, errorUtils, pluginUtils } from '@verdaccio/core';
+import {
+  API_ERROR,
+  PLUGIN_CATEGORY,
+  PLUGIN_PREFIX,
+  errorUtils,
+  pkgUtils,
+  pluginUtils,
+} from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
 import {
@@ -29,7 +36,7 @@ import hookDebug from './debug';
 import { initializePlugin } from './plugins';
 
 const debug = buildDebug('verdaccio:server');
-const { version } = require('../package.json');
+const { version } = pkgUtils.getPackageJson(__dirname, '..');
 
 const defineAPI = async function (config: IConfig, storage: Storage): Promise<Express> {
   const auth = new Auth(config, logger);
@@ -44,7 +51,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
     app.set('trust proxy', config.server.trustProxy);
   }
   app.use(cors());
-  app.use(rateLimit(config.serverSettings.rateLimit));
+  app.use(rateLimit(config.server?.rateLimit));
 
   const errorReportingMiddlewareWrap = errorReportingMiddleware(logger);
 
@@ -77,7 +84,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
       return typeof plugin.register_middlewares !== 'undefined';
     },
     false,
-    config?.serverSettings?.pluginPrefix,
+    config.server?.pluginPrefix ?? PLUGIN_PREFIX,
     PLUGIN_CATEGORY.MIDDLEWARE
   );
 
@@ -99,7 +106,7 @@ const defineAPI = async function (config: IConfig, storage: Storage): Promise<Ex
     );
   });
 
-  // For  npm request
+  // For package manager requests
   app.use(apiEndpoint(config, auth, storage, logger));
 
   // For WebUI & WebUI API

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio/middleware",
-  "version": "8.0.0-next-8.15",
+  "version": "8.0.0-next-8.30",
   "description": "Verdaccio Express Middleware",
   "main": "./build/index.js",
   "types": "build/index.d.ts",
@@ -42,25 +42,25 @@
     "build": "pnpm run build:js && pnpm run build:types"
   },
   "dependencies": {
-    "@verdaccio/config": "workspace:8.0.0-next-8.15",
-    "@verdaccio/core": "workspace:8.0.0-next-8.15",
-    "@verdaccio/url": "workspace:13.0.0-next-8.15",
-    "@verdaccio/utils": "workspace:8.1.0-next-8.15",
-    "debug": "4.4.0",
-    "express": "4.21.2",
+    "@verdaccio/config": "workspace:8.0.0-next-8.30",
+    "@verdaccio/core": "workspace:8.0.0-next-8.30",
+    "@verdaccio/url": "workspace:13.0.0-next-8.30",
+    "debug": "4.4.3",
+    "express": "4.22.1",
     "express-rate-limit": "5.5.1",
-    "lodash": "4.17.21",
-    "lru-cache": "7.18.3",
-    "mime": "2.6.0"
+    "lodash": "4.17.23",
+    "lru-cache": "7.18.3"
   },
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/verdaccio"
   },
   "devDependencies": {
-    "@verdaccio/logger": "workspace:8.0.0-next-8.15",
-    "body-parser": "1.20.3",
-    "supertest": "7.0.0",
-    "jsdom": "25.0.1"
+    "@verdaccio/logger": "workspace:8.0.0-next-8.30",
+    "@verdaccio/types": "workspace:13.0.0-next-8.10",
+    "http-errors": "2.0.1",
+    "supertest": "7.1.4",
+    "jsdom": "26.1.0",
+    "vitest": "3.2.4"
   }
 }

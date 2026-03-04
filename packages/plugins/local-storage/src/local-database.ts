@@ -4,11 +4,10 @@ import _ from 'lodash';
 import low from 'lowdb';
 import FileAsync from 'lowdb/adapters/FileAsync';
 import FileMemory from 'lowdb/adapters/Memory';
-import path from 'path';
+import path from 'node:path';
 
-import { errorUtils, fileUtils, pluginUtils, searchUtils } from '@verdaccio/core';
+import { authUtils, errorUtils, fileUtils, pluginUtils, searchUtils } from '@verdaccio/core';
 import { Config, Logger, Token, TokenFilter } from '@verdaccio/types';
-import { getMatchedPackagesSpec } from '@verdaccio/utils';
 
 import { searchOnStorage } from './dir-utils';
 import { mkdirPromise, writeFilePromise } from './fs';
@@ -175,7 +174,7 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
       const pkgName = data.indexOf(name);
       if (pkgName !== -1) {
         this.data.list.splice(pkgName, 1);
-        debug('remove package %o has been removed', name);
+        debug('package %o has been removed', name);
       }
       await this._sync();
     } catch (err) {
@@ -196,24 +195,33 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
   }
 
   public getPackageStorage(packageName: string): pluginUtils.StorageHandler {
-    const packageAccess = getMatchedPackagesSpec(packageName, this.config.packages);
+    const packageAccess = authUtils.getMatchedPackagesSpec(packageName, this.config.packages);
 
     const packagePath: string = this._getLocalStoragePath(
       packageAccess ? packageAccess.storage : undefined
     );
-    debug('storage path selected: ', packagePath);
+    debug('storage path selected %o', packagePath);
     if (_.isString(packagePath) === false) {
       debug('the package %o has no storage defined ', packageName);
       throw errorUtils.getInternalError('storage not found or implemented');
     }
 
+    const storagePath = this.getStoragePath();
     const packageStoragePath: string = path.join(
-      // FIXME: use getBaseStoragePath instead
-      path.resolve(path.dirname(this.config.config_path || ''), packagePath),
+      path.resolve(storagePath, packagePath),
       packageName
     );
 
-    debug('storage absolute path: ', packageStoragePath);
+    // Verify that the file path is under the storage root directory
+    // to avoid "uncontrolled data used in path expression" issues
+    if (!packageStoragePath.startsWith(storagePath)) {
+      debug('packagePath %o, storagePath %o', packageStoragePath, storagePath);
+      throw errorUtils.getInternalError(
+        'package-specific path is not under the configured storage directory'
+      );
+    }
+
+    debug('storage absolute path %o', packageStoragePath);
 
     return new LocalDriver(packageStoragePath, this.logger);
   }

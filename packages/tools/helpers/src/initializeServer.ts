@@ -1,14 +1,13 @@
 import buildDebug from 'debug';
 import express, { Application } from 'express';
-import os from 'os';
-import path from 'path';
+import os from 'node:os';
+import path from 'node:path';
 
 import { Auth } from '@verdaccio/auth';
 import { Config } from '@verdaccio/config';
-import { errorUtils } from '@verdaccio/core';
+import { cryptoUtils, errorUtils } from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
-import { generateRandomHexString } from '@verdaccio/utils';
 
 const debug = buildDebug('verdaccio:tools:helpers:server');
 
@@ -20,7 +19,7 @@ export async function initializeServer(
   const app = express();
   const logger = setup(configObject.log ?? {});
   const config = new Config(configObject);
-  config.storage = path.join(os.tmpdir(), '/storage', generateRandomHexString());
+  config.storage = path.join(os.tmpdir(), '/storage', cryptoUtils.generateRandomHexString());
   // httpass would get path.basename() for configPath thus we need to create a dummy folder
   // to avoid conflics
   config.configPath = config.storage;

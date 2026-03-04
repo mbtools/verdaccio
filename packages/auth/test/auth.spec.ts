@@ -1,14 +1,20 @@
 import express from 'express';
-import path from 'path';
+import path from 'node:path';
 import supertest from 'supertest';
 import { describe, expect, test, vi } from 'vitest';
 
 import { Config as AppConfig, ROLES, createRemoteUser, getDefaultConfig } from '@verdaccio/config';
-import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS, TOKEN_BEARER, errorUtils } from '@verdaccio/core';
+import {
+  HEADERS,
+  HTTP_STATUS,
+  SUPPORT_ERRORS,
+  TOKEN_BEARER,
+  authUtils,
+  errorUtils,
+} from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import { errorReportingMiddleware, final, handleError } from '@verdaccio/middleware';
 import { Config } from '@verdaccio/types';
-import { buildToken } from '@verdaccio/utils';
 
 import { $RequestExtend, Auth } from '../src';
 import {
@@ -20,10 +26,12 @@ import {
 
 setup({});
 
+const buildToken = authUtils.buildToken;
+
 // to avoid flaky test generate same ramdom key
-vi.mock('@verdaccio/utils', async (importOriginal) => {
+vi.mock('@verdaccio/core', async (importOriginal) => {
   return {
-    ...(await importOriginal<typeof import('@verdaccio/utils')>()),
+    ...(await importOriginal<typeof import('@verdaccio/core')>()),
     // used by enhanced legacy aes signature (minimum 32 characters)
     generateRandomSecretKey: () => 'GCYW/3IJzQI6GvPmy9sbMkFoiL7QLVw',
     // used by legacy aes signature
@@ -190,29 +198,52 @@ describe('AuthTest', () => {
       });
     });
 
-    describe('test multiple authenticate methods', () => {
-      test('should skip falsy values', async () => {
-        const config: Config = new AppConfig({
-          ...getDefaultConfig(),
-          plugins: path.join(__dirname, './partials/plugin'),
-          auth: {
-            success: {},
-            'fail-invalid-method': {},
-          },
-        });
-        config.checkSecretKey('12345');
-        const auth: Auth = new Auth(config, logger);
-        await auth.init();
+    test('should success first plugin, ignore subsequent plugins', async () => {
+      const config: Config = new AppConfig({
+        ...getDefaultConfig(),
+        plugins: path.join(__dirname, './partials/plugin'),
+        auth: {
+          success: {},
+          'no-access': {},
+        },
+      });
+      config.checkSecretKey('12345');
+      const auth: Auth = new Auth(config, logger);
+      await auth.init();
 
-        return new Promise((resolve) => {
-          auth.authenticate('foo', 'bar', (err, value) => {
-            expect(value).toEqual({
-              name: 'foo',
-              groups: ['test', ROLES.$ALL, '$authenticated', '@all', '@authenticated', 'all'],
-              real_groups: ['test'],
-            });
-            resolve(value);
+      return new Promise((resolve) => {
+        auth.authenticate('foo', 'bar', (err, value) => {
+          expect(value).toEqual({
+            name: 'foo',
+            groups: ['test', ROLES.$ALL, '$authenticated', '@all', '@authenticated', 'all'],
+            real_groups: ['test'],
           });
+          resolve(value);
+        });
+      });
+    });
+
+    test('should fail first plugin, success second plugin', async () => {
+      const config: Config = new AppConfig({
+        ...getDefaultConfig(),
+        plugins: path.join(__dirname, './partials/plugin'),
+        auth: {
+          'no-access': {},
+          success: {},
+        },
+      });
+      config.checkSecretKey('12345');
+      const auth: Auth = new Auth(config, logger);
+      await auth.init();
+
+      return new Promise((resolve) => {
+        auth.authenticate('foo', 'bar', (err, value) => {
+          expect(value).toEqual({
+            name: 'foo',
+            groups: ['test', ROLES.$ALL, '$authenticated', '@all', '@authenticated', 'all'],
+            real_groups: ['test'],
+          });
+          resolve(value);
         });
       });
     });
@@ -572,20 +603,16 @@ describe('AuthTest', () => {
         app.use(express.json({ strict: false, limit: '10mb' }));
 
         app.use(auth.apiJWTmiddleware());
-        // @ts-expect-error
-        app.use(errorReportingMiddleware(logger));
+        app.use(errorReportingMiddleware(logger) as any);
         app.get('/*', (req, res, next) => {
           if ((req as $RequestExtend).remote_user.error) {
             next(new Error((req as $RequestExtend).remote_user.error));
           } else {
-            // @ts-expect-error
-            next({ user: req?.remote_user });
+            next({ user: (req as $RequestExtend).remote_user });
           }
         });
-        // @ts-expect-error
-        app.use(handleError(logger));
-        // @ts-expect-error
-        app.use(final);
+        app.use(handleError(logger) as any);
+        app.use(final as any);
         return app;
       };
 
@@ -690,6 +717,24 @@ describe('AuthTest', () => {
               ROLES.DEPRECATED_ANONYMOUS,
             ]);
           });
+
+          test('should handle malformed Basic auth credentials without crashing', async () => {
+            // @ts-expect-error
+            const config: Config = new AppConfig({
+              ...authProfileConf,
+              ...{ security: { api: { jwt: { sign: { expiresIn: '29d' } } } } },
+            });
+            config.checkSecretKey(secret);
+            const auth = new Auth(config, logger);
+            await auth.init();
+            const app = await getServer(auth);
+            // base64 of "test" (no colon separator) - must not crash with TypeError
+            const malformedToken = Buffer.from('test').toString('base64');
+            return supertest(app)
+              .get(`/`)
+              .set(HEADERS.AUTHORIZATION, `Basic ${malformedToken}`)
+              .expect(HTTP_STATUS.INTERNAL_ERROR);
+          });
         });
         describe('valid signature handlers', () => {
           test('should handle valid auth token', async () => {
@@ -706,7 +751,7 @@ describe('AuthTest', () => {
             await auth.init();
             const token = (await auth.jwtEncrypt(
               createRemoteUser('jwt_user', [ROLES.ALL]),
-              config.security.api.jwt.sign
+              config.security?.api?.jwt?.sign || {}
             )) as string;
             const app = await getServer(auth);
             const res = await supertest(app)

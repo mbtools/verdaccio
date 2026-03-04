@@ -1,10 +1,9 @@
 import { Router } from 'express';
 import _ from 'lodash';
-import mime from 'mime';
 
 import { Auth } from '@verdaccio/auth';
-import { constants, errorUtils } from '@verdaccio/core';
-import { allow, media } from '@verdaccio/middleware';
+import { HEADERS, constants, errorUtils } from '@verdaccio/core';
+import { allow, getRequestOptions, media } from '@verdaccio/middleware';
 import { DIST_TAGS_API_ENDPOINTS } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
 import { Logger } from '@verdaccio/types';
@@ -42,14 +41,14 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
   route.put(
     DIST_TAGS_API_ENDPOINTS.tagging,
     can('publish'),
-    media(mime.getType('json')),
+    media(HEADERS.JSON),
     addTagPackageVersionMiddleware
   );
 
   route.put(
     DIST_TAGS_API_ENDPOINTS.tagging_package,
     can('publish'),
-    media(mime.getType('json')),
+    media(HEADERS.JSON),
     addTagPackageVersionMiddleware
   );
 
@@ -84,13 +83,7 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
       next: $NextFunctionVer
     ): Promise<void> {
       const name = req.params.package;
-      const requestOptions = {
-        protocol: req.protocol,
-        headers: req.headers as any,
-        // FIXME: if we migrate to req.hostname, the port is not longer included.
-        host: req.host,
-        remoteAddress: req.socket.remoteAddress,
-      };
+      const requestOptions = getRequestOptions(req);
       try {
         const manifest = await storage.getPackageByOptions({
           name,

@@ -1,6 +1,5 @@
-/* eslint-disable jest/no-mocks-import */
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { fileUtils } from '@verdaccio/core';
@@ -16,6 +15,7 @@ const logger: Logger = {
   warn: vi.fn(),
   http: vi.fn(),
   trace: vi.fn(),
+  fatal: vi.fn(),
 };
 
 describe('Local Database', () => {

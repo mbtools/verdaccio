@@ -72,6 +72,10 @@ auth:
     # Maximum amount of users allowed to register, defaults to "+inf".
     # You can set this to -1 to disable registration.
     # max_users: 1000
+    # Hash algorithm, possible options are: "bcrypt", "md5", "sha1", "crypt".
+    # algorithm: bcrypt # by default is crypt, but is recommended use bcrypt for new installations
+    # Rounds number for "bcrypt", will be ignored for other algorithms.
+    # rounds: 10
 
 # A list of other known repositories we can talk to
 # https://verdaccio.org/docs/configuration#uplinks
@@ -196,7 +200,7 @@ server:
 
 # https://verdaccio.org/docs/configuration#notifications
 # notify:
-#   method: 'POST'
+#   method: 'POST' # methods available: POST, PUT, GET
 #   headers: '[{ "Content-Type": "application/json" }]'
 #   endpoint: 'https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken'
 #   content: '{"color":"green","message":"New package published: * {{ name }}*","notify":true,"message_format":"text"}'
@@ -210,7 +214,16 @@ middlewares:
 
 # Log settings
 # https://verdaccio.org/docs/logger
-log: { type: stdout, format: pretty, level: http }
+# Redaction: https://getpino.io/#/docs/redaction
+# Synchronous logging: https://getpino.io/#/docs/asynchronous
+log:
+  type: stdout
+  format: pretty
+  level: http
+#  redact:
+#    paths: ['req.header.authorization','req.header.cookie','req.remoteAddress','req.remotePort','ip','remoteIP','user','msg']
+#    censor: '<redacted>'
+#  sync: true
 
 # Feature flags (experimental settings that can be changed or removed in the future)
 # https://verdaccio.org/docs/configuration#experiments

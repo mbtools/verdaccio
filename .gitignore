@@ -48,11 +48,6 @@ packages/plugins/ui-theme/static
 # CI Pnpm cache
 .pnpm-store/
 
-#docs
-website/docs/api/**/*.md
-website/docs/api/**/*.yml
-!website/docs/api/index.md
-packages/**/docs
 
 # cypress
 e2e/ui/cypress/videos/**/*
@@ -60,6 +55,3 @@ e2e/ui/cypress/screenshots/**/*
 
 # storybook
 packages/ui-components/storybook-static
-
-# plugin generator
-packages/tools/generator-verdaccio-plugin/generators/

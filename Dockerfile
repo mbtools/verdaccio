@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM:-linux/amd64} node:22-alpine AS builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24-alpine AS builder
 
 ENV NODE_ENV=development \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org
@@ -21,14 +21,15 @@ RUN npm -g i corepack && \
 # NODE_ENV=production pnpm install --frozen-lockfile --ignore-scripts
 # RUN pnpm install --prod --ignore-scripts
 
-FROM node:22-alpine
+FROM node:24-alpine
 LABEL maintainer="https://github.com/verdaccio/verdaccio"
 
 ENV VERDACCIO_APPDIR=/opt/verdaccio \
     VERDACCIO_USER_NAME=verdaccio \
     VERDACCIO_USER_UID=10001 \
     VERDACCIO_PORT=4873 \
-    VERDACCIO_PROTOCOL=http
+    VERDACCIO_PROTOCOL=http \
+    VERDACCIO_ADDRESS=[::]
 ENV PATH=$VERDACCIO_APPDIR/docker-bin:$PATH \
     HOME=$VERDACCIO_APPDIR
 
@@ -45,8 +46,8 @@ ADD packages/config/src/conf/docker.yaml /verdaccio/conf/config.yaml
 
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APPDIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
     chmod -R +x $VERDACCIO_APPDIR/packages/verdaccio/bin $VERDACCIO_APPDIR/docker-bin && \
-    chown -R $VERDACCIO_USER_UID:root /verdaccio/storage && \
-    chmod -R g=u /verdaccio/storage /etc/passwd
+    chown -R $VERDACCIO_USER_UID:root /verdaccio/storage /verdaccio/conf && \
+    chmod -R g=u /verdaccio/storage /verdaccio/conf /etc/passwd
 
 USER $VERDACCIO_USER_UID
 
@@ -56,4 +57,4 @@ VOLUME /verdaccio/storage
 
 ENTRYPOINT ["uid_entrypoint"]
 
-CMD $VERDACCIO_APPDIR/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://0.0.0.0:$VERDACCIO_PORT
+CMD $VERDACCIO_APPDIR/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://$VERDACCIO_ADDRESS:$VERDACCIO_PORT

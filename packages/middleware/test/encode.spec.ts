@@ -65,7 +65,7 @@ describe('packages requests', () => {
     expect(res.status).toEqual(HTTP_STATUS.OK);
   });
 
-  test('scoped package with encoded @ and path ', async () => {
+  test('scoped package with encoded @ and path', async () => {
     const res = await request(app).get('/%40scope%2ffoo');
     expect(res.body).toEqual({ package: '@scope/foo' });
     expect(res.status).toEqual(HTTP_STATUS.OK);
@@ -126,6 +126,46 @@ describe('tarball requests', () => {
   test('scoped package with encoded @', async () => {
     const res = await request(app).get('/%40scope/foo/-/foo-1.2.3.tgz');
     expect(res.body).toEqual({ package: '@scope/foo', filename: 'foo-1.2.3.tgz' });
+    expect(res.status).toEqual(HTTP_STATUS.OK);
+  });
+});
+
+describe('dist-tags requests', () => {
+  const app = getApp([]);
+  // @ts-ignore
+  app.use(encodeScopePackage);
+  app.get('/-/package/:package/dist-tags/:tag', (req, res) => {
+    const { package: pkg, tag } = req.params;
+    res.status(HTTP_STATUS.OK).json({ package: pkg, tag });
+  });
+
+  test('just package', async () => {
+    const res = await request(app).get('/-/package/foo/dist-tags/latest');
+    expect(res.body).toEqual({ package: 'foo', tag: 'latest' });
+    expect(res.status).toEqual(HTTP_STATUS.OK);
+  });
+
+  test('scoped package', async () => {
+    const res = await request(app).get('/-/package/@scope/foo/dist-tags/latest');
+    expect(res.body).toEqual({ package: '@scope/foo', tag: 'latest' });
+    expect(res.status).toEqual(HTTP_STATUS.OK);
+  });
+
+  test('scoped package with encoded path', async () => {
+    const res = await request(app).get('/-/package/@scope%2ffoo/dist-tags/latest');
+    expect(res.body).toEqual({ package: '@scope/foo', tag: 'latest' });
+    expect(res.status).toEqual(HTTP_STATUS.OK);
+  });
+
+  test('scoped package with encoded @ and path', async () => {
+    const res = await request(app).get('/-/package/%40scope%2ffoo/dist-tags/latest');
+    expect(res.body).toEqual({ package: '@scope/foo', tag: 'latest' });
+    expect(res.status).toEqual(HTTP_STATUS.OK);
+  });
+
+  test('scoped package with encoded @', async () => {
+    const res = await request(app).get('/-/package/%40scope/foo/dist-tags/latest');
+    expect(res.body).toEqual({ package: '@scope/foo', tag: 'latest' });
     expect(res.status).toEqual(HTTP_STATUS.OK);
   });
 });

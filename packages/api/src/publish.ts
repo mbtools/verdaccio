@@ -1,10 +1,9 @@
 import buildDebug from 'debug';
 import { Router } from 'express';
-import mime from 'mime';
 
 import { Auth } from '@verdaccio/auth';
-import { API_MESSAGE, HTTP_STATUS } from '@verdaccio/core';
-import { allow, expectJson, media } from '@verdaccio/middleware';
+import { API_MESSAGE, HEADERS, HTTP_STATUS } from '@verdaccio/core';
+import { allow, expectJson, getRequestOptions, media } from '@verdaccio/middleware';
 // import star from './star';
 import { PUBLISH_API_ENDPOINTS } from '@verdaccio/middleware';
 import { Storage } from '@verdaccio/store';
@@ -122,7 +121,7 @@ export default function publish(
   router.put(
     PUBLISH_API_ENDPOINTS.add_package,
     can('publish'),
-    media(mime.getType('json')),
+    media(HEADERS.JSON),
     expectJson,
     publishPackage(storage, logger, 'publish one version')
   );
@@ -130,7 +129,7 @@ export default function publish(
   router.put(
     PUBLISH_API_ENDPOINTS.publish_package,
     can('unpublish'),
-    media(mime.getType('json')),
+    media(HEADERS.JSON),
     expectJson,
     publishPackage(storage, logger, 'publish with revision')
   );
@@ -225,25 +224,17 @@ export function publishPackage(storage: Storage, logger: Logger, origin: string)
       debug('body %o', req.body);
     }
     const metadata = req.body;
-    const username = req?.remote_user?.name;
 
-    debug('publishing package %o for user %o', packageName, username);
-    logger.debug(
-      { packageName, username },
-      'publishing package @{packageName} for user @{username}'
-    );
+    logger.debug({ packageName }, `publishing package @{packageName}`);
+
+    const requestOptions = getRequestOptions(req);
 
     try {
       const message = await storage.updateManifest(metadata, {
         name: packageName,
         revision,
         signal: ac.signal,
-        requestOptions: {
-          host: req.hostname,
-          protocol: req.protocol,
-          headers: req.headers as { [key: string]: string },
-          username,
-        },
+        requestOptions,
         uplinksLook: false,
       });
       debug('package %s published', packageName);

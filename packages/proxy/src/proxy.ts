@@ -9,8 +9,8 @@ import got, {
   Headers as gotHeaders,
 } from 'got-cjs';
 import _ from 'lodash';
-import Stream, { PassThrough, Readable } from 'stream';
-import { URL } from 'url';
+import Stream, { PassThrough, Readable } from 'node:stream';
+import { URL } from 'node:url';
 
 import {
   API_ERROR,
@@ -18,12 +18,12 @@ import {
   HTTP_STATUS,
   TOKEN_BASIC,
   TOKEN_BEARER,
+  authUtils,
   constants,
   errorUtils,
   searchUtils,
 } from '@verdaccio/core';
 import { AgentOptionsConf, Config, Logger, Manifest, UpLinkConf } from '@verdaccio/types';
-import { buildToken } from '@verdaccio/utils';
 
 import CustomAgents from './agent';
 import { parseInterval } from './proxy-utils';
@@ -264,7 +264,7 @@ class ProxyStorage implements IProxy {
       this._throwErrorAuth(`Auth type '${_type}' not allowed`);
     }
 
-    headers[HEADERS.AUTHORIZATION] = buildToken(type, token);
+    headers[HEADERS.AUTHORIZATION] = authUtils.buildToken(type, token);
   }
 
   /**
@@ -629,20 +629,6 @@ class ProxyStorage implements IProxy {
           }
           break;
         }
-      }
-    }
-
-    // validate proxy protocol matches the proxy_key type
-    if (this.proxy) {
-      const proxyUrl = new URL(this.proxy);
-      const expectedProtocol = isHTTPS ? 'https:' : 'http:';
-      if (proxyUrl.protocol !== expectedProtocol) {
-        this.logger.error(
-          { proxy: this.proxy, expectedProtocol },
-          `invalid protocol for ${proxy_key} - must be ${expectedProtocol}`
-        );
-        this.proxy = undefined;
-        return;
       }
     }
 

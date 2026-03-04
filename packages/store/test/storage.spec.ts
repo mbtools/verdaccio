@@ -1,14 +1,15 @@
-import { pseudoRandomBytes } from 'crypto';
-import fs from 'fs';
 import MockDate from 'mockdate';
 import nock from 'nock';
 import * as httpMocks from 'node-mocks-http';
-import os from 'os';
-import path from 'path';
+import { pseudoRandomBytes } from 'node:crypto';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
 import {
+  ANONYMOUS_USER,
   API_ERROR,
   API_MESSAGE,
   DIST_TAGS,
@@ -797,7 +798,7 @@ describe('storage', () => {
           uplinksLook: true,
           requestOptions: defaultRequestOptions,
         })) as Manifest;
-        expect(manifest?.maintainers).toEqual([{ name: 'Anonymous', email: '' }]);
+        expect(manifest?.maintainers).toEqual([{ name: ANONYMOUS_USER, email: '' }]);
       });
 
       test.each([
@@ -1346,7 +1347,7 @@ describe('storage', () => {
         const [manifest] = await storage.syncUplinksMetadata(fooManifest.name, fooManifest, {
           retry: { limit: 0 },
         });
-        expect(manifest).toBe(fooManifest);
+        expect(manifest).toEqual(fooManifest);
       });
     });
 
@@ -1955,10 +1956,9 @@ describe('storage', () => {
       });
 
       test('should get ETIMEDOUT with uplink', { retry: 3 }, async () => {
-        nock(domain).get('/foo3').replyWithError({
-          code: 'ETIMEDOUT',
-          error: 'ETIMEDOUT',
-        });
+        const timeoutErr: any = new Error('ETIMEDOUT');
+        timeoutErr.code = 'ETIMEDOUT';
+        nock(domain).get('/foo3').replyWithError(timeoutErr);
         const config = new Config(
           configExample({
             ...getDefaultConfig(),
@@ -1995,7 +1995,7 @@ describe('storage', () => {
         ).rejects.toThrow(errorUtils.getServiceUnavailable(API_ERROR.SERVER_TIME_OUT));
       });
 
-      test('should fetch abbreviated version of manifest ', async () => {
+      test('should fetch abbreviated version of manifest', async () => {
         const fooManifest = generateLocalPackageMetadata('foo', '1.0.0');
         nock(domain).get('/foo').reply(201, fooManifest);
         const config = new Config(

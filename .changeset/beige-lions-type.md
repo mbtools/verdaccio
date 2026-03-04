@@ -1,5 +1,4 @@
 ---
-'generator-verdaccio-plugin': major
 '@verdaccio/logger-prettify': major
 '@verdaccio/logger-commons': major
 '@verdaccio/local-storage': major
@@ -10,12 +9,10 @@
 'verdaccio-memory': major
 '@verdaccio/search-indexer': major
 '@verdaccio/server': major
-'@verdaccio/server-fastify': major
 '@verdaccio/logger': major
 'verdaccio-audit': major
 '@verdaccio/ui-components': major
 '@verdaccio/tarball': major
-'@verdaccio/eslint-config': major
 '@verdaccio/test-cli-commons': major
 '@verdaccio/types': major
 '@verdaccio/middleware': major

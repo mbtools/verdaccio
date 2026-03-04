@@ -1,24 +1,20 @@
 ---
-'generator-verdaccio-plugin': patch
 '@verdaccio/logger-prettify': patch
 '@verdaccio/logger-commons': patch
 '@verdaccio/local-storage': patch
 'verdaccio-auth-memory': patch
 '@verdaccio/local-publish': patch
-'@verdaccio/local-scripts': patch
 '@verdaccio/file-locking': patch
 'verdaccio-htpasswd': patch
 '@verdaccio/ui-theme': patch
 'verdaccio-memory': patch
 '@verdaccio/search-indexer': patch
 '@verdaccio/server': patch
-'@verdaccio/server-fastify': patch
 '@verdaccio/logger': patch
 'verdaccio-audit': patch
 '@verdaccio/test-helper': patch
 '@verdaccio/ui-components': patch
 '@verdaccio/tarball': patch
-'@verdaccio/eslint-config': patch
 '@verdaccio/types': patch
 '@verdaccio/middleware': patch
 '@verdaccio/cli-standalone': patch
@@ -35,7 +31,6 @@
 '@verdaccio/auth': patch
 '@verdaccio/api': patch
 '@verdaccio/cli': patch
-'@verdaccio/website': patch
 ---
 
 chore: update readme badges and license files

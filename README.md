@@ -8,10 +8,7 @@
 
 # Version Next (Development Branch)
 
-> Looking for Verdaccio version 5 or 6? Version 6 is the latest version and successor to version 5. Version 6 requires Node.js 18 or higher and is maintained in the `6.x` branch.
-
-> The plugins for versions 5 and 6 are located at the [`verdaccio/monorepo`](https://github.com/verdaccio/monorepo) repository. Plugins for the `next-8` version are hosted in this project under the `./packages/plugins` folder.
-
+> Version 6 requires Node.js 18 or higher and is maintained in the `6.x` branch.
 > Note that contributing guidelines might be different based on the branch.
 
 [Verdaccio](https://verdaccio.org/) is a simple, **zero-config-required local private npm registry**.
@@ -100,19 +97,21 @@ Our goal is to give you the confidence to use your preferred package manager wit
 
 ### Commands
 
-| cmd       | npm6 | npm7 | npm8 | npm9 | npm10 | pnpm8 | pnpm9 | pnpm10 | yarn1 | yarn2 | yarn3 | yarn4 |
-| --------- | ---- | ---- | ---- | ---- | ----- | ----- | ----- | ------ | ----- | ----- | ----- | ----- |
-| publish   | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅    | ✅    |
-| unpublish | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ❌     | ❌    | ❌    | ❌    | ❌    |
-| info      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅    | ✅    |
-| audit     | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅    | ❌    |
-| install   | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅    | ✅    |
-| deprecate | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅     | ⛔    | ⛔    | ⛔    | ⛔    |
-| ping      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅     | ⛔    | ⛔    | ⛔    | ⛔    |
-| search    | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅     | ⛔    | ⛔    | ⛔    | ⛔    |
-| star      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅     | ⛔    | ⛔    | ⛔    | ⛔    |
-| stars     | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅     | ⛔    | ⛔    | ⛔    | ⛔    |
-| dist-tag  | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅     | ✅    | ❌    | ❌    | ❌    |
+| cmd       | npm6 | npm7 | npm8 | npm9 | npm10 | npm11 | pnpm8 | pnpm9 | pnpm10 | yarn1 | yarn2 | yarn3 | yarn4 |
+| --------- | ---- | ---- | ---- | ---- | ----- | ----- | ----- | ----- | ------ | ----- | ----- | ----- | ----- |
+| publish   | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅    | ✅    |
+| unpublish | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ❌    | ❌    | ❌    | ❌    |
+| info      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅    | ✅    |
+| audit     | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅    | ❌    |
+| install   | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ✅    | ✅    | ✅    | ✅    |
+| deprecate | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ⛔    | ⛔    | ⛔    | ⛔    |
+| ping      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ⛔    | ⛔    | ⛔    | ⛔    |
+| search    | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ⛔    | ⛔    | ⛔    | ⛔    |
+| star      | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ⛔    | ⛔    | ⛔    | ⛔    |
+| stars     | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ⛔    | ⛔    | ⛔    | ⛔    |
+| dist-tag  | ✅   | ✅   | ✅   | ✅   | ✅    | ✅    | ✅    | ✅    | ✅     | ✅    | ❌    | ❌    | ❌    |
+
+<!--          n6      n7     n8      n9     n10      n11     p8       p9      p10       y1      y2       y3      y4 -->
 
 > notes:
 >
@@ -125,9 +124,11 @@ Our goal is to give you the confidence to use your preferred package manager wit
 
 ## Donations
 
-Verdaccio is run by **volunteers**; nobody is working full-time on it. If you find this project to be useful and would like to support its development, consider doing a long support donation - **and your logo will be on this section of the readme.**
+Verdaccio is run by **volunteers**; nobody works on it full-time. If you find this project useful and would like to support its development, consider making a long-term support donation — **your logo will be featured in this section of the README.**
 
-**[Donate](https://github.com/sponsors/verdaccio)** 💵👍🏻 starting from _$1/month_ or just one single contribution.
+You can support the project via **[Donate](https://opencollective.com/verdaccio)** 💵👍🏻 — starting from _just $1/month_, or with a one-time contribution.
+
+> **Note:** There is currently **no funding available for contributions or security research**.
 
 ## What does Verdaccio do for me?
 
@@ -293,7 +294,6 @@ Thanks to the following companies to help us to achieve our goals providing free
 | JetBrains    | [![jetbrain](https://github.com/verdaccio/verdaccio/blob/master/assets/thanks/jetbrains/logo.png?raw=true)](https://www.jetbrains.com/) | JetBrains provides licenses for products for active maintainers, renewable yearly |
 | Crowdin      | [![crowdin](https://github.com/verdaccio/verdaccio/blob/master/assets/thanks/crowdin/logo.png?raw=true)](https://crowdin.com/)          | Crowdin provides platform for translations                                        |
 | BrowserStack | [![browserstack](https://cdn.verdaccio.dev/readme/browserstack_logo.png)](https://www.browserstack.com/)                                | BrowserStack provides plan to run End to End testing for the UI                   |
-| Netlify      | [![netlify](https://www.netlify.com/img/global/badges/netlify-color-accent.svg)](https://www.netlify.com/)                              | Netlify provides pro plan for website deployment                                  |
 | Algolia      | [![algolia](https://cdn.verdaccio.dev/sponsor/logo/algolia/logo.png)](https://algolia.com/)                                             | Algolia provides search services for the website                                  |
 | Docker       | [![docker](https://cdn.verdaccio.dev/sponsor/logo/docker/docker.png)](https://www.docker.com/community/open-source/application)         | Docker offers unlimited pulls and unlimited egress to any and all users           |
 
@@ -327,7 +327,7 @@ You can find and chat with them over Discord, click [here](http://chat.verdaccio
 - [NX](https://github.com/nrwl/nx) _(+6.1k ⭐️)_
 - [Mozilla Neutrino](https://github.com/neutrinojs/neutrino) _(+3.7k ⭐️)_
 - [workshopper how to npm](https://github.com/workshopper/how-to-npm) _(+1k ⭐️)_
-- [Amazon SDK v3](https://github.com/aws/aws-sdk-js-v3)
+- [Amazon SDK for JavaScript (v3)](https://github.com/aws/aws-sdk-js-v3)
 - [Amazon Encryption SDK for Javascript](https://github.com/aws/aws-encryption-sdk-javascript)
 
 🤓 Don't be shy, add yourself to this readme.

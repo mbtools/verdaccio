@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Logger } from '@verdaccio/types';
@@ -16,6 +16,7 @@ const logger: Logger = {
   warn: vi.fn(),
   http: vi.fn(),
   trace: vi.fn(),
+  fatal: vi.fn(),
 };
 
 describe('Utitlies', () => {

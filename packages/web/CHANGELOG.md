@@ -1,5 +1,254 @@
 # @verdaccio/web
 
+## 8.1.0-next-8.30
+
+### Patch Changes
+
+- Updated dependencies [0a6c53c]
+  - @verdaccio/auth@8.0.0-next-8.30
+  - @verdaccio/store@8.0.0-next-8.30
+  - @verdaccio/core@8.0.0-next-8.30
+  - @verdaccio/config@8.0.0-next-8.30
+  - @verdaccio/tarball@13.0.0-next-8.30
+  - @verdaccio/loaders@8.0.0-next-8.20
+  - @verdaccio/middleware@8.0.0-next-8.30
+  - @verdaccio/logger@8.0.0-next-8.30
+
+## 8.1.0-next-8.29
+
+### Patch Changes
+
+- Updated dependencies [4edcae8]
+- Updated dependencies [f200baa]
+- Updated dependencies [184632c]
+- Updated dependencies [5efe84f]
+  - @verdaccio/core@8.0.0-next-8.29
+  - @verdaccio/middleware@8.0.0-next-8.29
+  - @verdaccio/auth@8.0.0-next-8.29
+  - @verdaccio/config@8.0.0-next-8.29
+  - @verdaccio/tarball@13.0.0-next-8.29
+  - @verdaccio/loaders@8.0.0-next-8.19
+  - @verdaccio/store@8.0.0-next-8.29
+  - @verdaccio/logger@8.0.0-next-8.29
+
+## 8.1.0-next-8.28
+
+### Patch Changes
+
+- Updated dependencies [377f38d]
+  - @verdaccio/middleware@8.0.0-next-8.28
+  - @verdaccio/auth@8.0.0-next-8.28
+  - @verdaccio/store@8.0.0-next-8.28
+  - @verdaccio/core@8.0.0-next-8.28
+  - @verdaccio/config@8.0.0-next-8.28
+  - @verdaccio/tarball@13.0.0-next-8.28
+  - @verdaccio/loaders@8.0.0-next-8.18
+  - @verdaccio/logger@8.0.0-next-8.28
+
+## 8.1.0-next-8.27
+
+### Patch Changes
+
+- Updated dependencies [ab8fccd]
+- Updated dependencies [d028ce1]
+  - @verdaccio/auth@8.0.0-next-8.27
+  - @verdaccio/loaders@8.0.0-next-8.17
+  - @verdaccio/config@8.0.0-next-8.27
+  - @verdaccio/core@8.0.0-next-8.27
+  - @verdaccio/tarball@13.0.0-next-8.27
+  - @verdaccio/logger@8.0.0-next-8.27
+  - @verdaccio/middleware@8.0.0-next-8.27
+  - @verdaccio/store@8.0.0-next-8.27
+
+## 8.1.0-next-8.26
+
+### Patch Changes
+
+- Updated dependencies [5d6bad3]
+- Updated dependencies [1b9bf90]
+- Updated dependencies [0321120]
+  - @verdaccio/middleware@8.0.0-next-8.26
+  - @verdaccio/store@8.0.0-next-8.26
+  - @verdaccio/auth@8.0.0-next-8.26
+  - @verdaccio/config@8.0.0-next-8.26
+  - @verdaccio/core@8.0.0-next-8.26
+  - @verdaccio/tarball@13.0.0-next-8.26
+  - @verdaccio/logger@8.0.0-next-8.26
+  - @verdaccio/loaders@8.0.0-next-8.16
+
+## 8.1.0-next-8.25
+
+### Patch Changes
+
+- 6d1a84a: chore(deps): node-api, fastify, ui-comp, web
+- Updated dependencies [3aff890]
+- Updated dependencies [ab3bf4a]
+- Updated dependencies [b24f513]
+  - @verdaccio/config@8.0.0-next-8.25
+  - @verdaccio/auth@8.0.0-next-8.25
+  - @verdaccio/middleware@8.0.0-next-8.25
+  - @verdaccio/store@8.0.0-next-8.25
+  - @verdaccio/tarball@13.0.0-next-8.25
+  - @verdaccio/loaders@8.0.0-next-8.15
+  - @verdaccio/core@8.0.0-next-8.25
+  - @verdaccio/logger@8.0.0-next-8.25
+
+## 8.1.0-next-8.24
+
+### Patch Changes
+
+- Updated dependencies [71587f3]
+  - @verdaccio/store@8.0.0-next-8.24
+  - @verdaccio/core@8.0.0-next-8.24
+  - @verdaccio/config@8.0.0-next-8.24
+  - @verdaccio/auth@8.0.0-next-8.24
+  - @verdaccio/tarball@13.0.0-next-8.24
+  - @verdaccio/loaders@8.0.0-next-8.14
+  - @verdaccio/middleware@8.0.0-next-8.24
+  - @verdaccio/logger@8.0.0-next-8.24
+
+## 8.1.0-next-8.23
+
+### Patch Changes
+
+- 5c499fa: chore: publish @verdaccio/test-helper
+- Updated dependencies [b671a38]
+  - @verdaccio/config@8.0.0-next-8.23
+  - @verdaccio/store@8.0.0-next-8.23
+  - @verdaccio/auth@8.0.0-next-8.23
+  - @verdaccio/loaders@8.0.0-next-8.13
+  - @verdaccio/middleware@8.0.0-next-8.23
+  - @verdaccio/core@8.0.0-next-8.23
+  - @verdaccio/tarball@13.0.0-next-8.23
+  - @verdaccio/logger@8.0.0-next-8.23
+
+## 8.1.0-next-8.22
+
+### Patch Changes
+
+- Updated dependencies [67e667b]
+- Updated dependencies [60ef8ff]
+- Updated dependencies [05f03b3]
+- Updated dependencies [f443f81]
+  - @verdaccio/core@8.0.0-next-8.22
+  - @verdaccio/loaders@8.0.0-next-8.12
+  - @verdaccio/config@8.0.0-next-8.22
+  - @verdaccio/store@8.0.0-next-8.22
+  - @verdaccio/tarball@13.0.0-next-8.22
+  - @verdaccio/auth@8.0.0-next-8.22
+  - @verdaccio/middleware@8.0.0-next-8.22
+  - @verdaccio/logger@8.0.0-next-8.22
+
+## 8.1.0-next-8.21
+
+### Patch Changes
+
+- Updated dependencies [f8a321f]
+  - @verdaccio/core@8.0.0-next-8.21
+  - @verdaccio/auth@8.0.0-next-8.21
+  - @verdaccio/config@8.0.0-next-8.21
+  - @verdaccio/tarball@13.0.0-next-8.21
+  - @verdaccio/loaders@8.0.0-next-8.11
+  - @verdaccio/middleware@8.0.0-next-8.21
+  - @verdaccio/store@8.0.0-next-8.21
+  - @verdaccio/logger@8.0.0-next-8.21
+
+## 8.1.0-next-8.20
+
+### Patch Changes
+
+- Updated dependencies [08e1b21]
+- Updated dependencies [a1a73e9]
+- Updated dependencies [6a4d6dd]
+- Updated dependencies [73c0194]
+- Updated dependencies [5fef0b6]
+  - @verdaccio/middleware@8.0.0-next-8.20
+  - @verdaccio/config@8.0.0-next-8.20
+  - @verdaccio/store@8.0.0-next-8.20
+  - @verdaccio/auth@8.0.0-next-8.20
+  - @verdaccio/core@8.0.0-next-8.20
+  - @verdaccio/loaders@8.0.0-next-8.10
+  - @verdaccio/logger@8.0.0-next-8.20
+  - @verdaccio/tarball@13.0.0-next-8.20
+
+## 8.1.0-next-8.19
+
+### Patch Changes
+
+- 8bc332b: chore(deps): web package
+- Updated dependencies [9350431]
+- Updated dependencies [95e6c8f]
+- Updated dependencies [da0692f]
+- Updated dependencies [3f71267]
+  - @verdaccio/tarball@13.0.0-next-8.19
+  - @verdaccio/core@8.0.0-next-8.19
+  - @verdaccio/loaders@8.0.0-next-8.9
+  - @verdaccio/middleware@8.0.0-next-8.19
+  - @verdaccio/store@8.0.0-next-8.19
+  - @verdaccio/auth@8.0.0-next-8.19
+  - @verdaccio/config@8.0.0-next-8.19
+  - @verdaccio/logger@8.0.0-next-8.19
+
+## 8.1.0-next-8.18
+
+### Patch Changes
+
+- Updated dependencies [23296a2]
+  - @verdaccio/loaders@8.0.0-next-8.8
+  - @verdaccio/auth@8.0.0-next-8.18
+  - @verdaccio/store@8.0.0-next-8.18
+  - @verdaccio/core@8.0.0-next-8.18
+  - @verdaccio/config@8.0.0-next-8.18
+  - @verdaccio/tarball@13.0.0-next-8.18
+  - @verdaccio/url@13.0.0-next-8.18
+  - @verdaccio/middleware@8.0.0-next-8.18
+  - @verdaccio/logger@8.0.0-next-8.18
+
+## 8.1.0-next-8.17
+
+### Patch Changes
+
+- d22ef4e: fix: config web login default
+- Updated dependencies [96d2f0f]
+  - @verdaccio/core@8.0.0-next-8.17
+  - @verdaccio/auth@8.0.0-next-8.17
+  - @verdaccio/config@8.0.0-next-8.17
+  - @verdaccio/tarball@13.0.0-next-8.17
+  - @verdaccio/url@13.0.0-next-8.17
+  - @verdaccio/loaders@8.0.0-next-8.7
+  - @verdaccio/middleware@8.0.0-next-8.17
+  - @verdaccio/store@8.0.0-next-8.17
+  - @verdaccio/logger@8.0.0-next-8.17
+
+## 8.1.0-next-8.16
+
+### Patch Changes
+
+- 0be45da: chore(web): move utils to web package
+- b19ddca: fix(config): server settings
+- Updated dependencies [6add153]
+- Updated dependencies [72c3cbb]
+- Updated dependencies [626ae6a]
+- Updated dependencies [d33266b]
+- Updated dependencies [9509b63]
+- Updated dependencies [76308ff]
+- Updated dependencies [626ae6a]
+- Updated dependencies [2fef671]
+- Updated dependencies [acb8a99]
+- Updated dependencies [b19ddca]
+- Updated dependencies [fdf44a6]
+- Updated dependencies [3ef4a49]
+- Updated dependencies [7513899]
+  - @verdaccio/loaders@8.0.0-next-8.7
+  - @verdaccio/tarball@13.0.0-next-8.16
+  - @verdaccio/middleware@8.0.0-next-8.16
+  - @verdaccio/config@8.0.0-next-8.16
+  - @verdaccio/store@8.0.0-next-8.16
+  - @verdaccio/auth@8.0.0-next-8.16
+  - @verdaccio/core@8.0.0-next-8.16
+  - @verdaccio/url@13.0.0-next-8.16
+  - @verdaccio/logger@8.0.0-next-8.16
+
 ## 8.1.0-next-8.15
 
 ### Patch Changes

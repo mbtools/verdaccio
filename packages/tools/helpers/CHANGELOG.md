@@ -1,5 +1,116 @@
 # Change Log
 
+## 4.0.0-next-8.14
+
+### Patch Changes
+
+- Updated dependencies [0a6c53c]
+  - @verdaccio/auth@8.0.0-next-8.30
+  - @verdaccio/core@8.0.0-next-8.30
+  - @verdaccio/config@8.0.0-next-8.30
+  - @verdaccio/middleware@8.0.0-next-8.30
+  - @verdaccio/logger@8.0.0-next-8.30
+
+## 4.0.0-next-8.13
+
+### Patch Changes
+
+- Updated dependencies [4edcae8]
+- Updated dependencies [f200baa]
+- Updated dependencies [184632c]
+- Updated dependencies [5efe84f]
+  - @verdaccio/core@8.0.0-next-8.29
+  - @verdaccio/middleware@8.0.0-next-8.29
+  - @verdaccio/auth@8.0.0-next-8.29
+  - @verdaccio/config@8.0.0-next-8.29
+  - @verdaccio/logger@8.0.0-next-8.29
+
+## 4.0.0-next-8.12
+
+### Patch Changes
+
+- Updated dependencies [377f38d]
+  - @verdaccio/middleware@8.0.0-next-8.28
+  - @verdaccio/auth@8.0.0-next-8.28
+  - @verdaccio/core@8.0.0-next-8.28
+  - @verdaccio/config@8.0.0-next-8.28
+  - @verdaccio/logger@8.0.0-next-8.28
+
+## 4.0.0-next-8.11
+
+### Patch Changes
+
+- Updated dependencies [ab8fccd]
+- Updated dependencies [d028ce1]
+  - @verdaccio/types@13.0.0-next-8.10
+  - @verdaccio/auth@8.0.0-next-8.27
+  - @verdaccio/config@8.0.0-next-8.27
+  - @verdaccio/core@8.0.0-next-8.27
+  - @verdaccio/logger@8.0.0-next-8.27
+  - @verdaccio/middleware@8.0.0-next-8.27
+
+## 4.0.0-next-8.10
+
+### Patch Changes
+
+- Updated dependencies [5d6bad3]
+- Updated dependencies [0321120]
+  - @verdaccio/middleware@8.0.0-next-8.26
+  - @verdaccio/types@13.0.0-next-8.9
+  - @verdaccio/auth@8.0.0-next-8.26
+  - @verdaccio/config@8.0.0-next-8.26
+  - @verdaccio/core@8.0.0-next-8.26
+  - @verdaccio/logger@8.0.0-next-8.26
+
+## 4.0.0-next-8.9
+
+### Patch Changes
+
+- Updated dependencies [3aff890]
+- Updated dependencies [ab3bf4a]
+- Updated dependencies [b24f513]
+  - @verdaccio/config@8.0.0-next-8.25
+  - @verdaccio/auth@8.0.0-next-8.25
+  - @verdaccio/middleware@8.0.0-next-8.25
+  - @verdaccio/core@8.0.0-next-8.25
+  - @verdaccio/logger@8.0.0-next-8.25
+
+## 4.0.0-next-8.8
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.24
+- @verdaccio/config@8.0.0-next-8.24
+- @verdaccio/auth@8.0.0-next-8.24
+- @verdaccio/middleware@8.0.0-next-8.24
+- @verdaccio/logger@8.0.0-next-8.24
+
+## 4.0.0-next-8.7
+
+### Patch Changes
+
+- 5c499fa: chore: publish @verdaccio/test-helper
+- Updated dependencies [b671a38]
+- Updated dependencies [a02514b]
+  - @verdaccio/config@8.0.0-next-8.23
+  - @verdaccio/types@13.0.0-next-8.8
+  - @verdaccio/auth@8.0.0-next-8.23
+  - @verdaccio/middleware@8.0.0-next-8.23
+  - @verdaccio/core@8.0.0-next-8.23
+  - @verdaccio/logger@8.0.0-next-8.23
+
+## 4.0.0-next-8.6
+
+### Patch Changes
+
+- 08e1b21: chore(deps): built-in node imports
+
+## 4.0.0-next-8.5
+
+### Patch Changes
+
+- 72c3cbb: chore(utils): replace @verdaccio/utils dependency with core
+
 ## 4.0.0-next-8.4
 
 ### Patch Changes

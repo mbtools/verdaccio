@@ -11,14 +11,17 @@ export function createSessionToken(): CookieSessionToken {
   };
 }
 
+// @deprecated use @verdaccio/core
 export function getAuthenticatedMessage(user: string): string {
   return `you are authenticated as '${user}'`;
 }
 
+// @deprecated use @verdaccio/core
 export function buildUserBuffer(name: string, password: string): Buffer {
   return Buffer.from(`${name}:${password}`, 'utf8');
 }
 
+// @deprecated use @verdaccio/core
 export const ROLES = {
   $ALL: '$all',
   ALL: 'all',
@@ -29,6 +32,7 @@ export const ROLES = {
   DEPRECATED_ANONYMOUS: '@anonymous',
 };
 
+// @deprecated use @verdaccio/core
 export const PACKAGE_ACCESS = {
   SCOPE: '@*/*',
   ALL: '**',

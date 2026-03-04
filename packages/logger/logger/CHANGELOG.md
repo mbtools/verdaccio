@@ -1,5 +1,97 @@
 # @verdaccio/logger
 
+## 8.0.0-next-8.30
+
+### Patch Changes
+
+- @verdaccio/logger-commons@8.0.0-next-8.30
+
+## 8.0.0-next-8.29
+
+### Patch Changes
+
+- @verdaccio/logger-commons@8.0.0-next-8.29
+
+## 8.0.0-next-8.28
+
+### Patch Changes
+
+- @verdaccio/logger-commons@8.0.0-next-8.28
+
+## 8.0.0-next-8.27
+
+### Patch Changes
+
+- @verdaccio/logger-commons@8.0.0-next-8.27
+
+## 8.0.0-next-8.26
+
+### Patch Changes
+
+- @verdaccio/logger-commons@8.0.0-next-8.26
+
+## 8.0.0-next-8.25
+
+### Patch Changes
+
+- @verdaccio/logger-commons@8.0.0-next-8.25
+
+## 8.0.0-next-8.24
+
+### Patch Changes
+
+- @verdaccio/logger-commons@8.0.0-next-8.24
+
+## 8.0.0-next-8.23
+
+### Patch Changes
+
+- @verdaccio/logger-commons@8.0.0-next-8.23
+
+## 8.0.0-next-8.22
+
+### Patch Changes
+
+- @verdaccio/logger-commons@8.0.0-next-8.22
+
+## 8.0.0-next-8.21
+
+### Patch Changes
+
+- @verdaccio/logger-commons@8.0.0-next-8.21
+
+## 8.0.0-next-8.20
+
+### Patch Changes
+
+- Updated dependencies [a1a73e9]
+  - @verdaccio/logger-commons@8.0.0-next-8.20
+
+## 8.0.0-next-8.19
+
+### Patch Changes
+
+- Updated dependencies [95e6c8f]
+  - @verdaccio/logger-commons@8.0.0-next-8.19
+
+## 8.0.0-next-8.18
+
+### Patch Changes
+
+- @verdaccio/logger-commons@8.0.0-next-8.18
+
+## 8.0.0-next-8.17
+
+### Patch Changes
+
+- @verdaccio/logger-commons@8.0.0-next-8.17
+
+## 8.0.0-next-8.16
+
+### Patch Changes
+
+- @verdaccio/logger-commons@8.0.0-next-8.16
+
 ## 8.0.0-next-8.15
 
 ### Patch Changes

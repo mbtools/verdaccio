@@ -2,7 +2,10 @@ name: CI
 
 on:
   push:
+    branches:
+      - 'master'
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
     paths:
       - .changeset/**
       - .github/workflows/ci.yml
@@ -20,6 +23,8 @@ concurrency:
 
 jobs:
   prepare:
+    # Avoid running on draft PRs
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     name: setup verdaccio
     services:
@@ -35,7 +40,7 @@ jobs:
             --health-timeout=20s    
             --health-retries=6
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies with a custom registry
         uses: ./.github/actions/install-app
   lint:
@@ -43,7 +48,7 @@ jobs:
     name: Lint
     needs: prepare
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies with a custom registry
         uses: ./.github/actions/install-app
         with:
@@ -55,7 +60,7 @@ jobs:
     name: Format
     needs: prepare
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install dependencies with a custom registry
         uses: ./.github/actions/install-app
         with:
@@ -68,16 +73,24 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-latest]
-        node_version: [18, 20, 21, 22, 23]
+        node_version: [18, 25]
     name: ${{ matrix.os }} / Node ${{ matrix.node_version }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Build application with Node ${{ matrix.node_version }}
         uses: ./.github/actions/build-app
         with:
           node-version: ${{ matrix.node_version }}
-      - name: Test
+      - name: Test (Node 25)
+        if: matrix.node_version == 25
+        run: pnpm test
+        env:
+          NODE_OPTIONS: --no-webstorage
+
+      # Test for all other Node versions
+      - name: Test (Other Node)
+        if: matrix.node_version != 25
         run: pnpm test
   sync-translations:
     needs: [test]
@@ -85,8 +98,8 @@ jobs:
     name: synchronize translations
     if: (github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'verdaccio/verdaccio') || github.event_name == 'workflow_dispatch'
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
         with:
           node-version-file: '.nvmrc'
       - name: Install pnpm
@@ -94,7 +107,7 @@ jobs:
           npm install --global corepack@latest
           corepack enable
           corepack install
-      - uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+      - uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
@@ -106,8 +119,6 @@ jobs:
         run: pnpm install --registry http://localhost:4873
       - name: build
         run: pnpm build
-      - name: generate website translations
-        run: pnpm --filter ...@verdaccio/website write-translations
       - name: sync
         env:
           CROWDIN_VERDACCIO_API_KEY: ${{ secrets.CROWDIN_VERDACCIO_API_KEY }}

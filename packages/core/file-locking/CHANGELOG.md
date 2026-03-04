@@ -1,5 +1,23 @@
 # Change Log
 
+## 13.0.0-next-8.6
+
+### Patch Changes
+
+- 67e667b: chore: replace conditional require(fs/promises) pattern
+
+## 13.0.0-next-8.5
+
+### Patch Changes
+
+- 08e1b21: chore(deps): built-in node imports
+
+## 13.0.0-next-8.4
+
+### Patch Changes
+
+- 9350431: chore(deps): clean up core modules
+
 ## 13.0.0-next-8.3
 
 ### Patch Changes

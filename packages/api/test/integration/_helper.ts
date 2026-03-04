@@ -1,11 +1,18 @@
 import { Application } from 'express';
 import _ from 'lodash';
-import path from 'path';
+import path from 'node:path';
 import supertest from 'supertest';
 import { expect } from 'vitest';
 
 import { parseConfigFile } from '@verdaccio/config';
-import { HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@verdaccio/core';
+import {
+  HEADERS,
+  HEADER_TYPE,
+  HTTP_STATUS,
+  TOKEN_BEARER,
+  authUtils,
+  cryptoUtils,
+} from '@verdaccio/core';
 import { setup } from '@verdaccio/logger';
 import { Storage } from '@verdaccio/store';
 import {
@@ -13,26 +20,27 @@ import {
   initializeServer as initializeServerHelper,
 } from '@verdaccio/test-helper';
 import { Author, GenericBody, PackageUsers } from '@verdaccio/types';
-import { buildToken, generateRandomHexString } from '@verdaccio/utils';
 
 import apiMiddleware from '../../src';
 
 setup({});
 
-export const getConf = (conf) => {
+export const buildToken = authUtils.buildToken;
+
+export const getConf = (conf: string) => {
   const configPath = path.join(__dirname, 'config', conf);
   const config = parseConfigFile(configPath);
   // custom config to avoid conflict with other tests
-  config.auth.htpasswd.file = `${config.auth.htpasswd.file}-${generateRandomHexString()}`;
+  config.auth.htpasswd.file = `${config.auth.htpasswd.file}-${cryptoUtils.generateRandomHexString()}`;
   return config;
 };
 
-export async function initializeServer(configName): Promise<Application> {
+export async function initializeServer(configName: string): Promise<Application> {
   const config = getConf(configName);
   return initializeServerHelper(config, [apiMiddleware], Storage);
 }
 
-export function createUser(app, name: string, password: string): supertest.Test {
+export function createUser(app: any, name: string, password: string): supertest.Test {
   return supertest(app)
     .put(`/-/user/org.couchdb.user:${name}`)
     .send({
@@ -53,7 +61,7 @@ export async function getNewToken(app: any, credentials: any): Promise<string> {
   return token;
 }
 
-export async function generateTokenCLI(app, token, payload): Promise<any> {
+export async function generateTokenCLI(app: any, token: string, payload: any): Promise<any> {
   return supertest(app)
     .post('/-/npm/v1/tokens')
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
@@ -62,7 +70,7 @@ export async function generateTokenCLI(app, token, payload): Promise<any> {
     .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET);
 }
 
-export async function deleteTokenCLI(app, token, tokenToDelete): Promise<any> {
+export async function deleteTokenCLI(app: any, token: string, tokenToDelete: string): Promise<any> {
   return supertest(app)
     .delete(`/-/npm/v1/tokens/token/${tokenToDelete}`)
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
@@ -72,7 +80,7 @@ export async function deleteTokenCLI(app, token, tokenToDelete): Promise<any> {
 }
 
 export function publishVersionWithToken(
-  app,
+  app: any,
   pkgName: string,
   version: string,
   token: string,
@@ -90,7 +98,7 @@ export function publishVersionWithToken(
 }
 
 export function publishVersion(
-  app,
+  app: any,
   pkgName: string,
   version: string,
   distTags?: GenericBody,
@@ -113,7 +121,7 @@ export function publishVersion(
 }
 
 export function starPackage(
-  app,
+  app: any,
   options: {
     users: PackageUsers;
     name: string;
@@ -144,7 +152,7 @@ export function starPackage(
 }
 
 export function changeOwners(
-  app,
+  app: any,
   options: {
     maintainers: Author[];
     name: string;
@@ -174,7 +182,7 @@ export function changeOwners(
   return test;
 }
 
-export function getDisTags(app, pkgName) {
+export function getDisTags(app: any, pkgName: string): supertest.Test {
   return supertest(app)
     .get(`/-/package/${encodeURIComponent(pkgName)}/dist-tags`)
     .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)

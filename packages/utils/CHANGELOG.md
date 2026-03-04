@@ -1,5 +1,109 @@
 # @verdaccio/utils
 
+## 8.1.0-next-8.30
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.30
+
+## 8.1.0-next-8.29
+
+### Patch Changes
+
+- Updated dependencies [4edcae8]
+- Updated dependencies [184632c]
+  - @verdaccio/core@8.0.0-next-8.29
+
+## 8.1.0-next-8.28
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.28
+
+## 8.1.0-next-8.27
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.27
+
+## 8.1.0-next-8.26
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.26
+
+## 8.1.0-next-8.25
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.25
+
+## 8.1.0-next-8.24
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.24
+
+## 8.1.0-next-8.23
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.23
+
+## 8.1.0-next-8.22
+
+### Patch Changes
+
+- Updated dependencies [67e667b]
+- Updated dependencies [60ef8ff]
+  - @verdaccio/core@8.0.0-next-8.22
+
+## 8.1.0-next-8.21
+
+### Patch Changes
+
+- Updated dependencies [f8a321f]
+  - @verdaccio/core@8.0.0-next-8.21
+
+## 8.1.0-next-8.20
+
+### Patch Changes
+
+- Updated dependencies [6a4d6dd]
+  - @verdaccio/core@8.0.0-next-8.20
+
+## 8.1.0-next-8.19
+
+### Patch Changes
+
+- 4e14aff: chore(deps): signature, utils
+- Updated dependencies [9350431]
+  - @verdaccio/core@8.0.0-next-8.19
+
+## 8.1.0-next-8.18
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.18
+
+## 8.1.0-next-8.17
+
+### Patch Changes
+
+- Updated dependencies [96d2f0f]
+  - @verdaccio/core@8.0.0-next-8.17
+
+## 8.1.0-next-8.16
+
+### Patch Changes
+
+- acb8a99: chore(core): move more utils to core
+- Updated dependencies [9509b63]
+- Updated dependencies [626ae6a]
+- Updated dependencies [acb8a99]
+- Updated dependencies [b19ddca]
+  - @verdaccio/core@8.0.0-next-8.16
+
 ## 8.1.0-next-8.15
 
 ### Patch Changes

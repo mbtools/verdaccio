@@ -1,23 +1,25 @@
-import assert from 'assert';
 import buildDebug from 'debug';
 import _, { isEmpty, isNil } from 'lodash';
-import { basename } from 'path';
-import { PassThrough, Readable, Transform } from 'stream';
-import { pipeline } from 'stream/promises';
-import { default as URL } from 'url';
+import assert from 'node:assert';
+import { basename } from 'node:path';
+import { PassThrough, Readable, Transform } from 'node:stream';
+import { pipeline } from 'node:stream/promises';
+import { default as URL } from 'node:url';
 
 import { getProxiesForPackage, hasProxyTo } from '@verdaccio/config';
 import {
+  ANONYMOUS_USER,
   API_ERROR,
   API_MESSAGE,
-  DEFAULT_USER,
   DIST_TAGS,
   HEADER_TYPE,
   HTTP_STATUS,
   MAINTAINERS,
   PLUGIN_CATEGORY,
+  PLUGIN_PREFIX,
   SUPPORT_ERRORS,
   USERS,
+  cryptoUtils,
   errorUtils,
   pluginUtils,
   searchUtils,
@@ -58,7 +60,6 @@ import {
   UnPublishManifest,
   Version,
 } from '@verdaccio/types';
-import { createTarballHash, normalizeContributors } from '@verdaccio/utils';
 
 import {
   PublishOptions,
@@ -68,8 +69,7 @@ import {
   tagVersion,
   tagVersionNext,
 } from '.';
-import { isPublishablePackage } from './lib/star-utils';
-import { isExecutingStarCommand } from './lib/star-utils';
+import { isExecutingStarCommand, isPublishablePackage } from './lib/star-utils';
 import {
   STORAGE,
   cleanUpLinksRef,
@@ -79,6 +79,7 @@ import {
   mapManifestToSearchPackageBody,
   mergeUplinkTimeIntoLocalNext,
   mergeVersions,
+  normalizeContributors,
   normalizeDistTags,
   normalizePackage,
   updateUpLinkMetadata,
@@ -687,7 +688,7 @@ class Storage {
           return typeof plugin.filter_metadata !== 'undefined';
         },
         false,
-        this.config?.serverSettings?.pluginPrefix,
+        this.config.server?.pluginPrefix ?? PLUGIN_PREFIX,
         PLUGIN_CATEGORY.FILTER
       );
       debug('filters available %o', this.filters.length);
@@ -1320,7 +1321,7 @@ class Storage {
     debug(`add a tarball for %o`, pkgName);
     assert(validationUtils.validateName(filename));
 
-    const shaOneHash = createTarballHash();
+    const shaOneHash = cryptoUtils.createTarballHash();
     const transformHash = new Transform({
       transform(chunk: any, _encoding: string, callback: any): void {
         // measure the length for validation reasons
@@ -1530,7 +1531,7 @@ class Storage {
     packageData.maintainers =
       username && username.length > 0
         ? [{ name: username, email: '' }]
-        : [{ name: DEFAULT_USER, email: '' }];
+        : [{ name: ANONYMOUS_USER, email: '' }];
 
     try {
       await storage.createPackage(name, packageData);
@@ -1778,7 +1779,9 @@ class Storage {
         [...uplinksErrors, ...filtersErrors],
       ];
     } else if (found && _.isNil(localManifest) === false) {
-      return [localManifest, uplinksErrors];
+      // apply filter to local manifest (it is cached in unfiltered state)
+      const [filteredManifest, filtersErrors] = await this.applyFilters(localManifest);
+      return [{ ...localManifest, ...filteredManifest }, [...uplinksErrors, ...filtersErrors]];
     } else {
       // if is not found, calculate the right error to return
       debug('uplinks sync failed with %o errors', uplinksErrors.length);
@@ -2067,14 +2070,21 @@ class Storage {
     // Checks to perform if config "publish:check_owners" is true
     debug('check if user %o is an owner and allowed to change package', username);
     // if name of owner is not included in list of maintainers, then throw an error
+    // packages owned by anonymous user are allowed to be changed by any user
     if (
       this.config?.publish?.check_owners === true &&
       manifest.maintainers &&
       manifest.maintainers.length > 0 &&
-      !manifest.maintainers.some((maintainer) => maintainer.name === username)
+      !manifest.maintainers.some((maintainer) => {
+        if (typeof maintainer === 'string') {
+          return maintainer === username || maintainer === ANONYMOUS_USER;
+        } else {
+          return maintainer.name === username || maintainer.name === ANONYMOUS_USER;
+        }
+      })
     ) {
       this.logger.error({ username }, '@{username} is not a maintainer (package owner)');
-      throw Error('only owners are allowed to change package');
+      throw errorUtils.getForbidden('only owners are allowed to change package');
     }
   }
 }

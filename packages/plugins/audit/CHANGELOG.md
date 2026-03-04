@@ -1,5 +1,131 @@
 # Change Log
 
+## 13.0.0-next-8.30
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.30
+- @verdaccio/config@8.0.0-next-8.30
+
+## 13.0.0-next-8.29
+
+### Patch Changes
+
+- Updated dependencies [4edcae8]
+- Updated dependencies [184632c]
+  - @verdaccio/core@8.0.0-next-8.29
+  - @verdaccio/config@8.0.0-next-8.29
+
+## 13.0.0-next-8.28
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.28
+- @verdaccio/config@8.0.0-next-8.28
+
+## 13.0.0-next-8.27
+
+### Patch Changes
+
+- @verdaccio/config@8.0.0-next-8.27
+- @verdaccio/core@8.0.0-next-8.27
+
+## 13.0.0-next-8.26
+
+### Patch Changes
+
+- @verdaccio/config@8.0.0-next-8.26
+- @verdaccio/core@8.0.0-next-8.26
+
+## 13.0.0-next-8.25
+
+### Patch Changes
+
+- Updated dependencies [3aff890]
+- Updated dependencies [b24f513]
+  - @verdaccio/config@8.0.0-next-8.25
+  - @verdaccio/core@8.0.0-next-8.25
+
+## 13.0.0-next-8.24
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.24
+- @verdaccio/config@8.0.0-next-8.24
+
+## 13.0.0-next-8.23
+
+### Patch Changes
+
+- Updated dependencies [b671a38]
+  - @verdaccio/config@8.0.0-next-8.23
+  - @verdaccio/core@8.0.0-next-8.23
+
+## 13.0.0-next-8.22
+
+### Patch Changes
+
+- Updated dependencies [67e667b]
+- Updated dependencies [60ef8ff]
+- Updated dependencies [05f03b3]
+  - @verdaccio/core@8.0.0-next-8.22
+  - @verdaccio/config@8.0.0-next-8.22
+
+## 13.0.0-next-8.21
+
+### Patch Changes
+
+- Updated dependencies [f8a321f]
+  - @verdaccio/core@8.0.0-next-8.21
+  - @verdaccio/config@8.0.0-next-8.21
+
+## 13.0.0-next-8.20
+
+### Patch Changes
+
+- Updated dependencies [08e1b21]
+- Updated dependencies [a1a73e9]
+- Updated dependencies [6a4d6dd]
+  - @verdaccio/config@8.0.0-next-8.20
+  - @verdaccio/core@8.0.0-next-8.20
+
+## 13.0.0-next-8.19
+
+### Patch Changes
+
+- 6e404a0: chore(deps): plugins audit, htpasswd, memory
+- Updated dependencies [9350431]
+  - @verdaccio/core@8.0.0-next-8.19
+  - @verdaccio/config@8.0.0-next-8.19
+
+## 13.0.0-next-8.18
+
+### Patch Changes
+
+- @verdaccio/core@8.0.0-next-8.18
+- @verdaccio/config@8.0.0-next-8.18
+
+## 13.0.0-next-8.17
+
+### Patch Changes
+
+- Updated dependencies [96d2f0f]
+  - @verdaccio/core@8.0.0-next-8.17
+  - @verdaccio/config@8.0.0-next-8.17
+
+## 13.0.0-next-8.16
+
+### Patch Changes
+
+- Updated dependencies [72c3cbb]
+- Updated dependencies [9509b63]
+- Updated dependencies [626ae6a]
+- Updated dependencies [2fef671]
+- Updated dependencies [acb8a99]
+- Updated dependencies [b19ddca]
+  - @verdaccio/config@8.0.0-next-8.16
+  - @verdaccio/core@8.0.0-next-8.16
+
 ## 13.0.0-next-8.15
 
 ### Patch Changes

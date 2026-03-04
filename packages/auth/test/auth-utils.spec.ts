@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import path from 'path';
+import path from 'node:path';
 import { describe, expect, test, vi } from 'vitest';
 
 import {
@@ -7,14 +7,19 @@ import {
   ROLES,
   createAnonymousRemoteUser,
   createRemoteUser,
+  getDefaultConfig,
   parseConfigFile,
 } from '@verdaccio/config';
-import { getDefaultConfig } from '@verdaccio/config';
-import { API_ERROR, CHARACTER_ENCODING, VerdaccioError, errorUtils } from '@verdaccio/core';
+import {
+  API_ERROR,
+  CHARACTER_ENCODING,
+  VerdaccioError,
+  authUtils,
+  errorUtils,
+} from '@verdaccio/core';
 import { logger, setup } from '@verdaccio/logger';
 import { aesDecrypt, verifyPayload } from '@verdaccio/signature';
 import { Config, RemoteUser } from '@verdaccio/types';
-import { getAuthenticatedMessage } from '@verdaccio/utils';
 
 import {
   ActionsAllowed,
@@ -22,12 +27,12 @@ import {
   Auth,
   allow_action,
   getApiToken,
-  getDefaultPlugins,
+  getDefaultPluginMethods,
 } from '../src';
 
 setup({});
 
-const parseConfigurationFile = (conf) => {
+const parseConfigurationFile = (conf: string) => {
   const { name, ext } = path.parse(conf);
   const format = ext.startsWith('.') ? ext.substring(1) : 'yaml';
 
@@ -37,7 +42,7 @@ const parseConfigurationFile = (conf) => {
 describe('Auth utilities', () => {
   vi.setConfig({ testTimeout: 20000 });
 
-  const parseConfigurationSecurityFile = (name) => {
+  const parseConfigurationSecurityFile = (name: string) => {
     return parseConfigurationFile(`security/${name}`);
   };
 
@@ -117,14 +122,14 @@ describe('Auth utilities', () => {
 
   describe('getDefaultPlugins', () => {
     test('authentication should fail by default (default)', () => {
-      const plugin = getDefaultPlugins({ trace: vi.fn() });
+      const plugin = getDefaultPluginMethods(logger);
       plugin.authenticate('foo', 'bar', (error: any) => {
         expect(error).toEqual(errorUtils.getForbidden(API_ERROR.BAD_USERNAME_PASSWORD));
       });
     });
 
     test('add user should not fail by default (default)', () => {
-      const plugin = getDefaultPlugins({ trace: vi.fn() });
+      const plugin = getDefaultPluginMethods(logger);
       // @ts-ignore
       plugin.adduser('foo', 'bar', (error: any, access: any) => {
         expect(error).toEqual(null);
@@ -146,7 +151,7 @@ describe('Auth utilities', () => {
       test.each(['access', 'publish', 'unpublish'])(
         'should restrict %s to anonymous users',
         (type) => {
-          allow_action(type as ActionsAllowed, { trace: vi.fn() })(
+          allow_action(type as ActionsAllowed, logger)(
             createAnonymousRemoteUser(),
             {
               ...packageAccess,
@@ -163,7 +168,7 @@ describe('Auth utilities', () => {
       test.each(['access', 'publish', 'unpublish'])(
         'should allow %s to anonymous users',
         (type) => {
-          allow_action(type as ActionsAllowed, { trace: vi.fn() })(
+          allow_action(type as ActionsAllowed, logger)(
             createAnonymousRemoteUser(),
             {
               ...packageAccess,
@@ -180,7 +185,7 @@ describe('Auth utilities', () => {
       test.each(['access', 'publish', 'unpublish'])(
         'should allow %s only if user is anonymous if the logged user has groups',
         (type) => {
-          allow_action(type as ActionsAllowed, { trace: vi.fn() })(
+          allow_action(type as ActionsAllowed, logger)(
             createRemoteUser('juan', ['maintainer', 'admin']),
             {
               ...packageAccess,
@@ -197,7 +202,7 @@ describe('Auth utilities', () => {
       test.each(['access', 'publish', 'unpublish'])(
         'should allow %s only if user is anonymous match any other groups',
         (type) => {
-          allow_action(type as ActionsAllowed, { trace: vi.fn() })(
+          allow_action(type as ActionsAllowed, logger)(
             createRemoteUser('juan', ['maintainer', 'admin']),
             {
               ...packageAccess,
@@ -214,7 +219,7 @@ describe('Auth utilities', () => {
       test.each(['access', 'publish', 'unpublish'])(
         'should not allow %s anonymous if other groups are defined and does not match',
         (type) => {
-          allow_action(type as ActionsAllowed, { trace: vi.fn() })(
+          allow_action(type as ActionsAllowed, logger)(
             createRemoteUser('juan', ['maintainer', 'admin']),
             {
               ...packageAccess,
@@ -356,7 +361,7 @@ describe('Auth utilities', () => {
 
   describe('getAuthenticatedMessage test', () => {
     test('should sign token with jwt enabled', () => {
-      expect(getAuthenticatedMessage('test')).toBe("you are authenticated as 'test'");
+      expect(authUtils.getAuthenticatedMessage('test')).toBe("you are authenticated as 'test'");
     });
   });
 });

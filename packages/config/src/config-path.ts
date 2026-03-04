@@ -1,8 +1,8 @@
 import buildDebug from 'debug';
-import fs from 'fs';
 import _ from 'lodash';
-import os from 'os';
-import path from 'path';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 
 import { fileExists, folderExists } from './config-utils';
 
@@ -78,7 +78,7 @@ export function readDefaultConfig(): string {
   return fs.readFileSync(pathDefaultConf, 'utf8');
 }
 
-function createConfigFolder(configLocation): void {
+function createConfigFolder(configLocation: SetupDirectory): void {
   const folder = path.dirname(configLocation.path);
   debug(`creating default config file folder at %o`, folder);
   fs.mkdirSync(folder, { recursive: true });

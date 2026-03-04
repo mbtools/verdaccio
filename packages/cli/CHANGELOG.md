@@ -1,5 +1,164 @@
 # @verdaccio/cli
 
+## 8.0.0-next-8.30
+
+### Patch Changes
+
+- @verdaccio/node-api@8.0.0-next-8.30
+- @verdaccio/core@8.0.0-next-8.30
+- @verdaccio/config@8.0.0-next-8.30
+- @verdaccio/logger@8.0.0-next-8.30
+
+## 8.0.0-next-8.29
+
+### Patch Changes
+
+- 4edcae8: chore: replacing require('package.json')
+- Updated dependencies [4edcae8]
+- Updated dependencies [184632c]
+  - @verdaccio/core@8.0.0-next-8.29
+  - @verdaccio/node-api@8.0.0-next-8.29
+  - @verdaccio/config@8.0.0-next-8.29
+  - @verdaccio/logger@8.0.0-next-8.29
+
+## 8.0.0-next-8.28
+
+### Patch Changes
+
+- @verdaccio/node-api@8.0.0-next-8.28
+- @verdaccio/core@8.0.0-next-8.28
+- @verdaccio/config@8.0.0-next-8.28
+- @verdaccio/logger@8.0.0-next-8.28
+
+## 8.0.0-next-8.27
+
+### Patch Changes
+
+- @verdaccio/config@8.0.0-next-8.27
+- @verdaccio/core@8.0.0-next-8.27
+- @verdaccio/logger@8.0.0-next-8.27
+- @verdaccio/node-api@8.0.0-next-8.27
+
+## 8.0.0-next-8.26
+
+### Patch Changes
+
+- @verdaccio/config@8.0.0-next-8.26
+- @verdaccio/core@8.0.0-next-8.26
+- @verdaccio/logger@8.0.0-next-8.26
+- @verdaccio/node-api@8.0.0-next-8.26
+
+## 8.0.0-next-8.25
+
+### Patch Changes
+
+- 3aff890: chore(deps): api, auth, cli, config, url
+- Updated dependencies [3aff890]
+- Updated dependencies [b24f513]
+- Updated dependencies [6d1a84a]
+  - @verdaccio/config@8.0.0-next-8.25
+  - @verdaccio/node-api@8.0.0-next-8.25
+  - @verdaccio/core@8.0.0-next-8.25
+  - @verdaccio/logger@8.0.0-next-8.25
+
+## 8.0.0-next-8.24
+
+### Patch Changes
+
+- @verdaccio/node-api@8.0.0-next-8.24
+- @verdaccio/core@8.0.0-next-8.24
+- @verdaccio/config@8.0.0-next-8.24
+- @verdaccio/logger@8.0.0-next-8.24
+
+## 8.0.0-next-8.23
+
+### Patch Changes
+
+- Updated dependencies [b671a38]
+  - @verdaccio/config@8.0.0-next-8.23
+  - @verdaccio/node-api@8.0.0-next-8.23
+  - @verdaccio/core@8.0.0-next-8.23
+  - @verdaccio/logger@8.0.0-next-8.23
+
+## 8.0.0-next-8.22
+
+### Patch Changes
+
+- Updated dependencies [67e667b]
+- Updated dependencies [60ef8ff]
+- Updated dependencies [05f03b3]
+  - @verdaccio/core@8.0.0-next-8.22
+  - @verdaccio/config@8.0.0-next-8.22
+  - @verdaccio/node-api@8.0.0-next-8.22
+  - @verdaccio/logger@8.0.0-next-8.22
+
+## 8.0.0-next-8.21
+
+### Patch Changes
+
+- Updated dependencies [f8a321f]
+  - @verdaccio/core@8.0.0-next-8.21
+  - @verdaccio/config@8.0.0-next-8.21
+  - @verdaccio/node-api@8.0.0-next-8.21
+  - @verdaccio/logger@8.0.0-next-8.21
+
+## 8.0.0-next-8.20
+
+### Patch Changes
+
+- Updated dependencies [08e1b21]
+- Updated dependencies [a1a73e9]
+- Updated dependencies [6a4d6dd]
+  - @verdaccio/node-api@8.0.0-next-8.20
+  - @verdaccio/config@8.0.0-next-8.20
+  - @verdaccio/core@8.0.0-next-8.20
+  - @verdaccio/logger@8.0.0-next-8.20
+
+## 8.0.0-next-8.19
+
+### Patch Changes
+
+- Updated dependencies [9350431]
+- Updated dependencies [54b1906]
+  - @verdaccio/core@8.0.0-next-8.19
+  - @verdaccio/node-api@8.0.0-next-8.19
+  - @verdaccio/config@8.0.0-next-8.19
+  - @verdaccio/logger@8.0.0-next-8.19
+
+## 8.0.0-next-8.18
+
+### Patch Changes
+
+- @verdaccio/node-api@8.0.0-next-8.18
+- @verdaccio/core@8.0.0-next-8.18
+- @verdaccio/config@8.0.0-next-8.18
+- @verdaccio/logger@8.0.0-next-8.18
+
+## 8.0.0-next-8.17
+
+### Patch Changes
+
+- Updated dependencies [96d2f0f]
+  - @verdaccio/core@8.0.0-next-8.17
+  - @verdaccio/config@8.0.0-next-8.17
+  - @verdaccio/node-api@8.0.0-next-8.17
+  - @verdaccio/logger@8.0.0-next-8.17
+
+## 8.0.0-next-8.16
+
+### Patch Changes
+
+- Updated dependencies [72c3cbb]
+- Updated dependencies [9509b63]
+- Updated dependencies [626ae6a]
+- Updated dependencies [2fef671]
+- Updated dependencies [acb8a99]
+- Updated dependencies [b19ddca]
+  - @verdaccio/config@8.0.0-next-8.16
+  - @verdaccio/core@8.0.0-next-8.16
+  - @verdaccio/node-api@8.0.0-next-8.16
+  - @verdaccio/logger@8.0.0-next-8.16
+
 ## 8.0.0-next-8.15
 
 ### Patch Changes

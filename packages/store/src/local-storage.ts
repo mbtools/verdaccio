@@ -1,8 +1,8 @@
-import assert from 'assert';
 import buildDebug from 'debug';
 import _ from 'lodash';
+import assert from 'node:assert';
 
-import { PLUGIN_CATEGORY, errorUtils, pluginUtils } from '@verdaccio/core';
+import { PLUGIN_CATEGORY, PLUGIN_PREFIX, errorUtils, pluginUtils } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import LocalDatabase from '@verdaccio/local-storage';
 import { Config, Logger } from '@verdaccio/types';
@@ -81,7 +81,7 @@ class LocalStorage {
         return typeof plugin.getPackageStorage !== 'undefined';
       },
       false,
-      this.config?.serverSettings?.pluginPrefix,
+      this.config.server?.pluginPrefix ?? PLUGIN_PREFIX,
       PLUGIN_CATEGORY.STORAGE
     );
 
