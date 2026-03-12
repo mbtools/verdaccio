@@ -36,7 +36,7 @@ web:
   darkMode: true
   # html_cache: true
   # By default, all features are displayed
-  # login: true
+  login: VERDACCIO_WEB_LOGIN
   showInfo: false
   showSettings: false
   # In combination with darkMode you can force specific theme
