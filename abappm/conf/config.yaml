@@ -87,13 +87,13 @@ uplinks:
 # https://verdaccio.org/docs/configuration#packages
 packages:
   '@*/*':
-    access: $all
-    publish: $all
-    unpublish: $all
+    access: VERDACCIO_PACKAGE_ACCESS
+    publish: VERDACCIO_PACKAGE_ACCESS
+    unpublish: VERDACCIO_PACKAGE_ACCESS
   '**':
-    access: $all
-    publish: $all
-    unpublish: $all
+    access: VERDACCIO_PACKAGE_ACCESS
+    publish: VERDACCIO_PACKAGE_ACCESS
+    unpublish: VERDACCIO_PACKAGE_ACCESS
 
 # To improve your security configuration and avoid dependency confusion
 # consider removing the proxy property for private packages
