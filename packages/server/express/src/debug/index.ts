@@ -13,12 +13,24 @@ export default (app: Application, config: IConfig): void => {
         global.gc();
       }
 
+      // mask env DATABASE_URL
+      const env = { ...process.env };
+      env.DATABASE_URL = '********';
+      env.DATABASE_SECRET = '********';
+      env.DB_SALT = '********';
+      const sortedEnv: Record<string, string | undefined> = {};
+      Object.keys(env)
+        .sort()
+        .forEach((key) => {
+          sortedEnv[key] = env[key];
+        });
+
       next({
         pid: process.pid,
         // @ts-ignore
         main: process.main,
         config,
-        env: process.env,
+        env: sortedEnv,
         uptime: process.uptime(),
         mem: process.memoryUsage(),
         gc: global.gc,

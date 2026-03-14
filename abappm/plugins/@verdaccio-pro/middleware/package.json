@@ -36,22 +36,24 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@verdaccio/config": "8.0.0-next-8.28",
-    "@verdaccio/core": "8.0.0-next-8.28",
-    "@verdaccio/logger": "8.0.0-next-8.28",
+    "@verdaccio/config": "8.0.0-next-8.33",
+    "@verdaccio/core": "8.0.0-next-8.33",
+    "@verdaccio/logger": "8.0.0-next-8.33",
     "debug": "4.4.3",
     "express": "5.2.1"
   },
   "devDependencies": {
     "@types/debug": "4.1.12",
     "@types/express": "5.0.6",
-    "@verdaccio/types": "13.0.0-next-8.10",
+    "@verdaccio/types": "13.0.0-next-8.11",
+    "eslint": "9.39.4",
     "tsup": "8.5.1",
     "typescript": "5.9.3"
   },
   "scripts": {
     "build": "tsup",
     "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
     "test": "echo 0"
   }
 }

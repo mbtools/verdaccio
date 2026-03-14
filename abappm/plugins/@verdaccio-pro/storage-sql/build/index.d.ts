@@ -1,20 +1,7 @@
 import { pluginUtils, searchUtils } from '@verdaccio/core';
 import { Logger, Manifest, Config, TokenFilter, Token } from '@verdaccio/types';
+import { Database, Downloads, DownloadsByVersion, Method } from '@verdaccio-pro/database';
 import { Readable, Writable } from 'node:stream';
-import { drizzle } from 'drizzle-orm/node-postgres';
-
-type Database = ReturnType<typeof drizzle>;
-
-type Method = 'get' | 'post' | 'put' | 'delete';
-
-type Downloads = {
-    date: string;
-    count: number;
-};
-type DownloadsByVersion = {
-    version: string;
-    count: number;
-};
 
 declare class SqlStorageHandler implements pluginUtils.StorageHandler {
     logger: Logger;
@@ -52,6 +39,7 @@ declare class SqlStoragePlugin extends pluginUtils.Plugin<StorageConfig> impleme
     private verdaccioSecret;
     private downloads;
     private eventLog;
+    private gtadir;
     constructor(config: StorageConfig, options: pluginUtils.PluginOptions);
     init(): Promise<void>;
     getPackageStorage(packageName: string): SqlStorageHandler;

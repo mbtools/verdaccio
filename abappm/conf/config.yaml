@@ -61,7 +61,7 @@ web:
     - '<script src="/-/assets/apm-beta-banner.js"></script>'
   #
   # Public path for template manifest scripts (only manifest)
-  publicPath: https://playground.abappm.com/
+  publicPath: VERDACCIO_PUBLIC_URL
   pkgManagers:
     - apm
   rateLimit:
@@ -290,4 +290,4 @@ store:
 ### DEBUG
 ###
 
-_debug: true
+_debug: VERDACCIO_DEBUG
