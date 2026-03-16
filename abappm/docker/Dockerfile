@@ -133,7 +133,9 @@ COPY abappm/conf /verdaccio/conf
 COPY abappm/i18n $VERDACCIO_APP_DIR/packages/core/i18n/build/download_translations
 
 # Install plugins
-RUN cd /verdaccio/plugins/@verdaccio-pro/auth && \
+RUN cd /verdaccio/plugins/@verdaccio-pro/database && \
+    pnpm install --prod --no-optional --ignore-scripts && \
+    cd /verdaccio/plugins/@verdaccio-pro/auth && \
     pnpm install --prod --no-optional --ignore-scripts && \
     cd /verdaccio/plugins/@verdaccio-pro/filter && \
     pnpm install --prod --no-optional --ignore-scripts && \
