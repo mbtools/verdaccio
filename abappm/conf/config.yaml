@@ -88,12 +88,12 @@ uplinks:
 packages:
   '@*/*':
     access: VERDACCIO_PACKAGE_ACCESS
-    publish: VERDACCIO_PACKAGE_ACCESS
-    unpublish: VERDACCIO_PACKAGE_ACCESS
+    publish: VERDACCIO_PACKAGE_PUBLISH
+    unpublish: VERDACCIO_PACKAGE_UNPUBLISH
   '**':
     access: VERDACCIO_PACKAGE_ACCESS
-    publish: VERDACCIO_PACKAGE_ACCESS
-    unpublish: VERDACCIO_PACKAGE_ACCESS
+    publish: VERDACCIO_PACKAGE_PUBLISH
+    unpublish: VERDACCIO_PACKAGE_UNPUBLISH
 
 # To improve your security configuration and avoid dependency confusion
 # consider removing the proxy property for private packages
