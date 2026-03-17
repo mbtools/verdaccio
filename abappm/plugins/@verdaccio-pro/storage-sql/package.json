@@ -40,7 +40,7 @@
     "@verdaccio/config": "8.0.0-next-8.33",
     "@verdaccio/core": "8.0.0-next-8.33",
     "@verdaccio/logger": "8.0.0-next-8.33",
-    "@verdaccio-pro/database": "1.0.1",
+    "@verdaccio-pro/database": "https://registry.verdaccio.pro/@verdaccio-pro/database/-/database-1.0.1.tgz",
     "debug": "4.4.3",
     "drizzle-orm": "0.45.1"
   },
