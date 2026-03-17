@@ -4,7 +4,7 @@
 FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24-alpine AS builder
 
 ENV NODE_ENV=production \
-    PNPM_VERSION=10.20.0 \
+    PNPM_VERSION=10.32.1 \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org \
     VERDACCIO_BUILD_DIR=/opt/verdaccio-build
 
@@ -48,7 +48,7 @@ LABEL maintainer="https://github.com/abapPM/abapPM" \
       dockerfile="Dockerfile-apm"
 
 ENV NODE_ENV=production \
-    PNPM_VERSION=10.20.0 \
+    PNPM_VERSION=10.32.1 \
     PNPM_STORE_DIR=/opt/.pnpm-store \
     VERDACCIO_APP_DIR=/opt/verdaccio \
     VERDACCIO_BUILD_DIR=/opt/verdaccio-build \
