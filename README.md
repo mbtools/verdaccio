@@ -147,7 +147,7 @@ If you use multiples registries in your organization and need to fetch packages 
 
 ### Override public packages
 
-If you want to use a modified version of some 3rd-party package (for example, you found a bug, but maintainer didn't accept pull request yet), you can publish your version locally under the same name. See in detail [here](https://verdaccio.org/docs/en/best#override-public-packages).
+If you want to use a modified version of some 3rd-party package (for example, you found a bug, but maintainer didn't accept pull request yet), you can publish your version locally under the same name. See in detail [here](https://verdaccio.org/docs/best#override-public-packages).
 
 ### E2E Testing
 
@@ -231,7 +231,7 @@ This will prompt you for user credentials which will be saved on the `verdaccio`
 ## Docker
 
 Below are the most commonly needed information,
-every aspect of Docker and verdaccio is [documented separately](https://www.verdaccio.org/docs/en/docker.html)
+every aspect of Docker and verdaccio is [documented separately](https://www.verdaccio.org/docs/docker)
 
 ```
 docker pull verdaccio/verdaccio:nightly-master
@@ -336,16 +336,16 @@ You can find and chat with them over Discord, click [here](http://chat.verdaccio
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/verdaccio/contribute)]
 
-[![sponsor](https://opencollective.com/verdaccio/sponsor/0/avatar.svg)](https://opencollective.com/verdaccio/sponsor/0/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/1/avatar.svg)](https://opencollective.com/verdaccio/sponsor/1/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/2/avatar.svg)](https://opencollective.com/verdaccio/sponsor/2/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/3/avatar.svg)](https://opencollective.com/verdaccio/sponsor/3/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/4/avatar.svg)](https://opencollective.com/verdaccio/sponsor/4/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/5/avatar.svg)](https://opencollective.com/verdaccio/sponsor/5/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/6/avatar.svg)](https://opencollective.com/verdaccio/sponsor/6/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/7/avatar.svg)](https://opencollective.com/verdaccio/sponsor/7/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/8/avatar.svg)](https://opencollective.com/verdaccio/sponsor/8/website)
-[![sponsor](https://opencollective.com/verdaccio/sponsor/9/avatar.svg)](https://opencollective.com/verdaccio/sponsor/9/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/0/avatar.png)](https://opencollective.com/verdaccio/sponsor/0/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/1/avatar.png)](https://opencollective.com/verdaccio/sponsor/1/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/2/avatar.png)](https://opencollective.com/verdaccio/sponsor/2/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/3/avatar.png)](https://opencollective.com/verdaccio/sponsor/3/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/4/avatar.png)](https://opencollective.com/verdaccio/sponsor/4/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/5/avatar.png)](https://opencollective.com/verdaccio/sponsor/5/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/6/avatar.png)](https://opencollective.com/verdaccio/sponsor/6/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/7/avatar.png)](https://opencollective.com/verdaccio/sponsor/7/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/8/avatar.png)](https://opencollective.com/verdaccio/sponsor/8/website)
+[![sponsor](https://opencollective.com/verdaccio/sponsor/9/avatar.png)](https://opencollective.com/verdaccio/sponsor/9/website)
 
 ## Open Collective Backers
 
