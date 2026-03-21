@@ -33,6 +33,7 @@ export type LoggerConfigItem = {
   path?: string;
   level?: LoggerLevel;
   colors?: boolean;
+  /** Perform writes synchronously (similar to console.log). Defaults to false. */
   sync?: boolean;
   redact?: LoggerRedact;
 };
@@ -127,6 +128,7 @@ export type CommonWebConf = {
   logoDark?: string;
   favicon?: string;
   gravatar?: boolean;
+  sort_field?: string;
   sort_packages?: string;
   darkMode?: boolean;
   url_prefix?: string;
