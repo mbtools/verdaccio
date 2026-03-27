@@ -1,0 +1,70 @@
+name: Docker publish apm to docker.io
+
+on:
+  push:
+    paths:
+      - '.github/workflows/apm.yml'
+      - 'packages/**'
+      - 'docker-bin/**'
+      - 'bin/**'
+      - 'pnpm-*.yaml'
+      - '.dockerignore'
+      - 'docker-compose.yml'
+      - 'Dockerfile'
+      - 'config.yaml'
+      - 'abappm/**'
+    branches:
+      - 'apm'
+      - 'apm-new'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: apm-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    if: github.repository == 'mbtools/verdaccio'
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+
+      - name: Copy Dockerfile for Root Build Context
+        run: |
+          cp abappm/docker/.dockerignore ./.dockerignore
+          cp abappm/docker/Dockerfile ./Dockerfile
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+        with:
+          driver-opts: network=host
+
+      - name: Login Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Prepare Docker Image Tags
+        id: docker_meta
+        uses: docker/metadata-action@v6
+        with:
+          images: abappm/registry
+          tags: |
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'apm') }}
+            type=sha
+
+      - name: Docker Build & Push
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          platforms: linux/amd64
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
