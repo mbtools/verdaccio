@@ -9,6 +9,7 @@ import type { ConfigYaml } from '@verdaccio/types';
 
 import { findConfigFile } from './config-path';
 import { fileExists } from './config-utils';
+import { replaceEnvVars } from './parse-env';
 
 const debug = buildDebug('verdaccio:config:parse');
 
@@ -32,6 +33,8 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
         strict: false,
       }) as ConfigYaml;
 
+      replaceEnvVars(yamlConfig as unknown as Record<string, unknown>);
+
       return Object.assign({}, yamlConfig, {
         configPath,
         // @deprecated use configPath instead
@@ -40,6 +43,9 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
     }
 
     const jsonConfig = require(configPath) as ConfigYaml;
+
+    replaceEnvVars(jsonConfig as unknown as Record<string, unknown>);
+
     return Object.assign({}, jsonConfig, {
       configPath,
       // @deprecated use configPath instead
