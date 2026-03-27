@@ -21,6 +21,6 @@ export function loadTranslationFile(lng: string): Record<string, string> {
       // fall through to default
     }
   }
-  console.warn(`language ${lng} file not found, fallback to en-US`);
+  // console.warn(`language ${lng} file not found, fallback to en-US`);
   return enTranslations as unknown as Record<string, string>;
 }

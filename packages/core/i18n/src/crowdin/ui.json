@@ -132,6 +132,8 @@
       "title": "Contributors"
     },
     "engines": {
+      "apm-version": "apm Version",
+      "abap": "ABAP Release",
       "npm-version": "Npm Version",
       "pnpm-version": "Pnpm Version",
       "yarn-version": "Yarn Version",
