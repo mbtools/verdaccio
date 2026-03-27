@@ -1,0 +1,206 @@
+{
+  "copy-to-clipboard": "Copiar para área de transferência",
+  "author-anonymous": "Anônimo(a)",
+  "author-unknown": "Desconhecido",
+  "action-bar-action": {
+    "visit-home-page": "Visitar a página inicial",
+    "open-an-issue": "Criar um incident",
+    "download-tarball": "Baixar Tarball",
+    "raw": "View manifest",
+    "raw-title": "Manifest of {{package}}"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "Informação"
+    },
+    "settings": {
+      "title": "Configuração"
+    },
+    "license": "Licença",
+    "totalContributors": "Total de contribuidores"
+  },
+  "header": {
+    "documentation": "Documentação",
+    "registry-info": "Informações do Registro",
+    "registry-info-link": "Aprenda mais",
+    "settings": "Configurações",
+    "help": "Ajuda",
+    "registry-no-conf": "Sem configurações disponíveis",
+    "greetings": "Oi "
+  },
+  "search": {
+    "packages": "Pesquisar Pacotes",
+    "isPrivate": "Privado",
+    "isRemote": "Remoto",
+    "isCached": "Em cache"
+  },
+  "autoComplete": {
+    "loading": "Carregando...",
+    "no-results-found": "\"Nenhum resultado encontrado",
+    "clear": "Limpar",
+    "expand": "Expandir",
+    "collapse": "Retrair"
+  },
+  "tab": {
+    "uplinks": "Uplinks",
+    "versions": "Versões",
+    "dependencies": "Dependências",
+    "readme": "Leia-me"
+  },
+  "uplinks": {
+    "title": "Uplinks",
+    "no-items": "{{name}} não tem uplinks."
+  },
+  "versions": {
+    "current-tags": "Tags atuais",
+    "version-history": "Histórico de versão",
+    "not-available": "Não disponível",
+    "deprecated": "Deprecated",
+    "search.placeholder": "Search for a version by semver range, e.g., ^1.0.0.",
+    "hide-deprecated": "All deprecated versions are hidden by global configuration"
+  },
+  "package": {
+    "published-on": "Published {{time}}",
+    "version": "v{{version}}",
+    "visit-home-page": "Visitar a página inicial",
+    "homepage": "Página inicial",
+    "open-an-issue": "Criar um incident",
+    "bugs": "Erros",
+    "download": "Baixar {{what}}",
+    "the-tar-file": "o arquivo tar",
+    "tarball": "Tarball"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}} não tem dependências.",
+    "dependency-block": "{{package}}: {{version}}",
+    "dependency-block-bundle": "{{package}}"
+  },
+  "form": {
+    "username": "Nome do usuário",
+    "password": "Senha"
+  },
+  "form-placeholder": {
+    "username": "O seu nome",
+    "password": "A sua senha forte"
+  },
+  "form-validation": {
+    "required-field": "Este campo é obrigatório",
+    "required-min-length": "This field required with a minimum length of {{length}}",
+    "unable-to-sign-in": "Não foi possível fazer login",
+    "username-or-password-cant-be-empty": "Nome de usuário ou senha não podem estar vazios!"
+  },
+  "help": {
+    "title": "Nenhum pacote publicado ainda.",
+    "sub-title": "Para publicar seu primeiro pacote apenas:",
+    "first-step": "Criar usuário",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. Publique",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. Atualize esta página."
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "Última versão: v{{version}}",
+      "version": "v{{version}}",
+      "published": "Publicado"
+    },
+    "installation": {
+      "title": "Instalação",
+      "latest": "latest version",
+      "global": "global package",
+      "yarnModern": "yarn modern syntax"
+    },
+    "repository": {
+      "title": "Repositório"
+    },
+    "author": {
+      "title": "Autor(a)"
+    },
+    "distribution": {
+      "title": "Distribution",
+      "license": "Licença",
+      "size": "Tamanho",
+      "file-count": "File Count"
+    },
+    "keywords": {
+      "title": "Keywords"
+    },
+    "maintainers": {
+      "title": "Mantenedores(as)"
+    },
+    "contributors": {
+      "title": "Contribuidores(as)"
+    },
+    "engines": {
+      "npm-version": "Npm Version",
+      "pnpm-version": "Pnpm Version",
+      "yarn-version": "Yarn Version",
+      "node-js": "Node.js"
+    }
+  },
+  "footer": {
+    "powered-by": "Feito por",
+    "made-with-love-on": "Feito com amor <0>♥</0> no(a)"
+  },
+  "button": {
+    "close": "Fechar",
+    "cancel": "Cancelar",
+    "login": "Conectar",
+    "logout": "Desconectar",
+    "go-to-the-home-page": "Ir para a página inicial",
+    "learn-more": "Leia mais",
+    "fund-this-package": "<0>Financie</0> este pacote"
+  },
+  "error": {
+    "unspecific": "Algo deu errado.",
+    "404": {
+      "sorry-we-could-not-find-it": "Desculpe, não conseguimos encontrar..."
+    },
+    "401": {
+      "sorry-no-access": "Sorry, you need credentials access to see this page."
+    },
+    "app-context-not-correct-used": "The app context was not used correctly",
+    "theme-context-not-correct-used": "The theme context was not used correctly",
+    "package-meta-is-required-at-detail-context": "packageMeta is required at DetailContext"
+  },
+  "lng": {
+    "english": "Inglês",
+    "czech": "Czech",
+    "japanese": "Japonês",
+    "portuguese": "Portuguese",
+    "spanish": "Espanhol",
+    "irish": "Irish",
+    "german": "Alemão",
+    "italian": "Italian",
+    "french": "Francês",
+    "russian": "Russian",
+    "turkish": "Turkish",
+    "ukraine": "Ukraine",
+    "khmer": "Khmer",
+    "chinese": "Chinese Simplified",
+    "chineseTraditional": "Chinese Traditional"
+  },
+  "flag": {
+    "austria": "Austria",
+    "australia": "Australia",
+    "brazil": "Brazil",
+    "canada": "Canada",
+    "spain": "Spain",
+    "nicaragua": "Nicaragua",
+    "india": "India",
+    "china": "China",
+    "germany": "Germany",
+    "taiwan": "Taiwan"
+  },
+  "packageManagers": {
+    "title": "Gerenciadores de Pacotes",
+    "description": "Estes são os detalhes de configuração do registro. Cada gerenciador de pacotes pode ter configurações diferentes, expanda cada seção para obter mais detalhes. Se a seção estiver desativada, revise sua configuração.",
+    "yarnclassicDetails": "A configuração do Yarn clássico difere da configuração do Yarn 2+. Para mais detalhes, por favor visite [Yarn Clássico](https://verdaccio.org/docs/cli-registry#yarn-1x).",
+    "yarnBerryDetails": "Yarn Berry não suporta o parâmetro `--registry`, em vez disso, toda a configuração deve ser definida no arquivo `yarnrc.yaml` na raiz do projeto. Para mais detalhes, por favor visite [Yarn Berry](https://verdaccio.org/docs/cli-registry#yarn-berry-2x)."
+  },
+  "language": {
+    "title": "Traduções",
+    "contribute": "Se o seu idioma não estiver listado aqui ou não estiver totalmente traduzido, contribua com a tradução. Você pode encontrar o código-fonte em [nosso repositório main](https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md)",
+    "description": "Estes são os detalhes de configuração para o idioma. Selecione um idioma para selecionar uma tradução do lado do cliente."
+  }
+}

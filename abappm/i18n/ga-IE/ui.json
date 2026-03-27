@@ -1,0 +1,206 @@
+{
+  "copy-to-clipboard": "Cóipeáil chuig an ngearrthaisce",
+  "author-anonymous": "Gan ainm",
+  "author-unknown": "Anaithnid",
+  "action-bar-action": {
+    "visit-home-page": "Tabhair cuairt ar leathanach baile",
+    "open-an-issue": "Oscail ceist",
+    "download-tarball": "Íosluchtaigh cluiche tarball",
+    "raw": "Amharc ar léiriú",
+    "raw-title": "Manifest de {{package}}"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "Eolas"
+    },
+    "settings": {
+      "title": "Cumraíocht"
+    },
+    "license": "Ceadúnas",
+    "totalContributors": "Ranníocóirí iomlána"
+  },
+  "header": {
+    "documentation": "Doiciméadúchán",
+    "registry-info": "Faisnéis Chlárlainne",
+    "registry-info-link": "Foghlaim níos mó",
+    "settings": "Socruithe",
+    "help": "Cabhrú",
+    "registry-no-conf": "Níl aon chumraíochtaí ar fáil",
+    "greetings": "Haigh "
+  },
+  "search": {
+    "packages": "Pacáistí Cuardaigh",
+    "isPrivate": "Príobháideach",
+    "isRemote": "Iargúlta",
+    "isCached": "I dtaisce"
+  },
+  "autoComplete": {
+    "loading": "Á lódáil...",
+    "no-results-found": "Níor aimsíodh aon torthaí",
+    "clear": "Glan",
+    "expand": "Leathnaigh",
+    "collapse": "Laghdaigh"
+  },
+  "tab": {
+    "uplinks": "Uplinks",
+    "versions": "Leaganacha",
+    "dependencies": "Spleáchais",
+    "readme": "Léim"
+  },
+  "uplinks": {
+    "title": "Uplinks",
+    "no-items": "Níl naisc ar bith ag {{name}}."
+  },
+  "versions": {
+    "current-tags": "Clibeanna Reatha",
+    "version-history": "Stair Leaganacha",
+    "not-available": "Níl sé ar fáil",
+    "deprecated": "Dímheasta",
+    "search.placeholder": "Déan cuardach do leagan de réir raoin semver, m.sh., ^1.0.0.",
+    "hide-deprecated": "Tá gach leagan dímheasta i bhfolach ag cumraíocht dhomhanda"
+  },
+  "package": {
+    "published-on": "Foilsithe {{time}}",
+    "version": "v{{version}}",
+    "visit-home-page": "Tabhair cuairt ar leathanach baile",
+    "homepage": "Leathanach baile",
+    "open-an-issue": "Oscail ceist",
+    "bugs": "Fabhtanna",
+    "download": "Íoslódáil {{what}}",
+    "the-tar-file": "an comhad tarra",
+    "tarball": "Tarball"
+  },
+  "dependencies": {
+    "has-no-dependencies": "Níl aon spleáchais ag {{package}}.",
+    "dependency-block": "{{package}}: {{version}}",
+    "dependency-block-bundle": "{{package}}"
+  },
+  "form": {
+    "username": "Ainm úsáideora",
+    "password": "Pasfhocal"
+  },
+  "form-placeholder": {
+    "username": "D'ainm úsáideora",
+    "password": "Do phasfhocal láidir"
+  },
+  "form-validation": {
+    "required-field": "Tá an réimse seo ag teastáil",
+    "required-min-length": "Teastaíonn an réimse seo le fad íosta {{length}}",
+    "unable-to-sign-in": "Ní féidir síniú isteach",
+    "username-or-password-cant-be-empty": "Ní féidir ainm úsáideora nó pasfhocal a bheith folamh!"
+  },
+  "help": {
+    "title": "Níl Pacáiste Foilsithe fós.",
+    "sub-title": "Chun do chéad phacáiste a fhoilsiú díreach:",
+    "first-step": "1. Cruthaigh úsáideoir",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. Foilsigh",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. Athnuaigh an leathanach seo"
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "V{{version}} is déanaí",
+      "version": "v{{version}}",
+      "published": "Foilsithe"
+    },
+    "installation": {
+      "title": "Suiteáil",
+      "latest": "leagan is déanaí",
+      "global": "pacáiste domhanda",
+      "yarnModern": "snáth comhréir nua-aimseartha"
+    },
+    "repository": {
+      "title": "Stór"
+    },
+    "author": {
+      "title": "Údar"
+    },
+    "distribution": {
+      "title": "Dáileadh",
+      "license": "Ceadúnas",
+      "size": "Méid",
+      "file-count": "Comhaireamh Comhad"
+    },
+    "keywords": {
+      "title": "Eochairfhocail"
+    },
+    "maintainers": {
+      "title": "Cothabhálaithe"
+    },
+    "contributors": {
+      "title": "Rannpháirtithe"
+    },
+    "engines": {
+      "npm-version": "Leagan Npm",
+      "pnpm-version": "Leagan pnpm",
+      "yarn-version": "Leagan Snáth",
+      "node-js": "Node.js"
+    }
+  },
+  "footer": {
+    "powered-by": "Cumhachtaithe ag",
+    "made-with-love-on": "Déanta le <0>♥</0> ar siúl"
+  },
+  "button": {
+    "close": "Dún",
+    "cancel": "Cealaigh",
+    "login": "Logáil isteach",
+    "logout": "Logáil Amach",
+    "go-to-the-home-page": "Téigh go dtí an leathanach baile",
+    "learn-more": "Foghlaim níos mó",
+    "fund-this-package": "<0>Ciste</0> an pacáiste seo"
+  },
+  "error": {
+    "unspecific": "Chuaigh rud eigin mícheart.",
+    "404": {
+      "sorry-we-could-not-find-it": "Ár leithscéal, ní raibh muid in ann é a aimsiú..."
+    },
+    "401": {
+      "sorry-no-access": "Ár leithscéal, tá rochtain dintiúir uait chun an leathanach seo a fheiceáil."
+    },
+    "app-context-not-correct-used": "The app context was not used correctly",
+    "theme-context-not-correct-used": "The theme context was not used correctly",
+    "package-meta-is-required-at-detail-context": "packageMeta is required at DetailContext"
+  },
+  "lng": {
+    "english": "Béarla",
+    "czech": "Czech",
+    "japanese": "Seapánach",
+    "portuguese": "Portuguese",
+    "spanish": "Spainnis",
+    "irish": "Gaeilge",
+    "german": "German",
+    "italian": "Italian",
+    "french": "Fraincis",
+    "russian": "Russian",
+    "turkish": "Turkish",
+    "ukraine": "Ukraine",
+    "khmer": "Khmer",
+    "chinese": "Chinese Simplified",
+    "chineseTraditional": "Chinese Traditional"
+  },
+  "flag": {
+    "austria": "Austria",
+    "australia": "Astráil",
+    "brazil": "Brazil",
+    "canada": "Ceanada",
+    "spain": "Spain",
+    "nicaragua": "Nicaragua",
+    "india": "India",
+    "china": "China",
+    "germany": "Germany",
+    "taiwan": "Taiwan"
+  },
+  "packageManagers": {
+    "title": "Bainisteoirí Pacáiste",
+    "description": "Seo sonraí cumraíochta na clárlainne. D'fhéadfadh cumraíocht dhifriúil a bheith ag gach bainisteoir pacáiste, leathnaigh gach rannóg le haghaidh tuilleadh sonraí. Má tá an chuid díchumasaithe athbhreithnigh do chumraíocht.",
+    "yarnclassicDetails": "Tá cumraíocht clasaiceach snáth difriúil ó chumraíocht Snáth 2+. Le haghaidh tuilleadh sonraí, tabhair cuairt le do thoil ar [Snáth Classic](https://verdaccio.org/docs/cli-registry#yarn-1x).",
+    "yarnBerryDetails": "Ní thacaíonn Snáth Berry leis an mbratach `--registry`, ina ionad sin ba cheart gach cumraíocht a shainmhíniú ar an gcomhad `yarnrc.yaml` i bhfréamh do thionscadal. Le haghaidh tuilleadh sonraí, tabhair cuairt le do thoil ar [Snáth Berry](https://verdaccio.org/docs/cli-registry#yarn-berry-2x)."
+  },
+  "language": {
+    "title": "Aistriúcháin",
+    "contribute": "Mura bhfuil do theanga liostaithe anseo nó mura bhfuil sí aistrithe go hiomlán, cuir leis an aistriúchán le do thoil. Is féidir leat an cód foinse a fháil ar [ár bpríomhstór](https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md)",
+    "description": "Seo sonraí cumraíochta na teanga. Roghnaigh teanga chun aistriúchán taobh cliaint a roghnú."
+  }
+}

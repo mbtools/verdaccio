@@ -1,0 +1,206 @@
+{
+  "copy-to-clipboard": "クリップボードにコピー",
+  "author-anonymous": "匿名",
+  "author-unknown": "わからない",
+  "action-bar-action": {
+    "visit-home-page": "ホームページへ移動",
+    "open-an-issue": "課題を開く",
+    "download-tarball": "tar形式でダウンロード",
+    "raw": "View manifest",
+    "raw-title": "Manifest of {{package}}"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "情報"
+    },
+    "settings": {
+      "title": "Configuration"
+    },
+    "license": "ライセンス",
+    "totalContributors": "寄稿者"
+  },
+  "header": {
+    "documentation": "ドキュメント",
+    "registry-info": "レジストリの設定方法",
+    "registry-info-link": "もっと知る",
+    "settings": "設定",
+    "help": "Help",
+    "registry-no-conf": "パッケージを検索",
+    "greetings": "Hi "
+  },
+  "search": {
+    "packages": "パッケージを検索",
+    "isPrivate": "Private",
+    "isRemote": "リモート",
+    "isCached": "Cached"
+  },
+  "autoComplete": {
+    "loading": "ロード中",
+    "no-results-found": "パッケージが見つかりませんでした",
+    "clear": "きれいにするため",
+    "expand": "拡大する",
+    "collapse": "撤回する"
+  },
+  "tab": {
+    "uplinks": "アップリンク",
+    "versions": "バージョン情報",
+    "dependencies": "依存パッケージ",
+    "readme": "Readme"
+  },
+  "uplinks": {
+    "title": "アップリンク",
+    "no-items": "{{name}}にアップリンクはありません."
+  },
+  "versions": {
+    "current-tags": "タグ一覧",
+    "version-history": "Version History",
+    "not-available": "利用できません",
+    "deprecated": "Deprecated",
+    "search.placeholder": "Search for a version by semver range, e.g., ^1.0.0.",
+    "hide-deprecated": "All deprecated versions are hidden by global configuration"
+  },
+  "package": {
+    "published-on": "Published {{time}}",
+    "version": "v{{version}}",
+    "visit-home-page": "ホームページへ移動",
+    "homepage": "ホームページへ移動",
+    "open-an-issue": "課題を開く",
+    "bugs": "バグ",
+    "download": "{{what}}ダウンロード",
+    "the-tar-file": "tar形式のファイル",
+    "tarball": "tar形式でダウンロード"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}}に依存パッケージはありません",
+    "dependency-block": "{{package}}: {{version}}",
+    "dependency-block-bundle": "{{package}}"
+  },
+  "form": {
+    "username": "ユーザ名",
+    "password": "パスワード"
+  },
+  "form-placeholder": {
+    "username": "あなたのユーザ名",
+    "password": "あなたのパスワード"
+  },
+  "form-validation": {
+    "required-field": "この項目は必ず入力して下さい",
+    "required-min-length": "This field required with a minimum length of {{length}}",
+    "unable-to-sign-in": "サインインできません",
+    "username-or-password-cant-be-empty": "ユーザ名とパスワードは空にできません"
+  },
+  "help": {
+    "title": "まだパッケージが登録されていません",
+    "sub-title": "以下の手順で最初のパッケージを登録しましょう",
+    "first-step": "1. Create user",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. 登録",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. このページを再読み込みして下さい"
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "最新バージョンは{{version}}です",
+      "version": "v{{version}}",
+      "published": "Published"
+    },
+    "installation": {
+      "title": "インストール方法",
+      "latest": "latest version",
+      "global": "global package",
+      "yarnModern": "yarn modern syntax"
+    },
+    "repository": {
+      "title": "リポジトリ"
+    },
+    "author": {
+      "title": "作者"
+    },
+    "distribution": {
+      "title": "Distribution",
+      "license": "ライセンス",
+      "size": "サイズ",
+      "file-count": "File Count"
+    },
+    "keywords": {
+      "title": "Keywords"
+    },
+    "maintainers": {
+      "title": "パッケージメンテナ"
+    },
+    "contributors": {
+      "title": "コントリビューター"
+    },
+    "engines": {
+      "npm-version": "Npm Version",
+      "pnpm-version": "Pnpm Version",
+      "yarn-version": "Yarn Version",
+      "node-js": "Node.js"
+    }
+  },
+  "footer": {
+    "powered-by": "Powered by",
+    "made-with-love-on": "Made with <0>♥</0> on"
+  },
+  "button": {
+    "close": "閉じる",
+    "cancel": "キャンセル",
+    "login": "ログイン",
+    "logout": "ログアウト",
+    "go-to-the-home-page": "トップページに戻る",
+    "learn-more": "もっと知る",
+    "fund-this-package": "このパッケージに<0>投資</0>"
+  },
+  "error": {
+    "unspecific": "何か問題が発生したようです。",
+    "404": {
+      "sorry-we-could-not-find-it": "残念ながら、ご指定のページはありませんでした…。"
+    },
+    "401": {
+      "sorry-no-access": "Sorry, you need credentials access to see this page."
+    },
+    "app-context-not-correct-used": "The app context was not used correctly",
+    "theme-context-not-correct-used": "The theme context was not used correctly",
+    "package-meta-is-required-at-detail-context": "packageMeta is required at DetailContext"
+  },
+  "lng": {
+    "english": "英語",
+    "czech": "チェコ人",
+    "japanese": "Japanese",
+    "portuguese": "Portuguese",
+    "spanish": "Spanish",
+    "irish": "Irish",
+    "german": "German",
+    "italian": "Italian",
+    "french": "French",
+    "russian": "Russian",
+    "turkish": "Turkish",
+    "ukraine": "Ukraine",
+    "khmer": "Khmer",
+    "chinese": "Chinese Simplified",
+    "chineseTraditional": "Chinese Traditional"
+  },
+  "flag": {
+    "austria": "Austria",
+    "australia": "Australia",
+    "brazil": "Brazil",
+    "canada": "Canada",
+    "spain": "Spain",
+    "nicaragua": "Nicaragua",
+    "india": "India",
+    "china": "China",
+    "germany": "Germany",
+    "taiwan": "Taiwan"
+  },
+  "packageManagers": {
+    "title": "パッケージ管理",
+    "description": "これはレジストリの構成の詳細です。パッケージごとの管理者は自分の設定を保持し、詳細についてはセクションを展開してください。セクションが無効になっている場合は、構成を確認してください。",
+    "yarnclassicDetails": "Yarn classic configuration differs from Yarn 2+ configuration. For more details, please visit [Yarn Classic](https://verdaccio.org/docs/cli-registry#yarn-1x).",
+    "yarnBerryDetails": "Yarn Berry does not support the `--registry` flag, instead all configurarion should be defined on the `yarnrc.yaml` file in the root of your project. For more details, please visit [Yarn Berry](https://verdaccio.org/docs/cli-registry#yarn-berry-2x)."
+  },
+  "language": {
+    "title": "翻訳",
+    "contribute": "もし言語リストに存在しないまた完全ではない場合、ご協力頂ければ助かります。ソースコードは「メインリポジトリ」から取得できる。(https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md)",
+    "description": "これは言語の設定の詳細です。翻訳するクライアントの言語を選択してください。"
+  }
+}

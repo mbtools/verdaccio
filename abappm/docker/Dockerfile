@@ -1,0 +1,172 @@
+#
+# --- Build Stage ---
+#
+FROM --platform=${BUILDPLATFORM:-linux/amd64} node:24-alpine AS builder
+
+ENV NODE_ENV=production \
+    PNPM_VERSION=10.33.0 \
+    VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org \
+    VERDACCIO_BUILD_DIR=/opt/verdaccio-build
+
+RUN apk add --no-cache \
+    openssl \
+    ca-certificates \
+    g++ \
+    gcc \
+    libgcc \
+    libstdc++ \
+    linux-headers \
+    make \
+    python3 \
+    libc6-compat
+
+WORKDIR $VERDACCIO_BUILD_DIR
+
+RUN corepack enable && corepack prepare pnpm@$PNPM_VERSION --activate
+
+# Copy only package files to benefit from Docker cache
+COPY .babelrc ./
+COPY pnpm-lock.yaml ./ 
+COPY pnpm-workspace.yaml ./
+COPY tsconfig.base.json ./
+COPY tsconfig.reference.json ./
+COPY package.json ./
+COPY packages/ ./packages/
+
+# Install all dependencies (workspace-aware)
+RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
+    pnpm install --frozen-lockfile
+
+# Build the repo
+RUN pnpm run build
+
+#
+# --- Production Stage ---
+#
+FROM node:24-alpine AS app
+LABEL maintainer="https://github.com/abapPM/abapPM" \
+      dockerfile="Dockerfile-apm"
+
+ENV NODE_ENV=production \
+    PNPM_VERSION=10.32.1 \
+    PNPM_STORE_DIR=/opt/.pnpm-store \
+    VERDACCIO_APP_DIR=/opt/verdaccio \
+    VERDACCIO_BUILD_DIR=/opt/verdaccio-build \
+    VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org \
+    VERDACCIO_PLUGINS_DIR=/opt/verdaccio-plugins \
+    VERDACCIO_USER_NAME=verdaccio \
+    VERDACCIO_USER_UID=10001 \
+    VERDACCIO_PORT=4873 \
+    VERDACCIO_PROTOCOL=http \
+    VERDACCIO_ADDRESS=0.0.0.0
+ENV PATH=$VERDACCIO_APP_DIR/docker-bin:$PATH \
+    HOME=$VERDACCIO_APP_DIR
+
+# https://github.com/Yelp/dumb-init
+RUN apk --no-cache add openssl dumb-init
+# For checking disk space
+RUN apk --no-cache add ncdu
+
+WORKDIR $VERDACCIO_APP_DIR
+
+RUN corepack enable && corepack prepare pnpm@$PNPM_VERSION --activate
+
+# Copy only package files to benefit from Docker cache
+# Remove tools and standalone since we don't need them for production
+COPY .babelrc ./
+COPY pnpm-lock.yaml ./ 
+COPY pnpm-workspace.yaml ./
+COPY tsconfig.base.json ./
+COPY tsconfig.reference.json ./
+COPY package.json ./
+COPY packages/ ./packages/
+COPY docker-bin/ ./docker-bin/
+RUN rm -rf ./packages/tools ./packages/standalone
+
+# Only install production dependencies (omit devDependencies)
+RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
+    pnpm config set store-dir $PNPM_STORE_DIR && \
+    pnpm install --frozen-lockfile --prod --no-optional --ignore-scripts --filter "./packages/**"
+
+# Copy build artifacts
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/api/build ./packages/api/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/auth/build ./packages/auth/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/cli/build ./packages/cli/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/cli/bin ./packages/cli/bin
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/config/build ./packages/config/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/core/core/build ./packages/core/core/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/core/file-locking/build ./packages/core/file-locking/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/core/i18n/build ./packages/core/i18n/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/core/tarball/build ./packages/core/tarball/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/core/url/build ./packages/core/url/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/hooks/build ./packages/hooks/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/loaders/build ./packages/loaders/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/logger/logger/build ./packages/logger/logger/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/logger/logger-commons/build ./packages/logger/logger-commons/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/logger/logger-prettify/build ./packages/logger/logger-prettify/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/middleware/build ./packages/middleware/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/node-api/build ./packages/node-api/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/plugins/audit/build ./packages/plugins/audit/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/plugins/htpasswd/build ./packages/plugins/htpasswd/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/plugins/local-storage/build ./packages/plugins/local-storage/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/plugins/ui-theme/config ./packages/plugins/ui-theme/config
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/plugins/ui-theme/static ./packages/plugins/ui-theme/static
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/proxy/build ./packages/proxy/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/search/build ./packages/search/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/search-indexer/build ./packages/search-indexer/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/server/express/build ./packages/server/express/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/signature/build ./packages/signature/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/store/build ./packages/store/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/ui-components/build ./packages/ui-components/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/ui-components/public ./packages/ui-components/public
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/utils/build ./packages/utils/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/verdaccio/bin ./packages/verdaccio/bin
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/verdaccio/build ./packages/verdaccio/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/web/build ./packages/web/build
+
+# Prepare Verdaccio directories
+RUN mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
+
+# Copy plugins and config
+COPY abappm/plugins /verdaccio/plugins
+COPY abappm/conf /verdaccio/conf
+COPY abappm/i18n $VERDACCIO_APP_DIR/packages/core/i18n/build/download_translations
+
+# Install plugins
+RUN cd /verdaccio/plugins/@verdaccio-pro/auth && \
+    pnpm install --prod --no-optional --ignore-scripts && \
+    cd /verdaccio/plugins/@verdaccio-pro/filter && \
+    pnpm install --prod --no-optional --ignore-scripts && \
+    cd /verdaccio/plugins/@verdaccio-pro/middleware && \
+    pnpm install --prod --no-optional --ignore-scripts && \
+    cd /verdaccio/plugins/@verdaccio-pro/storage-proxy && \
+    pnpm install --prod --no-optional --ignore-scripts && \
+    cd /verdaccio/plugins/@verdaccio-pro/storage-sql && \
+    pnpm install --prod --no-optional --ignore-scripts
+
+# Clean up
+RUN rm ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
+    rm -rf ./.cache && \
+    rm -rf /opt/yarn-v1.22.22
+
+RUN find . -type f -a \( -name ".*" -o -name "*.md" -o -name "LICENSE" -o -name "tsconfig.*" -o -name "vitest.*" -o -name "*.d.ts" -o -name "*.js.map" -o -name "typedoc.*" -o -name "webpack.*" \) -delete && \
+    find . -type d -a \( -name "examples" -o -name "src" -o -name "test" -o -name "tests" -o -name "tools" -o -name "types" -o -name "vitest" -o -name "__partials__"  -o -name "__snapshots__" \) -not -path "*/node_modules/*" | xargs rm -rf
+
+# Set user, permissions, ownership
+RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APP_DIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
+    chmod -R +x $VERDACCIO_APP_DIR/packages/verdaccio/bin $VERDACCIO_APP_DIR/docker-bin && \
+    chown -R $VERDACCIO_USER_UID:root /verdaccio/storage /verdaccio/plugins /verdaccio/conf && \
+    chmod -R g=u /verdaccio/storage /verdaccio/plugins /verdaccio/conf /etc/passwd
+
+USER $VERDACCIO_USER_UID
+
+EXPOSE $VERDACCIO_PORT
+
+VOLUME /verdaccio/storage
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD wget --quiet --tries=1 --spider http://localhost:$VERDACCIO_PORT/-/ping || exit 1
+
+ENTRYPOINT ["uid_entrypoint"]
+
+CMD ["/bin/sh", "-c", "$VERDACCIO_APP_DIR/packages/verdaccio/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://$VERDACCIO_ADDRESS:$VERDACCIO_PORT"]

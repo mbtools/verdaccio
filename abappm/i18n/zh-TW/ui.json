@@ -1,0 +1,206 @@
+{
+  "copy-to-clipboard": "複製到剪貼簿",
+  "author-anonymous": "匿名",
+  "author-unknown": "未知",
+  "action-bar-action": {
+    "visit-home-page": "瀏覽首頁",
+    "open-an-issue": "提交問題",
+    "download-tarball": "下載 tarball",
+    "raw": "View manifest",
+    "raw-title": "Manifest of {{package}}"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "Information"
+    },
+    "settings": {
+      "title": "設定檔案"
+    },
+    "license": "許可",
+    "totalContributors": "Total contributors"
+  },
+  "header": {
+    "documentation": "文件",
+    "registry-info": "註冊資訊",
+    "registry-info-link": "了解更多",
+    "settings": "Settings",
+    "help": "幫助",
+    "registry-no-conf": "沒有可用設定",
+    "greetings": "你好 "
+  },
+  "search": {
+    "packages": "找尋套件",
+    "isPrivate": "私有的",
+    "isRemote": "遠端",
+    "isCached": "已暫存。"
+  },
+  "autoComplete": {
+    "loading": "載入中...",
+    "no-results-found": "無結果",
+    "clear": "清除",
+    "expand": "展開",
+    "collapse": "收縮"
+  },
+  "tab": {
+    "uplinks": "上行連結",
+    "versions": "版本",
+    "dependencies": "相依",
+    "readme": "Readme"
+  },
+  "uplinks": {
+    "title": "上行連結",
+    "no-items": "{{name}} 沒有上游連結。"
+  },
+  "versions": {
+    "current-tags": "當前標籤",
+    "version-history": "Version History",
+    "not-available": "無法取得",
+    "deprecated": "Deprecated",
+    "search.placeholder": "Search for a version by semver range, e.g., ^1.0.0.",
+    "hide-deprecated": "All deprecated versions are hidden by global configuration"
+  },
+  "package": {
+    "published-on": "Published {{time}}",
+    "version": "v{{version}}",
+    "visit-home-page": "瀏覽首頁",
+    "homepage": "首頁",
+    "open-an-issue": "提交問題",
+    "bugs": "漏洞",
+    "download": "下载 {{what}}",
+    "the-tar-file": "tar 檔案",
+    "tarball": "壓縮檔"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}} 沒有相依套件.",
+    "dependency-block": "{{package}}: {{version}}",
+    "dependency-block-bundle": "{{package}}"
+  },
+  "form": {
+    "username": "使用者名稱",
+    "password": "密碼"
+  },
+  "form-placeholder": {
+    "username": "你的使用者名稱",
+    "password": "你的密碼"
+  },
+  "form-validation": {
+    "required-field": "必填欄位",
+    "required-min-length": "This field required with a minimum length of {{length}}",
+    "unable-to-sign-in": "無法登入",
+    "username-or-password-cant-be-empty": "使用者名稱或密碼不可空白"
+  },
+  "help": {
+    "title": "尚未發布任何 Npm 套件.",
+    "sub-title": "發布第一個 NPM 套件:",
+    "first-step": "1. Create user",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. 發布",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. 重新整理頁面。"
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "最新版本 v{{version}}",
+      "version": "v{{version}}",
+      "published": "Published"
+    },
+    "installation": {
+      "title": "安装",
+      "latest": "最新版本",
+      "global": "global package",
+      "yarnModern": "yarn modern syntax"
+    },
+    "repository": {
+      "title": "儲存庫"
+    },
+    "author": {
+      "title": "作者"
+    },
+    "distribution": {
+      "title": "Distribution",
+      "license": "許可",
+      "size": "大小",
+      "file-count": "File Count"
+    },
+    "keywords": {
+      "title": "Keywords"
+    },
+    "maintainers": {
+      "title": "維護人員"
+    },
+    "contributors": {
+      "title": "貢獻人員"
+    },
+    "engines": {
+      "npm-version": "Npm Version",
+      "pnpm-version": "Pnpm Version",
+      "yarn-version": "Yarn Version",
+      "node-js": "Node.js"
+    }
+  },
+  "footer": {
+    "powered-by": "Powered by",
+    "made-with-love-on": "用 <0>♥</0> 製作"
+  },
+  "button": {
+    "close": "關閉",
+    "cancel": "取消",
+    "login": "登入",
+    "logout": "登出",
+    "go-to-the-home-page": "前往首頁",
+    "learn-more": "了解更多",
+    "fund-this-package": "<0>贊助</0> 這個套件"
+  },
+  "error": {
+    "unspecific": "發生錯誤。",
+    "404": {
+      "sorry-we-could-not-find-it": "不好意思, 找不到..."
+    },
+    "401": {
+      "sorry-no-access": "Sorry, you need credentials access to see this page."
+    },
+    "app-context-not-correct-used": "The app context was not used correctly",
+    "theme-context-not-correct-used": "The theme context was not used correctly",
+    "package-meta-is-required-at-detail-context": "packageMeta is required at DetailContext"
+  },
+  "lng": {
+    "english": "English",
+    "czech": "Czech",
+    "japanese": "日語",
+    "portuguese": "Portuguese",
+    "spanish": "西班牙語",
+    "irish": "Irish",
+    "german": "德語",
+    "italian": "Italian",
+    "french": "法語",
+    "russian": "Russian",
+    "turkish": "Turkish",
+    "ukraine": "Ukraine",
+    "khmer": "Khmer",
+    "chinese": "Chinese Simplified",
+    "chineseTraditional": "Chinese Traditional"
+  },
+  "flag": {
+    "austria": "Austria",
+    "australia": "Australia",
+    "brazil": "Brazil",
+    "canada": "Canada",
+    "spain": "Spain",
+    "nicaragua": "Nicaragua",
+    "india": "India",
+    "china": "China",
+    "germany": "Germany",
+    "taiwan": "Taiwan"
+  },
+  "packageManagers": {
+    "title": "套件管理器",
+    "description": "此為本套件管理庫的詳細設定檔案。每個套件管理器都可以有不同的設定檔案，展開每一個區塊以獲得更多資訊。若區塊無法展開，請檢視您的設定檔案。",
+    "yarnclassicDetails": "Yarn classic 設定檔與 Yarn 2+ 設定檔有些許不同。需要更多詳細資訊請點擊：[Yarn Classic](https://verdaccio.org/docs/cli-registry#yarn-1x)。",
+    "yarnBerryDetails": "Yarn Berry does not support the `--registry` flag, instead all configurarion should be defined on the `yarnrc.yaml` file in the root of your project. For more details, please visit [Yarn Berry](https://verdaccio.org/docs/cli-registry#yarn-berry-2x)."
+  },
+  "language": {
+    "title": "翻譯",
+    "contribute": "如果你的語言並沒有被陳列在這裡，或沒有被完整的翻譯，請踴躍貢獻您的翻譯。您可以在 [我們的 Repository](https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md)找到原始碼。",
+    "description": "這邊是語言設定檔案，結果將顯示在您的應用程式介面上。"
+  }
+}

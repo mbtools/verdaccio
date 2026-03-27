@@ -1,0 +1,206 @@
+{
+  "copy-to-clipboard": "Копіювати в буфер обміну",
+  "author-anonymous": "Анонімний",
+  "author-unknown": "Невідомо",
+  "action-bar-action": {
+    "visit-home-page": "Відвідати домашню сторінку",
+    "open-an-issue": "Відкрити питання, проблему",
+    "download-tarball": "Завантажити архів",
+    "raw": "View manifest",
+    "raw-title": "Manifest of {{package}}"
+  },
+  "dialog": {
+    "registry-info": {
+      "title": "Інформація"
+    },
+    "settings": {
+      "title": "Configuration"
+    },
+    "license": "Ліцензія",
+    "totalContributors": "Усього учасників"
+  },
+  "header": {
+    "documentation": "Документація",
+    "registry-info": "Відомості про реєстр",
+    "registry-info-link": "Дізнатися більше",
+    "settings": "Налаштування",
+    "help": "Допомога",
+    "registry-no-conf": "No configurations available",
+    "greetings": "Привіт "
+  },
+  "search": {
+    "packages": "Пошук пакетів",
+    "isPrivate": "Private",
+    "isRemote": "Remote",
+    "isCached": "Cached"
+  },
+  "autoComplete": {
+    "loading": "Завантаження...",
+    "no-results-found": "Нічого не знайдено",
+    "clear": "Чистити",
+    "expand": "Розгорнути",
+    "collapse": "Відкликати"
+  },
+  "tab": {
+    "uplinks": "Uplinks",
+    "versions": "Версії",
+    "dependencies": "Залежності",
+    "readme": "Опис"
+  },
+  "uplinks": {
+    "title": "Uplinks",
+    "no-items": "{{name}} не опубліковано."
+  },
+  "versions": {
+    "current-tags": "Поточні теги",
+    "version-history": "Історія версій",
+    "not-available": "Недоступний",
+    "deprecated": "Deprecated",
+    "search.placeholder": "Search for a version by semver range, e.g., ^1.0.0.",
+    "hide-deprecated": "All deprecated versions are hidden by global configuration"
+  },
+  "package": {
+    "published-on": "Published {{time}}",
+    "version": "v{{version}}",
+    "visit-home-page": "Відвідати головну сторінку",
+    "homepage": "Домашня сторінка",
+    "open-an-issue": "Відкрити питання, проблему",
+    "bugs": "Помилки",
+    "download": "Завантажити {{what}}",
+    "the-tar-file": "файл tar",
+    "tarball": "Завантажити"
+  },
+  "dependencies": {
+    "has-no-dependencies": "{{package}} не має залежностей.",
+    "dependency-block": "{{package}}: {{version}}",
+    "dependency-block-bundle": "{{package}}"
+  },
+  "form": {
+    "username": "Ім'я користувача",
+    "password": "Пароль"
+  },
+  "form-placeholder": {
+    "username": "Ваше ім'я користувача",
+    "password": "Ваш надійний парол"
+  },
+  "form-validation": {
+    "required-field": "Це поле є обов'язковим",
+    "required-min-length": "This field required with a minimum length of {{length}}",
+    "unable-to-sign-in": "Неможливо ввійти",
+    "username-or-password-cant-be-empty": "Ім'я користувача або пароль не можуть бути порожніми !"
+  },
+  "help": {
+    "title": "Пакети ще не опубліковані",
+    "sub-title": "Опублікувати свій перший пакет просто:",
+    "first-step": "Створіть користувача",
+    "first-step-command-line": "npm adduser --registry {{registryUrl}}",
+    "second-step": "2. Опублікуйте",
+    "second-step-command-line": "npm publish --registry {{registryUrl}}",
+    "third-step": "3. Оновіть цю сторінку"
+  },
+  "sidebar": {
+    "detail": {
+      "latest-version": "Остання версія v{{version}}",
+      "version": "v{{version}}",
+      "published": "Опублікуйте"
+    },
+    "installation": {
+      "title": "Встановлення",
+      "latest": "latest version",
+      "global": "global package",
+      "yarnModern": "yarn modern syntax"
+    },
+    "repository": {
+      "title": "Сховище"
+    },
+    "author": {
+      "title": "Автор"
+    },
+    "distribution": {
+      "title": "Distribution",
+      "license": "Ліцензія",
+      "size": "Розмір",
+      "file-count": "File Count"
+    },
+    "keywords": {
+      "title": "Keywords"
+    },
+    "maintainers": {
+      "title": "Технічне супроводження"
+    },
+    "contributors": {
+      "title": "Автори"
+    },
+    "engines": {
+      "npm-version": "Npm Version",
+      "pnpm-version": "Pnpm Version",
+      "yarn-version": "Yarn Version",
+      "node-js": "Node.js"
+    }
+  },
+  "footer": {
+    "powered-by": "Працює на",
+    "made-with-love-on": "Зроблено з <0> ♥ </0> на"
+  },
+  "button": {
+    "close": "Закрити",
+    "cancel": "Скасувати",
+    "login": "Вхід",
+    "logout": "Вийти",
+    "go-to-the-home-page": "Перейдіть на головну сторінку",
+    "learn-more": "Вивчайте більше",
+    "fund-this-package": "<0>Фінансувати</0> цей пакет"
+  },
+  "error": {
+    "unspecific": "Щось пішло не так.",
+    "404": {
+      "sorry-we-could-not-find-it": "На жаль, ми не змогли його знайти..."
+    },
+    "401": {
+      "sorry-no-access": "Sorry, you need credentials access to see this page."
+    },
+    "app-context-not-correct-used": "The app context was not used correctly",
+    "theme-context-not-correct-used": "The theme context was not used correctly",
+    "package-meta-is-required-at-detail-context": "packageMeta is required at DetailContext"
+  },
+  "lng": {
+    "english": "English",
+    "czech": "Czech",
+    "japanese": "Japanese",
+    "portuguese": "Portuguese",
+    "spanish": "Spanish",
+    "irish": "Irish",
+    "german": "German",
+    "italian": "Italian",
+    "french": "French",
+    "russian": "Russian",
+    "turkish": "Turkish",
+    "ukraine": "Ukraine",
+    "khmer": "Khmer",
+    "chinese": "Chinese Simplified",
+    "chineseTraditional": "Chinese Traditional"
+  },
+  "flag": {
+    "austria": "Austria",
+    "australia": "Australia",
+    "brazil": "Brazil",
+    "canada": "Canada",
+    "spain": "Spain",
+    "nicaragua": "Nicaragua",
+    "india": "India",
+    "china": "China",
+    "germany": "Germany",
+    "taiwan": "Taiwan"
+  },
+  "packageManagers": {
+    "title": "Менеджери пакетів",
+    "description": "This is the configuration details for the registry. Each package manager could have different configuration, expand each section for more details. If the section is disable review your configuration.",
+    "yarnclassicDetails": "Yarn classic configuration differs from Yarn 2+ configuration. For more details, please visit [Yarn Classic](https://verdaccio.org/docs/cli-registry#yarn-1x).",
+    "yarnBerryDetails": "Yarn Berry does not support the `--registry` flag, instead all configurarion should be defined on the `yarnrc.yaml` file in the root of your project. For more details, please visit [Yarn Berry](https://verdaccio.org/docs/cli-registry#yarn-berry-2x)."
+  },
+  "language": {
+    "title": "Переклади",
+    "contribute": "Якщо вашої мови тут немає в списку або перекладено не повністю, будь ласка, долучіться до перекладу. Ви можете знайти вихідний код у [нашому головному репозиторії](https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md)",
+    "description": "Це деталі конфігурації мови. Виберіть мову, щоб вибрати переклад клієнтської частини."
+  }
+}

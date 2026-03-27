@@ -1,0 +1,59 @@
+{
+  "name": "@verdaccio-pro/middleware",
+  "version": "1.1.0",
+  "description": "Middleware Plugin for Verdaccio Pro",
+  "keywords": [
+    "verdaccio",
+    "verdaccio-pro",
+    "plugin",
+    "middleware",
+    "shortcut"
+  ],
+  "author": {
+    "name": "Marc Bernard",
+    "url": "https://github.com/mbtools"
+  },
+  "license": "FSL-1.1-MIT",
+  "homepage": "https://verdaccio.pro",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/verdaccio-pro/verdaccio-pro.git",
+    "directory": "packages/middleware"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio-pro/verdaccio-pro/issues"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/verdaccio-pro"
+  },
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@verdaccio/config": "8.0.0-next-8.33",
+    "@verdaccio/core": "8.0.0-next-8.33",
+    "@verdaccio/logger": "8.0.0-next-8.33",
+    "debug": "4.4.3",
+    "express": "5.2.1"
+  },
+  "devDependencies": {
+    "@types/debug": "4.1.12",
+    "@types/express": "5.0.6",
+    "@verdaccio/types": "13.0.0-next-8.11",
+    "eslint": "9.39.4",
+    "tsup": "8.5.1",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "test": "echo 0"
+  }
+}

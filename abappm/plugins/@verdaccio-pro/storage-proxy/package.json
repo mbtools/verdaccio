@@ -1,0 +1,63 @@
+{
+  "name": "@verdaccio-pro/storage-proxy",
+  "version": "1.0.0",
+  "description": "Storage Proxy Plugin for Verdaccio Pro",
+  "keywords": [
+    "verdaccio",
+    "verdaccio-pro",
+    "plugin",
+    "storage",
+    "proxy"
+  ],
+  "author": {
+    "name": "Marc Bernard",
+    "url": "https://github.com/mbtools"
+  },
+  "license": "BSD-3-Clause",
+  "homepage": "https://verdaccio.pro",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/verdaccio-pro/verdaccio-pro.git",
+    "directory": "packages/middleware"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio-pro/verdaccio-pro/issues"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/verdaccio-pro"
+  },
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@verdaccio/config": "8.0.0-next-8.33",
+    "@verdaccio/core": "8.0.0-next-8.33",
+    "@verdaccio/loaders": "8.0.0-next-8.23",
+    "@verdaccio/logger": "8.0.0-next-8.33",
+    "debug": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/debug": "4.1.12",
+    "@types/node": "25.3.5",
+    "@verdaccio/types": "13.0.0-next-8.11",
+    "cross-env": "10.1.0",
+    "eslint": "9.39.4",
+    "tsup": "8.5.1",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "test": "cross-env NODE_ENV=test vitest run"
+  },
+  "contributors": [
+    "Favo Yang <https://github.com/favoyang>"
+  ]
+}
