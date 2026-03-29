@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import _ from 'lodash';
 import { existsSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { isAbsolute, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 import type { pluginUtils } from '@verdaccio/core';
@@ -119,8 +119,8 @@ export async function tryLoadAsync<T>(path: string, onError: any): Promise<Plugi
       debug('resolved ESM entry point: %s', importPath);
     }
 
-    // Convert to file URL for import() compatibility
-    const importUrl = importPath.startsWith('/') ? pathToFileURL(importPath).href : importPath;
+    // Convert to file URL for import() compatibility (Node ESM requires file:// on Windows)
+    const importUrl = isAbsolute(importPath) ? pathToFileURL(importPath).href : importPath;
     debug('trying dynamic import for plugin %s', importUrl);
     const module = await import(importUrl);
     debug('dynamic import succeeded for plugin %s', importUrl);
