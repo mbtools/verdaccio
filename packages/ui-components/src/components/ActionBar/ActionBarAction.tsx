@@ -22,7 +22,7 @@ export const Fab = styled(FabMUI)<{ theme?: Theme }>(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? greyMedium : undefined,
     color: theme.palette.mode === 'light' ? theme.palette.primary.main : common.white,
   },
-  color: common.white,
+  color: theme.palette.mode === 'light' ? theme.palette.black : common.white,
 }));
 
 type ActionType = 'VISIT_HOMEPAGE' | 'OPEN_AN_ISSUE' | 'DOWNLOAD_TARBALL' | 'RAW_DATA';

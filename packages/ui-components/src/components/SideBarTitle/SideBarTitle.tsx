@@ -4,11 +4,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { Theme } from '../../Theme';
+import type { ModuleType } from '../../types/packageMeta';
 import Heading from '../Heading';
-import { CommonJS, ES6Modules, TypeScript } from '../Icons';
+import { ABAPModule, CommonJS, TypeScript } from '../Icons';
 import { formatDate, formatDateDistance } from './utils';
-
-export type ModuleType = 'commonjs' | 'module';
 
 interface Props {
   packageName: string;
@@ -33,8 +32,9 @@ const ModuleJS: React.FC<{ module: ModuleType | void }> = ({ module }) => {
     );
   } else if (module === 'module') {
     return (
+      // apm
       <Icon>
-        <ES6Modules />
+        <ABAPModule />
       </Icon>
     );
   } else {

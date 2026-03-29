@@ -22,7 +22,7 @@
     "./build/*": "./build/*"
   },
   "scripts": {
-    "test": "cross-env TZ=UTC vitest run",
+    "test": "cross-env TZ=UTC vitest run --no-file-parallelism",
     "clean": "rimraf ./build",
     "type-check": "tsc --noEmit -p tsconfig.build.json",
     "build:types": "tsc --emitDeclarationOnly -p tsconfig.build.json",
@@ -42,8 +42,9 @@
     "@verdaccio/ui-i18n": "workspace:10.0.0-next-9.2",
     "country-flag-icons": "1.5.21",
     "dayjs": "1.11.18",
-    "dompurify": "3.3.1",
+    "dompurify": "3.3.3",
     "highlight.js": "11.11.1",
+    "highlightjs-sap-abap": "0.3.0",
     "i18next": "25.8.0",
     "js-base64": "3.7.8",
     "localstorage-memory": "1.0.3",
@@ -84,9 +85,6 @@
     "storybook": "10.2.17",
     "vitest": "4.1.0",
     "whatwg-fetch": "3.6.20"
-  },
-  "resolutions": {
-    "msw": "2.12.10"
   },
   "msw": {
     "workerDirectory": [

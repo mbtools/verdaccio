@@ -28,7 +28,7 @@ export const MobileNavBar = styled('div')<{ theme?: Theme }>((props) => ({
 export const InnerMobileNavBar = styled('div')<{ theme?: Theme }>((props) => ({
   borderRadius: '4px',
   backgroundColor: props.theme.palette.greyLight,
-  color: common.white,
+  color: props.theme.palette.mode === 'light' ? props.theme.palette.black : common.white,
   width: '100%',
   padding: '0 5px',
   margin: '0 10px 0 0',
@@ -48,7 +48,7 @@ export const SearchWrapper = styled('div')({
 export const NavBar = styled(AppBar)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor:
     theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.cyanBlue,
-  color: common.white,
+  color: theme.palette.mode === 'light' ? theme.palette.black : common.white,
   minHeight: 60,
   display: 'flex',
   justifyContent: 'center',

@@ -136,7 +136,7 @@ const Package: React.FC<PackageInterface> = ({
     url.isURL(homepage) && (
       <LinkExternal to={homepage}>
         <Tooltip aria-label={t('package.homepage')} title={t('package.visit-home-page')}>
-          <IconButton aria-label={t('package.homepage')} color="primary" size="large">
+          <IconButton aria-label={t('package.homepage')} size="large">
             <HomeIcon />
           </IconButton>
         </Tooltip>
@@ -148,7 +148,7 @@ const Package: React.FC<PackageInterface> = ({
     url.isURL(bugs.url) && (
       <LinkExternal to={bugs.url}>
         <Tooltip aria-label={t('package.bugs')} title={t('package.open-an-issue')}>
-          <IconButton aria-label={t('package.bugs')} color="primary" size="large">
+          <IconButton aria-label={t('package.bugs')} size="large">
             <BugReport />
           </IconButton>
         </Tooltip>
@@ -170,7 +170,6 @@ const Package: React.FC<PackageInterface> = ({
         >
           <IconButton
             aria-label={t('package.download')}
-            color="primary"
             data-testid="download-tarball"
             size="large"
           >

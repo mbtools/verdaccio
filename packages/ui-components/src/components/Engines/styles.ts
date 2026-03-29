@@ -6,7 +6,7 @@ import type { Theme } from '../../Theme';
 
 export const StyledText = styled(Typography)<{ theme?: Theme }>((props) => ({
   fontWeight: props.theme.fontWeight.bold,
-  textTransform: 'capitalize',
+  // textTransform: 'capitalize',
 }));
 
 export const EngineListItem = styled(ListItem)({

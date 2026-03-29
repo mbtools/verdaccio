@@ -1,14 +1,20 @@
 import DOMPurify from 'dompurify';
-import hljs from 'highlight.js';
+import hljs from 'highlight.js/lib/common';
+// apm
+import hlabap from 'highlightjs-sap-abap';
 import { Marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
+
+hljs.registerLanguage('abap', hlabap); // apm
 
 const marked = new Marked(
   markedHighlight({
     async: false,
     highlight(code, lang) {
-      const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-      return hljs.highlight(code, { language }).value;
+      if (hljs.getLanguage(lang)) {
+        return hljs.highlight(code, { language: lang }).value;
+      }
+      return hljs.highlightAuto(code).value;
     },
   })
 );

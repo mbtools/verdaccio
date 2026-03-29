@@ -7,7 +7,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { PackageMetaInterface } from '../../types/packageMeta';
-import { NodeJS, Npm, Pnpm, Yarn } from '../Icons';
+import { ABAP as Abap, Apm, NodeJS, Npm, Pnpm, Yarn } from '../Icons';
 import { EngineListItem, StyledText } from './styles';
 
 /**
@@ -37,7 +37,14 @@ const EngineItem: FC<EngineItemProps> = ({ title, element, engineText }) => (
 
 interface EngineMetadata extends Omit<PackageMetaInterface, 'latest'> {
   latest: {
-    engines?: { npm?: string; node?: string; pnpm?: string; yarn?: string };
+    engines?: {
+      abap?: string;
+      apm?: string;
+      npm?: string;
+      node?: string;
+      pnpm?: string;
+      yarn?: string;
+    };
   };
 }
 
@@ -62,6 +69,22 @@ const Engine: React.FC<Props> = ({ packageMeta }) => {
 
   return (
     <Grid container={true}>
+      {engines.abap ? (
+        <EngineItem
+          element={<Abap />}
+          engineText={engines.abap}
+          title={t('sidebar.engines.abap')}
+        />
+      ) : null}
+
+      {engines.apm ? (
+        <EngineItem
+          element={<Apm />}
+          engineText={engines.apm}
+          title={t('sidebar.engines.apm-version')}
+        />
+      ) : null}
+
       {engines.node ? (
         <EngineItem
           element={<NodeJS />}

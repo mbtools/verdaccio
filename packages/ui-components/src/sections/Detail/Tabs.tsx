@@ -37,6 +37,15 @@ const DetailContainerTabs: React.FC<Props> = ({ tabPosition, onChange, showUplin
 
 export default DetailContainerTabs;
 
-const Tabs = styled(MuiTabs)<{ theme?: Theme }>({
+const Tabs = styled(MuiTabs)<{ theme?: Theme }>(({ theme }) => ({
   marginBottom: 16,
-});
+  ...(theme.palette.mode === 'light' && {
+    '& .MuiTab-root': {
+      color: '#000000',
+      opacity: 1,
+    },
+    '& .MuiTab-root.Mui-selected': {
+      color: '#000000',
+    },
+  }),
+}));

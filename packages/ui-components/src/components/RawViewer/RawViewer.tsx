@@ -60,7 +60,7 @@ const RawViewer: React.FC<Props> = ({ isOpen = false, onClose, packageMeta }) =>
           collapseStringsAfterLength={200}
           collapsed={2}
           enableClipboard={true}
-          groupArraysAfterLength={10}
+          groupArraysAfterLength={100}
           src={packageMeta as any}
           theme={theme.palette.mode == 'light' ? 'bright:inverted' : 'bright'}
         />

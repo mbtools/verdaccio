@@ -132,6 +132,8 @@
       "title": "Collaboratori"
     },
     "engines": {
+      "abap": "ABAP Release",
+      "apm-version": "Versione apm",
       "npm-version": "Versione Npm",
       "pnpm-version": "Versione Pnpm",
       "yarn-version": "Versione di Yarn",

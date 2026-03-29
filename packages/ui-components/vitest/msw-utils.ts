@@ -23,7 +23,8 @@ export const mockHomePackages = (data?: any) =>
 
 export const mockSearch = (data?: any) =>
   http.get(`${BASE_URL}/-/verdaccio/data/search/*`, (async () => {
-    await delay(500);
+    // No artificial delay: a fixed 500ms here made Search tests flaky under CI load
+    // (default findBy/waitFor windows vs. stacked async + MSW scheduling).
     debug('Received search request. Returning mock search results.');
     const responseData = data || require('./api/search-verdaccio.json');
     debug(`Responding with ${responseData.length} search results.`);

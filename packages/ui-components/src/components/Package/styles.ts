@@ -49,15 +49,22 @@ export const Avatar = styled(Photo)({
   height: '20px',
 });
 
-export const WrapperLink = styled(Link)({
-  textDecoration: 'none',
+export const WrapperLink = styled(Link)<{ theme?: Theme }>(({ theme }) => {
+  const fg = theme.palette.mode === 'light' ? common.black : common.white;
+  return {
+    textDecoration: 'none',
+    color: fg,
+    '&:visited': {
+      color: fg,
+    },
+  };
 });
 
 export const PackageTitle = styled('span')<{ theme?: Theme }>(({ theme }) => ({
   fontWeight: theme.fontWeight.bold,
   fontSize: 20,
   display: 'block',
-  color: theme.palette.primary.main,
+  color: 'inherit',
   cursor: 'pointer',
   textDecoration: 'none',
   wordBreak: 'break-word',
@@ -74,16 +81,18 @@ export const GridRightAligned = styled(Grid)({
 
 export const Wrapper = styled(List)<{ theme?: Theme }>(({ theme }) => ({
   '&:hover': {
-    backgroundColor: theme.palette.action.hover,
+    backgroundColor:
+      theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.action.hover,
   },
 }));
 
-export const IconButton = styled(MuiIconButton)({
+export const IconButton = styled(MuiIconButton)<{ theme?: Theme }>(({ theme }) => ({
   padding: 6,
   svg: {
     fontSize: 16,
   },
-});
+  color: theme.palette.mode === 'light' ? common.black : common.white,
+}));
 
 export const PackageListItemText = styled(ListItemText)({
   paddingRight: 0,

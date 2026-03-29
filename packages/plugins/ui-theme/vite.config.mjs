@@ -18,6 +18,7 @@ function verdaccioManifestPlugin() {
   const staticPrefix = '-/static/';
   return {
     name: 'verdaccio-manifest',
+    enforce: 'post',
     apply: 'build',
     buildStart() {
       // Emit favicon as a static asset so it lands in outDir
@@ -95,11 +96,14 @@ export default defineConfig(({ command }) => ({
   },
 
   build: {
+    // Emit CSS as separate files; do not inline CSS into async JS chunks.
+    cssCodeSplit: false,
     outDir: 'static',
     emptyOutDir: true,
     assetsDir: '',
     sourcemap: false,
     minify: true,
+    chunkSizeWarningLimit: 2048,
     rolldownOptions: {
       input: { main: path.resolve(__dirname, './src/index.tsx') },
       output: {

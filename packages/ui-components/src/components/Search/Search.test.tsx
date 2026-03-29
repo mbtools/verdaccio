@@ -154,8 +154,8 @@ describe('<Search /> component', () => {
 
   test('should create a stable debounced function via useMemo', () => {
     renderWithRouteDetail(<ComponentToBeRendered />);
-    // debounce should be called once on mount with the fetch handler and 300ms delay
-    expect(mockedDebounce).toHaveBeenCalledWith(expect.any(Function), 300);
+    // debounce should be called once on mount with the fetch handler and 500ms delay
+    expect(mockedDebounce).toHaveBeenCalledWith(expect.any(Function), 500);
     const callCount = mockedDebounce.mock.calls.length;
 
     // re-render should not create a new debounced instance

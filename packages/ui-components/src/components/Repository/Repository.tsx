@@ -45,11 +45,11 @@ const Repository: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
   }
 
   const getCorrectRepositoryURL = (): string => {
-    if (!url.includes('git+')) {
-      return url;
+    if (url.includes('git+')) {
+      return url.split('git+')[1];
     }
 
-    return url.split('git+')[1];
+    return url.replace('git://', 'https://');
   };
 
   const repositoryURL = getCorrectRepositoryURL();
