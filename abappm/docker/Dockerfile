@@ -25,7 +25,6 @@ WORKDIR $VERDACCIO_BUILD_DIR
 RUN corepack enable && corepack prepare pnpm@$PNPM_VERSION --activate
 
 # Copy only package files to benefit from Docker cache
-COPY .babelrc ./
 COPY pnpm-lock.yaml ./ 
 COPY pnpm-workspace.yaml ./
 COPY tsconfig.base.json ./
@@ -48,7 +47,7 @@ LABEL maintainer="https://github.com/abapPM/abapPM" \
       dockerfile="Dockerfile-apm"
 
 ENV NODE_ENV=production \
-    PNPM_VERSION=10.32.1 \
+    PNPM_VERSION=10.33.0 \
     PNPM_STORE_DIR=/opt/.pnpm-store \
     VERDACCIO_APP_DIR=/opt/verdaccio \
     VERDACCIO_BUILD_DIR=/opt/verdaccio-build \
@@ -73,7 +72,6 @@ RUN corepack enable && corepack prepare pnpm@$PNPM_VERSION --activate
 
 # Copy only package files to benefit from Docker cache
 # Remove tools and standalone since we don't need them for production
-COPY .babelrc ./
 COPY pnpm-lock.yaml ./ 
 COPY pnpm-workspace.yaml ./
 COPY tsconfig.base.json ./
@@ -81,7 +79,10 @@ COPY tsconfig.reference.json ./
 COPY package.json ./
 COPY packages/ ./packages/
 COPY docker-bin/ ./docker-bin/
-RUN rm -rf ./packages/tools ./packages/standalone
+RUN rm -rf ./packages/tools/helpers
+RUN rm -rf ./packages/tools/local-publish
+RUN rm -rf ./packages/tools/verdaccio-prefix-fake-plugin
+RUN rm -rf ./packages/standalone 
 
 # Only install production dependencies (omit devDependencies)
 RUN pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
@@ -102,8 +103,6 @@ COPY --from=builder $VERDACCIO_BUILD_DIR/packages/core/url/build ./packages/core
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/hooks/build ./packages/hooks/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/loaders/build ./packages/loaders/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/logger/logger/build ./packages/logger/logger/build
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/logger/logger-commons/build ./packages/logger/logger-commons/build
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/logger/logger-prettify/build ./packages/logger/logger-prettify/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/middleware/build ./packages/middleware/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/node-api/build ./packages/node-api/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/plugins/audit/build ./packages/plugins/audit/build
@@ -117,6 +116,7 @@ COPY --from=builder $VERDACCIO_BUILD_DIR/packages/search-indexer/build ./package
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/server/express/build ./packages/server/express/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/signature/build ./packages/signature/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/store/build ./packages/store/build
+COPY --from=builder $VERDACCIO_BUILD_DIR/packages/tools/plugin-verifier/build ./packages/tools/plugin-verifier/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/ui-components/build ./packages/ui-components/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/ui-components/public ./packages/ui-components/public
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/utils/build ./packages/utils/build
