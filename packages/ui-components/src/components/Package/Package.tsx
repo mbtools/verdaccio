@@ -234,9 +234,9 @@ const Package: React.FC<PackageInterface> = ({
 
 export default Package;
 
-const iconStyle = ({ theme }: { theme: Theme }) => css`
+const iconStyle = ({ theme }: { theme?: Theme }) => css`
   margin: 0 10px 0 0;
-  fill: ${theme.palette.mode === 'light' ? grey[900] : common.white};
+  fill: ${theme?.palette.mode === 'light' ? grey[900] : common.white};
 `;
 
 const StyledVersion = styled(Version)`

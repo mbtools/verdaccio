@@ -1,5 +1,6 @@
 import { Box, TextField } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import type React from 'react';
 
 export const SecurityContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -11,7 +12,9 @@ export const SecurityContainer = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
 }));
 
-export const SecurityForm = styled(Box)(({ theme }) => ({
+export const SecurityForm = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'component',
+})<{ component?: React.ElementType }>(({ theme }) => ({
   width: '100%',
   maxWidth: 420,
   padding: theme.spacing(4),

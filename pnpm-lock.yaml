@@ -154,7 +154,7 @@ importers:
         version: 10.1.0
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       eslint:
         specifier: 10.0.3
         version: 10.0.3
@@ -265,7 +265,7 @@ importers:
         version: 15.10.0
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       get-port:
         specifier: 5.1.1
         version: 5.1.1
@@ -295,7 +295,7 @@ importers:
         version: link:../store
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       express:
         specifier: 5.2.1
         version: 5.2.1
@@ -341,7 +341,7 @@ importers:
         version: link:../signature
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       lodash-es:
         specifier: 4.17.23
         version: 4.17.23
@@ -415,7 +415,7 @@ importers:
         version: link:../core/core
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       js-yaml:
         specifier: 4.1.1
         version: 4.1.1
@@ -495,7 +495,7 @@ importers:
         version: link:../url
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       gunzip-maybe:
         specifier: 1.4.2
         version: 1.4.2
@@ -529,7 +529,7 @@ importers:
         version: link:../core
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       validator:
         specifier: 13.15.26
         version: 13.15.26
@@ -551,7 +551,7 @@ importers:
         version: link:../logger
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       got-cjs:
         specifier: 12.5.4
         version: 12.5.4
@@ -582,7 +582,7 @@ importers:
         version: link:../core/core
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       lodash-es:
         specifier: 4.17.23
         version: 4.17.23
@@ -622,7 +622,7 @@ importers:
         version: 1.11.20
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       on-exit-leak-free:
         specifier: 2.1.2
         version: 2.1.2
@@ -656,7 +656,7 @@ importers:
         version: link:../core/url
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       express:
         specifier: 5.2.1
         version: 5.2.1
@@ -699,7 +699,7 @@ importers:
         version: link:../logger
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       lodash-es:
         specifier: 4.17.23
         version: 4.17.23
@@ -764,7 +764,7 @@ importers:
         version: link:../../core/core
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
     devDependencies:
       '@types/debug':
         specifier: 4.1.12
@@ -795,7 +795,7 @@ importers:
         version: 2.4.3
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       http-errors:
         specifier: 2.0.1
         version: 2.0.1
@@ -832,7 +832,7 @@ importers:
         version: link:../../core/file-locking
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       globby:
         specifier: 11.1.0
         version: 11.1.0
@@ -866,7 +866,7 @@ importers:
         version: link:../../core/core
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       memfs:
         specifier: 4.17.2
         version: 4.17.2
@@ -894,7 +894,7 @@ importers:
         version: link:../../core/core
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       semver:
         specifier: 7.7.4
         version: 7.7.4
@@ -997,7 +997,7 @@ importers:
         version: 1.3.5
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       got:
         specifier: 14.6.6
         version: 14.6.6
@@ -1043,7 +1043,7 @@ importers:
         version: link:../proxy
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       lodash-es:
         specifier: 4.17.23
         version: 4.17.23
@@ -1068,7 +1068,7 @@ importers:
         version: 1.2.11
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
     devDependencies:
       '@verdaccio/types':
         specifier: workspace:14.0.0-next-9.4
@@ -1114,7 +1114,7 @@ importers:
         version: 2.8.5
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       express:
         specifier: 5.2.1
         version: 5.2.1
@@ -1148,7 +1148,7 @@ importers:
         version: link:../core/core
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       jsonwebtoken:
         specifier: 9.0.3
         version: 9.0.3
@@ -1191,7 +1191,7 @@ importers:
         version: link:../core/url
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       lodash-es:
         specifier: 4.17.23
         version: 4.17.23
@@ -1240,7 +1240,7 @@ importers:
         version: link:../../middleware
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       express:
         specifier: 5.2.1
         version: 5.2.1
@@ -1289,7 +1289,7 @@ importers:
         version: 4.0.0-rc.4(typanion@3.14.0)
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
     devDependencies:
       '@verdaccio/config':
         specifier: workspace:9.0.0-next-9.8
@@ -1323,6 +1323,9 @@ importers:
       '@mui/material':
         specifier: 7.3.9
         version: 7.3.9(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@mui/system':
+        specifier: 7.3.9
+        version: 7.3.9(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4)
       '@verdaccio/ui-i18n':
         specifier: workspace:10.0.0-next-9.2
         version: link:../core/i18n
@@ -1485,7 +1488,7 @@ importers:
         version: link:../plugins/ui-theme
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       verdaccio-audit:
         specifier: workspace:14.0.0-next-9.8
         version: link:../plugins/audit
@@ -1564,7 +1567,7 @@ importers:
         version: link:../plugins/ui-theme
       debug:
         specifier: 4.4.3
-        version: 4.4.3(supports-color@5.5.0)
+        version: 4.4.3(supports-color@8.1.1)
       express:
         specifier: 5.2.1
         version: 5.2.1
@@ -8423,7 +8426,7 @@ snapshots:
       '@babel/types': 7.28.4
       '@jridgewell/remapping': 2.3.5
       convert-source-map: 2.0.0
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
       gensync: 1.0.0-beta.2
       json5: 2.2.3
       semver: 6.3.1
@@ -8523,7 +8526,7 @@ snapshots:
       '@babel/parser': 7.28.4
       '@babel/template': 7.27.2
       '@babel/types': 7.28.4
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -8535,7 +8538,7 @@ snapshots:
       '@babel/parser': 7.29.0
       '@babel/template': 7.28.6
       '@babel/types': 7.29.0
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -9106,7 +9109,7 @@ snapshots:
   '@eslint/config-array@0.23.3':
     dependencies:
       '@eslint/object-schema': 3.0.3
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
       minimatch: 10.2.4
     transitivePeerDependencies:
       - supports-color
@@ -10256,7 +10259,7 @@ snapshots:
       '@typescript-eslint/types': 8.57.0
       '@typescript-eslint/typescript-estree': 8.57.0(typescript@5.9.3)
       '@typescript-eslint/visitor-keys': 8.57.0
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
       eslint: 10.0.3
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -10266,7 +10269,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/tsconfig-utils': 8.57.0(typescript@5.9.3)
       '@typescript-eslint/types': 8.57.0
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
       typescript: 5.9.3
     transitivePeerDependencies:
       - supports-color
@@ -10285,7 +10288,7 @@ snapshots:
       '@typescript-eslint/types': 8.57.0
       '@typescript-eslint/typescript-estree': 8.57.0(typescript@5.9.3)
       '@typescript-eslint/utils': 8.57.0(eslint@10.0.3)(typescript@5.9.3)
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
       eslint: 10.0.3
       ts-api-utils: 2.4.0(typescript@5.9.3)
       typescript: 5.9.3
@@ -10302,7 +10305,7 @@ snapshots:
       '@typescript-eslint/tsconfig-utils': 8.57.0(typescript@5.9.3)
       '@typescript-eslint/types': 8.57.0
       '@typescript-eslint/visitor-keys': 8.57.0
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
       minimatch: 10.2.4
       semver: 7.7.4
       tinyglobby: 0.2.15
@@ -11030,7 +11033,7 @@ snapshots:
     dependencies:
       bytes: 3.1.2
       content-type: 1.0.5
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
       http-errors: 2.0.1
       iconv-lite: 0.7.1
       on-finished: 2.4.1
@@ -11982,7 +11985,7 @@ snapshots:
 
   eslint-import-resolver-typescript@4.4.4(eslint-plugin-import-x@4.16.1(@typescript-eslint/utils@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@10.0.3))(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.57.0(eslint@10.0.3)(typescript@5.9.3))(eslint@10.0.3))(eslint@10.0.3):
     dependencies:
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
       eslint: 10.0.3
       eslint-import-context: 0.1.9(unrs-resolver@1.11.1)
       get-tsconfig: 4.13.6
@@ -12016,7 +12019,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.46.2
       comment-parser: 1.4.5
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
       eslint: 10.0.3
       eslint-import-context: 0.1.9(unrs-resolver@1.11.1)
       is-glob: 4.0.3
@@ -12173,7 +12176,7 @@ snapshots:
       '@types/estree': 1.0.8
       ajv: 6.14.0
       cross-spawn: 7.0.6
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
       escape-string-regexp: 4.0.0
       eslint-scope: 9.1.2
       eslint-visitor-keys: 5.0.1
@@ -12274,7 +12277,7 @@ snapshots:
       content-type: 1.0.5
       cookie: 0.7.2
       cookie-signature: 1.2.2
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
       depd: 2.0.0
       encodeurl: 2.0.0
       escape-html: 1.0.3
@@ -12369,7 +12372,7 @@ snapshots:
 
   finalhandler@2.1.1:
     dependencies:
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
       encodeurl: 2.0.0
       escape-html: 1.0.3
       on-finished: 2.4.1
@@ -12778,7 +12781,7 @@ snapshots:
   http-proxy-agent@7.0.2:
     dependencies:
       agent-base: 7.1.3
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -12810,7 +12813,7 @@ snapshots:
   https-proxy-agent@7.0.6:
     dependencies:
       agent-base: 7.1.3
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -13841,7 +13844,7 @@ snapshots:
   micromark@4.0.0:
     dependencies:
       '@types/debug': 4.1.12
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
       decode-named-character-reference: 1.0.2
       devlop: 1.1.0
       micromark-core-commonmark: 2.0.0
@@ -14018,7 +14021,7 @@ snapshots:
 
   nock@13.5.6:
     dependencies:
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
       json-stringify-safe: 5.0.1
       propagate: 2.0.1
     transitivePeerDependencies:
@@ -14791,7 +14794,7 @@ snapshots:
 
   router@2.2.0:
     dependencies:
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
       depd: 2.0.0
       is-promise: 4.0.0
       parseurl: 1.3.3
@@ -14898,7 +14901,7 @@ snapshots:
 
   send@1.2.1:
     dependencies:
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
       encodeurl: 2.0.0
       escape-html: 1.0.3
       etag: 1.8.1
@@ -15247,7 +15250,7 @@ snapshots:
     dependencies:
       component-emitter: 1.3.1
       cookiejar: 2.1.4
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
       fast-safe-stringify: 2.1.1
       form-data: 4.0.4
       formidable: 3.5.4
@@ -15793,7 +15796,7 @@ snapshots:
       '@volar/typescript': 2.4.28
       '@vue/language-core': 2.2.0(typescript@5.9.3)
       compare-versions: 6.1.1
-      debug: 4.4.3(supports-color@5.5.0)
+      debug: 4.4.3(supports-color@8.1.1)
       kolorist: 1.8.0
       local-pkg: 1.1.2
       magic-string: 0.30.17

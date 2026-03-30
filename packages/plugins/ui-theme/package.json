@@ -59,7 +59,7 @@
     "lint": "pnpm lint:js",
     "clean": "rimraf ./static",
     "verdaccio:server": "node tools/verdaccio.js",
-    "build": "pnpm clean && vite build"
+    "build": "vite build"
   },
   "license": "MIT",
   "collective": {
