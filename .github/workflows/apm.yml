@@ -15,7 +15,7 @@ on:
       - 'abappm/**'
     branches:
       - 'apm'
-      - 'apm-new'
+      - 'apm-v9'
 
 permissions:
   contents: read
