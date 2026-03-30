@@ -121,7 +121,6 @@ COPY --from=builder $VERDACCIO_BUILD_DIR/packages/store/build ./packages/store/b
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/tools/plugin-verifier/build ./packages/tools/plugin-verifier/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/ui-components/build ./packages/ui-components/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/ui-components/public ./packages/ui-components/public
-COPY --from=builder $VERDACCIO_BUILD_DIR/packages/utils/build ./packages/utils/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/verdaccio/bin ./packages/verdaccio/bin
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/verdaccio/build ./packages/verdaccio/build
 COPY --from=builder $VERDACCIO_BUILD_DIR/packages/web/build ./packages/web/build
