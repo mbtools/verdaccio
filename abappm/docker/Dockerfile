@@ -29,6 +29,7 @@ COPY pnpm-lock.yaml ./
 COPY pnpm-workspace.yaml ./
 COPY tsconfig.base.json ./
 COPY tsconfig.reference.json ./
+COPY vite.lib.config.mjs ./
 COPY package.json ./
 COPY packages/ ./packages/
 
@@ -76,6 +77,7 @@ COPY pnpm-lock.yaml ./
 COPY pnpm-workspace.yaml ./
 COPY tsconfig.base.json ./
 COPY tsconfig.reference.json ./
+COPY vite.lib.config.mjs ./
 COPY package.json ./
 COPY packages/ ./packages/
 COPY docker-bin/ ./docker-bin/
