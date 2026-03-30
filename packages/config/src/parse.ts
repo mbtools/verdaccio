@@ -54,7 +54,7 @@ export function parseConfigFile(configPath: string): ConfigYaml & {
   } catch (e: any) {
     if (e.code !== 'MODULE_NOT_FOUND') {
       debug('config module not found %o error: %o', configPath, e.message);
-      throw Error(APP_ERROR.CONFIG_NOT_VALID);
+      throw Error(APP_ERROR.CONFIG_NOT_VALID, { cause: e });
     }
 
     throw e;

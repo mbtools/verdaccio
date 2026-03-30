@@ -1,5 +1,5 @@
 import buildDebug from 'debug';
-import { isObject } from 'lodash';
+import { isObject } from 'lodash-es';
 
 const debug = buildDebug('verdaccio:config:parse-env');
 /**
