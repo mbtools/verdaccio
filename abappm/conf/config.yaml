@@ -31,7 +31,8 @@ web:
   # Disable gravatar support
   gravatar: true
   # By default, packages are ordered ascending
-  # sort_packages: asc | desc
+  sort_field: time
+  sort_packages: desc
   # Convert your UI to the dark side
   darkMode: true
   # html_cache: true
