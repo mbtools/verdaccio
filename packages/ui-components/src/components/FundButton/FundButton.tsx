@@ -19,6 +19,16 @@ const StyledFavoriteIcon = styled(Favorite)<{ theme?: Theme }>(({ theme }) => ({
   color: theme.palette.love,
 }));
 
+const StyledFundButton = styled(Button)<{ theme?: Theme }>(({ theme }) => ({
+  ...(theme.palette.mode === 'light' && {
+    color: theme.palette.common.black,
+    borderColor: theme.palette.common.black,
+    '&:hover': {
+      borderColor: theme.palette.common.black,
+    },
+  }),
+}));
+
 const StyledFundStrong = styled('strong')({
   marginRight: 3,
 });
@@ -32,14 +42,14 @@ const FundButton: React.FC<{ packageMeta: any }> = ({ packageMeta }) => {
 
   return (
     <StyledLink to={fundingUrl} variant="button">
-      <Button
+      <StyledFundButton
         color="primary"
         fullWidth={true}
         startIcon={<StyledFavoriteIcon />}
         variant="outlined"
       >
         <Trans components={[<StyledFundStrong key="fund" />]} i18nKey="button.fund-this-package" />
-      </Button>
+      </StyledFundButton>
     </StyledLink>
   );
 };
