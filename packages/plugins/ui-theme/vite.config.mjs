@@ -103,7 +103,7 @@ export default defineConfig(({ command }) => ({
     assetsDir: '',
     sourcemap: false,
     minify: true,
-    chunkSizeWarningLimit: 2048,
+    chunkSizeWarningLimit: 2560,
     rolldownOptions: {
       input: { main: path.resolve(__dirname, './src/index.tsx') },
       output: {

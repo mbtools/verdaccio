@@ -36,6 +36,7 @@ declare module '@mui/material/styles' {
     nobel01?: string;
   }
 }
+
 declare module '@mui/material/styles/createTheme' {
   interface Theme extends CustomizedTheme {}
 
