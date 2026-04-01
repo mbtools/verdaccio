@@ -15,7 +15,6 @@ on:
       - 'abappm/**'
     branches:
       - 'apm'
-      - 'apm-v9'
 
 permissions:
   contents: read
@@ -29,6 +28,16 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == 'mbtools/verdaccio'
     steps:
+      - name: Check Verdaccio Pro Registry
+        run: |
+          set -e
+          if curl -sfL --max-time 10 https://registry.verdaccio.pro/ > /dev/null; then
+            echo "Verdaccio Pro Registry is reachable."
+          else
+            echo "ERROR: Verdaccio Pro Registry at https://registry.verdaccio.pro is NOT reachable." >&2
+            exit 1
+          fi
+
       - name: Checkout Repository
         uses: actions/checkout@v6
 
