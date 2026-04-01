@@ -37,9 +37,9 @@ export const log = (logger, options: LogOptions = {}) => {
     req.url = req.originalUrl;
     const _skipLog = hideStaticLogs && isStaticRequest(req.url);
     if (_skipLog) {
-      debug("@{ip} requested '@{req.method} @{req.url}'", { ip: req.ip, req });
+      debug("@{ip} requested '@{method} @{url}'", { ip: req.ip, method: req.method, url: req.url });
     } else {
-      req.log.info({ req: req, ip: req.ip }, "@{ip} requested '@{req.method} @{req.url}'");
+      req.log.info({ req }, "@{req.ip} requested '@{req.method} @{req.url}'");
     }
     req.originalUrl = req.url;
 
