@@ -58,7 +58,7 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
 
   route.get(
     PACKAGE_API_ENDPOINTS.get_package_tarball,
-    can('access'),
+    can('publish'), // apm
     async function (req: $RequestExtend, res: $ResponseExtend, next): Promise<void> {
       const { package: pkgName, filename } = req.params as { package: string; filename: string };
       const abort = new AbortController();
