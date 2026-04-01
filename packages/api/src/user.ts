@@ -38,7 +38,8 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
         return next({ ok: false });
       }
 
-      const username = req.params.org_couchdb_user.split(':')[1];
+      const orgCouchdbUser = req.params.org_couchdb_user as string;
+      const username = orgCouchdbUser.split(':')[1];
       const message = authUtils.getAuthenticatedMessage(req.remote_user.name);
       debug('user authenticated message %o', message);
       res.status(HTTP_STATUS.OK);

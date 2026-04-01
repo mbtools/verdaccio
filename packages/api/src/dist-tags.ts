@@ -21,11 +21,11 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
     if (typeof req.body !== 'string') {
       return next(errorUtils.getBadRequest('version is missing'));
     }
-
+    const { package: packageName, tag } = req.params as { package: string; tag: string };
     const tags = {};
-    tags[req.params.tag] = req.body;
+    tags[tag] = req.body;
     try {
-      await storage.mergeTagsNext(req.params.package, tags);
+      await storage.mergeTagsNext(packageName, tags);
       res.status(constants.HTTP_STATUS.CREATED);
       return next({
         ok: constants.API_MESSAGE.TAG_ADDED,
@@ -58,10 +58,11 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
       res: $ResponseExtend,
       next: $NextFunctionVer
     ): Promise<void> {
+      const { package: packageName, tag } = req.params as { package: string; tag: string };
       const tags = {};
-      tags[req.params.tag] = null;
+      tags[tag] = null;
       try {
-        await storage.mergeTagsNext(req.params.package, tags);
+        await storage.mergeTagsNext(packageName, tags);
         res.status(constants.HTTP_STATUS.CREATED);
         return next({
           ok: constants.API_MESSAGE.TAG_REMOVED,
@@ -80,7 +81,7 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
       res: $ResponseExtend,
       next: $NextFunctionVer
     ): Promise<void> {
-      const name = req.params.package;
+      const name = req.params.package as string;
       const requestOptions = getRequestOptions(req);
       try {
         const manifest = await storage.getPackageByOptions({

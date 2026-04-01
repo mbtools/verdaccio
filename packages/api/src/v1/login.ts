@@ -69,7 +69,7 @@ export default function (
         debug('sessionId is missing');
         return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.SESSION_ID_REQUIRED));
       }
-      const sessionId = req.params.sessionId;
+      const sessionId = req.params.sessionId as string;
       if (sessionId.length !== 36) {
         debug('sessionId is invalid length: %o', sessionId.length);
         return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.SESSION_ID_INVALID));
@@ -126,7 +126,7 @@ export default function (
         debug('sessionId is missing');
         return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.SESSION_ID_REQUIRED));
       }
-      const sessionId = req.params.sessionId;
+      const sessionId = req.params.sessionId as string;
       if (sessionId.length !== 36) {
         debug('sessionId is invalid length: %o', sessionId.length);
         return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.SESSION_ID_INVALID));

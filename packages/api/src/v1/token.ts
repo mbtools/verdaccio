@@ -135,9 +135,7 @@ export default function (
     TOKEN_API_ENDPOINTS.delete_token,
     rateLimit(config?.userRateLimit),
     async (req: $RequestExtend, res: Response, next: $NextFunctionVer) => {
-      const {
-        params: { tokenKey },
-      } = req;
+      const tokenKey = req.params.tokenKey as string;
       const { name } = req.remote_user;
 
       if (isNil(name) === false) {

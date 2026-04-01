@@ -24,8 +24,8 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
       _res: $ResponseExtend,
       next: $NextFunctionVer
     ): Promise<void> {
-      const name = req.params.package;
-      const version = req.params.version;
+      const name = req.params.package as string;
+      const version = req.params.version as string | undefined;
       debug('get package by version: %o %o', name, version);
       const abbreviated =
         stringUtils.getByQualityPriorityValue(req.get('Accept')) === Storage.ABBREVIATED_HEADER;
@@ -60,7 +60,7 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
     PACKAGE_API_ENDPOINTS.get_package_tarball,
     can('access'),
     async function (req: $RequestExtend, res: $ResponseExtend, next): Promise<void> {
-      const { package: pkgName, filename } = req.params;
+      const { package: pkgName, filename } = req.params as { package: string; filename: string };
       const abort = new AbortController();
       try {
         debug('downloading tarball %o', filename);

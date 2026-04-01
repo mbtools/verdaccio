@@ -10,7 +10,6 @@ import {
   getRequestOptions,
   media,
 } from '@verdaccio/middleware';
-// import star from './star';
 import type { Storage } from '@verdaccio/store';
 import type { Logger } from '@verdaccio/types';
 
@@ -160,8 +159,8 @@ export default function publish(
     PUBLISH_API_ENDPOINTS.publish_package,
     can('unpublish'),
     async function (req: $RequestExtend, res: $ResponseExtend, next: $NextFunctionVer) {
-      const packageName = req.params.package;
-      const rev = req.params.revision;
+      const packageName = req.params.package as string;
+      const rev = req.params.revision as string;
       const username = req?.remote_user?.name;
 
       logger.debug({ packageName }, `unpublishing @{packageName}`);
@@ -188,8 +187,8 @@ export default function publish(
       res: $ResponseExtend,
       next: $NextFunctionVer
     ): Promise<void> {
-      const packageName = req.params.package;
-      const { filename, revision } = req.params;
+      const packageName = req.params.package as string;
+      const { filename, revision } = req.params as { filename: string; revision: string };
       const username = req?.remote_user?.name;
 
       logger.debug(
@@ -220,8 +219,8 @@ export function publishPackage(storage: Storage, logger: Logger, origin: string)
   ): Promise<void> {
     debug(origin);
     const ac = new AbortController();
-    const packageName = req.params.package;
-    const { revision } = req.params;
+    const packageName = req.params.package as string;
+    const revision = req.params.revision as string;
     debug('publishing package %s', packageName);
     debug('revision %s', revision);
     if (debug.enabled) {
