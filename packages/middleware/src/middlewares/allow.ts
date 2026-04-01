@@ -22,7 +22,7 @@ export function allow<T>(
         ? `${req.params.scope}/${req.params.package}`
         : req.params.package;
       const packageVersion = req.params.filename
-        ? tarballUtils.getVersionFromTarball(req.params.filename)
+        ? tarballUtils.getVersionFromTarball(req.params.filename as string)
         : req.params.version
           ? req.params.version
           : undefined;

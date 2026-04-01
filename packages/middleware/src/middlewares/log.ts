@@ -37,7 +37,7 @@ export const log = (logger, options: LogOptions = {}) => {
     req.url = req.originalUrl;
     const _skipLog = hideStaticLogs && isStaticRequest(req.url);
     if (_skipLog) {
-      debug("@{ip} requested '@{method} @{url}'", { ip: req.ip, method: req.method, url: req.url });
+      debug("@{ip} requested '@{method} @{url}'", { ...req });
     } else {
       req.log.info({ req }, "@{req.ip} requested '@{req.method} @{req.url}'");
     }
@@ -128,7 +128,7 @@ export const log = (logger, options: LogOptions = {}) => {
         : constants.LOG_VERDACCIO_BYTES;
 
       if (_skipLog) {
-        debug(message, getRequestContext());
+        debug(message, { ...getRequestContext() });
       } else {
         req.url = req.originalUrl;
         req.log.http(getRequestContext(), message);
