@@ -105,7 +105,7 @@ var prototypePollutionProtection = (config) => {
     // Explicitly reject __proto__ and constructor
     verify: (_req, _res, buf) => {
       const str = buf.toString();
-      if (str.includes("__proto__") || str.includes("constructor")) {
+      if (str.includes("__proto__") || str.includes('"constructor"') || str.includes('"prototype"')) {
         throw new Error("Invalid JSON");
       }
     }

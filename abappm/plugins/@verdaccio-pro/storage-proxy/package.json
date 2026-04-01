@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio-pro/storage-proxy",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Storage Proxy Plugin for Verdaccio Pro",
   "keywords": [
     "verdaccio",
@@ -33,21 +33,21 @@
     "build"
   ],
   "engines": {
-    "node": ">=18"
+    "node": ">=24"
   },
   "dependencies": {
-    "@verdaccio/config": "8.0.0-next-8.33",
-    "@verdaccio/core": "8.0.0-next-8.33",
-    "@verdaccio/loaders": "8.0.0-next-8.23",
-    "@verdaccio/logger": "8.0.0-next-8.33",
+    "@verdaccio/config": "9.0.0-next-9.8",
+    "@verdaccio/core": "9.0.0-next-9.8",
+    "@verdaccio/loaders": "9.0.0-next-9.8",
+    "@verdaccio/logger": "9.0.0-next-9.8",
     "debug": "4.4.3"
   },
   "devDependencies": {
-    "@types/debug": "4.1.12",
-    "@types/node": "25.3.5",
-    "@verdaccio/types": "13.0.0-next-8.11",
+    "@types/debug": "4.1.13",
+    "@types/node": "25.5.0",
+    "@verdaccio/types": "14.0.0-next-9.4",
     "cross-env": "10.1.0",
-    "eslint": "9.39.4",
+    "eslint": "10.1.0",
     "tsup": "8.5.1",
     "typescript": "5.9.3"
   },
