@@ -46,7 +46,7 @@ describe('<AutoComplete /> component', () => {
     expect(screen.getByRole('combobox')).toBeInTheDocument();
   });
 
-  test('should call onSuggestionsFetch when user types', () => {
+  test('should call onSuggestionsFetch when user types at least 3 characters', () => {
     const props = defaultProps();
     render(<AutoComplete {...props} />);
     const input = screen.getByRole('combobox');
@@ -54,6 +54,32 @@ describe('<AutoComplete /> component', () => {
     fireEvent.change(input, { target: { value: 'react' } });
 
     expect(props.onSuggestionsFetch).toHaveBeenCalledWith({ value: 'react' });
+  });
+
+  test('should not call onSuggestionsFetch when fewer than 3 characters are typed', () => {
+    const props = defaultProps();
+    render(<AutoComplete {...props} />);
+    const input = screen.getByRole('combobox');
+
+    fireEvent.change(input, { target: { value: 'ab' } });
+
+    expect(props.onSuggestionsFetch).not.toHaveBeenCalled();
+    expect(props.onCleanSuggestions).not.toHaveBeenCalled();
+  });
+
+  test('should call onCleanSuggestions when deleting below 3 characters', () => {
+    const props = defaultProps();
+    render(<AutoComplete {...props} />);
+    const input = screen.getByRole('combobox');
+
+    fireEvent.change(input, { target: { value: 'ver' } });
+    expect(props.onSuggestionsFetch).toHaveBeenCalledWith({ value: 'ver' });
+
+    vi.clearAllMocks();
+    fireEvent.change(input, { target: { value: 've' } });
+
+    expect(props.onSuggestionsFetch).not.toHaveBeenCalled();
+    expect(props.onCleanSuggestions).toHaveBeenCalled();
   });
 
   test('should call onCleanSuggestions and clear input on reason "clear"', () => {
@@ -72,7 +98,7 @@ describe('<AutoComplete /> component', () => {
     }
   });
 
-  test('should not show options when input is empty/whitespace', () => {
+  test('should not show options when input is empty/whitespace or shorter than 3 characters', () => {
     const props = defaultProps();
     props.suggestions = [makeSuggestion('verdaccio')] as any;
     render(<AutoComplete {...props} />);
@@ -80,6 +106,9 @@ describe('<AutoComplete /> component', () => {
 
     fireEvent.focus(input);
     // filterOptions returns [] when inputValue is empty
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+
+    fireEvent.change(input, { target: { value: 've' } });
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
   });
 

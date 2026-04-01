@@ -1,11 +1,13 @@
 import Autocomplete from '@mui/material/Autocomplete';
 import type { FC } from 'react';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import type { SearchResultWeb } from '@verdaccio/types';
 
 import { Wrapper } from './styles';
+
+const MIN_QUERY_LENGTH = 3;
 
 export type OnSelecItem = (
   event: React.SyntheticEvent,
@@ -37,20 +39,30 @@ const AutoComplete: FC<Props> = ({
 }: Props) => {
   const { t } = useTranslation();
   const [inputValue, setInputValue] = useState('');
+  const inputValueRef = useRef('');
 
   const handleOnInputChange = (event: React.SyntheticEvent, value: string, reason: string) => {
     if (reason === 'input') {
       event.preventDefault();
-      onSuggestionsFetch({ value });
+      const trimmed = value.trim();
+      const prevTrimmed = inputValueRef.current.trim();
+      inputValueRef.current = value;
+      if (trimmed.length >= MIN_QUERY_LENGTH) {
+        onSuggestionsFetch({ value });
+      } else if (prevTrimmed.length >= MIN_QUERY_LENGTH) {
+        onCleanSuggestions(event);
+      }
       setInputValue(value);
     } else if (reason === 'clear') {
       onCleanSuggestions(event);
+      inputValueRef.current = '';
       setInputValue('');
     }
   };
 
   const handleOnClose = (event) => {
     onCleanSuggestions(event);
+    inputValueRef.current = '';
     setInputValue('');
   };
 
@@ -61,7 +73,9 @@ const AutoComplete: FC<Props> = ({
         /* @ts-ignore */
         clearOnBlur={true}
         disablePortal={true}
-        filterOptions={(options, state) => (state.inputValue.trim() ? options : [])}
+        filterOptions={(options, state) =>
+          state.inputValue.trim().length >= MIN_QUERY_LENGTH ? options : []
+        }
         fullWidth={true}
         getOptionLabel={getOptionLabel}
         id="search-header-suggest"
