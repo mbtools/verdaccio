@@ -22,7 +22,7 @@ export default defineConfig({
      * The files to run before each test file.
      * @see https://vitest.dev/config/#setupfiles
      */
-    setupFiles: ['./vitest/setup.ts', './vitest/setup-env.ts'],
+    setupFiles: ['./vitest/setup.ts'],
     /**
      * The files to exclude from the tests.
      * @see https://vitest.dev/config/#exclude
@@ -80,13 +80,7 @@ export default defineConfig({
       ],
     },
   },
-  plugins: [
-    react({
-      babel: {
-        plugins: ['@emotion'],
-      },
-    }),
-  ],
+  plugins: [react()],
   resolve: {
     alias: {
       'verdaccio-ui/components': path.resolve(__dirname, './src/components'),
