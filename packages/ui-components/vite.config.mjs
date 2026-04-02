@@ -20,11 +20,4 @@ export default defineConfig({
     linkEntryCssPlugin(),
     ...baseConfig.plugins,
   ],
-  ...baseConfig,
-  plugins: [
-    react(),
-    svgInlinePlugin(),
-    linkEntryCssPlugin(),
-    ...baseConfig.plugins,
-  ],
 });
