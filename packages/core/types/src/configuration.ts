@@ -2,7 +2,7 @@ import type { Algorithm as Algorithms, SignOptions, VerifyOptions } from 'jsonwe
 import type { AgentOptions as HttpAgentOptions } from 'node:http';
 import type { AgentOptions as HttpsAgentOptions } from 'node:https';
 
-import type { PackageAccess, PackageList } from '@verdaccio/types/src/manifest';
+import type { PackageAccess, PackageList } from './manifest';
 
 export type TypeToken = 'Bearer' | 'Basic';
 
@@ -207,10 +207,6 @@ export interface JWTVerifyOptions extends VerifyOptions {}
 
 export interface APITokenOptions {
   legacy: boolean;
-  /**
-   * Temporary flag to allow migration to the new legacy signature
-   */
-  migrateToSecureLegacySignature: boolean;
   jwt?: JWTOptions;
 }
 
