@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio-pro/auth",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Auth Plugin for Verdaccio Pro",
   "keywords": [
     "verdaccio",
@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@verdaccio/core": "9.0.0-next-9.8",
-    "@verdaccio-pro/database": "https://registry.verdaccio.pro/@verdaccio-pro/database/-/database-1.2.0.tgz",
+    "@verdaccio-pro/database": "https://registry.verdaccio.pro/@verdaccio-pro/database/-/database-1.2.1.tgz",
     "bcryptjs": "3.0.3",
     "debug": "4.4.3",
     "http-errors": "2.0.1"
