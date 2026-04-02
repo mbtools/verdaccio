@@ -8,7 +8,7 @@ import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types
 const debug = buildDebug('verdaccio:middleware:log');
 
 function isStaticRequest(url: string): boolean {
-  return url.startsWith('/-/static/');
+  return url.startsWith('/-/static/') || url.startsWith('/favicon');
 }
 
 // Converts all @{...} to %o for debug compatibility
