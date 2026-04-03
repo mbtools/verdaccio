@@ -13,6 +13,10 @@ export default (app: Application, config: IConfig): void => {
         global.gc();
       }
 
+      const maskedConfig = { ...config };
+      maskedConfig.secret = '********';
+      maskedConfig.auth.htpasswd.file = '********';
+
       // mask env DATABASE_URL
       const env = { ...process.env };
       env.DATABASE_URL = '********';
