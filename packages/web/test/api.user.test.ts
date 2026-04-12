@@ -11,8 +11,8 @@ beforeAll(async () => {
   await setup({});
 });
 
-const mockManifest = vi.fn();
-vi.mock('@verdaccio/ui-theme', () => mockManifest());
+const mockManifest = vi.hoisted(() => vi.fn());
+vi.mock('@verdaccio/ui-theme', () => ({ default: (...args: any[]) => mockManifest()(...args) }));
 
 const validSessionId = '12345678-1234-1234-1234-123456789012';
 
