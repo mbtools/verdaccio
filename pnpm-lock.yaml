@@ -1536,7 +1536,7 @@ importers:
         specifier: workspace:14.0.0-next-9.10
         version: link:../core/tarball
       '@verdaccio/ui-theme':
-        specifier: workspace:9.0.0-next-9.9
+        specifier: workspace:9.0.0-next-9.10
         version: link:../plugins/ui-theme
       debug:
         specifier: 4.4.3
