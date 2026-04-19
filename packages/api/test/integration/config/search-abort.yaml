@@ -1,28 +1,31 @@
+storage: ./storage
+
+auth:
+  htpasswd:
+    file: ./htpasswd-search
+
 web:
   enable: true
-  title: verdaccio-server-e2e
-  login: true
-
-log: { type: stdout, format: json, level: info }
+  title: verdaccio
 
 uplinks:
   npmjs:
     url: https://registry.npmjs.org/
 
-auth:
-  htpasswd:
-    file: ./htpasswd
+log: { type: stdout, format: pretty, level: trace }
 
 packages:
-  '@verdaccio/*':
+  'private-*':
     access: $all
-    publish: $authenticated
+    publish: jota
+  '@private/*':
+    access: $all
+    publish: jota
   '@*/*':
     access: $all
     publish: $authenticated
-    proxy: npmjs
   '**':
     access: $all
     publish: $authenticated
-    proxy: npmjs
+
 _debug: true

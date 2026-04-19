@@ -1,5 +1,60 @@
 # @verdaccio/auth
 
+## 9.0.0-next-9.14
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.14
+- @verdaccio/config@9.0.0-next-9.14
+- @verdaccio/loaders@9.0.0-next-9.14
+- verdaccio-htpasswd@14.0.0-next-9.14
+- @verdaccio/signature@9.0.0-next-9.14
+
+## 9.0.0-next-9.13
+
+### Patch Changes
+
+- Updated dependencies [39c369e]
+- Updated dependencies [784736f]
+  - @verdaccio/core@9.0.0-next-9.13
+  - verdaccio-htpasswd@14.0.0-next-9.13
+  - @verdaccio/config@9.0.0-next-9.13
+  - @verdaccio/loaders@9.0.0-next-9.13
+  - @verdaccio/signature@9.0.0-next-9.13
+
+## 9.0.0-next-9.12
+
+### Patch Changes
+
+- Updated dependencies [64c904a]
+  - @verdaccio/config@9.0.0-next-9.12
+  - @verdaccio/loaders@9.0.0-next-9.12
+  - verdaccio-htpasswd@14.0.0-next-9.12
+  - @verdaccio/signature@9.0.0-next-9.12
+  - @verdaccio/core@9.0.0-next-9.12
+
+## 9.0.0-next-9.11
+
+### Patch Changes
+
+- Updated dependencies [96cb0c4]
+  - @verdaccio/config@9.0.0-next-9.11
+  - @verdaccio/loaders@9.0.0-next-9.11
+  - verdaccio-htpasswd@14.0.0-next-9.11
+  - @verdaccio/signature@9.0.0-next-9.11
+  - @verdaccio/core@9.0.0-next-9.11
+
+## 9.0.0-next-9.10
+
+### Patch Changes
+
+- Updated dependencies [747d6ab]
+  - @verdaccio/config@9.0.0-next-9.10
+  - @verdaccio/loaders@9.0.0-next-9.10
+  - verdaccio-htpasswd@14.0.0-next-9.10
+  - @verdaccio/signature@9.0.0-next-9.10
+  - @verdaccio/core@9.0.0-next-9.10
+
 ## 9.0.0-next-9.9
 
 ### Patch Changes

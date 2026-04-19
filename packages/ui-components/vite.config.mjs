@@ -8,10 +8,6 @@ const baseConfig = createLibConfig(import.meta.dirname,
   { bundleDeps: ['react/jsx-runtime', 'react/jsx-dev-runtime'] }
 );
 
-// TODO: remove this after react-i18next is updated to v17
-// https://www.locize.com/docs/general-questions/why-was-there-a-support-notice-for-i18next/
-globalThis.__i18next_supportNoticeShown = true;
-
 export default defineConfig({
   ...baseConfig,
   plugins: [

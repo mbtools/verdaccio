@@ -1,5 +1,19 @@
 # @verdaccio/core
 
+## 9.0.0-next-9.14
+
+## 9.0.0-next-9.13
+
+### Patch Changes
+
+- 39c369e: chore(core): remove duplicate mergeVersions
+
+## 9.0.0-next-9.12
+
+## 9.0.0-next-9.11
+
+## 9.0.0-next-9.10
+
 ## 9.0.0-next-9.9
 
 ## 9.0.0-next-9.8
