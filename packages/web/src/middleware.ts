@@ -1,3 +1,4 @@
+import buildDebug from 'debug';
 import express from 'express';
 import { head, isNil } from 'lodash-es';
 
@@ -5,8 +6,11 @@ import { PLUGIN_CATEGORY, PLUGIN_UI_PREFIX } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { logger } from '@verdaccio/logger';
 import { webMiddleware } from '@verdaccio/middleware';
+import defaultTheme from '@verdaccio/ui-theme';
 
 import webEndpointsApi from './api';
+
+const debug = buildDebug('verdaccio:web:middleware');
 
 export const DEFAULT_PLUGIN_UI_THEME = '@verdaccio/ui-theme';
 
@@ -40,7 +44,8 @@ export async function loadTheme(config: any) {
 export default async (config, auth, storage, logger) => {
   let pluginOptions = await loadTheme(config);
   if (!pluginOptions) {
-    pluginOptions = require(DEFAULT_PLUGIN_UI_THEME)(config.web);
+    debug('no theme plugin found, using default theme');
+    pluginOptions = defaultTheme(config.web);
     logger.info(
       { name: DEFAULT_PLUGIN_UI_THEME, pluginCategory: PLUGIN_CATEGORY.THEME },
       'plugin @{name} successfully loaded (@{pluginCategory})'
