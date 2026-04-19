@@ -1,5 +1,79 @@
 # @verdaccio/api
 
+## 9.0.0-next-9.14
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.14
+- @verdaccio/config@9.0.0-next-9.14
+- @verdaccio/auth@9.0.0-next-9.14
+- @verdaccio/logger@9.0.0-next-9.14
+- @verdaccio/middleware@9.0.0-next-9.14
+- @verdaccio/store@9.0.0-next-9.14
+
+## 9.0.0-next-9.13
+
+### Patch Changes
+
+- Updated dependencies [8feba94]
+- Updated dependencies [39c369e]
+  - @verdaccio/store@9.0.0-next-9.13
+  - @verdaccio/core@9.0.0-next-9.13
+  - @verdaccio/auth@9.0.0-next-9.13
+  - @verdaccio/config@9.0.0-next-9.13
+  - @verdaccio/logger@9.0.0-next-9.13
+  - @verdaccio/middleware@9.0.0-next-9.13
+
+## 9.0.0-next-9.12
+
+### Patch Changes
+
+- Updated dependencies [64c904a]
+  - @verdaccio/config@9.0.0-next-9.12
+  - @verdaccio/auth@9.0.0-next-9.12
+  - @verdaccio/middleware@9.0.0-next-9.12
+  - @verdaccio/store@9.0.0-next-9.12
+  - @verdaccio/core@9.0.0-next-9.12
+  - @verdaccio/logger@9.0.0-next-9.12
+
+## 9.0.0-next-9.11
+
+### Patch Changes
+
+- Updated dependencies [96cb0c4]
+- Updated dependencies [877329a]
+  - @verdaccio/config@9.0.0-next-9.11
+  - @verdaccio/store@9.0.0-next-9.11
+  - @verdaccio/auth@9.0.0-next-9.11
+  - @verdaccio/middleware@9.0.0-next-9.11
+  - @verdaccio/core@9.0.0-next-9.11
+  - @verdaccio/logger@9.0.0-next-9.11
+
+## 9.0.0-next-9.10
+
+### Patch Changes
+
+- ba70ae0: fix: memory leak in search
+- Updated dependencies [747d6ab]
+- Updated dependencies [7590fb5]
+  - @verdaccio/config@9.0.0-next-9.10
+  - @verdaccio/store@9.0.0-next-9.10
+  - @verdaccio/auth@9.0.0-next-9.10
+  - @verdaccio/middleware@9.0.0-next-9.10
+  - @verdaccio/core@9.0.0-next-9.10
+  - @verdaccio/logger@9.0.0-next-9.10
+
+## 9.0.0-next-9.9
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.9
+- @verdaccio/config@9.0.0-next-9.9
+- @verdaccio/auth@9.0.0-next-9.9
+- @verdaccio/logger@9.0.0-next-9.9
+- @verdaccio/middleware@9.0.0-next-9.9
+- @verdaccio/store@9.0.0-next-9.9
+
 ## 9.0.0-next-9.8
 
 ### Patch Changes

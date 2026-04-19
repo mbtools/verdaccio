@@ -11,8 +11,8 @@ beforeAll(async () => {
   await setup({});
 });
 
-const mockManifest = vi.fn();
-vi.mock('@verdaccio/ui-theme', () => mockManifest());
+const mockManifest = vi.hoisted(() => vi.fn());
+vi.mock('@verdaccio/ui-theme', () => ({ default: (...args: any[]) => mockManifest()(...args) }));
 
 const validSessionId = '12345678-1234-1234-1234-123456789012';
 
@@ -46,6 +46,9 @@ describe('test web server', () => {
       .expect(HTTP_STATUS.UNAUTHORIZED)
       .then((response) => {
         expect(response.body.error).toEqual(API_ERROR.BAD_USERNAME_PASSWORD);
+        // WWW-Authenticate must not include Basic, otherwise browsers
+        // show a native auth popup instead of letting the WebUI handle the error
+        expect(response.headers['www-authenticate']).toBe('Bearer');
       });
   });
 
