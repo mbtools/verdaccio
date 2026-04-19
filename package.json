@@ -53,7 +53,8 @@
     "@types/superagent": "8.1.9",
     "@types/supertest": "7.2.0",
     "@types/validator": "13.15.10",
-    "@verdaccio/e2e-cli": "2.3.0",
+    "@verdaccio/e2e-cli": "2.5.0",
+    "@verdaccio/e2e-ui": "2.4.1",
     "@verdaccio/eslint-config": "13.0.0",
     "@verdaccio/package-filter": "workspace:*",
     "@verdaccio/types": "workspace:*",
@@ -63,6 +64,7 @@
     "aria-query": "5.3.2",
     "concurrently": "9.2.1",
     "cross-env": "10.1.0",
+    "cypress": "15.10.0",
     "debug": "4.4.3",
     "eslint": "10.0.3",
     "eslint-plugin-cypress": "6.1.0",
@@ -80,7 +82,7 @@
     "npm-run-all2": "8.0.4",
     "prettier": "3.4.2",
     "rimraf": "6.1.3",
-    "selfsigned": "2.4.1",
+    "selfsigned": "5.5.0",
     "semver": "7.7.4",
     "supertest": "7.1.4",
     "ts-node": "10.9.2",
@@ -97,7 +99,7 @@
     "vite-plugin-dts": "4.5.4"
   },
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky",
     "husky:pre-commit": "lint-staged",
     "clean": "pnpm --filter \"./packages/**\" clean",
     "build": "pnpm --filter \"./packages/**\" build",
@@ -107,7 +109,11 @@
     "lint": "eslint --max-warnings 90 .",
     "lint:fix": "eslint --fix .",
     "test": "pnpm --filter \"./packages/**\" test",
-    "test:e2e:ui": "pnpm --filter ...@verdaccio/e2e-ui test",
+    "e2e:ui:start": "node packages/verdaccio/bin/verdaccio --config ./scripts/e2e-ui-config.yaml",
+    "e2e:ui:run": "cypress run",
+    "e2e:ui:open": "cypress open",
+    "e2e:ui:local": "./scripts/e2e-ui-local.sh",
+    "e2e:ui:local:open": "./scripts/e2e-ui-local.sh --open",
     "start": "concurrently --kill-others \"pnpm _start:server\" \"pnpm _start:web\"",
     "contributors": "ts-node ./scripts/contributors-update.ts",
     "script:addson": "ts-node ./scripts/addon-update.ts",
@@ -132,7 +138,7 @@
     "crowdin:upload": "crowdin upload sources --auto-update --config ./crowdin.yaml",
     "crowdin:download": "crowdin download --verbose --config ./crowdin.yaml",
     "crowdin:sync": "pnpm crowdin:upload && pnpm crowdin:download",
-    "postinstall": "husky install",
+    "postinstall": "husky",
     "local:registry": "pnpm --filter ...@verdaccio/local-publish start",
     "local:snapshots": "changeset version --snapshot",
     "local:publish": "cross-env npm_config_registry=http://localhost:4873 changeset publish --no-git-tag",
@@ -147,5 +153,10 @@
     "*.{js,jsx,ts,tsx,json,yml,yaml,md}": "prettier --write",
     "*.{js,jsx,ts,tsx}": "eslint --fix"
   },
-  "packageManager": "pnpm@10.5.2"
+  "packageManager": "pnpm@10.5.2",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "cypress"
+    ]
+  }
 }
