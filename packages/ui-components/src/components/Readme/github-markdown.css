@@ -1,4 +1,4 @@
-/* Auto-generated — do not edit. Run: node tools/generate-github-markdown.mjs */
+/* Output from https://github.com/sindresorhus/generate-github-markdown-css without media selectors and transparent background */
 
 /* Ensure monospace for combination with highlight.js */
 .markdown-body pre code span {
@@ -9,21 +9,21 @@
 [data-theme='light'].markdown-body {
   --base-size-16: 1rem;
   --base-size-24: 1.5rem;
-  --base-size-4: .25rem;
+  --base-size-4: 0.25rem;
   --base-size-40: 2.5rem;
-  --base-size-8: .5rem;
+  --base-size-8: 0.5rem;
   --base-text-weight-medium: 500;
   --base-text-weight-normal: 400;
   --base-text-weight-semibold: 600;
-  --borderWidth-thin: .0625rem;
+  --borderWidth-thin: 0.0625rem;
   --borderRadius-full: 624.938rem;
-  --borderRadius-medium: .375rem;
-  --stack-padding-condensed: .5rem;
+  --borderRadius-medium: 0.375rem;
+  --stack-padding-condensed: 0.5rem;
   --stack-padding-normal: 1rem;
   --fontStack-monospace: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
-  --fontStack-sansSerif: "Mona Sans VF",-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  --fontStack-sansSerif: 'Mona Sans VF',-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji';
   --text-body-size-small: var(--base-text-size-xs);
-  --h6-size: .75rem;
+  --h6-size: 0.75rem;
   --fgColor-accent: Highlight;
 }
 
@@ -32,7 +32,7 @@
   color-scheme: light;
   --fgColor-danger: #d1242f;
   --bgColor-attention-muted: #fff8c5;
-  --bgColor-muted: #f6f8fa;
+  --bgColor-muted: darkgray; /* apm */
   --bgColor-neutral-muted: #818b981f;
   --borderColor-accent-emphasis: #0969da;
   --borderColor-attention-emphasis: #9a6700;
@@ -72,13 +72,14 @@
   --fgColor-done: #8250df;
   --fgColor-muted: #59636e;
   --fgColor-success: #1a7f37;
-  --bgColor-default: transparent;
+  --bgColor-default: #fff; /* apm */
   --borderColor-muted: #d1d9e0b3;
   --color-prettylights-syntax-invalid-illegal-bg: var(--bgColor-danger-muted);
   --color-prettylights-syntax-markup-bold: #1f2328;
   --color-prettylights-syntax-markup-italic: #1f2328;
   --color-prettylights-syntax-storage-modifier-import: #1f2328;
   --fgColor-default: #1f2328;
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
   --selection-bgColor: #0969da33;
   --borderColor-neutral-muted: var(--borderColor-muted);
   --focus-outlineColor: var(--focus-outline-color);
@@ -87,33 +88,33 @@
 
 /* Dark theme variables */
 [data-theme='dark'].markdown-body {
-  --base-size-16: 1rem;
+  --base-size-16:            1rem;
   --base-size-24: 1.5rem;
-  --base-size-4: .25rem;
+  --base-size-4: 0.25rem;
   --base-size-40: 2.5rem;
-  --base-size-8: .5rem;
+  --base-size-8: 0.5rem;
   --base-text-weight-medium: 500;
   --base-text-weight-normal: 400;
   --base-text-weight-semibold: 600;
-  --borderWidth-thin: .0625rem;
+  --borderWidth-thin: 0.0625rem;
   --borderRadius-full: 624.938rem;
-  --borderRadius-medium: .375rem;
-  --stack-padding-condensed: .5rem;
+  --borderRadius-medium: 0.375rem;
+  --stack-padding-condensed: 0.5rem;
   --stack-padding-normal: 1rem;
   --fontStack-monospace: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
-  --fontStack-sansSerif: "Mona Sans VF",-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  --fontStack-sansSerif: 'Mona Sans VF',-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji';
   --text-body-size-small: var(--base-text-size-xs);
-  --h6-size: .75rem;
+  --h6-size: 0.75rem;
   --fgColor-accent: Highlight;
 }
 
 [data-theme='dark'].markdown-body {
-  /* dark */
+  /* dark — bg tokens align with Theme/modes.ts (paper #2d3748, default #1a202c) */
   color-scheme: dark;
   --fgColor-accent: #4493f8;
   --bgColor-attention-muted: #bb800926;
-  --bgColor-default: transparent;
-  --bgColor-muted: #151b23;
+  --bgColor-default: #2d3748; /* apm */
+  --bgColor-muted: #1a202c; /* apm */
   --bgColor-neutral-muted: #656c7633;
   --borderColor-accent-emphasis: #1f6feb;
   --borderColor-attention-emphasis: #9e6a03;
@@ -159,21 +160,32 @@
   --borderColor-muted: #3d444db3;
   --color-prettylights-syntax-invalid-illegal-bg: var(--bgColor-danger-muted);
   --color-prettylights-syntax-invalid-illegal-text: var(--fgColor-danger);
+  --focus-outlineColor: var(--borderColor-accent-emphasis);
   --selection-bgColor: #1f6febb3;
   --borderColor-neutral-muted: var(--borderColor-muted);
   --focus-outlineColor: var(--focus-outline-color);
 }
-
 
 /* Base styles */
 .markdown-body {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   margin: 0;
-  font-weight: var(--base-text-weight-normal,400);
+  font-weight: var(--base-text-weight-normal, 400);
   color: var(--fgColor-default);
   background-color: var(--bgColor-default);
-  font-family: var(--fontStack-sansSerif,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji");
+  font-family: var(
+    --fontStack-sansSerif,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Noto Sans',
+    Helvetica,
+    Arial,
+    sans-serif,
+    'Apple Color Emoji',
+    'Segoe UI Emoji'
+  );
   overflow-wrap: break-word;
   font-size: 16px;
   line-height: 1.5;
@@ -181,7 +193,7 @@
 
 .markdown-body a {
   text-decoration: underline;
-  text-underline-offset: .2rem;
+  text-underline-offset: 0.2rem;
 }
 
 .markdown-body .octicon {
@@ -216,7 +228,7 @@
 }
 
 .markdown-body [hidden] {
-  display: none!important;
+  display: none !important;
 }
 
 .markdown-body a {
@@ -233,7 +245,7 @@
 
 .markdown-body b,
 .markdown-body strong {
-  font-weight: var(--base-text-weight-semibold,600);
+  font-weight: var(--base-text-weight-semibold, 600);
 }
 
 .markdown-body dfn {
@@ -241,10 +253,10 @@
 }
 
 .markdown-body h1 {
-  margin: .67em 0;
-  font-weight: var(--base-text-weight-semibold,600);
+  margin: 0.67em 0;
+  font-weight: var(--base-text-weight-semibold, 600);
   border-bottom: 1px solid var(--borderColor-muted);
-  padding-bottom: .3em;
+  padding-bottom: 0.3em;
   font-size: 2em;
 }
 
@@ -262,11 +274,11 @@
 }
 
 .markdown-body sub {
-  bottom: -.25em;
+  bottom: -0.25em;
 }
 
 .markdown-body sup {
-  top: -.5em;
+  top: -0.5em;
 }
 
 .markdown-body img {
@@ -292,8 +304,8 @@
   border-bottom: 1px solid var(--borderColor-muted);
   background: 0 0;
   overflow: hidden;
-  height: .25em;
-  margin: var(--base-size-24)0;
+  height: 0.25em;
+  margin: var(--base-size-24) 0;
   background-color: var(--borderColor-default);
   border: 0;
   padding: 0;
@@ -321,20 +333,20 @@
   padding: 0;
 }
 
-.markdown-body [type=number]::-webkit-inner-spin-button {
+.markdown-body [type='number']::-webkit-inner-spin-button {
   height: auto;
 }
 
-.markdown-body [type=number]::-webkit-outer-spin-button {
+.markdown-body [type='number']::-webkit-outer-spin-button {
   height: auto;
 }
 
-.markdown-body [type=search]::-webkit-search-cancel-button {
+.markdown-body [type='search']::-webkit-search-cancel-button {
   -webkit-appearance: none;
   appearance: none;
 }
 
-.markdown-body [type=search]::-webkit-search-decoration {
+.markdown-body [type='search']::-webkit-search-decoration {
   -webkit-appearance: none;
   appearance: none;
 }
@@ -360,13 +372,13 @@
 }
 
 .markdown-body hr:before {
-  content: "";
+  content: '';
   display: table;
 }
 
 .markdown-body hr:after {
   clear: both;
-  content: "";
+  content: '';
   display: table;
 }
 
@@ -390,25 +402,25 @@
 }
 
 .markdown-body a:focus,
-.markdown-body [role=button]:focus,
-.markdown-body input[type=radio]:focus,
-.markdown-body input[type=checkbox]:focus {
+.markdown-body [role='button']:focus,
+.markdown-body input[type='radio']:focus,
+.markdown-body input[type='checkbox']:focus {
   outline: 2px solid var(--focus-outlineColor);
   outline-offset: -2px;
   box-shadow: none;
 }
 
 .markdown-body a:focus:not(:focus-visible),
-.markdown-body [role=button]:focus:not(:focus-visible),
-.markdown-body input[type=radio]:focus:not(:focus-visible),
-.markdown-body input[type=checkbox]:focus:not(:focus-visible) {
+.markdown-body [role='button']:focus:not(:focus-visible),
+.markdown-body input[type='radio']:focus:not(:focus-visible),
+.markdown-body input[type='checkbox']:focus:not(:focus-visible) {
   outline: 1px solid #0000;
 }
 
 .markdown-body a:focus-visible,
-.markdown-body [role=button]:focus-visible,
-.markdown-body input[type=radio]:focus-visible,
-.markdown-body input[type=checkbox]:focus-visible {
+.markdown-body [role='button']:focus-visible,
+.markdown-body input[type='radio']:focus-visible,
+.markdown-body input[type='checkbox']:focus-visible {
   outline: 2px solid var(--focus-outlineColor);
   outline-offset: -2px;
   box-shadow: none;
@@ -425,7 +437,17 @@
 
 .markdown-body kbd {
   padding: var(--base-size-4);
-  font: 11px var(--fontStack-monospace,ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace);
+  font: 11px
+    var(
+      --fontStack-monospace,
+      ui-monospace,
+      SFMono-Regular,
+      SF Mono,
+      Menlo,
+      Consolas,
+      Liberation Mono,
+      monospace
+    );
   color: var(--fgColor-default);
   vertical-align: middle;
   background-color: var(--bgColor-muted);
@@ -446,36 +468,36 @@
 .markdown-body h6 {
   margin-top: var(--base-size-24);
   margin-bottom: var(--base-size-16);
-  font-weight: var(--base-text-weight-semibold,600);
+  font-weight: var(--base-text-weight-semibold, 600);
   line-height: 1.25;
 }
 
 .markdown-body h2 {
-  font-weight: var(--base-text-weight-semibold,600);
+  font-weight: var(--base-text-weight-semibold, 600);
   border-bottom: 1px solid var(--borderColor-muted);
-  padding-bottom: .3em;
+  padding-bottom: 0.3em;
   font-size: 1.5em;
 }
 
 .markdown-body h3 {
-  font-weight: var(--base-text-weight-semibold,600);
+  font-weight: var(--base-text-weight-semibold, 600);
   font-size: 1.25em;
 }
 
 .markdown-body h4 {
-  font-weight: var(--base-text-weight-semibold,600);
+  font-weight: var(--base-text-weight-semibold, 600);
   font-size: 1em;
 }
 
 .markdown-body h5 {
-  font-weight: var(--base-text-weight-semibold,600);
-  font-size: .875em;
+  font-weight: var(--base-text-weight-semibold, 600);
+  font-size: 0.875em;
 }
 
 .markdown-body h6 {
-  font-weight: var(--base-text-weight-semibold,600);
+  font-weight: var(--base-text-weight-semibold, 600);
   color: var(--fgColor-muted);
-  font-size: .85em;
+  font-size: 0.85em;
 }
 
 .markdown-body p {
@@ -490,7 +512,7 @@
 .markdown-body blockquote {
   margin: 0;
   color: var(--fgColor-muted);
-  border-left: .25em solid var(--borderColor-default);
+  border-left: 0.25em solid var(--borderColor-default);
   padding: 0 1em;
 }
 
@@ -520,12 +542,30 @@
 .markdown-body tt,
 .markdown-body code,
 .markdown-body samp {
-  font-family: var(--fontStack-monospace,ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace);
+  font-family: var(
+    --fontStack-monospace,
+    ui-monospace,
+    SFMono-Regular,
+    SF Mono,
+    Menlo,
+    Consolas,
+    Liberation Mono,
+    monospace
+  );
   font-size: 12px;
 }
 
 .markdown-body pre {
-  font-family: var(--fontStack-monospace,ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace);
+  font-family: var(
+    --fontStack-monospace,
+    ui-monospace,
+    SFMono-Regular,
+    SF Mono,
+    Menlo,
+    Consolas,
+    Liberation Mono,
+    monospace
+  );
   margin-top: 0;
   margin-bottom: 0;
   font-size: 12px;
@@ -536,7 +576,7 @@
   vertical-align: text-bottom;
   fill: currentColor;
   display: inline-block;
-  overflow: visible!important;
+  overflow: visible !important;
 }
 
 .markdown-body .Box-body.scrollable-overlay {
@@ -562,65 +602,65 @@
 }
 
 .markdown-body .border {
-  border: var(--borderWidth-thin,1px)solid var(--borderColor-default)!important;
+  border: var(--borderWidth-thin, 1px) solid var(--borderColor-default) !important;
 }
 
 .markdown-body .border-0 {
-  border: 0!important;
+  border: 0 !important;
 }
 
 .markdown-body .circle {
-  border-radius: var(--borderRadius-full,50%)!important;
+  border-radius: var(--borderRadius-full, 50%) !important;
 }
 
 .markdown-body .color-fg-muted {
-  color: var(--fgColor-muted)!important;
+  color: var(--fgColor-muted) !important;
 }
 
 .markdown-body .color-bg-default {
-  background-color: var(--bgColor-default)!important;
+  background-color: var(--bgColor-default) !important;
 }
 
 .markdown-body .color-border-subtle {
-  border-color: var(--borderColor-muted)!important;
+  border-color: var(--borderColor-muted) !important;
 }
 
 .markdown-body .mb-0 {
-  margin-bottom: 0!important;
+  margin-bottom: 0 !important;
 }
 
 .markdown-body .ml-1 {
-  margin-left: var(--base-size-4,4px)!important;
+  margin-left: var(--base-size-4, 4px) !important;
 }
 
 .markdown-body .mr-2 {
-  margin-right: var(--base-size-8,8px)!important;
+  margin-right: var(--base-size-8, 8px) !important;
 }
 
 .markdown-body .my-2 {
-  margin-top: var(--base-size-8,8px)!important;
-  margin-bottom: var(--base-size-8,8px)!important;
+  margin-top: var(--base-size-8, 8px) !important;
+  margin-bottom: var(--base-size-8, 8px) !important;
 }
 
 .markdown-body .p-0 {
-  padding: 0!important;
+  padding: 0 !important;
 }
 
 .markdown-body .py-0 {
-  padding-top: 0!important;
-  padding-bottom: 0!important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 .markdown-body .f6 {
-  font-size: var(--h6-size,12px)!important;
+  font-size: var(--h6-size, 12px) !important;
 }
 
 .markdown-body .text-bold {
-  font-weight: var(--base-text-weight-semibold,600)!important;
+  font-weight: var(--base-text-weight-semibold, 600) !important;
 }
 
 .markdown-body .d-inline-block {
-  display: inline-block!important;
+  display: inline-block !important;
 }
 
 .markdown-body .sr-only {
@@ -635,22 +675,22 @@
 }
 
 .markdown-body:before {
-  content: "";
+  content: '';
   display: table;
 }
 
 .markdown-body:after {
   clear: both;
-  content: "";
+  content: '';
   display: table;
 }
 
-.markdown-body>:first-child {
-  margin-top: 0!important;
+.markdown-body > :first-child {
+  margin-top: 0 !important;
 }
 
-.markdown-body>:last-child {
-  margin-bottom: 0!important;
+.markdown-body > :last-child {
+  margin-bottom: 0 !important;
 }
 
 .markdown-body a:not([href]) {
@@ -735,7 +775,7 @@
 .markdown-body h6 tt,
 .markdown-body h6 code {
   font-size: inherit;
-  padding: 0 .2em;
+  padding: 0 0.2em;
 }
 
 .markdown-body summary h1,
@@ -768,24 +808,24 @@
   list-style-type: none;
 }
 
-.markdown-body ol[type=a\ s] {
+.markdown-body ol[type='a\ s'] {
   list-style-type: lower-alpha;
 }
 
-.markdown-body ol[type=A\ s] {
+.markdown-body ol[type='A\ s'] {
   list-style-type: upper-alpha;
 }
 
-.markdown-body ol[type=i\ s] {
+.markdown-body ol[type='i\ s'] {
   list-style-type: lower-roman;
 }
 
-.markdown-body ol[type=I\ s] {
+.markdown-body ol[type='I\ s'] {
   list-style-type: upper-roman;
 }
 
-.markdown-body ol[type="1"],
-.markdown-body div>ol:not([type]) {
+.markdown-body ol[type='1'],
+.markdown-body div > ol:not([type]) {
   list-style-type: decimal;
 }
 
@@ -797,7 +837,7 @@
   margin-bottom: 0;
 }
 
-.markdown-body li>p {
+.markdown-body li > p {
   margin-top: var(--base-size-16);
 }
 
@@ -813,11 +853,11 @@
   margin-top: var(--base-size-16);
   font-size: 1em;
   font-style: italic;
-  font-weight: var(--base-text-weight-semibold,600);
+  font-weight: var(--base-text-weight-semibold, 600);
   padding: 0;
 }
 
-.markdown-body dl dt+dt {
+.markdown-body dl dt + dt {
   margin-top: 0;
 }
 
@@ -827,7 +867,7 @@
 }
 
 .markdown-body table th {
-  font-weight: var(--base-text-weight-semibold,600);
+  font-weight: var(--base-text-weight-semibold, 600);
 }
 
 .markdown-body table th,
@@ -872,7 +912,7 @@
   overflow: hidden;
 }
 
-.markdown-body span.frame>span {
+.markdown-body span.frame > span {
   float: left;
   border: 1px solid var(--borderColor-default);
   width: auto;
@@ -900,7 +940,7 @@
   overflow: hidden;
 }
 
-.markdown-body span.align-center>span {
+.markdown-body span.align-center > span {
   text-align: center;
   margin: 13px auto 0;
   display: block;
@@ -918,7 +958,7 @@
   overflow: hidden;
 }
 
-.markdown-body span.align-right>span {
+.markdown-body span.align-right > span {
   text-align: right;
   margin: 13px 0 0;
   display: block;
@@ -948,7 +988,7 @@
   overflow: hidden;
 }
 
-.markdown-body span.float-right>span {
+.markdown-body span.float-right > span {
   text-align: right;
   margin: 13px auto 0;
   display: block;
@@ -961,7 +1001,7 @@
   background-color: var(--bgColor-neutral-muted);
   border-radius: 6px;
   margin: 0;
-  padding: .2em .4em;
+  padding: 0.2em 0.4em;
   font-size: 85%;
 }
 
@@ -983,7 +1023,7 @@
   font-size: 100%;
 }
 
-.markdown-body pre>code {
+.markdown-body pre > code {
   word-break: normal;
   white-space: pre;
   background: 0 0;
@@ -1035,7 +1075,7 @@
 }
 
 .markdown-body .csv-data .blob-num {
-  padding: 10px var(--base-size-8)9px;
+  padding: 10px var(--base-size-8) 9px;
   text-align: right;
   background: var(--bgColor-default);
   border: 0;
@@ -1046,17 +1086,17 @@
 }
 
 .markdown-body .csv-data th {
-  font-weight: var(--base-text-weight-semibold,600);
+  font-weight: var(--base-text-weight-semibold, 600);
   background: var(--bgColor-muted);
   border-top: 0;
 }
 
 .markdown-body [data-footnote-ref]:before {
-  content: "[";
+  content: '[';
 }
 
 .markdown-body [data-footnote-ref]:after {
-  content: "]";
+  content: ']';
 }
 
 .markdown-body .footnotes {
@@ -1080,12 +1120,12 @@
 }
 
 .markdown-body .footnotes li:target:before {
-  top: calc(var(--base-size-8)*-1);
-  right: calc(var(--base-size-8)*-1);
-  bottom: calc(var(--base-size-8)*-1);
-  left: calc(var(--base-size-24)*-1);
+  top: calc(var(--base-size-8) * -1);
+  right: calc(var(--base-size-8) * -1);
+  bottom: calc(var(--base-size-8) * -1);
+  left: calc(var(--base-size-24) * -1);
   pointer-events: none;
-  content: "";
+  content: '';
   border: 2px solid var(--borderColor-accent-emphasis);
   border-radius: 6px;
   position: absolute;
@@ -1100,14 +1140,14 @@
 }
 
 .markdown-body :is() {
-  content: "";
+  content: '';
   width: 100%;
   height: 100%;
   min-height: 48px;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%)translateY(-50%);
+  transform: translate(-50%) translateY(-50%);
 }
 
 .markdown-body .Box {
@@ -1125,11 +1165,11 @@
 .markdown-body .Box--condensed .Box-body,
 .markdown-body .Box--condensed .Box-footer,
 .markdown-body .Box--condensed .Box-header {
-  padding: var(--stack-padding-condensed)var(--stack-padding-normal);
+  padding: var(--stack-padding-condensed) var(--stack-padding-normal);
 }
 
 .markdown-body .Box--condensed .Box-row {
-  padding: var(--stack-padding-condensed)var(--stack-padding-normal);
+  padding: var(--stack-padding-condensed) var(--stack-padding-normal);
 }
 
 .markdown-body .Box-header {
@@ -1139,24 +1179,24 @@
   border-top-right-radius: var(--borderRadius-medium);
   border-style: solid;
   border-width: var(--borderWidth-thin);
-  margin: calc(var(--borderWidth-thin)*-1)calc(var(--borderWidth-thin)*-1)0;
+  margin: calc(var(--borderWidth-thin) * -1) calc(var(--borderWidth-thin) * -1) 0;
   padding: var(--stack-padding-normal);
 }
 
 .markdown-body .Box-body {
-  border-bottom: var(--borderWidth-thin)solid var(--borderColor-default);
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
   padding: var(--stack-padding-normal);
 }
 
 .markdown-body .Box-body:last-of-type {
   border-bottom-left-radius: var(--borderRadius-medium);
   border-bottom-right-radius: var(--borderRadius-medium);
-  margin-bottom: calc(var(--borderWidth-thin)*-1);
+  margin-bottom: calc(var(--borderWidth-thin) * -1);
 }
 
 .markdown-body .tmp-px-3 {
-  padding-right: var(--base-size-16,16px)!important;
-  padding-left: var(--base-size-16,16px)!important;
+  padding-right: var(--base-size-16, 16px) !important;
+  padding-left: var(--base-size-16, 16px) !important;
 }
 
 .markdown-body .pl-c {
@@ -1279,8 +1319,8 @@
   text-decoration: underline;
 }
 
-.markdown-body [role=button]:focus:not(:focus-visible),
-.markdown-body [role=tabpanel][tabindex="0"]:focus:not(:focus-visible),
+.markdown-body [role='button']:focus:not(:focus-visible),
+.markdown-body [role='tabpanel'][tabindex='0']:focus:not(:focus-visible),
 .markdown-body button:focus:not(:focus-visible),
 .markdown-body summary:focus:not(:focus-visible),
 .markdown-body a:focus:not(:focus-visible) {
@@ -1288,19 +1328,22 @@
   outline: none;
 }
 
-.markdown-body [tabindex="0"]:focus:not(:focus-visible),
+.markdown-body [tabindex='0']:focus:not(:focus-visible),
 .markdown-body details-dialog:focus:not(:focus-visible) {
   outline: none;
 }
 
 .markdown-body g-emoji {
   min-width: 1ch;
-  font-family: Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+  font-family:
+    Apple Color Emoji,
+    Segoe UI Emoji,
+    Segoe UI Symbol;
   font-weight: var(--base-text-weight-normal);
-  vertical-align: -.075em;
+  vertical-align: -0.075em;
   line-height: 1;
   display: inline-block;
-  font-style: normal!important;
+  font-style: normal !important;
   font-size: 1.25em;
 }
 
@@ -1382,13 +1425,13 @@
 }
 
 .markdown-body .blob-code-inner .x-first {
-  border-top-left-radius: .2em;
-  border-bottom-left-radius: .2em;
+  border-top-left-radius: 0.2em;
+  border-bottom-left-radius: 0.2em;
 }
 
 .markdown-body .blob-code-inner .x-last {
-  border-top-right-radius: .2em;
-  border-bottom-right-radius: .2em;
+  border-top-right-radius: 0.2em;
+  border-bottom-right-radius: 0.2em;
 }
 
 .markdown-body .blob-code-inner.highlighted,
@@ -1405,18 +1448,19 @@
 .markdown-body .blob-code-inner.blob-code-addition,
 .markdown-body .blob-code-inner.blob-code-deletion {
   position: relative;
-  padding-left: 22px!important;
+  padding-left: 22px !important;
 }
 
-.markdown-body a:has(>p,>div,>pre,>blockquote) {
+.markdown-body a:has(> p, > div, > pre, > blockquote) {
   display: block;
 }
 
-.markdown-body a:has(>p,>div,>pre,>blockquote):not(:has(.snippet-clipboard-content,>pre)) {
+.markdown-body a:has(> p, > div, > pre, > blockquote):not(:has(.snippet-clipboard-content, > pre)) {
   width: fit-content;
 }
 
-.markdown-body a:has(>p,>div,>pre,>blockquote):has(.snippet-clipboard-content,>pre):focus-visible {
+.markdown-body
+  a:has(> p, > div, > pre, > blockquote):has(.snippet-clipboard-content, > pre):focus-visible {
   outline: 2px solid var(--focus-outlineColor);
   outline-offset: 2px;
 }
@@ -1433,7 +1477,7 @@
   cursor: pointer;
 }
 
-.markdown-body .task-list-item+.task-list-item {
+.markdown-body .task-list-item + .task-list-item {
   margin-top: var(--base-size-4);
 }
 
@@ -1443,12 +1487,56 @@
 
 .markdown-body .task-list-item-checkbox {
   vertical-align: middle;
-  margin: 0 .2em .25em -1.4em;
+  margin: 0 0.2em 0.25em -1.4em;
 }
 
-.markdown-body ul:is(:lang(ae),:lang(ar),:lang(arc),:lang(bcc),:lang(bqi),:lang(ckb),:lang(dv),:lang(fa),:lang(glk),:lang(he),:lang(ku),:lang(mzn),:lang(nqo),:lang(pnb),:lang(ps),:lang(sd),:lang(ug),:lang(ur),:lang(yi)) .task-list-item-checkbox,
-.markdown-body ol:is(:lang(ae),:lang(ar),:lang(arc),:lang(bcc),:lang(bqi),:lang(ckb),:lang(dv),:lang(fa),:lang(glk),:lang(he),:lang(ku),:lang(mzn),:lang(nqo),:lang(pnb),:lang(ps),:lang(sd),:lang(ug),:lang(ur),:lang(yi)) .task-list-item-checkbox {
-  margin: 0 -1.6em .25em .2em;
+.markdown-body
+  ul:is(
+    :lang(ae),
+    :lang(ar),
+    :lang(arc),
+    :lang(bcc),
+    :lang(bqi),
+    :lang(ckb),
+    :lang(dv),
+    :lang(fa),
+    :lang(glk),
+    :lang(he),
+    :lang(ku),
+    :lang(mzn),
+    :lang(nqo),
+    :lang(pnb),
+    :lang(ps),
+    :lang(sd),
+    :lang(ug),
+    :lang(ur),
+    :lang(yi)
+  )
+  .task-list-item-checkbox,
+.markdown-body
+  ol:is(
+    :lang(ae),
+    :lang(ar),
+    :lang(arc),
+    :lang(bcc),
+    :lang(bqi),
+    :lang(ckb),
+    :lang(dv),
+    :lang(fa),
+    :lang(glk),
+    :lang(he),
+    :lang(ku),
+    :lang(mzn),
+    :lang(nqo),
+    :lang(pnb),
+    :lang(ps),
+    :lang(sd),
+    :lang(ug),
+    :lang(ur),
+    :lang(yi)
+  )
+  .task-list-item-checkbox {
+  margin: 0 -1.6em 0.25em 0.2em;
 }
 
 .markdown-body .contains-task-list:hover .task-list-item-convert-container,
@@ -1465,10 +1553,10 @@
 }
 
 .markdown-body .markdown-alert {
-  padding: var(--base-size-8)var(--base-size-16);
+  padding: var(--base-size-8) var(--base-size-16);
   margin-bottom: var(--base-size-16);
   color: inherit;
-  border-left: .25em solid var(--borderColor-default);
+  border-left: 0.25em solid var(--borderColor-default);
 }
 
 .markdown-body .markdown-alert > :first-child {
@@ -1480,7 +1568,7 @@
 }
 
 .markdown-body .markdown-alert .markdown-alert-title {
-  font-weight: var(--base-text-weight-medium,500);
+  font-weight: var(--base-text-weight-medium, 500);
   align-items: center;
   line-height: 1;
   display: flex;
@@ -1526,55 +1614,55 @@
   color: var(--fgColor-danger);
 }
 
-.markdown-body>:first-child>.heading-element:first-child {
-  margin-top: 0!important;
+.markdown-body > :first-child > .heading-element:first-child {
+  margin-top: 0 !important;
 }
 
-.markdown-body .tab-size[data-tab-size="1"] {
+.markdown-body .tab-size[data-tab-size='1'] {
   tab-size: 1;
 }
 
-.markdown-body .tab-size[data-tab-size="2"] {
+.markdown-body .tab-size[data-tab-size='2'] {
   tab-size: 2;
 }
 
-.markdown-body .tab-size[data-tab-size="3"] {
+.markdown-body .tab-size[data-tab-size='3'] {
   tab-size: 3;
 }
 
-.markdown-body .tab-size[data-tab-size="4"] {
+.markdown-body .tab-size[data-tab-size='4'] {
   tab-size: 4;
 }
 
-.markdown-body .tab-size[data-tab-size="5"] {
+.markdown-body .tab-size[data-tab-size='5'] {
   tab-size: 5;
 }
 
-.markdown-body .tab-size[data-tab-size="6"] {
+.markdown-body .tab-size[data-tab-size='6'] {
   tab-size: 6;
 }
 
-.markdown-body .tab-size[data-tab-size="7"] {
+.markdown-body .tab-size[data-tab-size='7'] {
   tab-size: 7;
 }
 
-.markdown-body .tab-size[data-tab-size="8"] {
+.markdown-body .tab-size[data-tab-size='8'] {
   tab-size: 8;
 }
 
-.markdown-body .tab-size[data-tab-size="9"] {
+.markdown-body .tab-size[data-tab-size='9'] {
   tab-size: 9;
 }
 
-.markdown-body .tab-size[data-tab-size="10"] {
+.markdown-body .tab-size[data-tab-size='10'] {
   tab-size: 10;
 }
 
-.markdown-body .tab-size[data-tab-size="11"] {
+.markdown-body .tab-size[data-tab-size='11'] {
   tab-size: 11;
 }
 
-.markdown-body .tab-size[data-tab-size="12"] {
+.markdown-body .tab-size[data-tab-size='12'] {
   tab-size: 12;
 }
 
@@ -1586,7 +1674,6 @@
   display: block;
 }
 
-.markdown-body .highlight pre:has(+.zeroclipboard-container) {
+.markdown-body .highlight pre:has(+ .zeroclipboard-container) {
   min-height: 52px;
 }
-
