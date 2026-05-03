@@ -12,8 +12,8 @@ beforeAll(async () => {
   await setup({});
 });
 
-const mockManifest = vi.fn();
-vi.mock('@verdaccio/ui-theme', () => mockManifest());
+const mockManifest = vi.hoisted(() => vi.fn());
+vi.mock('@verdaccio/ui-theme', () => ({ default: (...args: any[]) => mockManifest()(...args) }));
 
 describe('test web server', () => {
   afterEach(() => {
