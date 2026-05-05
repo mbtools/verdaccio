@@ -58,7 +58,7 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
 
   route.get(
     PACKAGE_API_ENDPOINTS.get_package_tarball,
-    can('publish'), // apm
+    can('access'),
     async function (req: $RequestExtend, res: $ResponseExtend, next): Promise<void> {
       const pkgName = reqUtils.paramToString(req.params.package);
       const filename = reqUtils.paramToString(req.params.filename);

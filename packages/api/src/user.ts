@@ -40,14 +40,14 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
       }
 
       const orgCouchdbUser = reqUtils.paramToString(req.params.org_couchdb_user);
-      const username = orgCouchdbUser?.split(':')[1] ?? '';
+      const userName = orgCouchdbUser?.split(':')[1] ?? '';
       const message = authUtils.getAuthenticatedMessage(req.remote_user.name);
       debug('user authenticated message %o', message);
       res.status(HTTP_STATUS.OK);
       next({
         // 'npm owner' requires user info
         // TODO: we don't have the email
-        name: username,
+        name: userName,
         email: '',
         ok: message,
       });

@@ -83,11 +83,11 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
       res: $ResponseExtend,
       next: $NextFunctionVer
     ): Promise<void> {
-      const name = reqUtils.paramToString(req.params.package);
+      const packageName = reqUtils.paramToString(req.params.package);
       const requestOptions = getRequestOptions(req);
       try {
         const manifest = await storage.getPackageByOptions({
-          name,
+          name: packageName,
           uplinksLook: true,
           requestOptions,
         });

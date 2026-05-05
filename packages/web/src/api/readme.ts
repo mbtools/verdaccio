@@ -71,8 +71,8 @@ function addReadmeWebApi(storage: Storage, auth: Auth): Router {
     ): Promise<void> {
       debug('readme hit');
       const rawScope = reqUtils.paramToString(req.params.scope); // May include '@'
-      const scope = rawScope ? rawScope.slice(1) : null; // Remove '@' if present
       const packageName = reqUtils.paramToString(req.params.package);
+      const scope = rawScope ? rawScope.slice(1) : null; // Remove '@' if present
       const name = scope ? addScope(scope, packageName) : packageName;
       debug('readme name %o', name);
       const requestOptions = getRequestOptions(req);

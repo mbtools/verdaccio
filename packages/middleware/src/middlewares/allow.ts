@@ -41,7 +41,7 @@ export function allow<T>(
         `[middleware/allow][@{action}] allow for @{user}`
       );
       auth['allow_' + action](
-        { packageName: name, packageVersion },
+        { packageName, packageVersion },
         remote_user,
         function (error, allowed): void {
           req.resume();

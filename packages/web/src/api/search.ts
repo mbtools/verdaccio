@@ -45,12 +45,8 @@ function addSearchWebApi(storage: Storage, auth: Auth): Router {
         debug('search web aborted');
         abort.abort();
       };
-
+      req.socket.on('close', onClientClose);
       try {
-        req.socket.on('close', onClientClose);
-        _res.on('finish', () => {
-          req.socket.removeListener('close', onClientClose);
-        });
         const text = reqUtils.paramToString(req.params.anything);
         // These values are declared as optimal by npm cli
         // FUTURE: could be overwritten by ui settings.
