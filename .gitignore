@@ -65,4 +65,3 @@ CLAUDE.md
 
 # abappm
 !abappm/plugins/@verdaccio-pro/**/build
-!abappm/plugins/@verdaccio-pro/**/*.tgz
