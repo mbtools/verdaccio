@@ -44,7 +44,7 @@ jobs:
       - name: Package Verdaccio Pro Plugins
         run: |
           cd abappm/plugins/@verdaccio-pro/database
-          pnpm pack
+          npm pack
           cd /
 
       - name: Copy Dockerfile for Root Build Context
