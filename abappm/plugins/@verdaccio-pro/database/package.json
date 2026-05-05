@@ -1,0 +1,75 @@
+{
+  "name": "@verdaccio-pro/database",
+  "version": "1.2.1",
+  "description": "Database Layer for Verdaccio Pro (Postgres/Drizzle)",
+  "keywords": [
+    "verdaccio",
+    "verdaccio-pro",
+    "database",
+    "postgres",
+    "drizzle"
+  ],
+  "author": {
+    "name": "Marc Bernard",
+    "url": "https://github.com/mbtools"
+  },
+  "license": "FSL-1.1-MIT",
+  "homepage": "https://verdaccio.pro",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/verdaccio-pro/verdaccio-pro.git",
+    "directory": "packages/database"
+  },
+  "bugs": {
+    "url": "https://github.com/verdaccio-pro/verdaccio-pro/issues"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/verdaccio-pro"
+  },
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "@verdaccio/core": "9.0.0-next-9.14",
+    "debug": "4.4.3",
+    "dotenv": "17.4.2",
+    "drizzle-orm": "0.45.2",
+    "pg": "8.20.0",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite-socket": "0.1.5",
+    "@types/debug": "4.1.13",
+    "@types/node": "25.6.0",
+    "@types/pg": "8.20.0",
+    "@verdaccio/types": "14.0.0-next-9.5",
+    "cross-env": "10.1.0",
+    "drizzle-kit": "0.31.10",
+    "eslint": "10.3.0",
+    "tsup": "8.5.1",
+    "tsx": "4.21.0",
+    "typescript": "5.9.3",
+    "vitest": "4.1.5"
+  },
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "test": "cross-env NODE_ENV=test vitest run",
+    "db-server:file": "pglite-server --db=local.db",
+    "db-server:memory": "pglite-server",
+    "db:studio": "npx drizzle-kit studio",
+    "db:generate": "npx drizzle-kit generate",
+    "db:visualize": "npx drizzle-lab visualizer",
+    "db:check": "cross-env tsx src/db/tools/check.ts",
+    "db:migrate": "cross-env DB_MIGRATING=true tsx src/db/tools/migrate.ts",
+    "db:seed": "cross-env DB_SEEDING=true tsx src/db/tools/seed.ts",
+    "db:reset": "cross-env DB_RESET=true tsx src/db/tools/reset.ts"
+  }
+}
