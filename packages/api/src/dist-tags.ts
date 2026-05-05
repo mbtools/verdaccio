@@ -1,7 +1,7 @@
 import type { Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
-import { HEADERS, constants, errorUtils } from '@verdaccio/core';
+import { HEADERS, constants, errorUtils, reqUtils } from '@verdaccio/core';
 import { DIST_TAGS_API_ENDPOINTS, allow, getRequestOptions, media } from '@verdaccio/middleware';
 import type { Storage } from '@verdaccio/store';
 import type { Logger } from '@verdaccio/types';
@@ -21,7 +21,8 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
     if (typeof req.body !== 'string') {
       return next(errorUtils.getBadRequest('version is missing'));
     }
-    const { package: packageName, tag } = req.params as { package: string; tag: string };
+    const packageName = reqUtils.paramToString(req.params.package);
+    const tag = reqUtils.paramToString(req.params.tag);
     const tags = {};
     tags[tag] = req.body;
     try {
@@ -58,7 +59,8 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
       res: $ResponseExtend,
       next: $NextFunctionVer
     ): Promise<void> {
-      const { package: packageName, tag } = req.params as { package: string; tag: string };
+      const packageName = reqUtils.paramToString(req.params.package);
+      const tag = reqUtils.paramToString(req.params.tag);
       const tags = {};
       tags[tag] = null;
       try {
