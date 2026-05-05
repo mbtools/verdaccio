@@ -37,8 +37,8 @@
     "node": ">=24"
   },
   "dependencies": {
-    "@verdaccio/core": "9.0.0-next-9.8",
-    "@verdaccio-pro/database": "https://registry.verdaccio.pro/@verdaccio-pro/database/-/database-1.2.1.tgz",
+    "@verdaccio/core": "9.0.0-next-9.14",
+    "@verdaccio-pro/database": "file:../database/verdaccio-pro-database-1.2.1.tgz",
     "bcryptjs": "3.0.3",
     "debug": "4.4.3",
     "http-errors": "2.0.1"
@@ -46,12 +46,12 @@
   "devDependencies": {
     "@types/debug": "4.1.13",
     "@types/http-errors": "2.0.5",
-    "@verdaccio/types": "14.0.0-next-9.4",
+    "@verdaccio/types": "14.0.0-next-9.5",
     "cross-env": "10.1.0",
-    "eslint": "10.1.0",
+    "eslint": "10.3.0",
     "tsup": "8.5.1",
     "typescript": "5.9.3",
-    "vitest": "4.1.2"
+    "vitest": "4.1.5"
   },
   "scripts": {
     "build": "tsup",
