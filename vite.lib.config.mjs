@@ -105,6 +105,9 @@ export function createLibConfig(dirname, options = {}) {
       },
       rolldownOptions: {
         external: isExternal,
+        checks: {
+          pluginTimings: false, // apm
+        },
         output: esmOnly
           ? {
             format: 'es',
