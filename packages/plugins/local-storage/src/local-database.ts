@@ -3,6 +3,7 @@ import { escapeRegExp, isNil } from 'lodash-es';
 import { Low, Memory } from 'lowdb';
 import { JSONFile } from 'lowdb/node';
 import path from 'node:path';
+import sanitzers from 'sanitize-filename';
 
 import type { searchUtils } from '@verdaccio/core';
 import { authUtils, errorUtils, fileUtils, pluginUtils } from '@verdaccio/core';
@@ -205,7 +206,7 @@ class LocalDatabase extends pluginUtils.Plugin<{}> implements Storage {
       throw errorUtils.getInternalError('storage not found or implemented');
     }
 
-    const packageStoragePath = path.resolve(path.join(packagePath, packageName));
+    const packageStoragePath = path.resolve(path.join(packagePath, sanitzers(packageName)));
 
     // Verify that the file path is under the storage root directory
     // to avoid "uncontrolled data used in path expression" issues
