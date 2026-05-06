@@ -25,7 +25,7 @@ export default function (route: Router, auth: Auth, storage: Storage, logger: Lo
       next: $NextFunctionVer
     ): Promise<void> {
       const name = reqUtils.paramToString(req.params.package);
-      const version = reqUtils.paramToString(req.params.version);
+      const version = reqUtils.paramToString(req.params.version) || undefined;
       debug('get package by version: %o %o', name, version);
       const abbreviated =
         stringUtils.getByQualityPriorityValue(req.get('Accept')) === Storage.ABBREVIATED_HEADER;
