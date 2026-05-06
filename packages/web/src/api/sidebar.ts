@@ -39,10 +39,9 @@ function addSidebarWebApi(config: Config, storage: Storage, auth: Auth): Router 
       res: $ResponseExtend,
       next: $NextFunctionVer
     ): Promise<void> {
-      const rawScope = reqUtils.paramToString(req.params.scope); // May include '@'
-      const scope = rawScope ? rawScope.slice(1) : null; // Remove '@' if present
+      const scope = reqUtils.paramToString(req.params.scope).replace(/^@/, '');
       const packageName = reqUtils.paramToString(req.params.package);
-      const name: string = scope ? addScope(scope, packageName) : packageName;
+      const name = scope ? addScope(scope, packageName) : packageName;
       const requestOptions = getRequestOptions(req);
       try {
         const info = (await storage.getPackageByOptions({
