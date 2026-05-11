@@ -4,7 +4,7 @@
   "minimumReleaseAge": "15 days",
   "internalChecksFilter": "strict",
   "dependencyDashboard": false,
-  "ignorePaths": ["docker-examples/**"],
+  "ignorePaths": ["docker-examples/**", "**/mock-store/corrupted-package/**"],
   "schedule": ["on the 1,11,21 day of the month"],
   "ignoreDeps": ["customprefix-auth", "eslint-plugin-verdaccio", "@orama/orama"],
   "baseBranches": ["master", "8.x", "6.x", "7.x"],
@@ -16,12 +16,6 @@
       "description": "Forbid major updates on 8.x branch",
       "matchBaseBranches": ["8.x"],
       "matchUpdateTypes": ["major"],
-      "enabled": false
-    },
-    {
-      "description": "Disable devDependencies updates on 8.x branch",
-      "matchBaseBranches": ["8.x"],
-      "matchDepTypes": ["devDependencies"],
       "enabled": false
     },
     {
