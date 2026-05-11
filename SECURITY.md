@@ -4,6 +4,16 @@
 
 You can find details about the supported versions of Verdaccio in the [version history](https://github.com/verdaccio/verdaccio/blob/master/VERSIONS.md).
 
+### Experimental versions
+
+Issues reported against experimental versions (e.g. `9.x`) are treated as **bugs, not security vulnerabilities**. We still encourage you to share any sensitive findings through the official channel described below—responsible disclosure is always appreciated—but be aware that:
+
+- Experimental versions do **not** receive expedited security fixes.
+- Patches land on a best-effort basis with no guaranteed timeline.
+- Coordinated security releases are only issued for currently supported, non-experimental majors.
+
+If you are running Verdaccio in production, please use the latest supported stable version listed in [VERSIONS.md](https://github.com/verdaccio/verdaccio/blob/master/VERSIONS.md).
+
 ## Responsible disclosure security policy
 
 A responsible disclosure policy helps protect users of the project from publicly disclosed security vulnerabilities without a fix by employing a process where vulnerabilities are first triaged in a private manner, and only publicly disclosed after a reasonable time period that allows patching the vulnerability and provides an upgrade path for users.
@@ -26,7 +36,9 @@ Note that time-frame and processes are subject to each program’s own policy.
 
 - Report the security issue to the project maintainers directly at verdaccio@pm.me. If the report contains highly sensitive information, please be advised to encrypt your findings using our [PGP key](https://cdn.verdaccio.dev/gpg/publickey.verdaccio@pm.me.asc) which is also available in this document.
 
-Your efforts to responsibly disclose your findings are sincerely appreciated. There isn't a security bounty program available, but any security contributions will be duly acknowledged to recognize your valuable input.
+> **Please do not attach files, videos, or other binary content to your email.** Reports containing attachments will not be considered. If you need to share supporting material, include it inline as text (logs, stack traces, reproduction steps, links to public references). For sensitive information, use the PGP key above to encrypt the message body.
+
+Your efforts to responsibly disclose your findings are sincerely appreciated. **There isn't a security bounty program available**, but any security contributions will be duly acknowledged to recognize your valuable input.
 
 ## PGP key
 
