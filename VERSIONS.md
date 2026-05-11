@@ -1,5 +1,7 @@
 # Versions
 
+> **Scope:** The version, support, and Node.js policies described in this document apply **only to the [`verdaccio`](https://www.npmjs.com/package/verdaccio) package** (the registry binary users install and run). Packages published under the [`@verdaccio/*`](https://www.npmjs.com/org/verdaccio) scope are internal architectural building blocks—plugins, libraries, and infrastructure—and follow their own independent versioning, release cadence, and support lifecycle. Their compatibility is defined by the `verdaccio` major they ship with, not by this table.
+
 The following table describes the versions of this project:
 
 | Version          | Supported          | Minimum Node.js | Branch | Npm Tag          | Docker Images           | Helm Charts | E2E Tests                                                          |
@@ -21,12 +23,34 @@ For migrations from older versions to v5/6 refer to the [v5 migration guide](htt
 
 Version 8.x has been skipped and will not have a public release. Its internal modules will continue to receive bug fixes while 6.x is still supported. No new features will be added to 8.x. Development continues directly on 9.x.
 
+### Experimental Versions
+
+Experimental versions (currently `9.x`) are not production-ready and are intended for testing and early feedback. Issues found on experimental releases—**including security-related ones**—are treated as regular bugs, not as security vulnerabilities, and they do not follow the expedited fix timeline reserved for supported stable versions.
+
+We still appreciate responsible disclosure for any sensitive findings on experimental versions through the [official security channel](./SECURITY.md), but please be aware that:
+
+- Fixes will land on the experimental branch on a best-effort basis, with no guaranteed turnaround.
+- Expedited security releases are only issued for currently supported, non-experimental majors.
+- The recommendation is always to run the latest supported stable version in production.
+
 ### Deprecated Versions
 
 Deprecated versions aren’t supported anymore and shouldn’t be used in production. They don’t get updates—including security fixes—and we don’t run E2E tests on them.
 Once the deprecation period is over, the source code will be archived and won’t be maintained anymore.
 
 We try to keep things as backward-compatible as possible, but sometimes deprecating old versions is necessary to keep the project moving forward.
+
+### Node.js Support Policy
+
+The "Minimum Node.js" column reflects the lowest Node.js version Verdaccio is **tested** against, and it is tied to the [official Node.js release schedule](https://nodejs.org/en/about/previous-releases). Once a Node.js version reaches End-of-Life on that calendar, we stop testing it—even if the corresponding Verdaccio major is still listed as supported.
+
+What this means in practice:
+
+- A Verdaccio major may keep working on an EOL Node.js version, but it is **not** verified by our CI and no guarantees are made.
+- Dependencies may drop support for unmaintained Node.js versions at any time, often for security reasons. When that happens, Verdaccio will follow upstream and bump its minimum Node.js requirement in a patch or minor release.
+- Security fixes are only validated against currently-tested Node.js versions.
+
+We strongly recommend always running Verdaccio on an [active LTS](https://nodejs.org/en/about/previous-releases) release of Node.js.
 
 ## Npm Registry
 
