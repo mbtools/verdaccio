@@ -63,5 +63,8 @@ AGENTS.md
 CLAUDE.md
 /.claude
 
+# devcontainer
+/.devcontainer
+
 # abappm
-!abappm/plugins/@verdaccio-pro/**/build
+!abappm/plugins/@verdaccio-pro/**
