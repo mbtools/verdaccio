@@ -56,7 +56,8 @@ COPY abappm/conf /verdaccio/conf
 COPY abappm/i18n $VERDACCIO_APP_DIR/packages/core/i18n/build/download_translations
 
 # Install apm plugins
-RUN npm -g i corepack && \
+RUN cd /verdaccio/plugins && \
+    npm -g i corepack && \
     corepack install && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY
 
