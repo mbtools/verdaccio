@@ -55,21 +55,24 @@ COPY abappm/plugins /verdaccio/plugins
 COPY abappm/conf /verdaccio/conf
 COPY abappm/i18n $VERDACCIO_APP_DIR/packages/core/i18n/build/download_translations
 
-# Drop dev-only tool packages and install plugin dependencies
-RUN rm -rf ./packages/tools/helpers \
-           ./packages/tools/local-publish \
-           ./packages/tools/verdaccio-prefix-fake-plugin && \
-    npm -g i corepack && \
+# Install apm plugins
+RUN npm -g i corepack && \
     corepack install && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
-    for plugin in auth filter middleware storage-proxy storage-sql; do \
-        cd /verdaccio/plugins/@verdaccio-pro/$plugin && \
-        pnpm install --prod --no-optional --ignore-scripts; \
-    done
+    cd /verdaccio/plugins/@verdaccio-pro/auth && \
+    pnpm install --prod --no-optional --ignore-scripts && \
+    cd /verdaccio/plugins/@verdaccio-pro/filter && \
+    pnpm install --prod --no-optional --ignore-scripts && \
+    cd /verdaccio/plugins/@verdaccio-pro/middleware && \
+    pnpm install --prod --no-optional --ignore-scripts && \
+    cd /verdaccio/plugins/@verdaccio-pro/storage-proxy && \
+    pnpm install --prod --no-optional --ignore-scripts && \
+    cd /verdaccio/plugins/@verdaccio-pro/storage-sql && \
+    pnpm install --prod --no-optional --ignore-scripts
 
 # Clean up build artifacts and dev-only files
 RUN rm -f ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
-    rm -rf ./.cache /opt/yarn-v1.22.22 && \
+    rm -rf ./.cache /opt/yarn-v1.22.22 ./packages/tools/helpers ./packages/tools/local-publish ./packages/tools/verdaccio-prefix-fake-plugin && \
     find . -type f \( -name ".*" -o -name "*.md" -o -name "LICENSE" -o -name "tsconfig.*" -o -name "vitest.*" -o -name "*.d.ts" -o -name "*.js.map" -o -name "typedoc.*" -o -name "webpack.*" \) -delete && \
     find . -type d \( -name "examples" -o -name "src" -o -name "test" -o -name "tests" -o -name "tools" -o -name "types" -o -name "vitest" -o -name "__partials__" -o -name "__snapshots__" \) -not -path "*/node_modules/*" -exec rm -rf {} +
 
