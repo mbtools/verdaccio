@@ -7,28 +7,15 @@ ENV NODE_ENV=production \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org \
     VERDACCIO_BUILD_DIR=/opt/verdaccio-build
 
-RUN apk add --no-cache \
-    ca-certificates \
-    g++ \
-    gcc \
-    libgcc \
-    libstdc++ \
-    linux-headers \
-    make \
-    python3
+RUN apk add --no-cache ca-certificates g++ gcc libgcc libstdc++ linux-headers make python3
 
 WORKDIR $VERDACCIO_BUILD_DIR
 
-# Copy only package files to benefit from Docker cache
-COPY pnpm-lock.yaml ./ 
-COPY pnpm-workspace.yaml ./
-COPY tsconfig.base.json ./
-COPY tsconfig.reference.json ./
-COPY vite.lib.config.mjs ./
-COPY package.json ./
+# Copy only files needed for install/build (better Docker cache usage)
+COPY pnpm-lock.yaml pnpm-workspace.yaml tsconfig.base.json tsconfig.reference.json vite.lib.config.mjs package.json ./
 COPY packages/ ./packages/
 
-# Install all dependencies, build the repo, and deploy the verdaccio package
+# Install dependencies, build, and deploy the verdaccio package
 RUN corepack install && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm install --frozen-lockfile --ignore-scripts && \
@@ -42,7 +29,7 @@ FROM node:24-alpine AS app
 LABEL maintainer="https://github.com/abapPM" \
       dockerfile="Dockerfile-apm"
 
-ENV NODE_ENV=production
+ENV NODE_ENV=production \
     VERDACCIO_APP_DIR=/opt/verdaccio \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org \
     VERDACCIO_USER_NAME=verdaccio \
@@ -57,45 +44,32 @@ WORKDIR $VERDACCIO_APP_DIR
 
 # dumb-init: minimal init system (https://github.com/Yelp/dumb-init)
 # ncdu: disk usage analyzer (https://dev.yorhel.nl/ncdu)
-RUN apk --no-cache add openssl dumb-init ncdu && \
+RUN apk add --no-cache openssl dumb-init ncdu && \
     mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
-# Copy deployed Verdaccio package
+# Copy deployed Verdaccio, helper scripts, plugins, config, and translations
 COPY --from=builder /opt/verdaccio-deploy ./
 COPY docker-bin/ ./docker-bin/
-
-# Remove tools since we don't need them for production
-RUN rm -rf ./packages/tools/helpers && \
-    rm -rf ./packages/tools/local-publish && \
-    rm -rf ./packages/tools/verdaccio-prefix-fake-plugin && \
-#    rm -rf ./packages/tools/verdaccio-auth-fake-plugin && \
-#    rm -rf ./packages/tools/verdaccio-scoped-fake-plugin
-
-# Copy plugins, config, and translations
 COPY abappm/plugins /verdaccio/plugins
 COPY abappm/conf /verdaccio/conf
 COPY abappm/i18n $VERDACCIO_APP_DIR/packages/core/i18n/build/download_translations
 
-# Install plugins
-RUN corepack install && \
+# Drop dev-only tool packages and install plugin dependencies
+RUN rm -rf ./packages/tools/helpers \
+           ./packages/tools/local-publish \
+           ./packages/tools/verdaccio-prefix-fake-plugin && \
+    corepack install && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
-    cd /verdaccio/plugins/@verdaccio-pro/auth && \
-    pnpm install --prod --no-optional --ignore-scripts && \
-    cd /verdaccio/plugins/@verdaccio-pro/filter && \
-    pnpm install --prod --no-optional --ignore-scripts && \
-    cd /verdaccio/plugins/@verdaccio-pro/middleware && \
-    pnpm install --prod --no-optional --ignore-scripts && \
-    cd /verdaccio/plugins/@verdaccio-pro/storage-proxy && \
-    pnpm install --prod --no-optional --ignore-scripts && \
-    cd /verdaccio/plugins/@verdaccio-pro/storage-sql && \
-    pnpm install --prod --no-optional --ignore-scripts
+    for plugin in auth filter middleware storage-proxy storage-sql; do \
+        cd /verdaccio/plugins/@verdaccio-pro/$plugin && \
+        pnpm install --prod --no-optional --ignore-scripts; \
+    done
 
-# Clean up
-RUN rm ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
-    rm -rf ./.cache && \
-    rm -rf /opt/yarn-v1.22.22 && \
-    find . -type f -a \( -name ".*" -o -name "*.md" -o -name "LICENSE" -o -name "tsconfig.*" -o -name "vitest.*" -o -name "*.d.ts" -o -name "*.js.map" -o -name "typedoc.*" -o -name "webpack.*" \) -delete && \
-    find . -type d -a \( -name "examples" -o -name "src" -o -name "test" -o -name "tests" -o -name "tools" -o -name "types" -o -name "vitest" -o -name "__partials__"  -o -name "__snapshots__" \) -not -path "*/node_modules/*" | xargs rm -rf
+# Clean up build artifacts and dev-only files
+RUN rm -f ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
+    rm -rf ./.cache /opt/yarn-v1.22.22 && \
+    find . -type f \( -name ".*" -o -name "*.md" -o -name "LICENSE" -o -name "tsconfig.*" -o -name "vitest.*" -o -name "*.d.ts" -o -name "*.js.map" -o -name "typedoc.*" -o -name "webpack.*" \) -delete && \
+    find . -type d \( -name "examples" -o -name "src" -o -name "test" -o -name "tests" -o -name "tools" -o -name "types" -o -name "vitest" -o -name "__partials__" -o -name "__snapshots__" \) -not -path "*/node_modules/*" -exec rm -rf {} +
 
 # Set user, permissions, ownership
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APP_DIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \
