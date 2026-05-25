@@ -58,16 +58,17 @@ COPY abappm/i18n $VERDACCIO_APP_DIR/packages/core/i18n/build/download_translatio
 # Install apm plugins
 RUN npm -g i corepack && \
     corepack install && \
-    pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
-    cd /verdaccio/plugins/@verdaccio-pro/auth && \
-    pnpm install --prod --no-optional --ignore-scripts && \
-    cd /verdaccio/plugins/@verdaccio-pro/filter && \
-    pnpm install --prod --no-optional --ignore-scripts && \
-    cd /verdaccio/plugins/@verdaccio-pro/middleware && \
-    pnpm install --prod --no-optional --ignore-scripts && \
-    cd /verdaccio/plugins/@verdaccio-pro/storage-proxy && \
-    pnpm install --prod --no-optional --ignore-scripts && \
-    cd /verdaccio/plugins/@verdaccio-pro/storage-sql && \
+    pnpm config set registry $VERDACCIO_BUILD_REGISTRY
+
+RUN cd /verdaccio/plugins/@verdaccio-pro/auth && \
+    pnpm install --prod --no-optional --ignore-scripts
+RUN cd /verdaccio/plugins/@verdaccio-pro/filter && \
+    pnpm install --prod --no-optional --ignore-scripts
+RUN cd /verdaccio/plugins/@verdaccio-pro/middleware && \
+    pnpm install --prod --no-optional --ignore-scripts
+RUN cd /verdaccio/plugins/@verdaccio-pro/storage-proxy && \
+    pnpm install --prod --no-optional --ignore-scripts
+RUN cd /verdaccio/plugins/@verdaccio-pro/storage-sql && \
     pnpm install --prod --no-optional --ignore-scripts
 
 # Clean up build artifacts and dev-only files
