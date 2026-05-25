@@ -16,7 +16,8 @@ COPY pnpm-lock.yaml pnpm-workspace.yaml tsconfig.base.json tsconfig.reference.js
 COPY packages/ ./packages/
 
 # Install dependencies, build, and deploy the verdaccio package
-RUN corepack install && \
+RUN npm -g i corepack && \
+    corepack install && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm install --frozen-lockfile --ignore-scripts && \
     pnpm run build && \
@@ -58,6 +59,7 @@ COPY abappm/i18n $VERDACCIO_APP_DIR/packages/core/i18n/build/download_translatio
 RUN rm -rf ./packages/tools/helpers \
            ./packages/tools/local-publish \
            ./packages/tools/verdaccio-prefix-fake-plugin && \
+    npm -g i corepack && \
     corepack install && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     for plugin in auth filter middleware storage-proxy storage-sql; do \
@@ -88,4 +90,4 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
 
 ENTRYPOINT ["uid_entrypoint"]
 
-CMD $VERDACCIO_APP_DIR/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://$VERDACCIO_ADDRESS:$VERDACCIO_PORT
+CMD ["/bin/sh", "-c", "$VERDACCIO_APP_DIR/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://$VERDACCIO_ADDRESS:$VERDACCIO_PORT"]
