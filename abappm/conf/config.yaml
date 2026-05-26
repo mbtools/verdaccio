@@ -120,7 +120,7 @@ server:
   # - at least one digit
   # - at least one special character
   # - no whitespace anywhere
-  passwordValidationRegex: '^(?=.{8,64}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s])(?=\S+$).+$'
+  passwordValidationRegex: /^(?=.{8,64}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s])(?=\S+$).+$/
   # Allow `req.ip` to resolve properly when Verdaccio is behind a proxy or load-balancer
   # https://expressjs.com/en/guide/behind-proxies.html
   # trustProxy: true
