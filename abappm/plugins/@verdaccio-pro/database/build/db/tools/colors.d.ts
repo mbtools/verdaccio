@@ -1,0 +1,9 @@
+export declare const BLACK = "\u001B[30m";
+export declare const RED = "\u001B[31m";
+export declare const GREEN = "\u001B[32m";
+export declare const YELLOW = "\u001B[33m";
+export declare const BLUE = "\u001B[34m";
+export declare const MAGENTA = "\u001B[35m";
+export declare const CYAN = "\u001B[36m";
+export declare const WHITE = "\u001B[37m";
+export declare const RESET = "\u001B[0m";

@@ -37,25 +37,25 @@
     "node": ">=24"
   },
   "dependencies": {
-    "@verdaccio/config": "9.0.0-next-9.14",
-    "@verdaccio/core": "9.0.0-next-9.14",
-    "@verdaccio/logger": "9.0.0-next-9.14",
-    "@verdaccio-pro/database": "file:../database/verdaccio-pro-database-1.2.1.tgz",
+    "@verdaccio/config": "9.0.0-next-9.17",
+    "@verdaccio/core": "9.0.0-next-9.17",
+    "@verdaccio/logger": "9.0.0-next-9.17",
+    "@verdaccio-pro/database": "file:../database/verdaccio-pro-database-1.2.2.tgz",
     "debug": "4.4.3",
     "drizzle-orm": "0.45.2"
   },
   "devDependencies": {
     "@types/debug": "4.1.13",
-    "@types/node": "25.6.0",
-    "@verdaccio/types": "14.0.0-next-9.5",
+    "@types/node": "25.9.1",
+    "@verdaccio/types": "14.0.0-next-9.8",
     "cross-env": "10.1.0",
-    "eslint": "10.3.0",
-    "tsup": "8.5.1",
-    "typescript": "5.9.3",
-    "vitest": "4.1.5"
+    "eslint": "10.4.0",
+    "typescript": "6.0.3",
+    "vite": "8.0.14",
+    "vitest": "4.1.7"
   },
   "scripts": {
-    "build": "tsup",
+    "build": "vite build",
     "test": "cross-env NODE_ENV=test vitest run --max-concurrency=1",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix"
