@@ -259,36 +259,15 @@ i18n:
 ###
 
 auth:
-  htpasswd:
-    file: /verdaccio/storage/htpasswd
-  # '@verdaccio-pro/auth':
-  #   enabled: true
-  #   url: <your-database-url> # can also be set via DATABASE_URL environment variable
-  #   rounds: 10               # bcrypt rounds (default: 10)
-  #   max_users: 1000          # maximum allowed users (default: Infinity)
-  #   slow_verify_ms: 300      # log warning if password check is slow (ms)
-
-filter:
-  '@verdaccio-pro/filter':
-    enabled: false
-    # block:
-    #   # block all packages in a scope
-    #   - scope: @evil
-    #   # block a malicious package
-    #   - package: semvver
-    #   # block some malicious versions of previously ok package
-    #   - package: @coolauthor/stolen
-    #     versions: '>2.0.1'
-    #   # block some malicious versions of previously ok package, replacing them with older, correct versions
-    #   - package: @coolauthor/stolen
-    #     versions: '>2.0.1'
-    #     strategy: replace
-    # # emergency switch: block all packages published after a certain timestamp
-    # dateThreshold: '2025-02-08T03:52:00.000Z'
+  # htpasswd:
+  #   file: /verdaccio/storage/htpasswd
+  '@verdaccio-pro/clerk':
+    enabled: VERDACCIO_CLERK_ENABLED
+    clerk_publishable_key: CLERK_PUBLISHABLE_KEY
 
 middlewares:
   '@verdaccio-pro/middleware':
-    enabled: true
+    enabled: VERDACCIO_MIDDLEWARE_ENABLED
 
 store:
   '@verdaccio-pro/storage-sql':
