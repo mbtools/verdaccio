@@ -16,7 +16,8 @@ COPY pnpm-lock.yaml pnpm-workspace.yaml tsconfig.base.json tsconfig.reference.js
 COPY packages/ ./packages/
 
 # Install dependencies, build, and deploy the verdaccio package
-RUN corepack install && \
+RUN npm install -g pnpm && \
+    corepack install && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm install --frozen-lockfile --ignore-scripts && \
     pnpm run build && \
@@ -56,6 +57,7 @@ COPY abappm/i18n $VERDACCIO_APP_DIR/packages/core/i18n/build/download_translatio
 
 # Install apm plugins
 RUN cd /verdaccio/plugins && \
+    npm install -g pnpm && \
     corepack install && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY
 
