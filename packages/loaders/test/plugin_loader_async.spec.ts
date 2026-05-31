@@ -159,7 +159,7 @@ describe('plugin loader', () => {
       const plugins = await asyncLoadPlugin(config.auth, { config, logger }, authSanitize, true);
 
       expect(plugins).toHaveLength(1);
-      expect(plugins[0].config).toHaveProperty('self_path');
+      expect(plugins[0].config).toHaveProperty('configPath');
       expect(plugins[0].config).toHaveProperty('storage');
       expect(plugins[0].config).toHaveProperty('auth');
       expect(plugins[0].config.auth).toEqual({
