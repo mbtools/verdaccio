@@ -266,8 +266,7 @@ i18n:
 
 auth:
   '@verdaccio-pro/clerk':
-    enabled: VERDACCIO_CLERK_ENABLED
-    clerk_publishable_key: VERDACCIO_CLERK_PUBLISHABLE_KEY
+    clerk_secret_key: CLERK_SECRET_KEY
 
 middlewares:
   '@verdaccio-pro/middleware':
