@@ -33,9 +33,9 @@ Add the following to your Verdaccio configuration:
 
 ```yaml
 auth:
-  '@verdaccio-pro/auth-clerk':
+  '@verdaccio-pro/clerk':
     enabled: true
-    clerk_publishable_key: # can also be set via VITE_CLERK_PUBLISHABLE_KEY environment variable
+    clerk_secret_key: # can also be set via CLERK_SECRET_KEY environment variable
 ```
 
 ### 2. Environment Variables

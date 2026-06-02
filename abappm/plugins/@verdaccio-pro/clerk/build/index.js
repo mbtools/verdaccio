@@ -26,7 +26,7 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 //#endregion
 let debug = require("debug");
 debug = __toESM(debug);
-let _clerk_clerk_js = require("@clerk/clerk-js");
+let _clerk_backend = require("@clerk/backend");
 let _verdaccio_core = require("@verdaccio/core");
 //#region src/plugin.ts
 var debug$1 = (0, debug.default)("verdaccio:plugin:pro:auth-clerk");
@@ -36,38 +36,26 @@ var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		super(config, options);
 		this.config = options.config;
 		this.logger = options.logger;
-		this.authConfig = { clerk_publishable_key: config?.clerk_publishable_key || process.env.VITE_CLERK_PUBLISHABLE_KEY };
-		if (!this.authConfig.clerk_publishable_key) throw _verdaccio_core.errorUtils.getServiceUnavailable("[auth] missing config. Add `clerk_publishable_key` to Auth plugin config or use environment variable VITE_CLERK_PUBLISHABLE_KEY");
-		this.clerk = new _clerk_clerk_js.Clerk(this.authConfig.clerk_publishable_key);
-		this.clerkLoadPromise = this.clerk.load();
+		this.authConfig = { clerk_secret_key: config?.clerk_secret_key || process.env.CLERK_SECRET_KEY };
+		if (!this.authConfig.clerk_secret_key) throw _verdaccio_core.errorUtils.getServiceUnavailable("[auth] missing config. Add `clerk_secret_key` to Auth plugin config or use environment variable CLERK_SECRET_KEY");
+		this.clerkClient = (0, _clerk_backend.createClerkClient)({ secretKey: this.authConfig.clerk_secret_key });
 		debug$1("Verdaccio Pro Auth plugin is enabled");
 	}
 	async authenticate(user, password, cb) {
 		debug$1("authenticate user %o", user);
 		try {
-			await this.clerkLoadPromise;
-			const signIn = this.clerk.client?.signIn;
-			if (!signIn) {
-				debug$1("clerk sign-in resource not available");
+			const clerkUser = await this.resolveUser(user);
+			if (!clerkUser) {
+				debug$1("user not found");
 				return cb(null, false);
 			}
-			const signInAttempt = await signIn.create({
-				identifier: user,
+			await this.clerkClient.users.verifyPassword({
+				userId: clerkUser.id,
 				password
 			});
-			if (signInAttempt.status === "complete") {
-				if (!signInAttempt.createdSessionId) {
-					debug$1("sign-in complete but missing session id");
-					return cb(null, false);
-				}
-				await this.clerk.setActive({ session: signInAttempt.createdSessionId });
-				const groups = await this.getUserGroups(user);
-				debug$1("authentication succeeded!");
-				return cb(null, groups);
-			}
-			if (signInAttempt.status === "needs_second_factor") throw _verdaccio_core.errorUtils.getServiceUnavailable("Not supported");
-			debug$1("sign-in incomplete, status=%s", signInAttempt.status);
-			return cb(null, false);
+			const groups = await this.getUserGroups(clerkUser, user);
+			debug$1("authentication succeeded!");
+			return cb(null, groups);
 		} catch (error) {
 			this.logger.error({
 				error,
@@ -77,14 +65,28 @@ var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 			return cb(null, false);
 		}
 	}
-	async getUserGroups(loginUser) {
-		const clerkUser = this.clerk.user;
-		if (!clerkUser) return [loginUser];
+	async resolveUser(identifier) {
+		const { data: byUsername } = await this.clerkClient.users.getUserList({
+			username: [identifier],
+			limit: 1
+		});
+		if (byUsername.length === 1) return byUsername[0];
+		const { data: candidates } = await this.clerkClient.users.getUserList({
+			query: identifier,
+			limit: 10
+		});
+		const normalized = identifier.toLowerCase();
+		return candidates.find((candidate) => candidate.username?.toLowerCase() === normalized || candidate.emailAddresses.some((email) => email.emailAddress.toLowerCase() === normalized));
+	}
+	async getUserGroups(clerkUser, loginUser) {
 		const verdaccioUser = clerkUser.username ?? loginUser;
 		const orgSlugs = /* @__PURE__ */ new Set();
-		const memberships = clerkUser.organizationMemberships?.length ? clerkUser.organizationMemberships : (await clerkUser.getOrganizationMemberships({ pageSize: 100 })).data;
+		const { data: memberships } = await this.clerkClient.users.getOrganizationMembershipList({
+			userId: clerkUser.id,
+			limit: 100
+		});
 		for (const membership of memberships) {
-			const slug = membership.organization?.slug;
+			const slug = membership.organization.slug;
 			if (slug) orgSlugs.add(slug.startsWith("@") ? slug : `@${slug}`);
 		}
 		return [verdaccioUser, ...orgSlugs];
