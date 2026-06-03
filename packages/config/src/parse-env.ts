@@ -45,7 +45,7 @@ export function replaceEnvVars(config: Record<string, unknown>): void {
       process.env[value] !== undefined
     ) {
       const envValue = process.env[value] as string;
-      debug('replacing config %s value %o with env var %o', key, value, envValue);
+      debug('replacing config %s value %o with env var', key, value);
       config[key] = parseEnvValue(envValue);
     } else if (isObject(value) && value !== null) {
       replaceEnvVars(value as Record<string, unknown>);

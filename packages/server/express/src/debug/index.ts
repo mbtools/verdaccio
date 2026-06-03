@@ -13,15 +13,23 @@ export default (app: Application, config: IConfig): void => {
         global.gc();
       }
 
-      const maskedConfig = { ...config };
-      maskedConfig.secret = '********';
-      maskedConfig.auth.htpasswd.file = '********';
+      const maskedConfig = { ...config, secret: '********' };
+      if (config.auth?.htpasswd) {
+        maskedConfig.auth = {
+          ...config.auth,
+          htpasswd: {
+            ...config.auth.htpasswd,
+            file: '********',
+          },
+        };
+      }
 
       // mask env DATABASE_URL
       const env = { ...process.env };
       env.DATABASE_URL = '********';
       env.DATABASE_SECRET = '********';
       env.DB_SALT = '********';
+      env.CLERK_SECRET_KEY = '********';
       const sortedEnv: Record<string, string | undefined> = {};
       Object.keys(env)
         .sort()
@@ -33,7 +41,7 @@ export default (app: Application, config: IConfig): void => {
         pid: process.pid,
         // @ts-ignore
         main: process.main,
-        config,
+        config: maskedConfig,
         env: sortedEnv,
         uptime: process.uptime(),
         mem: process.memoryUsage(),
