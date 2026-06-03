@@ -14,6 +14,8 @@ WORKDIR $VERDACCIO_BUILD_DIR
 # Copy only files needed for install/build (better Docker cache usage)
 COPY pnpm-lock.yaml pnpm-workspace.yaml tsconfig.base.json tsconfig.reference.json vite.lib.config.mjs package.json ./
 COPY packages/ ./packages/
+# Custom translations (bundled into ui-theme via import.meta.glob at build time)
+COPY abappm/i18n ./packages/plugins/ui-theme/src/i18n/download_translations
 
 # Install dependencies, build, and deploy the verdaccio package
 RUN npm install -g corepack && \
@@ -48,12 +50,11 @@ WORKDIR $VERDACCIO_APP_DIR
 RUN apk add --no-cache openssl dumb-init ncdu && \
     mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
 
-# Copy deployed Verdaccio, helper scripts, plugins, config, and translations
+# Copy deployed Verdaccio, helper scripts, plugins, and config
 COPY --from=builder /opt/verdaccio-deploy ./
 COPY docker-bin/ ./docker-bin/
 COPY abappm/plugins /verdaccio/plugins
 COPY abappm/conf /verdaccio/conf
-COPY abappm/i18n $VERDACCIO_APP_DIR/packages/core/i18n/build/download_translations
 
 # Install apm plugins
 RUN cd /verdaccio/plugins && \
