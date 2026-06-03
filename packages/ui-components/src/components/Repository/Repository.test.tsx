@@ -27,7 +27,7 @@ describe('<Repository /> component', () => {
     expect(screen.getByText('sidebar.repository.title')).toBeTruthy();
     expect(screen.getByTestId('repositoryID')).toBeTruthy();
     const link = screen.getByRole('link');
-    expect(link).toHaveAttribute('href', 'https://github.com/verdaccio/monorepo.git');
+    expect(link).toHaveAttribute('href', 'https://github.com/verdaccio/monorepo');
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
