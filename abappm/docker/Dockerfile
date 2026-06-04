@@ -14,6 +14,7 @@ WORKDIR $VERDACCIO_BUILD_DIR
 # Copy only files needed for install/build (better Docker cache usage)
 COPY pnpm-lock.yaml pnpm-workspace.yaml tsconfig.base.json tsconfig.reference.json vite.lib.config.mjs package.json ./
 COPY packages/ ./packages/
+
 # Custom translations (bundled into ui-theme via import.meta.glob at build time)
 COPY abappm/i18n ./packages/plugins/ui-theme/src/i18n/download_translations
 
@@ -24,6 +25,26 @@ RUN npm install -g corepack && \
     pnpm install --frozen-lockfile --ignore-scripts && \
     pnpm run build && \
     pnpm --filter verdaccio --prod --legacy deploy /opt/verdaccio-deploy
+
+# Install pro plugins in the builder (reuses the warm pnpm store from above)
+COPY abappm/conf /opt/verdaccio-conf
+COPY abappm/plugins /opt/verdaccio-plugins
+
+RUN cd /opt/verdaccio-plugins/database && \
+    npm pack . && \
+    cd /opt/verdaccio-plugins && \
+    pnpm install --prod --no-optional --ignore-scripts
+
+# Strip dev-only files before copying into the runtime image
+RUN cd /opt/verdaccio-deploy && \
+    rm -f ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
+    rm -rf ./.cache ./packages/tools/helpers ./packages/tools/local-publish ./packages/tools/verdaccio-prefix-fake-plugin && \
+    find . -type f \( -name ".*" -o -name "*.md" -o -name "LICENSE" -o -name "tsconfig.*" -o -name "vitest.*" -o -name "*.d.ts" -o -name "*.js.map" -o -name "typedoc.*" \) -delete && \
+    find . -type d \( -name "examples" -o -name "src" -o -name "test" -o -name "tests" -o -name "tools" -o -name "types" -o -name "vitest" -o -name "__partials__" -o -name "__snapshots__" \) -not -path "*/node_modules/*" -exec rm -rf {} +
+
+RUN cd /opt/verdaccio-plugins && \
+    rm -f ./pnpm-workspace.yaml && \
+    find . -type f \( -name ".*" -o -name "*.md" -o -name "LICENSE" -o -name "*.d.ts" -o -name "*.js.map" \) -delete
 
 #
 # --- Production Stage ---
@@ -48,32 +69,14 @@ WORKDIR $VERDACCIO_APP_DIR
 # dumb-init: minimal init system (https://github.com/Yelp/dumb-init)
 # ncdu: disk usage analyzer (https://dev.yorhel.nl/ncdu)
 RUN apk add --no-cache openssl dumb-init ncdu && \
-    mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf
+    mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf \
+    rm -rf /opt/yarn-v1.22.22
 
-# Copy deployed Verdaccio, helper scripts, plugins, and config
+# Copy deployed Verdaccio, pre-installed plugins, helper scripts, and config
 COPY --from=builder /opt/verdaccio-deploy ./
+COPY --from=builder /opt/verdaccio-plugins /verdaccio/plugins
+COPY --from=builder /opt/verdaccio-conf /verdaccio/conf
 COPY docker-bin/ ./docker-bin/
-COPY abappm/plugins /verdaccio/plugins
-COPY abappm/conf /verdaccio/conf
-
-# Install apm plugins
-RUN cd /verdaccio/plugins && \
-    npm install -g corepack && \
-    corepack install && \
-    pnpm config set registry $VERDACCIO_BUILD_REGISTRY
-
-RUN cd /verdaccio/plugins/@verdaccio-pro/clerk && \
-    pnpm install --prod --no-optional --ignore-scripts
-RUN cd /verdaccio/plugins/@verdaccio-pro/middleware && \
-    pnpm install --prod --no-optional --ignore-scripts
-RUN cd /verdaccio/plugins/@verdaccio-pro/storage-sql && \
-    pnpm install --prod --no-optional --ignore-scripts
-
-# Clean up build artifacts and dev-only files
-RUN rm -f ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
-    rm -rf ./.cache /opt/yarn-v1.22.22 ./packages/tools/helpers ./packages/tools/local-publish ./packages/tools/verdaccio-prefix-fake-plugin && \
-    find . -type f \( -name ".*" -o -name "*.md" -o -name "LICENSE" -o -name "tsconfig.*" -o -name "vitest.*" -o -name "*.d.ts" -o -name "*.js.map" -o -name "typedoc.*" -o -name "webpack.*" \) -delete && \
-    find . -type d \( -name "examples" -o -name "src" -o -name "test" -o -name "tests" -o -name "tools" -o -name "types" -o -name "vitest" -o -name "__partials__" -o -name "__snapshots__" \) -not -path "*/node_modules/*" -exec rm -rf {} +
 
 # Set user, permissions, ownership
 RUN adduser -u $VERDACCIO_USER_UID -S -D -h $VERDACCIO_APP_DIR -g "$VERDACCIO_USER_NAME user" -s /sbin/nologin $VERDACCIO_USER_NAME && \

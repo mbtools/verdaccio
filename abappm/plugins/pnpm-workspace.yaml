@@ -1,0 +1,4 @@
+packages:
+  - '@verdaccio-pro/clerk'
+  - '@verdaccio-pro/middleware'
+  - '@verdaccio-pro/storage-sql'

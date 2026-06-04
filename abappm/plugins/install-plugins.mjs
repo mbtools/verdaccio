@@ -6,8 +6,6 @@ const root = dirname(fileURLToPath(import.meta.url));
 const proPlugins = join(root, '@verdaccio-pro');
 const databaseDir = join(proPlugins, 'database');
 
-const plugins = ['clerk', 'middleware', 'storage-sql'];
-
 const registry = process.env.VERDACCIO_BUILD_REGISTRY ?? 'https://registry.npmjs.org';
 
 const pnpmInstallArgs = [
@@ -15,7 +13,6 @@ const pnpmInstallArgs = [
   '--prod',
   '--no-optional',
   '--ignore-scripts',
-  '--ignore-workspace',
   '--registry',
   registry,
 ];
@@ -40,9 +37,7 @@ function run(command, args, cwd) {
 console.log('Packing @verdaccio-pro/database...');
 run('npm', ['pack'], databaseDir);
 
-for (const name of plugins) {
-  console.log(`\nInstalling @verdaccio-pro/${name}...`);
-  run('pnpm', pnpmInstallArgs, join(proPlugins, name));
-}
+console.log('\nInstalling pro plugins (workspace, shared pnpm store)...');
+run('pnpm', pnpmInstallArgs, root);
 
 console.log('\nDone.');
