@@ -129,11 +129,12 @@ server:
   passwordValidationRegex: /^(?=.{8,64}$)(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s])(?=\S+$).+$/
   # Allow `req.ip` to resolve properly when Verdaccio is behind a proxy or load-balancer
   # https://expressjs.com/en/guide/behind-proxies.html
-  trustProxy: true
+  # Cloudflare -> DigitalOcean -> Verdaccio
+  trustProxy: '100.127.0.0/16'
 
 # https://verdaccio.org/docs/configuration#offline-publish
 publish:
-  #   allow_offline: false
+  # allow_offline: false
   check_owners: true
   keep_readmes: all
 
@@ -234,7 +235,7 @@ log:
   #       'user'
   #     ]
   #   censor: '<redacted>'
-#  sync: true
+  # sync: true
 
 # Feature flags (experimental settings that can be changed or removed in the future)
 # https://verdaccio.org/docs/configuration#experiments
