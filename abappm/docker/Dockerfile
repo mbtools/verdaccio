@@ -69,7 +69,7 @@ WORKDIR $VERDACCIO_APP_DIR
 # dumb-init: minimal init system (https://github.com/Yelp/dumb-init)
 # ncdu: disk usage analyzer (https://dev.yorhel.nl/ncdu)
 RUN apk add --no-cache openssl dumb-init ncdu && \
-    mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf \
+    mkdir -p /verdaccio/storage /verdaccio/plugins /verdaccio/conf && \
     rm -rf /opt/yarn-v1.22.22
 
 # Copy deployed Verdaccio, pre-installed plugins, helper scripts, and config
