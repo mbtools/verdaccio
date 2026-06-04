@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { PRIMARY_COLOR } from './colors';
 import { getModePalette } from './modes';
 import { getTheme } from './theme';

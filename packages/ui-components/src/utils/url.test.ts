@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest';
+
 import { extractFileName, isEmail, isURL } from './url';
 
 describe('utils', () => {

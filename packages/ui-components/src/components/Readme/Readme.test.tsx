@@ -32,4 +32,15 @@ describe('<Readme /> component', () => {
     expect(wrapper.getByText('2')).toBeInTheDocument();
     expect(wrapper.getByText('2')).toHaveClass('hljs-number');
   });
+
+  test('should resolve relative images when repoUrl is a GitHub repository', () => {
+    const markdown = '![logo](img/logo.svg)';
+    const { container } = render(
+      <Readme description={markdown} repoUrl="https://github.com/owner/repo" />
+    );
+    const img = container.querySelector('img');
+    expect(img?.getAttribute('src')).toBe(
+      'https://raw.githubusercontent.com/owner/repo/HEAD/img/logo.svg'
+    );
+  });
 });

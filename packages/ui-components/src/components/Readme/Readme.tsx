@@ -11,7 +11,7 @@ import './hljs-github-light.css';
 import type { Props } from './types';
 import { parseReadme } from './utils';
 
-const Readme: React.FC<Props> = ({ description }) => {
+const Readme: React.FC<Props> = ({ description, repoUrl }) => {
   const theme = useTheme();
   const dataTheme = theme.palette.mode;
 
@@ -22,7 +22,7 @@ const Readme: React.FC<Props> = ({ description }) => {
           <Wrapper
             className="markdown-body hljs"
             data-theme={dataTheme}
-            dangerouslySetInnerHTML={{ __html: parseReadme(description) as string }}
+            dangerouslySetInnerHTML={{ __html: parseReadme(description, repoUrl) as string }}
           />
         </Box>
       </CardContent>
