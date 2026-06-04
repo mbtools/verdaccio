@@ -97,7 +97,7 @@ export function createLibConfig(dirname, options = {}) {
     build: {
       outDir,
       emptyOutDir: true,
-      sourcemap: true,
+      sourcemap: false,
       minify: false,
       lib: {
         entry: entries,

@@ -2,7 +2,6 @@ export { default as CopyClipboard, copyToClipBoardUtility } from './components/C
 export * from './components/CopyClipboard';
 export { default as ActionBar } from './components/ActionBar';
 export { default as Author } from './components/Author';
-export { default as Dependencies } from './components/Dependencies';
 export { default as Deprecated } from './components/Deprecated';
 export { default as Developers } from './components/Developers';
 export { default as Distribution } from './components/Distribution';
@@ -18,8 +17,6 @@ export { default as RawViewer } from './components/RawViewer';
 export { default as Person } from './components/Person';
 export { default as Readme } from './components/Readme';
 export { default as SideBarTitle } from './components/SideBarTitle';
-export { default as UpLinks } from './components/UpLinks';
-export { default as Versions } from './components/Versions';
 export { default as Label } from './components/Label';
 export { default as Logo } from './components/Logo';
 export { default as MenuItem } from './components/MenuItem';

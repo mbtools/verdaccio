@@ -32,6 +32,7 @@ i18n
     },
     resources: languages,
     debug: false,
+    showSupportNotice: false,
     interpolation: {
       escapeValue: false, // react already safes from xss
     },
