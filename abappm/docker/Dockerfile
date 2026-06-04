@@ -30,8 +30,7 @@ RUN npm install -g corepack && \
 COPY abappm/conf /opt/verdaccio-conf
 COPY abappm/plugins /opt/verdaccio-plugins
 
-RUN cd /opt/verdaccio-plugins/database && \
-    npm pack . && \
+RUN npm pack /opt/verdaccio-plugins/@verdaccio-pro/database && \
     cd /opt/verdaccio-plugins && \
     pnpm install --prod --no-optional --ignore-scripts
 
@@ -50,6 +49,7 @@ RUN cd /opt/verdaccio-plugins && \
 # --- Production Stage ---
 #
 FROM node:24-alpine AS app
+
 LABEL maintainer="https://github.com/abapPM" \
       dockerfile="Dockerfile-apm"
 
