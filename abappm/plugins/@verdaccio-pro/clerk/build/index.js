@@ -185,5 +185,3 @@ var src_default = AuthPlugin;
 //#endregion
 exports.AuthPlugin = AuthPlugin;
 exports.default = src_default;
-
-//# sourceMappingURL=index.js.map

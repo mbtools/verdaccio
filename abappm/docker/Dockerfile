@@ -16,6 +16,9 @@ COPY pnpm-lock.yaml pnpm-workspace.yaml tsconfig.base.json tsconfig.reference.js
 COPY packages/ ./packages/
 
 # Custom translations (bundled into ui-theme via import.meta.glob at build time)
+COPY abappm/docker /opt/verdaccio-docker
+COPY abappm/conf /opt/verdaccio-conf
+COPY abappm/plugins /opt/verdaccio-plugins
 COPY abappm/i18n ./packages/plugins/ui-theme/src/i18n/download_translations
 
 # Install dependencies, build, and deploy the verdaccio package
@@ -27,23 +30,12 @@ RUN npm install -g corepack && \
     pnpm --filter verdaccio --prod --legacy deploy /opt/verdaccio-deploy
 
 # Install pro plugins in the builder (reuses the warm pnpm store from above)
-COPY abappm/conf /opt/verdaccio-conf
-COPY abappm/plugins /opt/verdaccio-plugins
-
 RUN npm pack /opt/verdaccio-plugins/@verdaccio-pro/database && \
     cd /opt/verdaccio-plugins && \
     pnpm install --prod --no-optional --ignore-scripts
 
 # Strip dev-only files before copying into the runtime image
-RUN cd /opt/verdaccio-deploy && \
-    rm -f ./pnpm-lock.yaml ./pnpm-workspace.yaml && \
-    rm -rf ./.cache ./packages/tools/helpers ./packages/tools/local-publish ./packages/tools/verdaccio-prefix-fake-plugin && \
-    find . -type f \( -name ".*" -o -name "*.md" -o -name "LICENSE" -o -name "tsconfig.*" -o -name "vitest.*" -o -name "*.d.ts" -o -name "*.js.map" -o -name "typedoc.*" \) -delete && \
-    find . -type d \( -name "examples" -o -name "src" -o -name "test" -o -name "tests" -o -name "tools" -o -name "types" -o -name "vitest" -o -name "__partials__" -o -name "__snapshots__" \) -not -path "*/node_modules/*" -exec rm -rf {} +
-
-RUN cd /opt/verdaccio-plugins && \
-    rm -f ./pnpm-workspace.yaml && \
-    find . -type f \( -name ".*" -o -name "*.md" -o -name "LICENSE" -o -name "*.d.ts" -o -name "*.js.map" \) -delete
+RUN sh /opt/verdaccio-docker/cleanup.sh
 
 #
 # --- Production Stage ---
@@ -74,8 +66,8 @@ RUN apk add --no-cache openssl dumb-init ncdu && \
 
 # Copy deployed Verdaccio, pre-installed plugins, helper scripts, and config
 COPY --from=builder /opt/verdaccio-deploy ./
-COPY --from=builder /opt/verdaccio-plugins /verdaccio/plugins
 COPY --from=builder /opt/verdaccio-conf /verdaccio/conf
+COPY --from=builder /opt/verdaccio-plugins /verdaccio/plugins
 COPY docker-bin/ ./docker-bin/
 
 # Set user, permissions, ownership

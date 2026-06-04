@@ -260,5 +260,3 @@ var src_default = MiddlewarePlugin;
 //#endregion
 exports.MiddlewarePlugin = MiddlewarePlugin;
 exports.default = src_default;
-
-//# sourceMappingURL=index.js.map

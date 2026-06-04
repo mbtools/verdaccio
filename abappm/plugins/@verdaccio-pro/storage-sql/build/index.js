@@ -235,5 +235,3 @@ var src_default = SqlStoragePlugin;
 //#endregion
 exports.SqlStoragePlugin = SqlStoragePlugin;
 exports.default = src_default;
-
-//# sourceMappingURL=index.js.map
