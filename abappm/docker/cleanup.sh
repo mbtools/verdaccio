@@ -3,7 +3,9 @@
 # Strip dev-only files
 set -eu
 
+#
 # Verdaccio Deploy
+#
 cd /opt/verdaccio-deploy
 
 rm -f ./pnpm-lock.yaml ./pnpm-workspace.yaml
@@ -38,10 +40,12 @@ find . -type d \
   -not -path "*/node_modules/*" \
   -exec rm -rf {} +
 
+#
 # Verdaccio Plugins
+#
 cd /opt/verdaccio-plugins
 
-rm -f ./pnpm-workspace.yaml
+rm -f ./pnpm-lock.yaml ./pnpm-workspace.yaml
 
 find . -type f \( -name ".*" \
     -o -name "*.md" \
@@ -49,4 +53,5 @@ find . -type f \( -name ".*" \
     -o -name "*.d.ts" \
     -o -name "*.js.map" \
     -o -name "*.mjs.map" \
+    -o -name "*.tgz" \
   \) -delete
