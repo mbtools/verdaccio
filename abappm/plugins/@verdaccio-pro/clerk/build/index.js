@@ -29,7 +29,10 @@ debug = __toESM(debug);
 let _clerk_backend = require("@clerk/backend");
 let _verdaccio_core = require("@verdaccio/core");
 //#region src/plugin.ts
-var debug$1 = (0, debug.default)("verdaccio:plugin:pro:auth-clerk");
+var debug$1 = (0, debug.default)("verdaccio:plugin:pro:clerk");
+function logAccess(user, pkg, action, grant) {
+	debug$1(`${action} for ${user.name} on ${pkg.name} has been ${grant ? "granted" : "denied"}`);
+}
 var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 	constructor(config, options) {
 		debug$1("start auth plugin");
@@ -41,28 +44,28 @@ var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		this.clerkClient = (0, _clerk_backend.createClerkClient)({ secretKey: this.authConfig.clerk_secret_key });
 		debug$1("Verdaccio Pro Auth plugin is enabled");
 	}
-	async authenticate(user, password, cb) {
+	async authenticate(user, password, callback) {
 		debug$1("authenticate user %o", user);
 		try {
 			const clerkUser = await this.resolveUser(user);
 			if (!clerkUser) {
 				debug$1("user not found");
-				return cb(null, false);
+				return callback(null, false);
 			}
 			await this.clerkClient.users.verifyPassword({
 				userId: clerkUser.id,
 				password
 			});
-			const groups = await this.getUserGroups(clerkUser, user);
+			const groups = await this.getUserGroups(clerkUser);
 			debug$1("authentication succeeded!");
-			return cb(null, groups);
+			return callback(null, groups);
 		} catch (error) {
-			this.logger.error({
+			this.logger.debug({
 				error,
 				user
-			}, "Clerk sign-in failed for \"@{user}\": @{error.message}");
-			debug$1("sign-in error %o", error);
-			return cb(null, false);
+			}, "Authentication failed for \"@{user}\": @{error.message}");
+			debug$1("authentication error: %o", error);
+			return callback(_verdaccio_core.errorUtils.getInternalError("Authentication failed"), false);
 		}
 	}
 	async resolveUser(identifier) {
@@ -78,8 +81,7 @@ var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		const normalized = identifier.toLowerCase();
 		return candidates.find((candidate) => candidate.username?.toLowerCase() === normalized || candidate.emailAddresses.some((email) => email.emailAddress.toLowerCase() === normalized));
 	}
-	async getUserGroups(clerkUser, loginUser) {
-		const verdaccioUser = clerkUser.username ?? loginUser;
+	async getUserGroups(clerkUser) {
 		const orgSlugs = /* @__PURE__ */ new Set();
 		const { data: memberships } = await this.clerkClient.users.getOrganizationMembershipList({
 			userId: clerkUser.id,
@@ -89,9 +91,12 @@ var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 			const slug = membership.organization.slug;
 			if (slug) orgSlugs.add(slug.startsWith("@") ? slug : `@${slug}`);
 		}
-		return [verdaccioUser, ...orgSlugs];
+		orgSlugs.add("@");
+		orgSlugs.add("$all");
+		orgSlugs.add("$authenticated");
+		return [...orgSlugs];
 	}
-	async adduser(user, password, cb, email) {
+	async adduser(user, password, callback, email) {
 		debug$1("add user %o", user);
 		throw _verdaccio_core.errorUtils.getServiceUnavailable("Not supported");
 	}
@@ -99,84 +104,76 @@ var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		debug$1("remove user %o", user);
 		throw _verdaccio_core.errorUtils.getServiceUnavailable("Not supported");
 	}
-	async changePassword(user, oldPassword, newPassword, cb) {
+	async changePassword(user, oldPassword, newPassword, callback) {
 		debug$1("change password for user %o", user);
 		throw _verdaccio_core.errorUtils.getServiceUnavailable("Not supported");
 	}
-	async allow_access(user, pkg, cb) {
-		debug$1("allow access for %o", user);
-		const access = pkg.access;
-		if (access?.includes("$all") || access?.includes("$anonymous")) {
-			debug$1("%o has been granted access", user.name);
-			return cb(null, true);
+	async _allow(user, pkg, action, callback) {
+		const requiredGroups = pkg[action];
+		if (!requiredGroups) {
+			logAccess(user, pkg, action, false);
+			return callback(null, false);
+		}
+		if (requiredGroups.includes("$anonymous")) {
+			logAccess(user, pkg, action, true);
+			return callback(null, true);
 		}
 		if (!user.name) {
-			const err = _verdaccio_core.errorUtils.getForbidden("not allowed to access package");
-			this.logger.debug({ user: user.name }, "user: @{user} not allowed to access package");
-			debug$1("%o not allowed to access package err", user.name, err.message);
-			return cb(err);
+			logAccess(user, pkg, action, false);
+			return callback(null, false);
 		}
-		if (access?.includes("$authenticated")) {
-			debug$1("%o has been granted access", user.name);
-			return cb(null, true);
+		if (requiredGroups.includes("$all")) {
+			logAccess(user, pkg, action, true);
+			return callback(null, true);
 		}
-		for (const group of user.groups) if (access?.includes(group)) {
-			debug$1("%o has been granted access via group %o", user.name, group);
-			return cb(null, true);
+		try {
+			const clerkUser = await this.resolveUser(user.name);
+			if (!clerkUser) {
+				debug$1("user not found");
+				return callback(null, false);
+			}
+			const groups = await this.getUserGroups(clerkUser);
+			let org = "@";
+			if (pkg.name.startsWith("@")) org = pkg.name.split("/")[0];
+			const grant = groups.includes(org);
+			logAccess(user, pkg, action, grant);
+			callback(null, grant);
+		} catch (error) {
+			this.logger.debug({
+				error,
+				user
+			}, "Clerk authorization check failed for \"@{user}\": @{error.message}");
+			debug$1("authorization check error: %o", error);
+			callback(null, false);
 		}
-		const err = _verdaccio_core.errorUtils.getForbidden("not allowed to access package");
-		debug$1("%o not allowed to access package err", user.name, err.message);
-		return cb(err);
 	}
-	async allow_publish(user, pkg, cb) {
-		debug$1("allow publish for %o", user);
-		const publish = pkg.publish;
-		if (publish?.includes("$all") || publish?.includes("$anonymous")) {
-			debug$1("%o has been granted publish", user.name);
-			return cb(null, true);
-		}
-		if (!user.name) {
-			const err = _verdaccio_core.errorUtils.getForbidden("not allowed to publish package");
-			this.logger.debug({ user: user.name }, "user: @{user} not allowed to publish package");
-			debug$1("%o not allowed to publish package err", user.name, err.message);
-			return cb(err);
-		}
-		if (publish?.includes("$authenticated")) {
-			debug$1("%o has been granted publish", user.name);
-			return cb(null, true);
-		}
-		for (const group of user.groups) if (publish?.includes(group)) {
-			debug$1("%o has been granted publish via group %o", user.name, group);
-			return cb(null, true);
-		}
-		const err = _verdaccio_core.errorUtils.getForbidden("not allowed to publish package");
-		debug$1("%o not allowed to publish package err", user.name, err.message);
-		return cb(err);
+	/**
+	* Allow access to a package
+	*/
+	async allow_access(user, pkg, callback) {
+		await this._allow(user, pkg, "access", callback);
 	}
-	async allow_unpublish(user, pkg, cb) {
-		debug$1("allow unpublish for %o", user);
-		const unpublish = pkg.unpublish;
-		if (unpublish?.includes("$all") || unpublish?.includes("$anonymous")) {
-			debug$1("%o has been granted unpublish", user.name);
-			return cb(null, true);
+	/**
+	* Allow publish to a package
+	*/
+	async allow_publish(user, pkg, callback) {
+		await this._allow(user, pkg, "publish", callback);
+	}
+	/**
+	* Allow unpublish to a package
+	*/
+	async allow_unpublish(user, pkg, callback) {
+		if (pkg.unpublish === false) {
+			logAccess(user, pkg, "unpublish", false);
+			callback(null, void 0);
+			return;
 		}
-		if (!user.name) {
-			const err = _verdaccio_core.errorUtils.getForbidden("not allowed to unpublish package");
-			this.logger.debug({ user: user.name }, "user: @{user} not allowed to unpublish package");
-			debug$1("%o not allowed to unpublish package err", user.name, err.message);
-			return cb(err);
+		if (pkg.unpublish === true) {
+			logAccess(user, pkg, "unpublish", false);
+			callback(_verdaccio_core.errorUtils.getInternalError("Invalid package unpublish configuration"), false);
+			return;
 		}
-		if (unpublish?.includes("$authenticated")) {
-			debug$1("%o has been granted unpublish", user.name);
-			return cb(null, true);
-		}
-		for (const group of user.groups) if (unpublish?.includes(group)) {
-			debug$1("%o has been granted unpublish via group %o", user.name, group);
-			return cb(null, true);
-		}
-		const err = _verdaccio_core.errorUtils.getForbidden("not allowed to unpublish package");
-		debug$1("%o not allowed to unpublish package err", user.name, err.message);
-		return cb(err);
+		await this._allow(user, pkg, "unpublish", callback);
 	}
 };
 //#endregion
