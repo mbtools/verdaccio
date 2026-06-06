@@ -23,6 +23,20 @@ export default (app: Application, config: IConfig): void => {
           },
         };
       }
+      if (config.auth?.['@verdaccio-pro/clerk']) {
+        maskedConfig.auth['@verdaccio-pro/clerk'] = {
+          ...config.auth['@verdaccio-pro/clerk'],
+          clerk_secret_key: '********',
+        };
+      }
+      if (config.store?.['@verdaccio-pro/storage-sql']) {
+        maskedConfig.store['@verdaccio-pro/storage-sql'] = {
+          ...config.store['@verdaccio-pro/storage-sql'],
+          url: '********',
+          secret: '********',
+          salt: '********',
+        };
+      }
 
       // mask env DATABASE_URL
       const env = { ...process.env };
