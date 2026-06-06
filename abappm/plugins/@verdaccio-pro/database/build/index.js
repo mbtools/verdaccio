@@ -510,7 +510,7 @@ var clerkEvents = (0, drizzle_orm_pg_core.pgTable)("clerk_events", {
 /**
 * Paddle Subscriptions
 */
-var subscriptions = (0, drizzle_orm_pg_core.pgTable)("subscriptions", {
+var subscriptions = (0, drizzle_orm_pg_core.pgTable)("paddle_subscriptions", {
 	id: (0, drizzle_orm_pg_core.serial)().primaryKey(),
 	clerk_user: (0, drizzle_orm_pg_core.text)().references(() => clerkUsers.clerk_user),
 	paddle_customer_id: (0, drizzle_orm_pg_core.text)(),
@@ -522,9 +522,9 @@ var subscriptions = (0, drizzle_orm_pg_core.pgTable)("subscriptions", {
 	paddle_json: (0, drizzle_orm_pg_core.jsonb)(),
 	...timestamps
 }, (t) => [
-	(0, drizzle_orm_pg_core.index)("subscriptions_clerk_user_idx").on(t.clerk_user),
-	(0, drizzle_orm_pg_core.index)("subscriptions_paddle_customer_id_idx").on(t.paddle_customer_id),
-	(0, drizzle_orm_pg_core.index)("subscriptions_paddle_subscription_id_idx").on(t.paddle_subscription_id)
+	(0, drizzle_orm_pg_core.index)("paddle_subscriptions_clerk_user_idx").on(t.clerk_user),
+	(0, drizzle_orm_pg_core.index)("paddle_subscriptions_customer_id_idx").on(t.paddle_customer_id),
+	(0, drizzle_orm_pg_core.index)("paddle_subscriptions_subscription_id_idx").on(t.paddle_subscription_id)
 ]);
 /**
 * Paddle Events
