@@ -42,7 +42,7 @@
     "@verdaccio/logger": "9.0.0-next-9.17",
     "@verdaccio-pro/database": "file:../database/verdaccio-pro-database-1.3.0.tgz",
     "debug": "4.4.3",
-    "drizzle-orm": "1.0.0-rc.3 # 0.45.2"
+    "drizzle-orm": "1.0.0-rc.3"
   },
   "devDependencies": {
     "@types/debug": "4.1.13",
