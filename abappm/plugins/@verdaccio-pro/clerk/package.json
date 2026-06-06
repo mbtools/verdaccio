@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio-pro/clerk",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Clerk Auth Plugin for Verdaccio Pro",
   "keywords": [
     "verdaccio",
