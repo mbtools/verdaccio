@@ -725,35 +725,40 @@ class Storage {
     } else {
       debug('search on each package by plugin query');
       const items = await this.localStorage.getStoragePlugin().search(query);
-      try {
-        for (const searchItem of items) {
-          const manifest = await this.getPackageLocalMetadata(searchItem.package.name);
-          const [filteredManifest] = await this.applyFilters(manifest);
-          if (isEmpty(filteredManifest?.versions) === false) {
-            const searchPackage = mapManifestToSearchPackageBody(filteredManifest, searchItem);
-            debug('search local stream found %o', searchPackage.name);
-            const searchPackageItem: searchUtils.SearchPackageItem = {
-              package: searchPackage,
-              score: searchItem.score,
-              verdaccioPkgCached: searchItem.verdaccioPkgCached,
-              verdaccioPrivate: searchItem.verdaccioPrivate,
-              flags: searchItem?.flags,
-              // FUTURE: find a better way to calculate the score
-              searchScore: 1,
-            };
-            results.push(searchPackageItem);
-          } else {
-            debug('local item without versions detected %s', searchItem.package.name);
+      for (const searchItem of items) {
+        let manifest;
+        try {
+          manifest = await this.getPackageLocalMetadata(searchItem.package.name);
+        } catch (err: any) {
+          if (err.status === HTTP_STATUS.NOT_FOUND || err.code === HTTP_STATUS.NOT_FOUND) {
+            debug('local item not found, skipping %s', searchItem.package.name);
+            continue;
           }
+          this.logger.error(
+            { err, query },
+            'error on search by plugin for @{query.text}: @{err.message}'
+          );
+          throw err;
         }
-        debug('search local stream end');
-      } catch (err) {
-        this.logger.error(
-          { err, query },
-          'error on search by plugin for @{query.text}: @{err.message}'
-        );
-        throw err;
+        const [filteredManifest] = await this.applyFilters(manifest);
+        if (isEmpty(filteredManifest?.versions) === false) {
+          const searchPackage = mapManifestToSearchPackageBody(filteredManifest, searchItem);
+          debug('search local stream found %o', searchPackage.name);
+          const searchPackageItem: searchUtils.SearchPackageItem = {
+            package: searchPackage,
+            score: searchItem.score,
+            verdaccioPkgCached: searchItem.verdaccioPkgCached,
+            verdaccioPrivate: searchItem.verdaccioPrivate,
+            flags: searchItem?.flags,
+            // FUTURE: find a better way to calculate the score
+            searchScore: 1,
+          };
+          results.push(searchPackageItem);
+        } else {
+          debug('local item without versions detected %s', searchItem.package.name);
+        }
       }
+      debug('search local stream end');
     }
     return results;
   }

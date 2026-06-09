@@ -3,7 +3,7 @@ import { Router } from 'express';
 import { URLSearchParams } from 'node:url';
 
 import type { Auth } from '@verdaccio/auth';
-import { errorUtils, reqUtils } from '@verdaccio/core';
+import { HTTP_STATUS, reqUtils } from '@verdaccio/core';
 import type { searchUtils } from '@verdaccio/core';
 import { WebUrls } from '@verdaccio/middleware';
 import type { Storage } from '@verdaccio/store';
@@ -84,7 +84,11 @@ function addSearchWebApi(storage: Storage, auth: Auth): Router {
 
         next(final);
       } catch (err: any) {
-        next(errorUtils.getInternalError(err.message));
+        if (err.status === HTTP_STATUS.NOT_FOUND || err.code === HTTP_STATUS.NOT_FOUND) {
+          next([]);
+          return;
+        }
+        next(err);
       } finally {
         req.socket.off('close', onClientClose);
       }
