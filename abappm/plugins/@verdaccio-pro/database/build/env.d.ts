@@ -16,6 +16,9 @@ declare const envSchema: z.ZodObject<{
     DB_MIGRATING: z.ZodDefault<z.ZodDefault<z.ZodPipe<z.ZodCoercedString<unknown>, z.ZodTransform<boolean, string>>>>;
     DB_SEEDING: z.ZodDefault<z.ZodDefault<z.ZodPipe<z.ZodCoercedString<unknown>, z.ZodTransform<boolean, string>>>>;
     DB_RESET: z.ZodDefault<z.ZodDefault<z.ZodPipe<z.ZodCoercedString<unknown>, z.ZodTransform<boolean, string>>>>;
+    DB_EXPORTING: z.ZodDefault<z.ZodDefault<z.ZodPipe<z.ZodCoercedString<unknown>, z.ZodTransform<boolean, string>>>>;
+    DB_IMPORTING: z.ZodDefault<z.ZodDefault<z.ZodPipe<z.ZodCoercedString<unknown>, z.ZodTransform<boolean, string>>>>;
+    DB_DATA_DIR: z.ZodDefault<z.ZodString>;
     DB_FALLBACK: z.ZodDefault<z.ZodDefault<z.ZodPipe<z.ZodCoercedString<unknown>, z.ZodTransform<boolean, string>>>>;
     DB_SALT: z.ZodDefault<z.ZodString>;
 }, z.core.$strip>;

@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio-pro/database",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Database Layer for Verdaccio Pro (Postgres/Drizzle)",
   "keywords": [
     "verdaccio",
@@ -36,7 +36,7 @@
     "node": ">=24"
   },
   "dependencies": {
-    "@verdaccio/core": "9.0.0-next-9.17",
+    "@verdaccio/core": "9.0.0-next-9.18",
     "debug": "4.4.3",
     "dotenv": "17.4.2",
     "drizzle-orm": "1.0.0-rc.3",
@@ -46,9 +46,9 @@
   "devDependencies": {
     "@electric-sql/pglite-socket": "0.2.1",
     "@types/debug": "4.1.13",
-    "@types/node": "25.9.1",
+    "@types/node": "25.9.2",
     "@types/pg": "8.20.0",
-    "@verdaccio/types": "14.0.0-next-9.8",
+    "@verdaccio/types": "14.0.0-next-9.9",
     "cross-env": "10.1.0",
     "drizzle-kit": "1.0.0-rc.3",
     "eslint": "10.4.1",
@@ -71,6 +71,8 @@
     "db:migration:recreate": "tsx src/db/tools/_recreate_drizzle_migration.ts",
     "db:migrate": "cross-env DB_MIGRATING=true tsx src/db/tools/migrate.ts",
     "db:seed": "cross-env DB_SEEDING=true tsx src/db/tools/seed.ts",
-    "db:reset": "cross-env DB_RESET=true tsx src/db/tools/reset.ts"
+    "db:reset": "cross-env DB_RESET=true tsx src/db/tools/reset.ts",
+    "db:export": "cross-env DB_EXPORTING=true tsx src/db/tools/export.ts",
+    "db:import": "cross-env DB_IMPORTING=true tsx src/db/tools/import.ts"
   }
 }

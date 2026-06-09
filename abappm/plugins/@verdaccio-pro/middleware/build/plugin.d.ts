@@ -7,6 +7,7 @@ export interface MiddlewareConfig {
     prototypePollutionProtection?: boolean;
     profanityFilter?: boolean;
     blacklistFilter?: boolean;
+    eventLog?: boolean;
     securityHeaders?: boolean;
     blockUnwantedRequests?: boolean;
     redirectNpmStyleUrl?: boolean;
@@ -16,6 +17,6 @@ declare class MiddlewarePlugin extends pluginUtils.Plugin<MiddlewareConfig> impl
     logger: Logger;
     private middlewareConfig;
     constructor(config: MiddlewareConfig, options: pluginUtils.PluginOptions);
-    register_middlewares(app: Express, _auth: pluginUtils.Auth<MiddlewareConfig>, _storage: pluginUtils.Storage<MiddlewareConfig>): void;
+    register_middlewares(app: Express, _auth: pluginUtils.Auth<MiddlewareConfig>, storage: pluginUtils.Storage<MiddlewareConfig>): void;
 }
 export default MiddlewarePlugin;

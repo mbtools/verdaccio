@@ -31,10 +31,6 @@ let express = require("express");
 express = __toESM(express);
 let leo_profanity = require("leo-profanity");
 leo_profanity = __toESM(leo_profanity);
-let naughty_words_de_json = require("naughty-words/de.json");
-naughty_words_de_json = __toESM(naughty_words_de_json);
-let naughty_words_fr_json = require("naughty-words/fr.json");
-naughty_words_fr_json = __toESM(naughty_words_fr_json);
 let tldts = require("tldts");
 //#region src/middlewares/security-headers.ts
 var setSecurityHeaders = (req, res, next) => {
@@ -52,7 +48,8 @@ var setSecurityHeaders = (req, res, next) => {
 		return;
 	}
 	if (req.protocol === "https" || req.get("X-Forwarded-Proto") === "https") res.setHeader("Strict-Transport-Security", "max-age=86400; includeSubDomains; preload");
-	res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self'; form-action 'self'; font-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests; report-uri https://csp.abappm.com/csp;");
+	res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self'; form-action 'self'; font-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests; report-uri https://csp.abappm.com/csp; report-to default;");
+	res.setHeader("Reporting-Endpoints", "default=\"https://csp.abappm.com/csp\"");
 	res.setHeader("Permissions-Policy", "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(self), usb=(), fullscreen=(self)");
 	res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
 	res.setHeader("X-Robots-Tag", "noindex");
@@ -67,13 +64,13 @@ var blockUnwantedRequests = (req, res, next) => {
 };
 //#endregion
 //#region src/middlewares/redirect-npm.ts
-var debug$4 = (0, debug.default)("verdaccio:plugin:pro:middleware");
+var debug$5 = (0, debug.default)("verdaccio:plugin:pro:middleware");
 var redirectNpmStyleUrl = (logger) => {
 	return (req, res, _next) => {
-		debug$4("redirect from %o", req.url);
+		debug$5("redirect from %o", req.url);
 		const redirectTo = "/-/web/detail" + req.url;
 		logger.info({ redirectTo }, "Redirecting to @{redirectTo}");
-		debug$4("redirect to %o", redirectTo);
+		debug$5("redirect to %o", redirectTo);
 		res.redirect(redirectTo);
 	};
 };
@@ -90,11 +87,176 @@ var prototypePollutionProtection = (config) => {
 	});
 };
 //#endregion
+//#region src/data/profanity-de.json
+var profanity_de_default = [
+	"analritter",
+	"arsch",
+	"arschficker",
+	"arschlecker",
+	"arschloch",
+	"bimbo",
+	"bratze",
+	"bumsen",
+	"bonze",
+	"dödel",
+	"fick",
+	"ficken",
+	"flittchen",
+	"fotze",
+	"fratze",
+	"hackfresse",
+	"hure",
+	"hurensohn",
+	"ische",
+	"kackbratze",
+	"kacke",
+	"kacken",
+	"kackwurst",
+	"kampflesbe",
+	"kanake",
+	"kimme",
+	"lümmel",
+	"MILF",
+	"möpse",
+	"morgenlatte",
+	"möse",
+	"mufti",
+	"muschi",
+	"nackt",
+	"neger",
+	"nigger",
+	"nippel",
+	"nutte",
+	"onanieren",
+	"orgasmus",
+	"penis",
+	"pimmel",
+	"pimpern",
+	"pinkeln",
+	"pissen",
+	"pisser",
+	"popel",
+	"poppen",
+	"porno",
+	"reudig",
+	"rosette",
+	"schabracke",
+	"schlampe",
+	"scheiße",
+	"scheisser",
+	"schiesser",
+	"schnackeln",
+	"schwanzlutscher",
+	"schwuchtel",
+	"tittchen",
+	"titten",
+	"vögeln",
+	"vollpfosten",
+	"wichse",
+	"wichsen",
+	"wichser"
+];
+//#endregion
+//#region src/data/profanity-fr.json
+var profanity_fr_default = [
+	"baiser",
+	"bander",
+	"bigornette",
+	"bite",
+	"bitte",
+	"bloblos",
+	"bordel",
+	"bourré",
+	"bourrée",
+	"brackmard",
+	"branlage",
+	"branler",
+	"branlette",
+	"branleur",
+	"branleuse",
+	"brouter le cresson",
+	"caca",
+	"chatte",
+	"chiasse",
+	"chier",
+	"chiottes",
+	"clito",
+	"clitoris",
+	"con",
+	"connard",
+	"connasse",
+	"conne",
+	"couilles",
+	"cramouille",
+	"cul",
+	"déconne",
+	"déconner",
+	"emmerdant",
+	"emmerder",
+	"emmerdeur",
+	"emmerdeuse",
+	"enculé",
+	"enculée",
+	"enculeur",
+	"enculeurs",
+	"enfoiré",
+	"enfoirée",
+	"étron",
+	"fille de pute",
+	"fils de pute",
+	"folle",
+	"foutre",
+	"gerbe",
+	"gerber",
+	"gouine",
+	"grande folle",
+	"grogniasse",
+	"gueule",
+	"jouir",
+	"la putain de ta mère",
+	"MALPT",
+	"ménage à trois",
+	"merde",
+	"merdeuse",
+	"merdeux",
+	"meuf",
+	"nègre",
+	"negro",
+	"nique ta mère",
+	"nique ta race",
+	"palucher",
+	"pédale",
+	"pédé",
+	"péter",
+	"pipi",
+	"pisser",
+	"pouffiasse",
+	"pousse-crotte",
+	"putain",
+	"pute",
+	"ramoner",
+	"sac à foutre",
+	"sac à merde",
+	"salaud",
+	"salope",
+	"suce",
+	"tapette",
+	"tanche",
+	"teuch",
+	"tringler",
+	"trique",
+	"troncher",
+	"trou du cul",
+	"turlute",
+	"zigounette",
+	"zizi"
+];
+//#endregion
 //#region src/middlewares/profanity-filter.ts
-var debug$3 = (0, debug.default)("verdaccio:plugin:pro:middleware:profanity");
+var debug$4 = (0, debug.default)("verdaccio:plugin:pro:middleware:profanity");
 leo_profanity.default.reset();
-leo_profanity.default.add(naughty_words_de_json.default);
-leo_profanity.default.add(naughty_words_fr_json.default);
+leo_profanity.default.add(profanity_de_default);
+leo_profanity.default.add(profanity_fr_default);
 function valueContainsProfanity(value) {
 	if (value === null || value === void 0) return false;
 	if (typeof value === "string") return leo_profanity.default.check(value);
@@ -121,7 +283,7 @@ var profanityFilter = (req, res, next) => {
 		return;
 	}
 	if (valueContainsProfanity(req.body)) {
-		debug$3("request body contained profanity");
+		debug$4("request body contained profanity");
 		res.status(400).send("Bad Request");
 		return;
 	}
@@ -167,7 +329,7 @@ var BLOCKED_REGISTRABLE_DOMAINS = [
 ];
 //#endregion
 //#region src/middlewares/blacklist-filter.ts
-var debug$2 = (0, debug.default)("verdaccio:plugin:pro:middleware:blacklist");
+var debug$3 = (0, debug.default)("verdaccio:plugin:pro:middleware:blacklist");
 var blocked = new Set(BLOCKED_REGISTRABLE_DOMAINS);
 var hrefSrcRe = /(?:\bhref\s*=|\bsrc\s*=)\s*["']([^"']+)["']/gi;
 var absoluteUrlRe = /https?:\/\/[^\s"'<>\]]+/gi;
@@ -226,11 +388,120 @@ var blacklistFilter = (req, res, next) => {
 		return;
 	}
 	if (valueContainsBlockedUrl(req.body)) {
-		debug$2("request body contained a blocked URL");
+		debug$3("request body contained a blocked URL");
 		res.status(400).send("Bad Request");
 		return;
 	}
 	next();
+};
+//#endregion
+//#region src/middlewares/event-log.ts
+var debug$2 = (0, debug.default)("verdaccio:plugin:pro:middleware:event-log");
+var APM_COMMAND_HEADER = "apm-command";
+var ANONYMOUS_USER = "#";
+var VALID_EVENTS = new Set([
+	"login",
+	"logout",
+	"user",
+	"profile",
+	"org",
+	"team",
+	"access",
+	"whoami",
+	"package",
+	"tarball",
+	"dist-tag",
+	"search",
+	"downloads",
+	"website",
+	"keys",
+	"audit",
+	"hook",
+	"deprecate",
+	"token"
+]);
+function toMethod(method) {
+	const normalized = method.toLowerCase();
+	if (normalized === "get" || normalized === "post" || normalized === "put" || normalized === "delete") return normalized;
+	return null;
+}
+function packageNameFromPath(path) {
+	const basePath = decodeURIComponent(path).split("/-/")[0].replace(/^\//, "");
+	if (!basePath) return "";
+	if (basePath.startsWith("@")) {
+		const slash = basePath.indexOf("/");
+		if (slash > 0) return basePath.slice(0, slash + 1) + basePath.slice(slash + 1).split("/")[0];
+	}
+	return basePath.split("/")[0];
+}
+function tarballFilenameFromPath(path) {
+	const decoded = decodeURIComponent(path);
+	return decoded.match(/\.tgz$/) ? decoded : null;
+}
+function parsePackageFromUrl(path) {
+	const decoded = decodeURIComponent(path);
+	const name = packageNameFromPath(path);
+	const tarballMatch = decoded.match(/\/-\/([^/]+)\.tgz$/);
+	if (!tarballMatch) return { name };
+	const filename = tarballMatch[1];
+	const packageBase = name.includes("/") ? name.split("/")[1] : name;
+	if (packageBase && filename.startsWith(`${packageBase}-`)) return {
+		name,
+		version: filename.slice(packageBase.length + 1)
+	};
+	return { name };
+}
+function resolveUser(req) {
+	if (req.remote_user) return req.remote_user.name;
+	const loginMatch = req.path.match(/\/-\/user\/org\.couchdb\.user:([^/]+)/);
+	if (loginMatch) return loginMatch[1];
+	return ANONYMOUS_USER;
+}
+var eventLog = (storage, logger) => {
+	return (req, res, next) => {
+		const command = req.get(APM_COMMAND_HEADER);
+		if (!command || !VALID_EVENTS.has(command)) {
+			next();
+			return;
+		}
+		const method = toMethod(req.method);
+		if (!method) {
+			next();
+			return;
+		}
+		const { name, version } = parsePackageFromUrl(req.path);
+		const user = resolveUser(req);
+		if (typeof storage.logActivity === "function") {
+			debug$2("logging activity %o", {
+				command,
+				name,
+				version
+			});
+			storage.logActivity(user, method, command, name, version).catch((error) => {
+				const errorMsg = error instanceof Error ? error.message : String(error);
+				logger.error({
+					error: errorMsg,
+					command,
+					name,
+					version
+				}, "failed to log activity");
+			});
+		}
+		if (command === "tarball" && typeof storage.incrementDownloads === "function") {
+			const filename = tarballFilenameFromPath(req.path);
+			if (filename) {
+				debug$2("incrementing downloads %o", { filename });
+				storage.incrementDownloads(filename).catch((error) => {
+					const errorMsg = error instanceof Error ? error.message : String(error);
+					logger.error({
+						error: errorMsg,
+						filename
+					}, "failed to increment downloads");
+				});
+			}
+		}
+		next();
+	};
 };
 //#endregion
 //#region src/plugin.ts
@@ -242,7 +513,7 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		this.logger = options.logger;
 		this.middlewareConfig = config;
 	}
-	register_middlewares(app, _auth, _storage) {
+	register_middlewares(app, _auth, storage) {
 		if (!this.middlewareConfig.enabled) return;
 		debug$1("Verdaccio Pro Middleware plugin is enabled");
 		const c = this.middlewareConfig;
@@ -251,6 +522,7 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		if (c.blockUnwantedRequests !== false) app.use(blockUnwantedRequests);
 		if (c.profanityFilter !== false) app.use(profanityFilter);
 		if (c.blacklistFilter !== false) app.use(blacklistFilter);
+		if (c.eventLog !== false) app.use(eventLog(storage, this.logger));
 		if (c.redirectNpmStyleUrl !== false) app.use("/package/{*all}", redirectNpmStyleUrl(this.logger));
 	}
 };

@@ -39,12 +39,12 @@
   },
   "dependencies": {
     "@clerk/backend": "3.5.0",
-    "@verdaccio/core": "9.0.0-next-9.17",
+    "@verdaccio/core": "9.0.0-next-9.18",
     "debug": "4.4.3"
   },
   "devDependencies": {
     "@types/debug": "4.1.13",
-    "@verdaccio/types": "14.0.0-next-9.8",
+    "@verdaccio/types": "14.0.0-next-9.9",
     "cross-env": "10.1.0",
     "eslint": "10.4.1",
     "typescript": "6.0.3",

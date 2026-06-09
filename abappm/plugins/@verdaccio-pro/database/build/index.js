@@ -57,6 +57,9 @@ var envSchema = zod.default.object({
 	DB_MIGRATING: stringBoolean.default(false),
 	DB_SEEDING: stringBoolean.default(false),
 	DB_RESET: stringBoolean.default(false),
+	DB_EXPORTING: stringBoolean.default(false),
+	DB_IMPORTING: stringBoolean.default(false),
+	DB_DATA_DIR: zod.default.string().default("sql/data"),
 	DB_FALLBACK: stringBoolean.default(false),
 	DB_SALT: zod.default.string().default("saltypretzel")
 });
@@ -81,6 +84,9 @@ var envServer = envSchema.safeParse({
 	DB_MIGRATING: process.env.DB_MIGRATING,
 	DB_SEEDING: process.env.DB_SEEDING,
 	DB_RESET: process.env.DB_RESET,
+	DB_EXPORTING: process.env.DB_EXPORTING,
+	DB_IMPORTING: process.env.DB_IMPORTING,
+	DB_DATA_DIR: process.env.DB_DATA_DIR,
 	DB_FALLBACK: process.env.DB_FALLBACK,
 	DB_SALT: process.env.DB_SALT
 });
@@ -125,7 +131,7 @@ var getDatabase = (url, logger) => {
 	return (0, drizzle_orm_node_postgres.drizzle)({
 		connection: {
 			connectionString: url,
-			max: ENV.DATABASE_URL.includes("localhost") || ENV.DATABASE_URL.includes("127.0.0.1") || ENV.DATABASE_URL.includes("file:") || ENV.DB_MIGRATING || ENV.DB_SEEDING || ENV.DB_RESET ? 1 : ENV.DB_POOL_SIZE,
+			max: ENV.DATABASE_URL.includes("localhost") || ENV.DATABASE_URL.includes("127.0.0.1") || ENV.DATABASE_URL.includes("file:") || ENV.DB_MIGRATING || ENV.DB_SEEDING || ENV.DB_RESET || ENV.DB_EXPORTING || ENV.DB_IMPORTING ? 1 : ENV.DB_POOL_SIZE,
 			ssl: sslConfig
 		},
 		logger: drizzleLogger
@@ -161,20 +167,6 @@ var subscriptionStatusEnum = (0, drizzle_orm_pg_core.pgEnum)("subscription_statu
 	"paused",
 	"canceled"
 ]);
-var bytea = (0, drizzle_orm_pg_core.customType)({
-	dataType() {
-		return "bytea";
-	},
-	toDriver(value) {
-		if (!(value instanceof Buffer)) throw new TypeError(`Value of type ${typeof value} is not a Buffer`);
-		return drizzle_orm.sql`decode(${value.toString("hex")}, 'hex')`;
-	},
-	fromDriver(value) {
-		if (value instanceof Buffer) return value;
-		if (typeof value === "string") return Buffer.from(value.replace(/\\x/g, ""), "hex");
-		throw new Error(`Cannot convert value of type ${typeof value} to a Buffer`);
-	}
-});
 var tsVector = (0, drizzle_orm_pg_core.customType)({
 	dataType() {
 		return "tsvector";
@@ -398,7 +390,7 @@ var tarballs = (0, drizzle_orm_pg_core.pgTable)("tarballs", {
 	name: (0, drizzle_orm_pg_core.text)().notNull(),
 	version: (0, drizzle_orm_pg_core.text)().notNull(),
 	filename: (0, drizzle_orm_pg_core.text)().notNull(),
-	data: bytea().notNull(),
+	data: (0, drizzle_orm_pg_core.bytea)().notNull(),
 	size: (0, drizzle_orm_pg_core.integer)().notNull(),
 	...timestampsDeleted
 }, (t) => [(0, drizzle_orm_pg_core.primaryKey)({ columns: [
@@ -510,7 +502,7 @@ var clerkEvents = (0, drizzle_orm_pg_core.pgTable)("clerk_events", {
 /**
 * Paddle Subscriptions
 */
-var subscriptions = (0, drizzle_orm_pg_core.pgTable)("paddle_subscriptions", {
+var paddleSubscriptions = (0, drizzle_orm_pg_core.pgTable)("paddle_subscriptions", {
 	id: (0, drizzle_orm_pg_core.serial)().primaryKey(),
 	clerk_user: (0, drizzle_orm_pg_core.text)().references(() => clerkUsers.clerk_user),
 	paddle_customer_id: (0, drizzle_orm_pg_core.text)(),
@@ -574,9 +566,16 @@ var getPackageFromName = (name) => {
 var getNameFromPackageAndScope = (packageName, scope) => {
 	return scope.length > 0 ? `${scope}/${packageName}` : packageName;
 };
-var getPackageInfoFromFilename = (filename) => {
-	const match = filename.match(/^(.*)-(\d+\.\d+\.\d+.*)\.tgz$/);
+var getVersionFromFilename = (filename) => {
+	const match = filename.match(/^.*-(\d+\.\d+\.\d+.*)\.tgz$/);
 	if (!match) throw new Error(`Invalid tarball filename: ${filename}`);
+	return match[1];
+};
+var getPackageInfoFromPath = (path) => {
+	let match;
+	if (path.startsWith("/@")) match = path.match(/^(\/@[^/]+\/[^/]+)\/-\/[^/]+-(\d+\.\d+\.\d+.*)\.tgz$/);
+	else match = path.match(/^(\/?[^/]+)\/-\/[^/]+-(\d+\.\d+\.\d+.*)\.tgz$/);
+	if (!match) throw new Error(`Invalid tarball path: ${path}`);
 	return {
 		name: match[1],
 		version: match[2]
@@ -602,8 +601,8 @@ var DownloadsService = class {
 		this.db = database;
 		this.logger = logger;
 	}
-	async increment(filename) {
-		const { name, version } = getPackageInfoFromFilename(filename);
+	async increment(path) {
+		const { name, version } = getPackageInfoFromPath(path);
 		const now = /* @__PURE__ */ new Date();
 		const year = now.getFullYear();
 		const month = now.getMonth() + 1;
@@ -1181,7 +1180,7 @@ var TarballService = class {
 	}
 	async read(packageName, fileName, { signal }) {
 		const org_id = await this.tenant.get(packageName);
-		const { version } = getPackageInfoFromFilename(fileName);
+		const version = getVersionFromFilename(fileName);
 		const [tarballData] = await this.db.select({
 			data: tarballs.data,
 			size: tarballs.size
@@ -1212,7 +1211,7 @@ var TarballService = class {
 	}
 	async write(packageName, fileName, { signal }) {
 		const org_id = await this.tenant.get(packageName);
-		const { version } = getPackageInfoFromFilename(fileName);
+		const version = getVersionFromFilename(fileName);
 		const chunks = [];
 		const writable = new stream.Writable({ write(chunk, encoding, callback) {
 			chunks.push(Buffer.from(chunk));
@@ -1266,7 +1265,7 @@ var TarballService = class {
 	}
 	async delete(packageName, fileName) {
 		const org_id = await this.tenant.get(packageName);
-		const { version } = getPackageInfoFromFilename(fileName);
+		const version = getVersionFromFilename(fileName);
 		try {
 			await this.db.update(tarballs).set({ deleted: /* @__PURE__ */ new Date() }).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(tarballs.org_id, org_id), (0, drizzle_orm.eq)(tarballs.name, packageName), (0, drizzle_orm.eq)(tarballs.version, version)));
 			debug$4("tarball deleted");
@@ -1499,7 +1498,6 @@ exports.TenantService = TenantService;
 exports.TokenService = TokenService;
 exports.UserSecretsService = UserSecretsService;
 exports.VerdaccioSecretService = VerdaccioSecretService;
-exports.bytea = bytea;
 exports.clearReadmesFromManifest = clearReadmesFromManifest;
 exports.clerkEvents = clerkEvents;
 exports.clerkMembers = clerkMembers;
@@ -1516,7 +1514,7 @@ exports.getISODates = getISODates;
 exports.getMetadataFromManifest = getMetadataFromManifest;
 exports.getNameFromPackageAndScope = getNameFromPackageAndScope;
 exports.getPackageFromName = getPackageFromName;
-exports.getPackageInfoFromFilename = getPackageInfoFromFilename;
+exports.getPackageInfoFromFilename = getPackageInfoFromPath;
 exports.getReadmesFromManifest = getReadmesFromManifest;
 exports.getScopeFromName = getScopeFromName;
 exports.gtadir = gtadir;
@@ -1529,12 +1527,12 @@ exports.orgMembers = orgMembers;
 exports.orgs = orgs;
 exports.packages = packages;
 exports.paddleEvents = paddleEvents;
+exports.paddleSubscriptions = paddleSubscriptions;
 exports.permissionEnum = permissionEnum;
 exports.readmes = readmes;
 exports.roles = roles;
 exports.secrets = secrets;
 exports.subscriptionStatusEnum = subscriptionStatusEnum;
-exports.subscriptions = subscriptions;
 exports.tarballs = tarballs;
 exports.teamMembers = teamMembers;
 exports.teamPackages = teamPackages;

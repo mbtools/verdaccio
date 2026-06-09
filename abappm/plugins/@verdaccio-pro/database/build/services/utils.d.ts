@@ -1,7 +1,8 @@
 export declare const getScopeFromName: (name: string) => string;
 export declare const getPackageFromName: (name: string) => string;
 export declare const getNameFromPackageAndScope: (packageName: string, scope: string) => string;
-export declare const getPackageInfoFromFilename: (filename: string) => {
+export declare const getVersionFromFilename: (filename: string) => string;
+export declare const getPackageInfoFromPath: (path: string) => {
     name: string;
     version: string;
 };

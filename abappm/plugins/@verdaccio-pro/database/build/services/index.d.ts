@@ -9,5 +9,5 @@ export { TarballService } from './tarball';
 export { TenantService } from './tenant';
 export { TokenService, type Token } from './token';
 export { UserSecretsService } from './user-secrets';
-export { getISODate, getISODates, getNameFromPackageAndScope, getScopeFromName, getPackageFromName, getPackageInfoFromFilename, unescapeHtmlEntities, } from './utils';
+export { getISODate, getISODates, getNameFromPackageAndScope, getScopeFromName, getPackageFromName, getPackageInfoFromPath as getPackageInfoFromFilename, unescapeHtmlEntities, } from './utils';
 export { VerdaccioSecretService } from './verdaccio-secret';
