@@ -705,6 +705,10 @@ var DownloadsService = class {
 //#endregion
 //#region src/services/org.ts
 var PUBLIC_PACKAGES = "@";
+function resolveOrgName(packageName) {
+	if (packageName.startsWith("@")) return packageName.split("/")[0];
+	return "@";
+}
 var OrgService = class {
 	constructor(database, logger) {
 		this.db = database;
@@ -712,24 +716,21 @@ var OrgService = class {
 		this.orgCache = /* @__PURE__ */ new Map();
 	}
 	async getOrgId(name) {
+		if (this.orgCache.has(name)) return this.orgCache.get(name);
 		const [ids] = await this.db.select({ id: orgs.id }).from(orgs).where((0, drizzle_orm.eq)(orgs.org, name));
 		if (!ids) throw _verdaccio_core.errorUtils.getNotFound(`organization "${name}" not found`);
+		this.orgCache.set(name, ids.id);
 		return ids.id;
 	}
 	async getOrgIdfromPackage(name) {
-		if (this.orgCache.has(name)) return this.orgCache.get(name);
-		let orgId;
-		if (name.startsWith("@")) orgId = await this.getOrgId(name.split("/")[0]);
-		else orgId = await this.getOrgId("@");
-		this.orgCache.set(name, orgId);
-		return orgId;
+		return this.getOrgId(resolveOrgName(name));
 	}
 };
 //#endregion
 //#region src/services/tenant.ts
 var TenantService = class {
-	constructor(database, logger) {
-		this.org = new OrgService(database, logger);
+	constructor(database, logger, org) {
+		this.org = org ?? new OrgService(database, logger);
 	}
 	async get(name) {
 		return await this.org.getOrgIdfromPackage(name);
@@ -740,10 +741,10 @@ var TenantService = class {
 var debug$8 = (0, debug.default)("verdaccio:plugin:pro:db");
 var ANONYMOUS_USER = "#";
 var EventLogService = class {
-	constructor(database, logger) {
+	constructor(database, logger, tenant) {
 		this.db = database;
 		this.logger = logger;
-		this.tenant = new TenantService(database, logger);
+		this.tenant = tenant ?? new TenantService(database, logger);
 		this.eventCache = /* @__PURE__ */ new Map();
 		this.userCache = /* @__PURE__ */ new Map();
 	}
@@ -785,10 +786,10 @@ var EventLogService = class {
 //#region src/services/gtadir.ts
 var debug$7 = (0, debug.default)("verdaccio:plugin:pro:db");
 var GlobalTadirService = class {
-	constructor(database, logger) {
+	constructor(database, logger, tenant) {
 		this.db = database;
 		this.logger = logger;
-		this.tenant = new TenantService(database, logger);
+		this.tenant = tenant ?? new TenantService(database, logger);
 	}
 	async exists(tadir) {
 		debug$7("check if GTADIR entries exist");
@@ -872,10 +873,10 @@ var GlobalTadirService = class {
 //#region src/services/local-package.ts
 var debug$6 = (0, debug.default)("verdaccio:plugin:pro:db");
 var LocalPackagesService = class {
-	constructor(database, logger) {
+	constructor(database, logger, tenant) {
 		this.db = database;
 		this.logger = logger;
-		this.tenant = new TenantService(database, logger);
+		this.tenant = tenant ?? new TenantService(database, logger);
 	}
 	async add(name) {
 		debug$6("add local package %o", name);
@@ -964,10 +965,10 @@ var getMetadataFromManifest = (manifest) => {
 //#region src/services/package.ts
 var debug$5 = (0, debug.default)("verdaccio:plugin:pro:db");
 var PackageService = class {
-	constructor(database, logger) {
+	constructor(database, logger, tenant) {
 		this.db = database;
 		this.logger = logger;
-		this.tenant = new TenantService(database, logger);
+		this.tenant = tenant ?? new TenantService(database, logger);
 	}
 	async exists(name) {
 		const org_id = await this.tenant.get(name);
@@ -1156,8 +1157,8 @@ var PackageService = class {
 			version: distTags.version
 		}).from(distTags).where((0, drizzle_orm.inArray)(distTags.name, names)).orderBy(distTags.name, distTags.tag);
 		for (const row of rows) {
-			const org_id = await this.tenant.get(row.name);
-			if (row.org_id === org_id) result[row.name][row.tag] = row.version;
+			if (!result[row.name]) result[row.name] = {};
+			result[row.name][row.tag] = row.version;
 		}
 		return result;
 	}
@@ -1167,10 +1168,10 @@ var PackageService = class {
 var debug$4 = (0, debug.default)("verdaccio:plugin:pro:db");
 var CHUNK_SIZE = 256 * 1024;
 var TarballService = class {
-	constructor(database, logger) {
+	constructor(database, logger, tenant) {
 		this.db = database;
 		this.logger = logger;
-		this.tenant = new TenantService(database, logger);
+		this.tenant = tenant ?? new TenantService(database, logger);
 	}
 	async exists(packageName, fileName) {
 		const org_id = await this.tenant.get(packageName);
@@ -1530,6 +1531,7 @@ exports.paddleEvents = paddleEvents;
 exports.paddleSubscriptions = paddleSubscriptions;
 exports.permissionEnum = permissionEnum;
 exports.readmes = readmes;
+exports.resolveOrgName = resolveOrgName;
 exports.roles = roles;
 exports.secrets = secrets;
 exports.subscriptionStatusEnum = subscriptionStatusEnum;

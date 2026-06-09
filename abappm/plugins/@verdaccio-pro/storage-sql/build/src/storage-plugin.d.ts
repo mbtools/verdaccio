@@ -10,6 +10,9 @@ declare class SqlStoragePlugin extends pluginUtils.Plugin<StorageConfig> impleme
     config: Config;
     private storageConfig;
     private db;
+    private tenant;
+    private packageService;
+    private tarballService;
     private token;
     private localPackage;
     private verdaccioSecret;

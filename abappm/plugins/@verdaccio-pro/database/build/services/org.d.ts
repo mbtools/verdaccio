@@ -1,6 +1,7 @@
 import { Logger } from '@verdaccio/types';
 import { Database } from '../db';
 export declare const PUBLIC_PACKAGES = "@";
+export declare function resolveOrgName(packageName: string): string;
 export declare class OrgService {
     private db;
     private logger;

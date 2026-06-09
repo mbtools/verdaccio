@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio-pro/database",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Database Layer for Verdaccio Pro (Postgres/Drizzle)",
   "keywords": [
     "verdaccio",

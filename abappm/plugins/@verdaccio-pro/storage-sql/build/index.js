@@ -32,11 +32,11 @@ let _verdaccio_pro_database = require("@verdaccio-pro/database");
 //#region src/storage-handler.ts
 var debug$2 = (0, debug.default)("verdaccio:plugin:pro:storage:sql:handler");
 var SqlStorageHandler = class {
-	constructor(database, logger, packageName) {
+	constructor(packageService, tarballService, logger, packageName) {
 		debug$2("start storage handler");
 		this.logger = logger;
-		this.package = new _verdaccio_pro_database.PackageService(database, logger);
-		this.tarball = new _verdaccio_pro_database.TarballService(database, logger);
+		this.package = packageService;
+		this.tarball = tarballService;
 		this.packageName = packageName;
 	}
 	async readPackage(packageName) {
@@ -97,12 +97,15 @@ var SqlStoragePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		this.storageConfig = { url: config?.url || _verdaccio_pro_database.ENV.DATABASE_URL };
 		if (!this.storageConfig.url) throw _verdaccio_core.errorUtils.getServiceUnavailable("[sql-storage] missing config. Add `url` to SQL Storage plugin config or use environment variable DATABASE_URL");
 		this.db = (0, _verdaccio_pro_database.getDatabase)(this.storageConfig.url, this.logger);
+		this.tenant = new _verdaccio_pro_database.TenantService(this.db, this.logger);
+		this.packageService = new _verdaccio_pro_database.PackageService(this.db, this.logger, this.tenant);
+		this.tarballService = new _verdaccio_pro_database.TarballService(this.db, this.logger, this.tenant);
 		this.token = new _verdaccio_pro_database.TokenService(this.db, this.logger);
-		this.localPackage = new _verdaccio_pro_database.LocalPackagesService(this.db, this.logger);
+		this.localPackage = new _verdaccio_pro_database.LocalPackagesService(this.db, this.logger, this.tenant);
 		this.verdaccioSecret = new _verdaccio_pro_database.VerdaccioSecretService(this.db, this.logger);
 		this.downloads = new _verdaccio_pro_database.DownloadsService(this.db, this.logger);
-		this.eventLog = new _verdaccio_pro_database.EventLogService(this.db, this.logger);
-		this.gtadir = new _verdaccio_pro_database.GlobalTadirService(this.db, this.logger);
+		this.eventLog = new _verdaccio_pro_database.EventLogService(this.db, this.logger, this.tenant);
+		this.gtadir = new _verdaccio_pro_database.GlobalTadirService(this.db, this.logger, this.tenant);
 		debug$1("Verdaccio Pro SQL Storage plugin is enabled");
 	}
 	async init() {
@@ -130,7 +133,7 @@ var SqlStoragePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		debug$1("Verdaccio Pro SQL Storage plugin initialized");
 	}
 	getPackageStorage(packageName) {
-		return new SqlStorageHandler(this.db, this.logger, packageName);
+		return new SqlStorageHandler(this.packageService, this.tarballService, this.logger, packageName);
 	}
 	async getSecret() {
 		debug$1("get secret");

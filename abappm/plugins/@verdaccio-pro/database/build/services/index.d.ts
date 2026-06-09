@@ -3,7 +3,7 @@ export { EventLogService, ANONYMOUS_USER, type Method } from './event-log';
 export { GlobalTadirService } from './gtadir';
 export { LocalPackagesService } from './local-package';
 export { type metadataVersion, type readmeVersion, clearReadmesFromManifest, getMetadataFromManifest, getReadmesFromManifest, mergeReadmesIntoManifest, } from './manifest';
-export { OrgService, PUBLIC_PACKAGES } from './org';
+export { OrgService, PUBLIC_PACKAGES, resolveOrgName } from './org';
 export { PackageService, type DistTagsList } from './package';
 export { TarballService } from './tarball';
 export { TenantService } from './tenant';

@@ -1,6 +1,7 @@
 import { searchUtils } from '@verdaccio/core';
 import { Callback, Logger, Manifest } from '@verdaccio/types';
 import { Database } from '../db';
+import { TenantService } from './tenant';
 export type DistTagsList = {
     [name: string]: {
         [tag: string]: string;
@@ -10,7 +11,7 @@ export declare class PackageService {
     private db;
     private logger;
     private tenant;
-    constructor(database: Database, logger: Logger);
+    constructor(database: Database, logger: Logger, tenant?: TenantService);
     exists(name: string): Promise<boolean>;
     create(name: string, manifest: Manifest): Promise<void>;
     read(name: string, noThrow?: boolean): Promise<Manifest>;

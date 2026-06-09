@@ -1,13 +1,13 @@
 import { Readable, Writable } from 'node:stream';
 import { pluginUtils } from '@verdaccio/core';
 import { Logger, Manifest } from '@verdaccio/types';
-import { Database } from '@verdaccio-pro/database';
+import { PackageService, TarballService } from '@verdaccio-pro/database';
 declare class SqlStorageHandler implements pluginUtils.StorageHandler {
     logger: Logger;
     private package;
     private tarball;
     private packageName;
-    constructor(database: Database, logger: Logger, packageName: string);
+    constructor(packageService: PackageService, tarballService: TarballService, logger: Logger, packageName: string);
     readPackage(packageName: string): Promise<Manifest>;
     hasPackage(packageName: string): Promise<boolean>;
     updatePackage(packageName: string, handleUpdate: (manifest: Manifest) => Promise<Manifest>): Promise<Manifest>;
