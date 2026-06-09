@@ -33,6 +33,11 @@ marked.use(markedAlert());
 
 export function parseReadme(readme: string, repositoryUrl?: string): string | void {
   const html = marked.parse(readme);
+
+  // TODO: Looks like this does not work as expected.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const withResolvedUrls = rewriteRelativeUrls(html as string, repositoryUrl);
-  return DOMPurify.sanitize(withResolvedUrls);
+
+  return DOMPurify.sanitize(html as string);
+  // return DOMPurify.sanitize(withResolvedUrls);
 }
