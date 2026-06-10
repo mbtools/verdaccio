@@ -3,7 +3,7 @@ import hljs from 'highlight.js/lib/common';
 // apm
 import hlabap from 'highlightjs-sap-abap';
 import { Marked } from 'marked';
-// import markedAlert from 'marked-alert';
+import markedAlert from 'marked-alert';
 import { markedHighlight } from 'marked-highlight';
 
 import { rewriteRelativeUrls } from './rewrite-urls';
@@ -29,15 +29,10 @@ marked.setOptions({
   breaks: false,
 });
 
-// marked.use(markedAlert());
+marked.use(markedAlert());
 
 export function parseReadme(readme: string, repositoryUrl?: string): string | void {
   const html = marked.parse(readme);
-
-  // TODO: Looks like this does not work as expected.
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const withResolvedUrls = rewriteRelativeUrls(html as string, repositoryUrl);
-
-  return DOMPurify.sanitize(html as string);
-  // return DOMPurify.sanitize(withResolvedUrls);
+  const htmlWithResolvedUrls = rewriteRelativeUrls(html as string, repositoryUrl);
+  return DOMPurify.sanitize(htmlWithResolvedUrls);
 }

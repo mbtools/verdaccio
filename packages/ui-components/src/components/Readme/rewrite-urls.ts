@@ -114,6 +114,23 @@ export function rewriteRelativeUrls(html: string, repositoryUrl?: string): strin
     return toRawGitHubContentUrl(owner, repo, url);
   };
 
+  if (typeof DOMParser !== 'undefined') {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    doc.querySelectorAll('img[src]').forEach((element) => {
+      const src = element.getAttribute('src');
+      if (src) {
+        element.setAttribute('src', rewriteAttribute(src));
+      }
+    });
+    doc.querySelectorAll('a[href]').forEach((element) => {
+      const href = element.getAttribute('href');
+      if (href) {
+        element.setAttribute('href', rewriteAttribute(href));
+      }
+    });
+    return doc.body.innerHTML;
+  }
+
   return html
     .replace(/(<img\b[^>]*\bsrc=["'])([^"']+)(["'])/gi, (_match, prefix, src, suffix) => {
       return `${prefix}${rewriteAttribute(src)}${suffix}`;
