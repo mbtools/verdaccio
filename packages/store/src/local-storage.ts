@@ -58,7 +58,13 @@ class LocalStorage {
   public async getSecret(config: Config): Promise<void> {
     const secretKey = await this.storagePlugin.getSecret();
 
-    return this.storagePlugin.setSecret(config.checkSecretKey(secretKey));
+    const newSecretKey = config.checkSecretKey(secretKey);
+    if (newSecretKey !== secretKey) {
+      this.logger.info('secret key changed, updating storage');
+      await this.storagePlugin.setSecret(newSecretKey);
+    }
+
+    return;
   }
 
   private async loadStorage(config: Config, logger: Logger): Promise<PluginStorage> {
