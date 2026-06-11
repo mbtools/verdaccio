@@ -4,6 +4,7 @@ import hljs from 'highlight.js/lib/common';
 import hlabap from 'highlightjs-sap-abap';
 import { Marked } from 'marked';
 import markedAlert from 'marked-alert';
+import markedFootnote from 'marked-footnote';
 import { markedHighlight } from 'marked-highlight';
 
 import { rewriteRelativeUrls } from './rewrite-urls';
@@ -30,6 +31,7 @@ marked.setOptions({
 });
 
 marked.use(markedAlert());
+marked.use(markedFootnote());
 
 export function parseReadme(readme: string, repositoryUrl?: string): string | void {
   const html = marked.parse(readme);

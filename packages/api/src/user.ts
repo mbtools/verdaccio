@@ -168,6 +168,13 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
     }
   );
 
+  /**
+   * Legacy `npm logout`
+   *
+   * Returns 200 with { ok: "Logged out" } so the CLI can clear local .npmrc credentials.
+   * Does not revoke the token server-side: login tokens are stateless (JWT/AES via getApiToken),
+   * not stored in token storage. Only tokens created via `npm token` can be revoked (see v1/token.ts).
+   */
   route.delete(
     USER_API_ENDPOINTS.user_token,
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
