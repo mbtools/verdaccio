@@ -141,7 +141,7 @@ var getDatabase = (url, logger) => {
 //#region src/db/schema/index.ts
 var timestamps = {
 	created: (0, drizzle_orm_pg_core.timestamp)().defaultNow().notNull(),
-	updated: (0, drizzle_orm_pg_core.timestamp)().defaultNow().notNull()
+	updated: (0, drizzle_orm_pg_core.timestamp)().defaultNow().$onUpdate(() => drizzle_orm.sql`now()`).notNull()
 };
 var timestampsDeleted = {
 	...timestamps,
@@ -346,12 +346,12 @@ var metadata = (0, drizzle_orm_pg_core.pgTable)("metadata", {
 	description: (0, drizzle_orm_pg_core.text)(),
 	keywords: (0, drizzle_orm_pg_core.text)(),
 	search_english: tsVector().generatedAlwaysAs(() => drizzle_orm.sql`
-      setweight(to_tsvector('english', coalesce(${metadata.name}, '')), 'A') || ' ' ||
+      setweight(to_tsvector('simple', regexp_replace(coalesce(${metadata.name}, ''), '[@/:._-]+', ' ', 'g')), 'A') || ' ' ||
       setweight(to_tsvector('english', coalesce(${metadata.version}, '')), 'B') || ' ' ||
       setweight(to_tsvector('english', coalesce(${metadata.description}, '')), 'C') || ' ' ||
       setweight(to_tsvector('english', coalesce(${metadata.keywords}, '')), 'D')`),
 	search_german: tsVector().generatedAlwaysAs(() => drizzle_orm.sql`
-      setweight(to_tsvector('german', coalesce(${metadata.name}, '')), 'A') || ' ' ||
+      setweight(to_tsvector('simple', regexp_replace(coalesce(${metadata.name}, ''), '[@/:._-]+', ' ', 'g')), 'A') || ' ' ||
       setweight(to_tsvector('german', coalesce(${metadata.version}, '')), 'B') || ' ' ||
       setweight(to_tsvector('german', coalesce(${metadata.description}, '')), 'C') || ' ' ||
       setweight(to_tsvector('german', coalesce(${metadata.keywords}, '')), 'D')`),
@@ -866,7 +866,7 @@ var GlobalTadirService = class {
 	}
 	async clean() {
 		debug$7("clean all GTADIR");
-		await this.db.execute(drizzle_orm.sql`TRUNCATE TABLE gtadir`);
+		await this.db.execute(drizzle_orm.sql`TRUNCATE TABLE gtadir RESTART IDENTITY`);
 	}
 };
 //#endregion
@@ -914,7 +914,7 @@ var LocalPackagesService = class {
 	}
 	async clean() {
 		debug$6("clean all local packages");
-		await this.db.execute(drizzle_orm.sql`TRUNCATE TABLE local_packages`);
+		await this.db.execute(drizzle_orm.sql`TRUNCATE TABLE local_packages RESTART IDENTITY`);
 	}
 };
 //#endregion
@@ -964,7 +964,7 @@ var getMetadataFromManifest = (manifest) => {
 //#endregion
 //#region src/services/package.ts
 var debug$5 = (0, debug.default)("verdaccio:plugin:pro:db");
-var PackageService = class {
+var PackageService = class PackageService {
 	constructor(database, logger, tenant) {
 		this.db = database;
 		this.logger = logger;
@@ -1125,28 +1125,47 @@ var PackageService = class {
 			}
 		});
 	}
+	static buildSearchQueries(text) {
+		const trimmed = text.trim();
+		if (!trimmed) return null;
+		const prefixTerms = trimmed.split(/\s+/).map((term) => term.replace(/[&|!():*'\\]/g, "").trim()).filter((term) => term.length > 0).map((term) => `${term}:*`).join(" & ");
+		const englishQuery = drizzle_orm.sql`websearch_to_tsquery('english', ${trimmed})`;
+		const prefixQuery = prefixTerms ? drizzle_orm.sql`to_tsquery('simple', ${prefixTerms})` : drizzle_orm.sql`''::tsquery`;
+		return {
+			englishQuery,
+			prefixQuery,
+			combinedQuery: drizzle_orm.sql`(${englishQuery} || ${prefixQuery})`,
+			trimmed
+		};
+	}
 	static async search(db, query) {
-		const results = [];
-		const matchQuery = drizzle_orm.sql`websearch_to_tsquery('english', ${query.text})`;
+		const searchQueries = PackageService.buildSearchQueries(query.text);
+		if (!searchQueries) return [];
+		const { englishQuery, prefixQuery, combinedQuery, trimmed } = searchQueries;
+		const normalizedName = drizzle_orm.sql`regexp_replace(coalesce(${metadata.name}, ''), '[@/:._-]+', ' ', 'g')`;
 		const rows = await db.select({
 			name: metadata.name,
 			version: metadata.version,
 			updated: metadata.updated,
-			rank: drizzle_orm.sql`ts_rank(search_english, ${matchQuery})`
-		}).from(metadata).where(drizzle_orm.sql`search_english @@ ${matchQuery}`).orderBy((t) => (0, drizzle_orm.desc)(t.rank)).limit(100);
-		for (const row of rows) results.push({
+			rank: drizzle_orm.sql`GREATEST(
+          ts_rank_cd(${metadata.search_english}, ${englishQuery}),
+          ts_rank_cd(${metadata.search_english}, ${prefixQuery}) * 2,
+          CASE WHEN position(lower(${trimmed}) in lower(${metadata.name})) > 0 THEN 1.0 ELSE 0 END
+        )`
+		}).from(metadata).where((0, drizzle_orm.and)((0, drizzle_orm.isNull)(metadata.deleted), (0, drizzle_orm.or)(drizzle_orm.sql`${metadata.search_english} @@ ${combinedQuery}`, drizzle_orm.sql`position(lower(${trimmed}) in lower(${metadata.name})) > 0`, drizzle_orm.sql`position(lower(${trimmed}) in lower(${normalizedName})) > 0`))).orderBy((t) => (0, drizzle_orm.desc)(t.rank)).limit(100);
+		const bestByName = /* @__PURE__ */ new Map();
+		for (const row of rows) {
+			const previous = bestByName.get(row.name);
+			if (!previous || row.rank > previous.rank) bestByName.set(row.name, row);
+		}
+		const results = [...bestByName.values()].sort((a, b) => b.rank - a.rank).slice(query.from ?? 0, (query.from ?? 0) + (query.size ?? 20)).map((row) => ({
 			name: row.name,
 			scoped: row.name,
 			path: void 0,
 			time: row.rank
-		});
+		}));
 		debug$5("%o packages found", results.length);
-		if (!results || results.length === 0) {
-			debug$5("no results found");
-			return results;
-		}
-		debug$5("%o results found", results.length);
-		return results.slice(query.from, query.size);
+		return results;
 	}
 	async getDistTags(names) {
 		const result = {};

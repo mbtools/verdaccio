@@ -18,6 +18,7 @@ export declare class PackageService {
     save(name: string, manifest: Manifest): Promise<void>;
     update(name: string, handleUpdate: Callback): Promise<Manifest>;
     delete(name: string): Promise<void>;
+    private static buildSearchQueries;
     static search(db: Database, query: searchUtils.SearchQuery): Promise<searchUtils.SearchItemPkg[]>;
     getDistTags(names: string[]): Promise<DistTagsList>;
 }

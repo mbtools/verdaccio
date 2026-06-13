@@ -42,7 +42,7 @@ var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		this.authConfig = { clerk_secret_key: config?.clerk_secret_key || process.env.CLERK_SECRET_KEY };
 		if (!this.authConfig.clerk_secret_key) throw _verdaccio_core.errorUtils.getServiceUnavailable("[auth] missing config. Add `clerk_secret_key` to Auth plugin config or use environment variable CLERK_SECRET_KEY");
 		this.clerkClient = (0, _clerk_backend.createClerkClient)({ secretKey: this.authConfig.clerk_secret_key });
-		debug$1("Verdaccio Pro Auth plugin is enabled");
+		debug$1("Verdaccio Pro Clerk plugin is enabled");
 	}
 	async authenticate(user, password, callback) {
 		debug$1("authenticate user %o", user);
@@ -98,7 +98,10 @@ var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 	}
 	async adduser(user, password, callback, email) {
 		debug$1("add user %o", user);
-		throw _verdaccio_core.errorUtils.getServiceUnavailable("Not supported");
+		await this.authenticate(user, password, (err, groups) => {
+			if (err) callback(err, false);
+			else callback(null, true);
+		});
 	}
 	async removeUser(user) {
 		debug$1("remove user %o", user);
