@@ -10,7 +10,7 @@ import {
   HEADERS,
   HTTP_STATUS,
   authUtils,
-  cryptoUtils,
+  // cryptoUtils, // apm
   errorUtils,
   reqUtils,
   validationUtils,
@@ -76,95 +76,95 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
     rateLimit(config?.userRateLimit),
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       const { name, password } = req.body;
-      debug('login or adduser');
-      const remoteName = req?.remote_user?.name;
+      debug('login');
+      //const remoteName = req?.remote_user?.name;
 
       const userName = reqUtils.paramToString(req.params.org_couchdb_user);
       if (!validationUtils.validateUserName(userName, name)) {
         return next(errorUtils.getBadRequest(API_ERROR.USERNAME_MISMATCH));
       }
 
-      if (typeof remoteName !== 'undefined' && typeof name === 'string' && remoteName === name) {
-        debug('login: no remote user detected');
-        auth.authenticate(
-          name,
-          password,
-          async function callbackAuthenticate(err, user): Promise<void> {
-            if (err) {
-              logger.trace(
-                { name, err },
-                'authenticating for user @{username} failed. Error: @{err.message}'
-              );
-              return next(
-                errorUtils.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.BAD_USERNAME_PASSWORD)
-              );
-            }
-
-            const restoredRemoteUser: RemoteUser = createRemoteUser(name, user?.groups || []);
-            const token = await getApiToken(auth, config, restoredRemoteUser, password);
-            debug('login: new token');
-            if (!token) {
-              return next(errorUtils.getUnauthorized());
-            }
-
-            res.status(HTTP_STATUS.CREATED);
-            res.set(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
-
-            const message = authUtils.getAuthenticatedMessage(req.remote_user.name);
-            debug('login: created user message %o', message);
-
-            return next({
-              ok: message,
-              token,
-            });
-          }
-        );
-      } else {
-        debug('adduser: %o', name);
-        if (
-          validationUtils.validatePassword(password, config?.server?.passwordValidationRegex) ===
-          false
-        ) {
-          debug('adduser: invalid password');
-
-          return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT));
-        }
-
-        auth.add_user(name, password, async function (err, user): Promise<void> {
+      // if (typeof remoteName !== 'undefined' && typeof name === 'string' && remoteName === name) {
+      // debug('login: no remote user detected');
+      auth.authenticate(
+        name,
+        password,
+        async function callbackAuthenticate(err, user): Promise<void> {
           if (err) {
-            if (err.status >= HTTP_STATUS.BAD_REQUEST && err.status < HTTP_STATUS.INTERNAL_ERROR) {
-              debug('adduser: error on create user');
-              // With npm registering is the same as logging in,
-              // and npm accepts only an 409 error.
-              // So, changing status code here.
-              return next(
-                errorUtils.getCode(err.status, err.message) || errorUtils.getConflict(err.message)
-              );
-            }
-            return next(err);
+            logger.trace(
+              { name, err },
+              'authenticating for user @{username} failed. Error: @{err.message}'
+            );
+            return next(
+              errorUtils.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.BAD_USERNAME_PASSWORD)
+            );
           }
 
-          const token =
-            name && password
-              ? await getApiToken(auth, config, user as RemoteUser, password)
-              : undefined;
-          if (token) {
-            debug('adduser: new token %o', cryptoUtils.mask(token as string, 4));
-          }
+          const restoredRemoteUser: RemoteUser = createRemoteUser(name, user?.groups || []);
+          const token = await getApiToken(auth, config, restoredRemoteUser, password);
+          debug('login: new token');
           if (!token) {
             return next(errorUtils.getUnauthorized());
           }
 
-          req.remote_user = user;
           res.status(HTTP_STATUS.CREATED);
           res.set(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
-          debug('adduser: user has been created');
+
+          const message = authUtils.getAuthenticatedMessage(req.remote_user.name);
+          debug('login: created user message %o', message);
+
           return next({
-            ok: `user '${req.body.name}' created`,
+            ok: message,
             token,
           });
-        });
-      }
+        }
+      );
+      // } else {
+      //   debug('adduser: %o', name);
+      //   if (
+      //     validationUtils.validatePassword(password, config?.server?.passwordValidationRegex) ===
+      //     false
+      //   ) {
+      //     debug('adduser: invalid password');
+
+      //     return next(errorUtils.getCode(HTTP_STATUS.BAD_REQUEST, API_ERROR.PASSWORD_SHORT));
+      //   }
+
+      //   auth.add_user(name, password, async function (err, user): Promise<void> {
+      //     if (err) {
+      //       if (err.status >= HTTP_STATUS.BAD_REQUEST && err.status < HTTP_STATUS.INTERNAL_ERROR) {
+      //         debug('adduser: error on create user');
+      //         // With npm registering is the same as logging in,
+      //         // and npm accepts only an 409 error.
+      //         // So, changing status code here.
+      //         return next(
+      //           errorUtils.getCode(err.status, err.message) || errorUtils.getConflict(err.message)
+      //         );
+      //       }
+      //       return next(err);
+      //     }
+
+      //     const token =
+      //       name && password
+      //         ? await getApiToken(auth, config, user as RemoteUser, password)
+      //         : undefined;
+      //     if (token) {
+      //       debug('adduser: new token %o', cryptoUtils.mask(token as string, 4));
+      //     }
+      //     if (!token) {
+      //       return next(errorUtils.getUnauthorized());
+      //     }
+
+      //     req.remote_user = user;
+      //     res.status(HTTP_STATUS.CREATED);
+      //     res.set(HEADERS.CACHE_CONTROL, HEADERS.NO_CACHE);
+      //     debug('adduser: user has been created');
+      //     return next({
+      //       ok: `user '${req.body.name}' created`,
+      //       token,
+      //     });
+      //   });
+      // }
     }
   );
 
