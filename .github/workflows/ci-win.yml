@@ -1,0 +1,88 @@
+name: CI Windows
+
+on:
+  workflow_dispatch:
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+concurrency:
+  group: ci-win-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: ${{ always() && !failure() && !cancelled() && github.event.pull_request.draft == false }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [windows-latest]
+        node_version: [24, 26]
+    name: Build / ${{ matrix.os }} / Node ${{ matrix.node_version }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Build application with Node ${{ matrix.node_version }}
+        uses: ./.github/actions/build-app-win
+        with:
+          node-version: ${{ matrix.node_version }}
+      - name: Cache build artifacts
+        uses: actions/cache/save@27d5ce7f107fe9357f9df03efb73ab90386fccae
+        with:
+          path: |
+            packages/*/build
+            packages/*/dist
+            packages/*/*/build
+            packages/*/*/dist
+            packages/plugins/ui-theme/static
+          key: ci-build-win-${{ github.run_id }}-${{ github.run_attempt }}-node-${{ matrix.node_version }}
+  test:
+    needs: [build]
+    if: ${{ always() && !failure() && !cancelled() && github.event.pull_request.draft == false }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [windows-latest]
+        node_version: [24, 26]
+    name: Test / ${{ matrix.os }} / Node ${{ matrix.node_version }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Install dependencies
+        uses: ./.github/actions/install-app-win
+        with:
+          node-version: ${{ matrix.node_version }}
+      - name: Restore build artifacts
+        uses: actions/cache/restore@27d5ce7f107fe9357f9df03efb73ab90386fccae
+        with:
+          path: |
+            packages/*/build
+            packages/*/dist
+            packages/*/*/build
+            packages/*/*/dist
+            packages/plugins/ui-theme/static
+          key: ci-build-win-${{ github.run_id }}-${{ github.run_attempt }}-node-${{ matrix.node_version }}
+          fail-on-cache-miss: true
+      - name: Test (Node 26)
+        if: matrix.node_version == 26
+        run: pnpm test
+        env:
+          NODE_OPTIONS: --no-webstorage
+      - name: Test (Other Node)
+        if: matrix.node_version != 26
+        run: pnpm test
+  cleanup:
+    needs: [test]
+    if: always()
+    runs-on: windows-latest
+    name: Cleanup caches
+    permissions:
+      actions: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Delete build artifact caches
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh cache delete "ci-build-win-${{ github.run_id }}-${{ github.run_attempt }}-node-24" --repo ${{ github.repository }} || true
+          gh cache delete "ci-build-win-${{ github.run_id }}-${{ github.run_attempt }}-node-26" --repo ${{ github.repository }} || true
