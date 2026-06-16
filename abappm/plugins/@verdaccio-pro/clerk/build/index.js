@@ -44,28 +44,39 @@ var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		this.clerkClient = (0, _clerk_backend.createClerkClient)({ secretKey: this.authConfig.clerk_secret_key });
 		debug$1("Verdaccio Pro Clerk plugin is enabled");
 	}
-	async authenticate(user, password, callback) {
-		debug$1("authenticate user %o", user);
+	async authenticate(username, password, callback) {
+		debug$1("authenticate user %o", username);
 		try {
-			const clerkUser = await this.resolveUser(user);
+			const clerkUser = await this.resolveUser(username);
 			if (!clerkUser) {
 				debug$1("user not found");
-				return callback(null, false);
+				this.logger.debug({ user: username }, "Authentication failed for \"@{user}\": user not found");
+				return callback(_verdaccio_core.errorUtils.getUnauthorized("Invalid username or password"), false);
 			}
-			await this.clerkClient.users.verifyPassword({
+			if (!await this.clerkClient.users.verifyPassword({
 				userId: clerkUser.id,
 				password
-			});
+			})) {
+				debug$1("invalid password");
+				this.logger.debug({ user: username }, "Authentication failed for \"@{user}\": invalid password");
+				return callback(_verdaccio_core.errorUtils.getUnauthorized("Invalid username or password"), false);
+			}
 			const groups = await this.getUserGroups(clerkUser);
+			if (!groups) {
+				debug$1("no groups found");
+				this.logger.debug({ user: username }, "Authentication failed for \"@{user}\": missing organization membership");
+				return callback(_verdaccio_core.errorUtils.getUnauthorized("Missing organization membership"), false);
+			}
 			debug$1("authentication succeeded!");
+			this.logger.debug({ user: username }, "Authentication succeeded for \"@{user}\"");
 			return callback(null, groups);
 		} catch (error) {
-			this.logger.debug({
+			this.logger.error({
 				error,
-				user
+				user: username
 			}, "Authentication failed for \"@{user}\": @{error.message}");
 			debug$1("authentication error: %o", error);
-			return callback(_verdaccio_core.errorUtils.getInternalError("Authentication failed"), false);
+			return callback(error, false);
 		}
 	}
 	async resolveUser(identifier) {
@@ -96,21 +107,9 @@ var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		orgSlugs.add("$authenticated");
 		return [...orgSlugs];
 	}
-	async adduser(user, password, callback, email) {
-		debug$1("add user %o", user);
-		await this.authenticate(user, password, (err, groups) => {
-			if (err) callback(err, false);
-			else callback(null, true);
-		});
-	}
-	async removeUser(user) {
-		debug$1("remove user %o", user);
-		throw _verdaccio_core.errorUtils.getServiceUnavailable("Not supported");
-	}
-	async changePassword(user, oldPassword, newPassword, callback) {
-		debug$1("change password for user %o", user);
-		throw _verdaccio_core.errorUtils.getServiceUnavailable("Not supported");
-	}
+	/**
+	* Users are not managed by this plugin so we don't need to implement these methods
+	*/
 	async _allow(user, pkg, action, callback) {
 		const requiredGroups = pkg[action];
 		if (!requiredGroups) {
@@ -129,16 +128,17 @@ var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 			logAccess(user, pkg, action, true);
 			return callback(null, true);
 		}
+		if (!requiredGroups.includes("$authenticated")) {
+			logAccess(user, pkg, action, false);
+			return callback(null, false);
+		}
 		try {
 			const clerkUser = await this.resolveUser(user.name);
 			if (!clerkUser) {
 				debug$1("user not found");
 				return callback(null, false);
 			}
-			const groups = await this.getUserGroups(clerkUser);
-			let org = "@";
-			if (pkg.name.startsWith("@")) org = pkg.name.split("/")[0];
-			const grant = groups.includes(org);
+			const grant = (await this.getUserGroups(clerkUser)).includes("@");
 			logAccess(user, pkg, action, grant);
 			callback(null, grant);
 		} catch (error) {

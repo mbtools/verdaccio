@@ -10,12 +10,12 @@ declare class AuthPlugin extends pluginUtils.Plugin<AuthConfig> implements plugi
     private authConfig;
     private clerkClient;
     constructor(config: AuthConfig, options: pluginUtils.PluginOptions);
-    authenticate(user: string, password: string, callback: pluginUtils.AuthCallback): Promise<void>;
+    authenticate(username: string, password: string, callback: pluginUtils.AuthCallback): Promise<void>;
     private resolveUser;
     private getUserGroups;
-    adduser(user: string, password: string, callback: pluginUtils.AuthUserCallback, email?: string): Promise<void>;
-    removeUser(user: string): Promise<void>;
-    changePassword(user: string, oldPassword: string, newPassword: string, callback: pluginUtils.AuthChangePasswordCallback): Promise<void>;
+    /**
+     * Users are not managed by this plugin so we don't need to implement these methods
+     */
     private _allow;
     /**
      * Allow access to a package
