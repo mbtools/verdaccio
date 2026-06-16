@@ -12,6 +12,7 @@ declare class AuthPlugin extends pluginUtils.Plugin<AuthConfig> implements plugi
     constructor(config: AuthConfig, options: pluginUtils.PluginOptions);
     authenticate(username: string, password: string, callback: pluginUtils.AuthCallback): Promise<void>;
     private resolveUser;
+    private verifyPassword;
     private getUserGroups;
     /**
      * Users are not managed by this plugin so we don't need to implement these methods

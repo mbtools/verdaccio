@@ -60,19 +60,10 @@ var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 				this.logger.debug({ user: username }, "Authentication failed for \"@{user}\": user not found");
 				return callback(_verdaccio_core.errorUtils.getUnauthorized("Invalid username or password"), false);
 			}
-			debug$1("Clerk user: %o", clerkUser);
-			try {
-				await this.clerkClient.users.verifyPassword({
-					userId: clerkUser.id,
-					password
-				});
-			} catch (error) {
-				if (isIncorrectPasswordError(error)) {
-					debug$1("invalid password");
-					this.logger.debug({ user: username }, "Authentication failed for \"@{user}\": invalid password");
-					return callback(_verdaccio_core.errorUtils.getUnauthorized("Invalid username or password"), false);
-				}
-				throw error;
+			if (!await this.verifyPassword(clerkUser.id, password)) {
+				debug$1("invalid password");
+				this.logger.debug({ user: username }, "Authentication failed for \"@{user}\": invalid password");
+				return callback(_verdaccio_core.errorUtils.getUnauthorized("Invalid username or password"), false);
 			}
 			const groups = await this.getUserGroups(clerkUser);
 			if (!groups) {
@@ -104,6 +95,18 @@ var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		});
 		const normalized = identifier.toLowerCase();
 		return candidates.find((candidate) => candidate.username?.toLowerCase() === normalized || candidate.emailAddresses.some((email) => email.emailAddress.toLowerCase() === normalized));
+	}
+	async verifyPassword(userId, password) {
+		try {
+			await this.clerkClient.users.verifyPassword({
+				userId,
+				password
+			});
+			return true;
+		} catch (error) {
+			if (isIncorrectPasswordError(error)) return false;
+			throw error;
+		}
 	}
 	async getUserGroups(clerkUser) {
 		const orgSlugs = /* @__PURE__ */ new Set();
