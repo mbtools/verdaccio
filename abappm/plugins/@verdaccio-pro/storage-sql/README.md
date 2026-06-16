@@ -32,7 +32,7 @@ NO WARRANTIES, [Functional Source License](https://fsl.software), [MIT Future Li
 Before using the plugin, run the migrations to create required database tables:
 
 ```bash
-nx db:migrate storage-sql
+pnpm --filter @verdaccio-pro/database db:migrate
 ```
 
 ### 2. Configure Verdaccio
