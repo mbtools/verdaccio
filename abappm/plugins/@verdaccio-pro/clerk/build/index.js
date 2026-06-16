@@ -30,6 +30,9 @@ let _clerk_backend = require("@clerk/backend");
 let _verdaccio_core = require("@verdaccio/core");
 //#region src/plugin.ts
 var debug$1 = (0, debug.default)("verdaccio:plugin:pro:clerk");
+function isIncorrectPasswordError(error) {
+	return typeof error === "object" && error !== null && "errors" in error && Array.isArray(error.errors) && error.errors.some((e) => e.code === "incorrect_password");
+}
 function logAccess(user, pkg, action, grant) {
 	debug$1(`${action} for ${user.name} on ${pkg.name} has been ${grant ? "granted" : "denied"}`);
 }
@@ -57,13 +60,19 @@ var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 				this.logger.debug({ user: username }, "Authentication failed for \"@{user}\": user not found");
 				return callback(_verdaccio_core.errorUtils.getUnauthorized("Invalid username or password"), false);
 			}
-			if (!await this.clerkClient.users.verifyPassword({
-				userId: clerkUser.id,
-				password
-			})) {
-				debug$1("invalid password");
-				this.logger.debug({ user: username }, "Authentication failed for \"@{user}\": invalid password");
-				return callback(_verdaccio_core.errorUtils.getUnauthorized("Invalid username or password"), false);
+			debug$1("Clerk user: %o", clerkUser);
+			try {
+				await this.clerkClient.users.verifyPassword({
+					userId: clerkUser.id,
+					password
+				});
+			} catch (error) {
+				if (isIncorrectPasswordError(error)) {
+					debug$1("invalid password");
+					this.logger.debug({ user: username }, "Authentication failed for \"@{user}\": invalid password");
+					return callback(_verdaccio_core.errorUtils.getUnauthorized("Invalid username or password"), false);
+				}
+				throw error;
 			}
 			const groups = await this.getUserGroups(clerkUser);
 			if (!groups) {
