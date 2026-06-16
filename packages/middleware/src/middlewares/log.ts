@@ -4,6 +4,7 @@ import { isNil } from 'lodash-es';
 import { HEADERS, constants } from '@verdaccio/core';
 
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
+import { sanitizeUrlForLog } from './sanitize-url';
 
 const debug = buildDebug('verdaccio:middleware:log');
 
@@ -39,12 +40,23 @@ export const log = (logger, options: LogOptions = {}) => {
       req.headers.cookie = '<Classified>';
     }
 
-    req.url = req.originalUrl;
-    const _skipLog = hideStaticLogs && isStaticRequest(req.url);
+    const requestUrl = req.originalUrl ?? req.url ?? '';
+    const logUrl = sanitizeUrlForLog(requestUrl);
+    req.url = requestUrl;
+    const _skipLog = hideStaticLogs && isStaticRequest(requestUrl);
     if (_skipLog) {
-      debug(convertToDebugString(constants.LOG_REQUEST_MESSAGE), req.ip, req.method, req.url);
+      debug(convertToDebugString(constants.LOG_REQUEST_MESSAGE), req.ip, req.method, logUrl);
     } else {
-      req.log.info({ req }, constants.LOG_REQUEST_MESSAGE);
+      req.log.info(
+        {
+          req: {
+            ip: req.ip,
+            method: req.method,
+            url: logUrl,
+          },
+        },
+        constants.LOG_REQUEST_MESSAGE
+      );
     }
     req.originalUrl = req.url;
 
@@ -80,7 +92,7 @@ export const log = (logger, options: LogOptions = {}) => {
       return {
         request: {
           method: req.method,
-          url: req.originalUrl,
+          url: logUrl,
         },
         user: req.remote_user?.name || null,
         remoteIP,

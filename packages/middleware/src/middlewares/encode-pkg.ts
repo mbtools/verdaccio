@@ -3,6 +3,7 @@ import buildDebug from 'debug';
 import { errorUtils } from '@verdaccio/core';
 
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
+import { sanitizeUrlForLog } from './sanitize-url';
 
 const debug = buildDebug('verdaccio:middleware:encode');
 
@@ -33,9 +34,9 @@ export function encodeScopePackage(
   req.url = req.url.replace(/\/%40/, '/@').replace(/(\/@[^\/%]+)\/(?!$)/, '$1%2F');
 
   if (original !== req.url) {
-    debug('encodeScopePackage: %o -> %o', original, req.url);
+    debug('encodeScopePackage: %o -> %o', sanitizeUrlForLog(original), sanitizeUrlForLog(req.url));
   } else {
-    debug('encodeScopePackage: %o (unchanged)', original);
+    debug('encodeScopePackage: %o (unchanged)', sanitizeUrlForLog(original));
   }
   next();
 }

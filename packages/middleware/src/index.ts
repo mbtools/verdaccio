@@ -19,6 +19,7 @@ export { errorReportingMiddleware, handleError } from './middlewares/error';
 export { getRequestOptions } from './middlewares/request-options';
 export { log } from './middlewares/log';
 export type { LogOptions } from './middlewares/log';
+export { sanitizeUrlForLog } from './middlewares/sanitize-url';
 export * from './types';
 export * from './middlewares/api_urls';
 export * from './middlewares/web/web-urls';

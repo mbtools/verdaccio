@@ -98,6 +98,26 @@ describe('hideStaticLogs option', () => {
     await request(app).get('/react').expect(HTTP_STATUS.OK);
     expect(infoSpy).toHaveBeenCalled();
   });
+
+  test('should redact sensitive URLs in request logs', async () => {
+    const infoSpy = vi.fn();
+    const mockLogger = {
+      child: () => ({ info: infoSpy, http: vi.fn() }),
+    };
+
+    const app = getApp([]);
+    // @ts-ignore
+    app.use(log(mockLogger));
+    app.delete('/-/user/token/npm:secret-token', (_req, res) => {
+      res.status(HTTP_STATUS.OK).send('ok');
+    });
+
+    await request(app).delete('/-/user/token/npm:secret-token').expect(HTTP_STATUS.OK);
+
+    expect(infoSpy).toHaveBeenCalled();
+    const loggedReq = infoSpy.mock.calls[0][0].req;
+    expect(loggedReq.url).toBe('/-/user/token/<Classified>');
+  });
 });
 
 test('should log request aborted by user', async () => {

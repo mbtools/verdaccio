@@ -4,6 +4,7 @@ import type { IncomingHttpHeaders } from 'node:http';
 import type { RequestOptions } from '@verdaccio/url';
 
 import type { $RequestExtend } from '../types';
+import { sanitizeUrlForLog } from './sanitize-url';
 
 const debug = buildDebug('verdaccio:middleware:request-options');
 
@@ -28,6 +29,7 @@ export function getRequestOptions(req: $RequestExtend): RequestOptions {
   // Mask sensitive headers before debug output
   const maskedRequestOptions = {
     ...requestOptions,
+    url: sanitizeUrlForLog(req.originalUrl ?? req.url ?? ''),
     headers: {
       ...requestOptions.headers,
       cookie: '<classified>',

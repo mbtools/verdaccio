@@ -4,6 +4,7 @@ import { URL } from 'node:url';
 import { errorUtils } from '@verdaccio/core';
 
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
+import { sanitizeUrlForLog } from './sanitize-url';
 
 const debug = buildDebug('verdaccio:middleware:make-url-relative');
 
@@ -38,9 +39,9 @@ export function makeURLrelative(
   req.url = url.pathname + url.search + url.hash;
 
   if (original !== req.url) {
-    debug('makeURLrelative: %o -> %o', original, req.url);
+    debug('makeURLrelative: %o -> %o', sanitizeUrlForLog(original), sanitizeUrlForLog(req.url));
   } else {
-    debug('makeURLrelative: %o (unchanged)', original);
+    debug('makeURLrelative: %o (unchanged)', sanitizeUrlForLog(original));
   }
   next();
 }
