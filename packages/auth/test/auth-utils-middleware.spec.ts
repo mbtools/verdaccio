@@ -15,6 +15,7 @@ import { signPayload } from '@verdaccio/signature';
 import type { Config, RemoteUser, Security } from '@verdaccio/types';
 
 import { Auth, getApiToken, getMiddlewareCredentials, verifyJWTPayload } from '../src';
+import { mockStorage } from './helper/storage';
 
 // valid 32-character secret for AES-256 encryption tests
 const TEST_SECRET = 'b2df428b9929d3ace7c598bbf4e496b2';
@@ -60,7 +61,7 @@ describe('Auth utilities', () => {
   ): Promise<string> {
     const config: Config = getConfig(configFileName, secret);
     const auth: Auth = new Auth(config, logger);
-    await auth.init();
+    await auth.init(mockStorage);
     // @ts-ignore
     const spy = vi.spyOn(auth, methodToSpy);
     // @ts-ignore
@@ -163,7 +164,7 @@ describe('Auth utilities', () => {
         const secret = 'b2df428b9929d3ace7c598bbf4e496b2';
         const config: Config = getConfig('security-legacy', secret);
         const auth: Auth = new Auth(config, logger);
-        await auth.init();
+        await auth.init(mockStorage);
         // @ts-expect-error
         const token = auth.aesEncrypt(null);
         const security: Security = config.security;

@@ -5,6 +5,7 @@ import { createAnonymousRemoteUser } from '@verdaccio/config';
 import type { pluginUtils } from '@verdaccio/core';
 import { API_ERROR, HTTP_STATUS, TOKEN_BASIC, TOKEN_BEARER, errorUtils } from '@verdaccio/core';
 import { aesDecrypt, parseBasicPayload, verifyPayload } from '@verdaccio/signature';
+import type { Storage } from '@verdaccio/store';
 import type { AuthPackageAllow, Config, Logger, RemoteUser, Security } from '@verdaccio/types';
 
 import type {
@@ -145,7 +146,7 @@ export function isAuthHeaderValid(authorization: string): boolean {
  * @param logger {Logger}
  * @returns object of default implementations.
  */
-export function getDefaultPluginMethods(logger: Logger): pluginUtils.Auth<Config> {
+export function getDefaultPluginMethods(logger: Logger): pluginUtils.Auth<Config, Storage> {
   return {
     authenticate(_user: string, _password: string, cb: pluginUtils.AuthCallback): void {
       debug('triggered default authenticate method');

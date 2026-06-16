@@ -43,7 +43,7 @@ const { version } = pkgUtils.getPackageJson(currentDir, '..');
 
 export const defineAPI = async function (config: IConfig, storage: Storage): Promise<Express> {
   const auth = new Auth(config, logger);
-  await auth.init();
+  await auth.init(storage);
   const app = express();
   // run in production mode by default, just in case
   // it shouldn't make any difference anyway

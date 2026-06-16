@@ -1,6 +1,7 @@
 import buildDebug from 'debug';
 
 import { API_ERROR, errorUtils, pluginUtils } from '@verdaccio/core';
+import type { Storage } from '@verdaccio/store';
 import type { Config, Logger, PackageAccess, RemoteUser } from '@verdaccio/types';
 
 import type { Users, VerdaccioMemoryConfig } from './types';
@@ -11,7 +12,7 @@ const { Plugin } = pluginUtils;
 
 export default class Memory
   extends Plugin<VerdaccioMemoryConfig>
-  implements pluginUtils.Auth<VerdaccioMemoryConfig>
+  implements pluginUtils.Auth<VerdaccioMemoryConfig, Storage>
 {
   public _logger: Logger;
   public _users: Users;

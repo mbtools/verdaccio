@@ -18,6 +18,7 @@ import {
 } from '@verdaccio/core';
 import { asyncLoadPlugin } from '@verdaccio/loaders';
 import { aesEncrypt, parseBasicPayload, signPayload } from '@verdaccio/signature';
+import type { Storage } from '@verdaccio/store';
 import type {
   AllowAccess,
   Callback,
@@ -53,7 +54,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   public config: Config;
   public secret: string;
   public logger: Logger;
-  public plugins: pluginUtils.Auth<Config>[];
+  public plugins: pluginUtils.Auth<Config, Storage>[];
   public options: { legacyMergeConfigs: boolean };
 
   public constructor(config: Config, logger: Logger, options = { legacyMergeConfigs: false }) {
@@ -67,8 +68,8 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     }
   }
 
-  public async init() {
-    let plugins = await this.loadPlugin();
+  public async init(storage: Storage) {
+    let plugins = (await this.loadPlugin()) as pluginUtils.Auth<unknown, Storage>[];
 
     debug('auth plugins found %s', plugins.length);
     // Missing auth config or no loaded plugins -> load default htpasswd plugin
@@ -76,6 +77,19 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     if (this.config.auth !== null && (!plugins || plugins.length === 0)) {
       plugins = this.loadDefaultPlugin();
     }
+
+    plugins.forEach((plugin: pluginUtils.Auth<unknown, Storage>) => {
+      try {
+        if (typeof plugin.init === 'function') {
+          plugin.init(storage);
+        }
+      } catch (err: any) {
+        debug('error: %o', err.message.split('\n')[0]);
+        this.logger.error({ err }, 'initializing auth plugin has failed: @{err.message}');
+        throw new Error(err);
+      }
+    });
+
     this.plugins = plugins;
 
     this.applyFallbackPluginMethods();
@@ -106,7 +120,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
   }
 
   private async loadPlugin() {
-    return asyncLoadPlugin<pluginUtils.Auth<Config>>(
+    return asyncLoadPlugin<pluginUtils.Auth<Config, Storage>>(
       this.config.auth,
       {
         config: this.config,

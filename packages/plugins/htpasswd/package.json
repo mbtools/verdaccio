@@ -35,6 +35,7 @@
   "dependencies": {
     "@verdaccio/core": "workspace:9.0.0-next-9.19",
     "@verdaccio/file-locking": "workspace:14.0.0-next-9.4",
+    "@verdaccio/store": "workspace:9.0.0-next-9.19",
     "apache-md5": "1.1.8",
     "bcryptjs": "3.0.3",
     "debug": "4.4.3",

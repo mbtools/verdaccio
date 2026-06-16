@@ -24,6 +24,7 @@ import {
   authPluginPassThrougConf,
   authProfileConf,
 } from './helper/plugin';
+import { mockStorage } from './helper/storage';
 
 beforeAll(async () => {
   await setup({});
@@ -48,7 +49,7 @@ describe('AuthTest', () => {
       config.checkSecretKey(TEST_SECRET);
 
       const auth: Auth = new Auth(config, logger);
-      await auth.init();
+      await auth.init(mockStorage);
       expect(auth).toBeDefined();
     });
 
@@ -57,7 +58,7 @@ describe('AuthTest', () => {
       config.checkSecretKey(TEST_SECRET);
 
       const auth: Auth = new Auth(config, logger);
-      await auth.init();
+      await auth.init(mockStorage);
       expect(auth).toBeDefined();
     });
   });
@@ -71,7 +72,7 @@ describe('AuthTest', () => {
       config.checkSecretKey(TEST_SECRET);
 
       const auth: Auth = new Auth(config, logger);
-      await auth.init();
+      await auth.init(mockStorage);
       expect(auth).toBeDefined();
     });
   });
@@ -82,7 +83,7 @@ describe('AuthTest', () => {
         const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey(TEST_SECRET);
         const auth: Auth = new Auth(config, logger);
-        await auth.init();
+        await auth.init(mockStorage);
         expect(auth).toBeDefined();
 
         const callback = vi.fn();
@@ -109,7 +110,7 @@ describe('AuthTest', () => {
         const config: Config = new AppConfig(authPluginFailureConf);
         config.checkSecretKey(TEST_SECRET);
         const auth: Auth = new Auth(config, logger);
-        await auth.init();
+        await auth.init(mockStorage);
         expect(auth).toBeDefined();
 
         const callback = vi.fn();
@@ -128,7 +129,7 @@ describe('AuthTest', () => {
         const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey(TEST_SECRET);
         const auth: Auth = new Auth(config, logger);
-        await auth.init();
+        await auth.init(mockStorage);
         expect(auth).toBeDefined();
 
         const callback = vi.fn();
@@ -148,7 +149,7 @@ describe('AuthTest', () => {
         const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey(TEST_SECRET);
         const auth: Auth = new Auth(config, logger);
-        await auth.init();
+        await auth.init(mockStorage);
         expect(auth).toBeDefined();
 
         const callback = vi.fn();
@@ -166,7 +167,7 @@ describe('AuthTest', () => {
         const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey(TEST_SECRET);
         const auth: Auth = new Auth(config, logger);
-        await auth.init();
+        await auth.init(mockStorage);
         expect(auth).toBeDefined();
 
         const callback = vi.fn();
@@ -183,7 +184,7 @@ describe('AuthTest', () => {
         const config: Config = new AppConfig({ ...authPluginPassThrougConf });
         config.checkSecretKey(TEST_SECRET);
         const auth: Auth = new Auth(config, logger);
-        await auth.init();
+        await auth.init(mockStorage);
         expect(auth).toBeDefined();
 
         const callback = vi.fn();
@@ -210,7 +211,7 @@ describe('AuthTest', () => {
       });
       config.checkSecretKey(TEST_SECRET);
       const auth: Auth = new Auth(config, logger);
-      await auth.init();
+      await auth.init(mockStorage);
 
       return new Promise((resolve) => {
         auth.authenticate('foo', 'bar', (err, value) => {
@@ -235,7 +236,7 @@ describe('AuthTest', () => {
       });
       config.checkSecretKey(TEST_SECRET);
       const auth: Auth = new Auth(config, logger);
-      await auth.init();
+      await auth.init(mockStorage);
 
       return new Promise((resolve) => {
         auth.authenticate('foo', 'bar', (err, value) => {
@@ -255,7 +256,7 @@ describe('AuthTest', () => {
       const config: Config = new AppConfig({ ...authProfileConf });
       config.checkSecretKey(TEST_SECRET);
       const auth: Auth = new Auth(config, logger);
-      await auth.init();
+      await auth.init(mockStorage);
       expect(auth).toBeDefined();
       const callback = vi.fn();
 
@@ -270,7 +271,7 @@ describe('AuthTest', () => {
       const config: Config = new AppConfig({ ...authChangePasswordConf });
       config.checkSecretKey(TEST_SECRET);
       const auth: Auth = new Auth(config, logger);
-      await auth.init();
+      await auth.init(mockStorage);
       expect(auth).toBeDefined();
       const callback = vi.fn();
       auth.add_user('foo', 'bar', vi.fn());
@@ -288,7 +289,7 @@ describe('AuthTest', () => {
         const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey(TEST_SECRET);
         const auth: Auth = new Auth(config, logger);
-        await auth.init();
+        await auth.init(mockStorage);
         expect(auth).toBeDefined();
 
         const callback = vi.fn();
@@ -310,7 +311,7 @@ describe('AuthTest', () => {
         const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey(TEST_SECRET);
         const auth: Auth = new Auth(config, logger);
-        await auth.init();
+        await auth.init(mockStorage);
         expect(auth).toBeDefined();
 
         const callback = vi.fn();
@@ -337,7 +338,7 @@ describe('AuthTest', () => {
         const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey(TEST_SECRET);
         const auth: Auth = new Auth(config, logger);
-        await auth.init();
+        await auth.init(mockStorage);
         expect(auth).toBeDefined();
 
         const callback = vi.fn();
@@ -359,7 +360,7 @@ describe('AuthTest', () => {
         const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey(TEST_SECRET);
         const auth: Auth = new Auth(config, logger);
-        await auth.init();
+        await auth.init(mockStorage);
         expect(auth).toBeDefined();
 
         const callback = vi.fn();
@@ -384,7 +385,7 @@ describe('AuthTest', () => {
         config.checkSecretKey(TEST_SECRET);
 
         const auth: Auth = new Auth(config, logger);
-        await auth.init();
+        await auth.init(mockStorage);
         expect(auth).toBeDefined();
 
         const callback = vi.fn();
@@ -418,7 +419,7 @@ describe('AuthTest', () => {
         });
         config.checkSecretKey(TEST_SECRET);
         const auth: Auth = new Auth(config, logger);
-        await auth.init();
+        await auth.init(mockStorage);
         expect(auth).toBeDefined();
 
         const callback = vi.fn();
@@ -441,7 +442,7 @@ describe('AuthTest', () => {
 
         config.checkSecretKey(TEST_SECRET);
         const auth: Auth = new Auth(config, logger);
-        await auth.init();
+        await auth.init(mockStorage);
         expect(auth).toBeDefined();
 
         const callback = vi.fn();
@@ -468,7 +469,7 @@ describe('AuthTest', () => {
         const config: Config = new AppConfig({ ...authProfileConf });
         config.checkSecretKey(TEST_SECRET);
         const auth: Auth = new Auth(config, logger);
-        await auth.init();
+        await auth.init(mockStorage);
         expect(auth).toBeDefined();
 
         const callback = vi.fn();
@@ -500,7 +501,7 @@ describe('AuthTest', () => {
         });
         config.checkSecretKey(TEST_SECRET);
         const auth: Auth = new Auth(config, logger);
-        await auth.init();
+        await auth.init(mockStorage);
         expect(auth).toBeDefined();
 
         const callback = vi.fn();
@@ -524,7 +525,7 @@ describe('AuthTest', () => {
         });
         config.checkSecretKey(TEST_SECRET);
         const auth: Auth = new Auth(config, logger);
-        await auth.init();
+        await auth.init(mockStorage);
         expect(auth).toBeDefined();
 
         const callback = vi.fn();
@@ -557,7 +558,7 @@ describe('AuthTest', () => {
       });
       config.checkSecretKey(TEST_SECRET);
       const auth: Auth = new Auth(config, logger);
-      await auth.init();
+      await auth.init(mockStorage);
       expect(auth).toBeDefined();
 
       const callback = vi.fn();
@@ -581,7 +582,7 @@ describe('AuthTest', () => {
       });
       config.checkSecretKey(TEST_SECRET);
       const auth: Auth = new Auth(config, logger);
-      await auth.init();
+      await auth.init(mockStorage);
       expect(auth).toBeDefined();
 
       const callback = vi.fn();
@@ -623,7 +624,7 @@ describe('AuthTest', () => {
             const config: Config = new AppConfig({ ...authProfileConf });
             config.checkSecretKey(secret);
             const auth = new Auth(config, logger);
-            await auth.init();
+            await auth.init(mockStorage);
             const app = await getServer(auth);
             return supertest(app)
               .get(`/`)
@@ -635,7 +636,7 @@ describe('AuthTest', () => {
             const config: Config = new AppConfig({ ...authProfileConf });
             config.checkSecretKey(secret);
             const auth = new Auth(config, logger);
-            await auth.init();
+            await auth.init(mockStorage);
             const app = await getServer(auth);
             return supertest(app).get(`/`).expect(HTTP_STATUS.OK);
           });
@@ -647,7 +648,7 @@ describe('AuthTest', () => {
             const config: Config = new AppConfig({ ...authProfileConf });
             config.checkSecretKey(TEST_SECRET);
             const auth = new Auth(config, logger);
-            await auth.init();
+            await auth.init(mockStorage);
             const token = auth.aesEncrypt(payload) as string;
             const app = await getServer(auth);
             const res = await supertest(app)
@@ -663,7 +664,7 @@ describe('AuthTest', () => {
             // intended to force key generator (associated with mocks above)
             config.checkSecretKey(undefined);
             const auth = new Auth(config, logger);
-            await auth.init();
+            await auth.init(mockStorage);
             const token = auth.aesEncrypt(payload) as string;
             const app = await getServer(auth);
             return await supertest(app)
@@ -683,7 +684,7 @@ describe('AuthTest', () => {
             });
             config.checkSecretKey(secret);
             const auth = new Auth(config, logger);
-            await auth.init();
+            await auth.init(mockStorage);
             const app = await getServer(auth);
             const res = await supertest(app)
               .get(`/`)
@@ -705,7 +706,7 @@ describe('AuthTest', () => {
             });
             config.checkSecretKey(secret);
             const auth = new Auth(config, logger);
-            await auth.init();
+            await auth.init(mockStorage);
             const app = await getServer(auth);
             const res = await supertest(app).get(`/`).expect(HTTP_STATUS.OK);
             expect(res.body.user.groups).toEqual([
@@ -724,7 +725,7 @@ describe('AuthTest', () => {
             });
             config.checkSecretKey(secret);
             const auth = new Auth(config, logger);
-            await auth.init();
+            await auth.init(mockStorage);
             const app = await getServer(auth);
             // base64 of "test" (no colon separator) - must not crash with TypeError
             const malformedToken = Buffer.from('test').toString('base64');
@@ -746,7 +747,7 @@ describe('AuthTest', () => {
             // intended to force key generator (associated with mocks above)
             config.checkSecretKey(undefined);
             const auth = new Auth(config, logger);
-            await auth.init();
+            await auth.init(mockStorage);
             const token = (await auth.jwtEncrypt(
               createRemoteUser('jwt_user', [ROLES.ALL]),
               config.security?.api?.jwt?.sign || {}

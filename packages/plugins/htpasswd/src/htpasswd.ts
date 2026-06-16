@@ -4,6 +4,7 @@ import { dirname, resolve } from 'node:path';
 
 import { constants, pluginUtils } from '@verdaccio/core';
 import { unlockFile } from '@verdaccio/file-locking';
+import type { Storage } from '@verdaccio/store';
 import type { Callback, Logger } from '@verdaccio/types';
 
 import type { HtpasswdHashConfig } from './utils';
@@ -37,7 +38,7 @@ export const DEFAULT_SLOW_VERIFY_MS = 200;
  */
 export default class HTPasswd
   extends pluginUtils.Plugin<HTPasswdConfig>
-  implements pluginUtils.Auth<HTPasswdConfig>
+  implements pluginUtils.Auth<HTPasswdConfig, Storage>
 {
   /**
    *

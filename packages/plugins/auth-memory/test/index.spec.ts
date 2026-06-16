@@ -2,12 +2,13 @@ import { beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { Config, getDefaultConfig } from '@verdaccio/config';
 import type { pluginUtils } from '@verdaccio/core';
+import type { Storage } from '@verdaccio/store';
 
 import Memory from '../src/index';
 import type { Users, VerdaccioMemoryConfig } from '../src/types';
 
 describe('Memory', function () {
-  let auth: pluginUtils.Auth<VerdaccioMemoryConfig>;
+  let auth: pluginUtils.Auth<VerdaccioMemoryConfig, Storage>;
   const logger = {
     child: vi.fn(() => {}),
     http: vi.fn(() => {}),
@@ -34,7 +35,7 @@ describe('Memory', function () {
         config,
         logger,
       }
-    ) as pluginUtils.Auth<VerdaccioMemoryConfig>;
+    ) as pluginUtils.Auth<VerdaccioMemoryConfig, Storage>;
   });
 
   describe('#adduser', function () {

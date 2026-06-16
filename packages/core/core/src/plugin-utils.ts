@@ -137,7 +137,8 @@ export interface AuthPluginPackage {
  *
  * https://verdaccio.org/docs/plugin-auth
  */
-export interface Auth<T> extends Plugin<T> {
+export interface Auth<T, TStorage = unknown> extends Plugin<T> {
+  init?(storage: TStorage): void;
   /**
    * Handles the authenticated method.
    * ```ts
@@ -210,7 +211,7 @@ export interface ManifestFilter<T> extends Plugin<T> {
  * Sanity check for authentication plugins.
  * A valid auth plugin must implement at least one of: authenticate, allow_access, allow_publish.
  */
-export function authSanityCheck(plugin: Auth<unknown>): boolean {
+export function authSanityCheck(plugin: Auth<unknown, unknown>): boolean {
   return (
     typeof plugin.authenticate !== 'undefined' ||
     typeof plugin.allow_access !== 'undefined' ||
