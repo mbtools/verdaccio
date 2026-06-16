@@ -1,4 +1,4 @@
-export { Storage } from './storage';
+export { OVERWRITE_MODE, Storage } from './storage';
 export { applyManifestFilters, loadFilterPlugins } from './filter-pipeline';
 export type { Filters } from './filter-pipeline';
 export * from './lib/storage-utils';

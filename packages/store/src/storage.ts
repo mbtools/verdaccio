@@ -81,6 +81,7 @@ const debug = buildDebug('verdaccio:storage');
 export const noSuchFile = 'ENOENT';
 export const resourceNotAvailable = 'EAGAIN';
 export const PROTO_NAME = '__proto__';
+export const OVERWRITE_MODE = 'allow_overwrite';
 
 class Storage {
   public localStorage: LocalStorage;
@@ -89,6 +90,8 @@ class Storage {
   public readonly logger: Logger;
   public readonly uplinks: ProxyInstanceList;
   private searchService: Search;
+  private allowPackageOverwrite: boolean;
+
   public constructor(config: Config, logger: Logger) {
     this.config = config;
     this.logger = logger.child({ module: 'storage' });
@@ -98,6 +101,7 @@ class Storage {
     // @ts-ignore
     this.localStorage = null;
     debug('uplinks available %o', Object.keys(this.uplinks));
+    this.allowPackageOverwrite = false;
   }
 
   static ABBREVIATED_HEADER = 'application/vnd.npm.install-v1+json';
@@ -664,6 +668,7 @@ class Storage {
       debug('local init storage initialized');
       await this.localStorage.getSecret(config);
       debug('local storage secret initialized');
+      await this.checkDevMode();
     } else {
       debug('storage has been already initialized');
     }
@@ -671,6 +676,23 @@ class Storage {
       this.filters = await loadFilterPlugins(this.config, this.logger);
     }
     return;
+  }
+
+  /**
+   * Check if developer mode is enabled via environment variable.
+   *
+   * Overwrite mode is only allowed when the storage is empty.
+   */
+  private async checkDevMode() {
+    if (process.env.VERDACCIO_DEV_MODE === OVERWRITE_MODE) {
+      const packages = await this.localStorage.getStoragePlugin().get();
+      if (packages.length === 0) {
+        this.logger.warn('Developer mode is enabled; you can overwrite packages');
+        this.allowPackageOverwrite = true;
+      } else {
+        this.logger.warn('Storage must be empty to enable developer mode');
+      }
+    }
   }
 
   /**
@@ -1102,14 +1124,23 @@ class Storage {
       // if continue, the version to be published does not exist
       if (localManifest?.versions[versionToPublish] != null) {
         debug('%s version %s already exists (locally)', name, versionToPublish);
-        throw errorUtils.getConflict();
+        if (this.allowPackageOverwrite) {
+          const filename = tarballUtils.composeTarballFromPackage(name, versionToPublish);
+          await this.removeTarball(name, filename, localManifest._rev, username!);
+          delete localManifest.versions[versionToPublish];
+          delete localManifest.time[versionToPublish];
+        } else {
+          throw errorUtils.getConflict();
+        }
       }
       const uplinksLook = this.config?.publish?.allow_offline === false;
       // if execution get here, package does not exist locally, we search upstream
       const remoteManifest = await this.checkPackageRemote(name, uplinksLook);
       if (remoteManifest?.versions[versionToPublish] != null) {
         debug('%s version %s already exists (upstream)', name, versionToPublish);
-        throw errorUtils.getConflict();
+        if (!this.allowPackageOverwrite) {
+          throw errorUtils.getConflict();
+        }
       }
 
       const hasPackageInStorage = await this.hasPackage(name);
