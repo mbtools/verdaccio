@@ -102,7 +102,12 @@ var VerdaccioLogWriter = class {
 	write(message) {
 		let msg = message.replace(/^Query:\s*/i, "");
 		if (msg.length > 500) msg = msg.substring(0, 497) + "...";
-		if (msg.includes("users") || msg.includes("user_secrets") || msg.includes("secrets") || msg.includes("tokens")) msg = msg.split(" ")[0] + "<Classified>";
+		const foundTable = [
+			"user_secrets",
+			"secrets",
+			"tokens"
+		].find((table) => msg.includes(table));
+		if (foundTable) msg = `${msg.split(" ")[0]} ${foundTable} <classified>`;
 		const coloredMsg = msg.replace(/^(\w+)/i, (_, word) => {
 			return `${{
 				select: "\x1B[36m",

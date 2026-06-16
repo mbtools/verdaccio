@@ -1,4 +1,4 @@
-import { AnyColumn, SQL } from 'drizzle-orm';
+import { AnyColumn, SQL } from '../../../../node_modules/drizzle-orm';
 import { CheckContext } from './types';
 type PackageKeyedTable = {
     org_id: AnyColumn;
