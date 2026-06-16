@@ -46,6 +46,10 @@ var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 	}
 	async authenticate(username, password, callback) {
 		debug$1("authenticate user %o", username);
+		if (!username) {
+			debug$1("missing username");
+			return callback(null, false);
+		}
 		try {
 			const clerkUser = await this.resolveUser(username);
 			if (!clerkUser) {
