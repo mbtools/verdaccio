@@ -1,17 +1,22 @@
+import type { StyledComponent } from '@emotion/styled';
+import styled from '@emotion/styled';
 import { Box, TextField } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import type { ComponentProps } from 'react';
 
-export const SecurityContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  minHeight: '100%',
-  padding: theme.spacing(2),
-  backgroundColor: theme.palette.background.default,
-}));
+import type { Theme } from '../../';
 
-export const SecurityForm = styled('form')(({ theme }) => ({
+export const SecurityContainer: StyledComponent<ComponentProps<typeof Box> & { theme?: Theme }> =
+  styled(Box)<{ theme?: Theme }>(({ theme }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '100%',
+    padding: theme.spacing(2),
+    backgroundColor: theme.palette.background.default,
+  }));
+
+export const SecurityForm = styled('form')<{ theme?: Theme }>(({ theme }) => ({
   width: '100%',
   maxWidth: 420,
   padding: theme.spacing(4),
@@ -20,7 +25,7 @@ export const SecurityForm = styled('form')(({ theme }) => ({
   boxShadow: theme.shadows[3],
 }));
 
-export const SecurityTextField = styled(TextField)(({ theme }) => ({
+export const SecurityTextField = styled(TextField)<{ theme?: Theme }>(({ theme }) => ({
   width: '100%',
   marginTop: theme.spacing(1),
   marginBottom: theme.spacing(1),

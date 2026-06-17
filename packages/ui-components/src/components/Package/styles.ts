@@ -1,3 +1,4 @@
+import type { StyledComponent } from '@emotion/styled';
 import styled from '@emotion/styled';
 import { default as Photo } from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
@@ -5,6 +6,7 @@ import { default as MuiIconButton } from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import { common } from '@mui/material/colors';
+import type { ComponentProps } from 'react';
 import { Link } from 'react-router';
 
 import type { Theme } from '../../';
@@ -73,11 +75,12 @@ export const PackageTitle = styled('span')<{ theme?: Theme }>(({ theme }) => ({
   },
 }));
 
-export const GridRightAligned = styled(Grid)({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-});
+export const GridRightAligned: StyledComponent<ComponentProps<typeof Grid> & { theme?: Theme }> =
+  styled(Grid)<{ theme?: Theme }>({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  });
 
 export const Wrapper = styled(List)<{ theme?: Theme }>(({ theme }) => ({
   '&:hover': {
