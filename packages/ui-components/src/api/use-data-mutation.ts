@@ -45,6 +45,7 @@ export function useDataMutation<T>(
 async function tarballFetcher(url: string, { arg }: { arg: { link: string } }): Promise<Blob> {
   return API.request<Blob>(arg.link, 'GET', {
     headers: {
+      'apm-command': 'download', // apm
       accept:
         'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
     },

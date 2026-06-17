@@ -5,7 +5,7 @@ import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@ver
 
 import { buildToken, createUser, getPackage, initializeServer } from './_helper';
 
-const FORBIDDEN_VUE = 'authorization required to access package vue';
+const FORBIDDEN_VUE = 'Authorization required to access package vue';
 
 vi.setConfig({ testTimeout: 20000 });
 
@@ -23,7 +23,7 @@ describe('token', () => {
       expect(vueResponse.body.name).toMatch('vue');
 
       const vueFailResp = await getPackage(app, FAKE_TOKEN, 'vue', HTTP_STATUS.UNAUTHORIZED);
-      expect(vueFailResp.body.error).toMatch(FORBIDDEN_VUE);
+      expect(vueFailResp.body.error).toContain(FORBIDDEN_VUE);
     });
 
     test.each([['user.yaml'], ['user.jwt.yaml']])('should login an user', async (conf) => {

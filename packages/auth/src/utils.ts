@@ -192,13 +192,19 @@ export function allow_action(action: ActionsAllowed, logger: Logger): AllowActio
       return callback(null, true);
     }
 
+    // apm
+    // TODO: Message should link (!) to sign-up at www.abappm.com
+    const actionText = action === 'publish' ? 'publish or download' : 'unpublish';
+
     if (name) {
       callback(
-        errorUtils.getForbidden(`user ${name} is not allowed to ${action} package ${pkg.name}`)
+        errorUtils.getForbidden(`User ${name} is not allowed to ${actionText} package ${pkg.name}`)
       );
     } else {
       callback(
-        errorUtils.getUnauthorized(`authorization required to ${action} package ${pkg.name}`)
+        errorUtils.getUnauthorized(
+          `Authorization required to ${actionText} package ${pkg.name}. Sign up at www.abappm.com`
+        )
       );
     }
   };
