@@ -48,7 +48,7 @@ var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		debug$1("Verdaccio Pro Clerk plugin is enabled");
 	}
 	async authenticate(username, password, callback) {
-		debug$1("authenticate user %o", username);
+		debug$1(">>> authenticate user %o", username);
 		if (!username) {
 			debug$1("missing username");
 			return callback(null, false);
@@ -127,24 +127,30 @@ var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 	* Users are not managed by this plugin so we don't need to implement these methods
 	*/
 	async _allow(user, pkg, action, callback) {
+		debug$1(">>> allow %o for user %o", action, user.name);
 		const requiredGroups = pkg[action];
 		if (!requiredGroups) {
+			debug$1("no required groups");
 			logAccess(user, pkg, action, false);
 			return callback(null, false);
 		}
 		if (requiredGroups.includes("$anonymous")) {
+			debug$1("access is allowed for anonymous users");
 			logAccess(user, pkg, action, true);
 			return callback(null, true);
 		}
 		if (!user.name) {
+			debug$1("no username");
 			logAccess(user, pkg, action, false);
 			return callback(null, false);
 		}
 		if (requiredGroups.includes("$all")) {
+			debug$1("access is allowed for all users");
 			logAccess(user, pkg, action, true);
 			return callback(null, true);
 		}
 		if (!requiredGroups.includes("$authenticated")) {
+			debug$1("access is denied for unauthenticated users");
 			logAccess(user, pkg, action, false);
 			return callback(null, false);
 		}
@@ -155,6 +161,7 @@ var AuthPlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 				return callback(null, false);
 			}
 			const grant = (await this.getUserGroups(clerkUser)).includes("@");
+			debug$1("final group check");
 			logAccess(user, pkg, action, grant);
 			callback(null, grant);
 		} catch (error) {
