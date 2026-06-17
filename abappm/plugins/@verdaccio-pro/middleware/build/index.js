@@ -68,7 +68,7 @@ var debug$5 = (0, debug.default)("verdaccio:plugin:pro:middleware");
 var redirectNpmStyleUrl = (logger) => {
 	return (req, res, _next) => {
 		let packageName = req.params.all;
-		if (Array.isArray(packageName)) packageName = packageName[0];
+		if (Array.isArray(packageName)) packageName = packageName.join("/");
 		if (!packageName) {
 			res.status(404).send("Not Found");
 			return;
