@@ -67,8 +67,14 @@ var blockUnwantedRequests = (req, res, next) => {
 var debug$5 = (0, debug.default)("verdaccio:plugin:pro:middleware");
 var redirectNpmStyleUrl = (logger) => {
 	return (req, res, _next) => {
+		let packageName = req.params.all;
+		if (Array.isArray(packageName)) packageName = packageName[0];
+		if (!packageName) {
+			res.status(404).send("Not Found");
+			return;
+		}
 		debug$5("redirect from %o", req.url);
-		const redirectTo = "/-/web/detail" + req.url;
+		const redirectTo = "/-/web/detail/" + packageName;
 		logger.info({ redirectTo }, "Redirecting to @{redirectTo}");
 		debug$5("redirect to %o", redirectTo);
 		res.redirect(redirectTo);
@@ -487,7 +493,7 @@ var eventLog = (storage, logger) => {
 				}, "failed to log activity");
 			});
 		}
-		if (command === "tarball" && typeof storage.incrementDownloads === "function") {
+		if (typeof storage.incrementDownloads === "function" && command === "tarball") {
 			const filename = tarballFilenameFromPath(req.path);
 			if (filename) {
 				debug$2("incrementing downloads %o", { filename });

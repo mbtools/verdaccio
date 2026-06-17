@@ -107,7 +107,7 @@ var VerdaccioLogWriter = class {
 			"secrets",
 			"tokens"
 		].find((table) => msg.includes(table));
-		if (foundTable) msg = `${msg.split(" ")[0]} ${foundTable} <classified>`;
+		if (foundTable) msg = `${msg.split(" ")[0]} from "${foundTable}" <classified>`;
 		const coloredMsg = msg.replace(/^(\w+)/i, (_, word) => {
 			return `${{
 				select: "\x1B[36m",
