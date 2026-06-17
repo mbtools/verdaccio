@@ -44,16 +44,6 @@
     "debug": "4.4.3",
     "drizzle-orm": "1.0.0-rc.3"
   },
-  "devDependencies": {
-    "@types/debug": "4.1.13",
-    "@types/node": "25.9.3",
-    "@verdaccio/types": "14.0.0-next-9.10",
-    "cross-env": "10.1.0",
-    "eslint": "10.5.0",
-    "typescript": "6.0.3",
-    "vite": "8.0.16",
-    "vitest": "4.1.8"
-  },
   "scripts": {
     "build": "vite build",
     "test": "cross-env NODE_ENV=test vitest run --max-concurrency=1",

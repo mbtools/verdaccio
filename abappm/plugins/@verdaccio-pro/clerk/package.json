@@ -42,15 +42,6 @@
     "@verdaccio/core": "9.0.0-next-9.19",
     "debug": "4.4.3"
   },
-  "devDependencies": {
-    "@types/debug": "4.1.13",
-    "@verdaccio/types": "14.0.0-next-9.10",
-    "cross-env": "10.1.0",
-    "eslint": "10.5.0",
-    "typescript": "6.0.3",
-    "vite": "8.0.16",
-    "vitest": "4.1.8"
-  },
   "scripts": {
     "build": "vite build",
     "lint": "eslint src",
