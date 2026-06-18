@@ -6,4 +6,6 @@ export default {
   title: 'Components/Detail/Deprecated',
 };
 
-export const DeprecatedAll: any = () => <Deprecated message="this is deprecated" />;
+export const DeprecatedAll: any = () => (
+  <Deprecated message="this version is deprecated, please migrate to 6.x versions" />
+);

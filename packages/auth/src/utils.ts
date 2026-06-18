@@ -194,7 +194,12 @@ export function allow_action(action: ActionsAllowed, logger: Logger): AllowActio
 
     // apm
     // TODO: Message should link (!) to sign-up at www.abappm.com
-    const actionText = action === 'publish' ? 'publish or download' : 'unpublish';
+    const actionText =
+      action === 'publish'
+        ? 'publish or download'
+        : action === 'unpublish'
+          ? 'unpublish or deprecate'
+          : action;
 
     if (name) {
       callback(

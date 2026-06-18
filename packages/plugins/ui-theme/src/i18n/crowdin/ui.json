@@ -1,4 +1,8 @@
 {
+  "deprecated": {
+    "title": "This version has been deprecated",
+    "author-message": "Author message:"
+  },
   "copy-to-clipboard": "Copy to clipboard",
   "author-anonymous": "Anonymous",
   "author-unknown": "Unknown",
