@@ -11,6 +11,8 @@ export interface MiddlewareConfig {
     securityHeaders?: boolean;
     blockUnwantedRequests?: boolean;
     redirectNpmStyleUrl?: boolean;
+    /** RegExp source; requests whose User-Agent header does not match are rejected. */
+    userAgent?: string;
 }
 declare class MiddlewarePlugin extends pluginUtils.Plugin<MiddlewareConfig> implements pluginUtils.ExpressMiddleware<MiddlewareConfig, pluginUtils.Storage<MiddlewareConfig>, pluginUtils.Auth<MiddlewareConfig>> {
     config: Config;

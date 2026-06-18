@@ -64,7 +64,7 @@ var blockUnwantedRequests = (req, res, next) => {
 };
 //#endregion
 //#region src/middlewares/redirect-npm.ts
-var debug$5 = (0, debug.default)("verdaccio:plugin:pro:middleware");
+var debug$6 = (0, debug.default)("verdaccio:plugin:pro:middleware");
 var redirectNpmStyleUrl = (logger) => {
 	return (req, res, _next) => {
 		let packageName = req.params.all;
@@ -73,10 +73,10 @@ var redirectNpmStyleUrl = (logger) => {
 			res.status(404).send("Not Found");
 			return;
 		}
-		debug$5("redirect from %o", req.url);
+		debug$6("redirect from %o", req.url);
 		const redirectTo = "/-/web/detail/" + packageName;
 		logger.info({ redirectTo }, "Redirecting to @{redirectTo}");
-		debug$5("redirect to %o", redirectTo);
+		debug$6("redirect to %o", redirectTo);
 		res.redirect(redirectTo);
 	};
 };
@@ -259,7 +259,7 @@ var profanity_fr_default = [
 ];
 //#endregion
 //#region src/middlewares/profanity-filter.ts
-var debug$4 = (0, debug.default)("verdaccio:plugin:pro:middleware:profanity");
+var debug$5 = (0, debug.default)("verdaccio:plugin:pro:middleware:profanity");
 leo_profanity.default.reset();
 leo_profanity.default.add(profanity_de_default);
 leo_profanity.default.add(profanity_fr_default);
@@ -289,7 +289,7 @@ var profanityFilter = (req, res, next) => {
 		return;
 	}
 	if (valueContainsProfanity(req.body)) {
-		debug$4("request body contained profanity");
+		debug$5("request body contained profanity");
 		res.status(400).send("Bad Request");
 		return;
 	}
@@ -335,7 +335,7 @@ var BLOCKED_REGISTRABLE_DOMAINS = [
 ];
 //#endregion
 //#region src/middlewares/blacklist-filter.ts
-var debug$3 = (0, debug.default)("verdaccio:plugin:pro:middleware:blacklist");
+var debug$4 = (0, debug.default)("verdaccio:plugin:pro:middleware:blacklist");
 var blocked = new Set(BLOCKED_REGISTRABLE_DOMAINS);
 var hrefSrcRe = /(?:\bhref\s*=|\bsrc\s*=)\s*["']([^"']+)["']/gi;
 var absoluteUrlRe = /https?:\/\/[^\s"'<>\]]+/gi;
@@ -394,7 +394,7 @@ var blacklistFilter = (req, res, next) => {
 		return;
 	}
 	if (valueContainsBlockedUrl(req.body)) {
-		debug$3("request body contained a blocked URL");
+		debug$4("request body contained a blocked URL");
 		res.status(400).send("Bad Request");
 		return;
 	}
@@ -402,7 +402,7 @@ var blacklistFilter = (req, res, next) => {
 };
 //#endregion
 //#region src/middlewares/event-log.ts
-var debug$2 = (0, debug.default)("verdaccio:plugin:pro:middleware:event-log");
+var debug$3 = (0, debug.default)("verdaccio:plugin:pro:middleware:event-log");
 var APM_COMMAND_HEADER = "apm-command";
 var ANONYMOUS_USER = "#";
 var VALID_EVENTS = new Set([
@@ -478,7 +478,7 @@ var eventLog = (storage, logger) => {
 		const { name, version } = parsePackageFromUrl(req.path);
 		const user = resolveUser(req);
 		if (typeof storage.logActivity === "function") {
-			debug$2("logging activity %o", {
+			debug$3("logging activity %o", {
 				command,
 				name,
 				version
@@ -496,7 +496,7 @@ var eventLog = (storage, logger) => {
 		if (typeof storage.incrementDownloads === "function" && command === "tarball") {
 			const filename = tarballFilenameFromPath(req.path);
 			if (filename) {
-				debug$2("incrementing downloads %o", { filename });
+				debug$3("incrementing downloads %o", { filename });
 				storage.incrementDownloads(filename).catch((error) => {
 					const errorMsg = error instanceof Error ? error.message : String(error);
 					logger.error({
@@ -505,6 +505,26 @@ var eventLog = (storage, logger) => {
 					}, "failed to increment downloads");
 				});
 			}
+		}
+		next();
+	};
+};
+//#endregion
+//#region src/middlewares/user-agent-filter.ts
+var debug$2 = (0, debug.default)("verdaccio:plugin:pro:middleware:user-agent");
+var userAgentFilter = (pattern) => {
+	let regex;
+	try {
+		regex = new RegExp(pattern);
+	} catch {
+		throw _verdaccio_core.errorUtils.getInternalError(`Invalid userAgent regex: ${pattern}`);
+	}
+	return (req, _res, next) => {
+		const userAgent = req.get("user-agent") ?? "";
+		if (!regex.test(userAgent)) {
+			debug$2("rejected user-agent %o", userAgent);
+			next(_verdaccio_core.errorUtils.getForbidden("User-Agent not allowed"));
+			return;
 		}
 		next();
 	};
@@ -526,6 +546,7 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		if (c.securityHeaders !== false) app.use(setSecurityHeaders);
 		if (c.prototypePollutionProtection !== false) app.use(prototypePollutionProtection(this.config));
 		if (c.blockUnwantedRequests !== false) app.use(blockUnwantedRequests);
+		if (c.userAgent) app.use(userAgentFilter(c.userAgent));
 		if (c.profanityFilter !== false) app.use(profanityFilter);
 		if (c.blacklistFilter !== false) app.use(blacklistFilter);
 		if (c.eventLog !== false) app.use(eventLog(storage, this.logger));
