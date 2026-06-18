@@ -1,0 +1,4632 @@
+{
+  "repository": "C:\\GitHub\\verdaccio\\verdaccio",
+  "generated": "2026-06-18 10:34:23",
+  "linkCount": 337,
+  "links": [
+    {
+      "url": "http://barnyrubble.tumblr.com/",
+      "sources": [
+        {
+          "path": "packages\\web\\src\\author-utils.ts",
+          "line": 149
+        }
+      ]
+    },
+    {
+      "url": "http://blog.npmjs.org/post/118393368555/deploying-with-npm-private-modules",
+      "sources": [
+        {
+          "path": "packages\\proxy\\src\\proxy.ts",
+          "line": 202
+        }
+      ]
+    },
+    {
+      "url": "http://contributor-covenant.org",
+      "sources": [
+        {
+          "path": "CODE_OF_CONDUCT.md",
+          "line": 45
+        }
+      ]
+    },
+    {
+      "url": "http://contributor-covenant.org/version/1/4",
+      "sources": [
+        {
+          "path": "CODE_OF_CONDUCT.md",
+          "line": 43
+        }
+      ]
+    },
+    {
+      "url": "http://contributor-covenant.org/version/1/4/",
+      "sources": [
+        {
+          "path": "CODE_OF_CONDUCT.md",
+          "line": 46
+        }
+      ]
+    },
+    {
+      "url": "http://crowdin.com",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 382
+        }
+      ]
+    },
+    {
+      "url": "http://github.com/verdaccio/ui.git",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\Repository\\Repository.stories.tsx",
+          "line": 64
+        }
+      ]
+    },
+    {
+      "url": "http://localhost",
+      "sources": [
+        {
+          "path": ".github\\workflows\\docker-proxy-apache-e2e.yml",
+          "line": 38
+        },
+        {
+          "path": ".github\\workflows\\docker-proxy-apache-e2e.yml",
+          "line": 40
+        },
+        {
+          "path": ".github\\workflows\\docker-proxy-apache-e2e.yml",
+          "line": 42
+        },
+        {
+          "path": ".github\\workflows\\docker-proxy-apache-e2e.yml",
+          "line": 44
+        },
+        {
+          "path": ".github\\workflows\\docker-proxy-nginx-e2e.yml",
+          "line": 39
+        },
+        {
+          "path": ".github\\workflows\\docker-proxy-nginx-e2e.yml",
+          "line": 41
+        },
+        {
+          "path": ".github\\workflows\\docker-proxy-nginx-e2e.yml",
+          "line": 43
+        },
+        {
+          "path": ".github\\workflows\\docker-proxy-nginx-e2e.yml",
+          "line": 45
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873",
+      "sources": [
+        {
+          "path": ".github\\workflows\\changesets-pr.yml",
+          "line": 32
+        },
+        {
+          "path": ".github\\workflows\\ci.yml",
+          "line": 103
+        },
+        {
+          "path": ".github\\workflows\\ci.yml",
+          "line": 197
+        },
+        {
+          "path": ".github\\workflows\\ci.yml",
+          "line": 251
+        },
+        {
+          "path": ".github\\workflows\\docker-build-test.yml",
+          "line": 48
+        },
+        {
+          "path": ".github\\workflows\\smok-test-local-build.yml",
+          "line": 116
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-angular-cli-workflow.yml",
+          "line": 102
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-angular-cli-workflow.yml",
+          "line": 25
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-angular-cli-workflow.yml",
+          "line": 29
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-angular-cli-workflow.yml",
+          "line": 62
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-angular-cli-workflow.yml",
+          "line": 66
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-angular-cli-workflow.yml",
+          "line": 98
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-audit-workflow.yml",
+          "line": 25
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-audit-workflow.yml",
+          "line": 30
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-gatsbyjs-cli-workflow.yml",
+          "line": 25
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-gatsbyjs-cli-workflow.yml",
+          "line": 29
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-gatsbyjs-cli-workflow.yml",
+          "line": 60
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-gatsbyjs-cli-workflow.yml",
+          "line": 64
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 100
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 123
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 128
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 133
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 156
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 161
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 166
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 23
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 28
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 33
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 54
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 60
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 90
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 95
+        },
+        {
+          "path": ".github\\workflows\\x-smok-test-docker.yml",
+          "line": 27
+        },
+        {
+          "path": ".github\\workflows\\x-smok-test-docker.yml",
+          "line": 29
+        },
+        {
+          "path": ".github\\workflows\\x-smok-test-docker.yml",
+          "line": 31
+        },
+        {
+          "path": ".github\\workflows\\x-smok-test-docker.yml",
+          "line": 33
+        },
+        {
+          "path": ".github\\workflows\\x-smok-test-module.yml",
+          "line": 22
+        },
+        {
+          "path": ".github\\workflows\\x-smok-test-module.yml",
+          "line": 32
+        },
+        {
+          "path": ".github\\workflows\\x-smok-test-module.yml",
+          "line": 34
+        },
+        {
+          "path": ".github\\workflows\\x-smok-test-module.yml",
+          "line": 41
+        },
+        {
+          "path": ".github\\workflows\\x-smok-test-module.yml",
+          "line": 42
+        },
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 186
+        },
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 178
+        },
+        {
+          "path": "cypress.config.ts",
+          "line": 5
+        },
+        {
+          "path": "cypress\\e2e\\01-home.cy.ts",
+          "line": 3
+        },
+        {
+          "path": "cypress\\e2e\\02-signin.cy.ts",
+          "line": 3
+        },
+        {
+          "path": "cypress\\e2e\\03-layout.cy.ts",
+          "line": 3
+        },
+        {
+          "path": "cypress\\e2e\\04-search.cy.ts",
+          "line": 3
+        },
+        {
+          "path": "cypress\\e2e\\05-settings.cy.ts",
+          "line": 3
+        },
+        {
+          "path": "cypress\\e2e\\06-publish.cy.ts",
+          "line": 3
+        },
+        {
+          "path": "package.json",
+          "line": 142
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 190
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 186
+        },
+        {
+          "path": "scripts\\e2e-cli-local.sh",
+          "line": 15
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/",
+      "sources": [
+        {
+          "path": ".github\\workflows\\smok-test-local-build.yml",
+          "line": 62
+        },
+        {
+          "path": "docs\\warnings.md",
+          "line": 17
+        },
+        {
+          "path": "packages\\config\\src\\address.ts",
+          "line": 110
+        },
+        {
+          "path": "packages\\config\\src\\address.ts",
+          "line": 136
+        },
+        {
+          "path": "packages\\core\\core\\src\\warning-utils.ts",
+          "line": 44
+        },
+        {
+          "path": "packages\\plugins\\ui-theme\\index.html",
+          "line": 11
+        },
+        {
+          "path": "packages\\plugins\\ui-theme\\index.html",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/-/ping",
+      "sources": [
+        {
+          "path": ".github\\workflows\\ci.yml",
+          "line": 193
+        },
+        {
+          "path": ".github\\workflows\\ci.yml",
+          "line": 240
+        },
+        {
+          "path": ".github\\workflows\\smok-test-local-build.yml",
+          "line": 40
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/-/static/ui-options.js",
+      "sources": [
+        {
+          "path": ".github\\workflows\\smok-test-local-build.yml",
+          "line": 71
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/-/user/org.couchdb.user:test",
+      "sources": [
+        {
+          "path": ".github\\workflows\\ci.yml",
+          "line": 247
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/@scope%2ftest1",
+      "sources": [
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 34
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/custom-name?write=true",
+      "sources": [
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 66
+        },
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 73
+        },
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 77
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/custom-name/-/test1-1.0.3.tgz/-rev/16-e11c8db282b2d992",
+      "sources": [
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 67
+        },
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 79
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/custom-name/-rev/14-5d500cfce92f90fd",
+      "sources": [
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 75
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/lodash",
+      "sources": [
+        {
+          "path": ".github\\workflows\\smok-test-local-build.yml",
+          "line": 127
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/package-name?write=true",
+      "sources": [
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 137
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/package-name/-rev/18-d8ebe3020bd4ac9c",
+      "sources": [
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 140
+        },
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 174
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:5555",
+      "sources": [
+        {
+          "path": "packages\\tools\\helpers\\src\\addNewVersion.ts",
+          "line": 9
+        },
+        {
+          "path": "packages\\tools\\helpers\\src\\generateLocalPackageMetadata.ts",
+          "line": 8
+        },
+        {
+          "path": "packages\\tools\\helpers\\src\\generateRemotePackageMetadata.ts",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:8000",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 134
+        },
+        {
+          "path": "packages\\plugins\\ui-theme\\vite.config.mjs",
+          "line": 61
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:8000/-/verdaccio/data/package/readme/jquery",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\store\\routes.ts",
+          "line": 2
+        },
+        {
+          "path": "packages\\ui-components\\src\\utils\\routes.ts",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:8080/bootstrap/-/bootstrap-4.3.1.tgz",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\Install\\Install.stories.tsx",
+          "line": 23
+        }
+      ]
+    },
+    {
+      "url": "http://nginx.org/en/docs/syntax.html",
+      "sources": [
+        {
+          "path": "packages\\proxy\\src\\proxy.ts",
+          "line": 145
+        }
+      ]
+    },
+    {
+      "url": "http://pierrecaserta.com/apache-proxy-one-docker-server-many-domains/",
+      "sources": [
+        {
+          "path": "e2e\\docker\\apache-verdaccio\\apache_proxy\\Dockerfile",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "url": "http://registry.npmjs.com/thirty-two",
+      "sources": [
+        {
+          "path": "packages\\core\\core\\src\\validation-utils.ts",
+          "line": 36
+        }
+      ]
+    },
+    {
+      "url": "http://somedomain.org/",
+      "sources": [
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 66
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 66
+        }
+      ]
+    },
+    {
+      "url": "http://something.local/",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 200
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 204
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 200
+        }
+      ]
+    },
+    {
+      "url": "http://verdaccio:4873/",
+      "sources": [
+        {
+          "path": "e2e\\docker\\apache-verdaccio\\apache_proxy\\conf\\000-default.conf",
+          "line": 13
+        },
+        {
+          "path": "e2e\\docker\\apache-verdaccio\\apache_proxy\\conf\\000-default.conf",
+          "line": 14
+        },
+        {
+          "path": "e2e\\docker\\proxy-nginx\\nginx\\verdaccio.conf",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "url": "http://www.w3.org/",
+      "sources": [
+        {
+          "path": "packages\\web\\src\\author-utils.ts",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "url": "http://www.w3.org/1999/xlink",
+      "sources": [
+        {
+          "path": "packages\\web\\src\\author-utils.ts",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "url": "http://www.w3.org/2000/svg",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\Readme\\github-markdown.css",
+          "line": 205
+        },
+        {
+          "path": "packages\\ui-components\\src\\components\\Readme\\github-markdown.css",
+          "line": 206
+        }
+      ]
+    },
+    {
+      "url": "https://apm.to",
+      "sources": [
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\clerk\\LICENSE",
+          "line": 9
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\database\\LICENSE",
+          "line": 9
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\middleware\\LICENSE",
+          "line": 9
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\storage-sql\\LICENSE",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "url": "https://artifacthub.io/packages/helm/verdaccio/verdaccio",
+      "sources": [
+        {
+          "path": "VERSIONS.md",
+          "line": 67
+        }
+      ]
+    },
+    {
+      "url": "https://browser.sentry-cdn.com/5.15.5/bundle.min.js",
+      "sources": [
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 54
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 54
+        }
+      ]
+    },
+    {
+      "url": "https://cdn.verdaccio.dev/gpg/publickey.verdaccio@pm.me.asc",
+      "sources": [
+        {
+          "path": "SECURITY.md",
+          "line": 37
+        }
+      ]
+    },
+    {
+      "url": "https://code.jquery.com/jquery-3.5.1.slim.min.js",
+      "sources": [
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 53
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 53
+        }
+      ]
+    },
+    {
+      "url": "https://codefresh.io/blog/not-ignore-dockerignore/",
+      "sources": [
+        {
+          "path": ".dockerignore",
+          "line": 4
+        },
+        {
+          "path": "abappm\\docker\\.dockerignore",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "url": "https://crowdin.com/project/verdaccio",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\i18n\\ABOUT_TRANSLATIONS.md",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "url": "https://dev.yorhel.nl/ncdu",
+      "sources": [
+        {
+          "path": "abappm\\docker\\Dockerfile",
+          "line": 69
+        }
+      ]
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Glossary/Quality_values",
+      "sources": [
+        {
+          "path": "packages\\core\\core\\src\\string-utils.ts",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/API/File#Browser_compatibility",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\url.ts",
+          "line": 39
+        }
+      ]
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-Proto",
+      "sources": [
+        {
+          "path": "packages\\core\\core\\src\\constants.ts",
+          "line": 45
+        }
+      ]
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy",
+      "sources": [
+        {
+          "path": "packages\\middleware\\src\\middlewares\\web\\security.ts",
+          "line": 17
+        }
+      ]
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Content-Type-Options",
+      "sources": [
+        {
+          "path": "packages\\middleware\\src\\middlewares\\web\\security.ts",
+          "line": 24
+        }
+      ]
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Frame-Options",
+      "sources": [
+        {
+          "path": "packages\\middleware\\src\\middlewares\\web\\security.ts",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "url": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-XSS-Protection",
+      "sources": [
+        {
+          "path": "packages\\middleware\\src\\middlewares\\web\\security.ts",
+          "line": 32
+        }
+      ]
+    },
+    {
+      "url": "https://discord.gg/7qWJxBf",
+      "sources": [
+        {
+          "path": ".github\\ISSUE_TEMPLATE\\config.yml",
+          "line": 13
+        },
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 237
+        },
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 389
+        }
+      ]
+    },
+    {
+      "url": "https://discord.gg/hv42jfs",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\about.md",
+          "line": 17
+        }
+      ]
+    },
+    {
+      "url": "https://docs.docker.com/engine/reference/builder/#dockerignore-file",
+      "sources": [
+        {
+          "path": ".dockerignore",
+          "line": 5
+        },
+        {
+          "path": "abappm\\docker\\.dockerignore",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "url": "https://docs.npmjs.com/files/package.json#author",
+      "sources": [
+        {
+          "path": "packages\\web\\src\\author-utils.ts",
+          "line": 27
+        }
+      ]
+    },
+    {
+      "url": "https://docs.npmjs.com/files/package.json#license",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\utils.ts",
+          "line": 17
+        }
+      ]
+    },
+    {
+      "url": "https://docs.npmjs.com/files/package.json#repository",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\utils.ts",
+          "line": 43
+        }
+      ]
+    },
+    {
+      "url": "https://docs.npmjs.com/trusted-publishers",
+      "sources": [
+        {
+          "path": "RELEASES.md",
+          "line": 21
+        }
+      ]
+    },
+    {
+      "url": "https://docusaurus.io/",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 24
+        }
+      ]
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Crypt_(C",
+      "sources": [
+        {
+          "path": "packages\\plugins\\htpasswd\\src\\crypt3.ts",
+          "line": 48
+        }
+      ]
+    },
+    {
+      "url": "https://europeanbloodalliance.eu/",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\Support\\Support.tsx",
+          "line": 30
+        }
+      ]
+    },
+    {
+      "url": "https://example.org:4873",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 188
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 192
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 188
+        }
+      ]
+    },
+    {
+      "url": "https://expressjs.com/en/api.html#req.host",
+      "sources": [
+        {
+          "path": "packages\\middleware\\src\\middlewares\\request-options.ts",
+          "line": 20
+        }
+      ]
+    },
+    {
+      "url": "https://expressjs.com/en/guide/behind-proxies.html",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 131
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 137
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 133
+        },
+        {
+          "path": "packages\\core\\types\\src\\configuration.ts",
+          "line": 277
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\.storybook\\preview-head.html",
+          "line": 10
+        },
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 200
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/package/readme/*",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\AppRoute\\AppRoute.stories.tsx",
+          "line": 90
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/package/readme/jquery",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\AppTest\\App.stories.tsx",
+          "line": 53
+        },
+        {
+          "path": "packages\\ui-components\\src\\layouts\\Version\\Version.stories.tsx",
+          "line": 78
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Detail\\Detail.stories.tsx",
+          "line": 60
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/package/readme/storybook",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\AppTest\\App.stories.tsx",
+          "line": 33
+        },
+        {
+          "path": "packages\\ui-components\\src\\layouts\\Version\\Version.stories.tsx",
+          "line": 46
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Detail\\Detail.stories.tsx",
+          "line": 44
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Header\\Header.stories.tsx",
+          "line": 60
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\SideBar\\Sidebar.stories.tsx",
+          "line": 24
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/packages",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\AppRoute\\AppRoute.stories.tsx",
+          "line": 83
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Home\\Home.stories.tsx",
+          "line": 36
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/search/*",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\AppRoute\\AppRoute.stories.tsx",
+          "line": 94
+        },
+        {
+          "path": "packages\\ui-components\\src\\components\\Search\\Search.stories.tsx",
+          "line": 53
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Header\\Header.stories.tsx",
+          "line": 63
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/sidebar/*",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\AppRoute\\AppRoute.stories.tsx",
+          "line": 86
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/sidebar/jquery",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\AppTest\\App.stories.tsx",
+          "line": 50
+        },
+        {
+          "path": "packages\\ui-components\\src\\layouts\\Version\\Version.stories.tsx",
+          "line": 75
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Detail\\Detail.stories.tsx",
+          "line": 57
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/sidebar/JSONStream",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\AppTest\\App.stories.tsx",
+          "line": 70
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Detail\\Detail.stories.tsx",
+          "line": 73
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/sidebar/kleur",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\AppTest\\App.stories.tsx",
+          "line": 87
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/sidebar/storybook",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\AppTest\\App.stories.tsx",
+          "line": 30
+        },
+        {
+          "path": "packages\\ui-components\\src\\layouts\\Version\\Version.stories.tsx",
+          "line": 43
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Detail\\Detail.stories.tsx",
+          "line": 41
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Header\\Header.stories.tsx",
+          "line": 57
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\SideBar\\Sidebar.stories.tsx",
+          "line": 21
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/sec/login",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\AppRoute\\AppRoute.stories.tsx",
+          "line": 111
+        },
+        {
+          "path": "packages\\ui-components\\src\\components\\LoginDialog\\LoginDialog.stories.tsx",
+          "line": 26
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Header\\Header.stories.tsx",
+          "line": 82
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Security\\Security.stories.tsx",
+          "line": 20
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/storybook/-/storybook-6.5.15.tgz",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\sections\\SideBar\\Sidebar.stories.tsx",
+          "line": 27
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/verdaccio/-/verdaccio-2.7.1.tgz",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 586
+        }
+      ]
+    },
+    {
+      "url": "https://getpino.io/#/docs/api?id=hooks-object",
+      "sources": [
+        {
+          "path": "packages\\logger\\src\\logger.ts",
+          "line": 53
+        }
+      ]
+    },
+    {
+      "url": "https://getpino.io/#/docs/asynchronous",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 221
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 245
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 241
+        }
+      ]
+    },
+    {
+      "url": "https://getpino.io/#/docs/redaction",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 220
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 244
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 240
+        }
+      ]
+    },
+    {
+      "url": "https://git-scm.com/book/en/v2/Git-Branching-Rebasing",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 267
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\Readme\\rewrite-urls.ts",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/abapPM",
+      "sources": [
+        {
+          "path": "abappm\\docker\\Dockerfile",
+          "line": 48
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/abapPM/abapPM/issues",
+      "sources": [
+        {
+          "path": "abappm\\conf\\apm-beta-banner.js",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/atlassian/changesets",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 300
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/auth0/node-jsonwebtoken#jwtsignpayload-secretorprivatekey-options-callback",
+      "sources": [
+        {
+          "path": "packages\\signature\\src\\jwt-token.ts",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/changesets/changesets",
+      "sources": [
+        {
+          "path": "RELEASES.md",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/dessant/lock-threads",
+      "sources": [
+        {
+          "path": ".github\\lock.yml",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/mbtools",
+      "sources": [
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\clerk\\package.json",
+          "line": 16
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\database\\package.json",
+          "line": 14
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\middleware\\package.json",
+          "line": 14
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\storage-sql\\package.json",
+          "line": 15
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/mswjs/msw",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\public\\mockServiceWorker.js",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/mui-org/material-ui/issues/14971",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\MenuItem\\MenuItem.tsx",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/nodejs/corepack",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 46
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/npm/lockfile/issues/33",
+      "sources": [
+        {
+          "path": "packages\\core\\file-locking\\src\\utils.ts",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/npm/npm-profile/blob/latest/lib/index.js",
+      "sources": [
+        {
+          "path": "packages\\api\\src\\v1\\token.ts",
+          "line": 34
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/npm/npm-profile/blob/main/lib/index.js",
+      "sources": [
+        {
+          "path": "packages\\api\\src\\v1\\login.ts",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/npm/registry/blob/c0b573593fb5d6e0268de7d6612addd7059cb779/docs/responses/package-metadata.md#package-metadata",
+      "sources": [
+        {
+          "path": "packages\\store\\src\\type.ts",
+          "line": 39
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md#abbreviated-version-object",
+      "sources": [
+        {
+          "path": "packages\\store\\src\\storage.ts",
+          "line": 525
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/orgs/verdaccio/discussions/new?category=ideas",
+      "sources": [
+        {
+          "path": ".github\\ISSUE_TEMPLATE\\config.yml",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/pnpm/rfcs/pull/2",
+      "sources": [
+        {
+          "path": "packages\\store\\src\\storage.ts",
+          "line": 558
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/primer/github-syntax-dark",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\Readme\\hljs-github-dark.css",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/primer/github-syntax-light",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\Readme\\hljs-github-light.css",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/rlidwka/sinopia/issues/75",
+      "sources": [
+        {
+          "path": "packages\\core\\core\\src\\validation-utils.ts",
+          "line": 42
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/sindresorhus/generate-github-markdown-css",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\Readme\\github-markdown.css",
+          "line": 1
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/sindresorhus/got/blob/main/documentation/6-timeout.md",
+      "sources": [
+        {
+          "path": "packages\\proxy\\src\\proxy.ts",
+          "line": 153
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/sponsors/verdaccio",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\about.md",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/sponsors/verdaccio-pro",
+      "sources": [
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\clerk\\package.json",
+          "line": 30
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\database\\package.json",
+          "line": 28
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\middleware\\package.json",
+          "line": 28
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\storage-sql\\package.json",
+          "line": 29
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio",
+      "sources": [
+        {
+          "path": "Dockerfile",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio-pro/verdaccio-pro.git",
+      "sources": [
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\clerk\\package.json",
+          "line": 22
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\database\\package.json",
+          "line": 20
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\middleware\\package.json",
+          "line": 20
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\storage-sql\\package.json",
+          "line": 21
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio-pro/verdaccio-pro/issues",
+      "sources": [
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\clerk\\package.json",
+          "line": 26
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\database\\package.json",
+          "line": 24
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\middleware\\package.json",
+          "line": 24
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\storage-sql\\package.json",
+          "line": 25
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/charts",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 26
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/contributing",
+      "sources": [
+        {
+          "path": ".github\\stale.yml",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/e2e-tests",
+      "sources": [
+        {
+          "path": "VERSIONS.md",
+          "line": 72
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/e2e-tests/tree/7.x",
+      "sources": [
+        {
+          "path": "VERSIONS.md",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/e2e-tests/tree/main",
+      "sources": [
+        {
+          "path": "VERSIONS.md",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/monorepo/issues",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\ActionBar\\ActionBar.stories.tsx",
+          "line": 47
+        },
+        {
+          "path": "packages\\ui-components\\src\\components\\Install\\Install.stories.tsx",
+          "line": 27
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/ui",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 25
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/ui.git",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\Repository\\Repository.stories.tsx",
+          "line": 45
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/ui/issues/119",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\url.ts",
+          "line": 67
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 23
+        },
+        {
+          "path": "package.json",
+          "line": 10
+        },
+        {
+          "path": "packages\\api\\package.json",
+          "line": 13
+        },
+        {
+          "path": "packages\\auth\\package.json",
+          "line": 13
+        },
+        {
+          "path": "packages\\cli\\package.json",
+          "line": 14
+        },
+        {
+          "path": "packages\\config\\package.json",
+          "line": 13
+        },
+        {
+          "path": "packages\\core\\core\\package.json",
+          "line": 26
+        },
+        {
+          "path": "packages\\core\\file-locking\\package.json",
+          "line": 24
+        },
+        {
+          "path": "packages\\core\\i18n\\package.json",
+          "line": 39
+        },
+        {
+          "path": "packages\\core\\tarball\\package.json",
+          "line": 26
+        },
+        {
+          "path": "packages\\core\\types\\package.json",
+          "line": 24
+        },
+        {
+          "path": "packages\\core\\url\\package.json",
+          "line": 26
+        },
+        {
+          "path": "packages\\hooks\\package.json",
+          "line": 13
+        },
+        {
+          "path": "packages\\loaders\\package.json",
+          "line": 13
+        },
+        {
+          "path": "packages\\logger\\package.json",
+          "line": 13
+        },
+        {
+          "path": "packages\\middleware\\package.json",
+          "line": 13
+        },
+        {
+          "path": "packages\\node-api\\package.json",
+          "line": 13
+        },
+        {
+          "path": "packages\\plugins\\audit\\package.json",
+          "line": 21
+        },
+        {
+          "path": "packages\\plugins\\auth-memory\\package.json",
+          "line": 21
+        },
+        {
+          "path": "packages\\plugins\\htpasswd\\package.json",
+          "line": 21
+        },
+        {
+          "path": "packages\\plugins\\local-storage\\package.json",
+          "line": 21
+        },
+        {
+          "path": "packages\\plugins\\memory\\package.json",
+          "line": 21
+        },
+        {
+          "path": "packages\\plugins\\package-filter\\package.json",
+          "line": 26
+        },
+        {
+          "path": "packages\\plugins\\ui-theme\\package.json",
+          "line": 11
+        },
+        {
+          "path": "packages\\proxy\\package.json",
+          "line": 13
+        },
+        {
+          "path": "packages\\search-indexer\\package.json",
+          "line": 26
+        },
+        {
+          "path": "packages\\search\\package.json",
+          "line": 13
+        },
+        {
+          "path": "packages\\server\\express\\package.json",
+          "line": 13
+        },
+        {
+          "path": "packages\\signature\\package.json",
+          "line": 13
+        },
+        {
+          "path": "packages\\store\\package.json",
+          "line": 13
+        },
+        {
+          "path": "packages\\tools\\helpers\\package.json",
+          "line": 12
+        },
+        {
+          "path": "packages\\tools\\plugin-verifier\\package.json",
+          "line": 17
+        },
+        {
+          "path": "packages\\ui-components\\package.json",
+          "line": 10
+        },
+        {
+          "path": "packages\\verdaccio\\package.json",
+          "line": 32
+        },
+        {
+          "path": "packages\\web\\package.json",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio?tab=readme-ov-file#integration-tests",
+      "sources": [
+        {
+          "path": "VERSIONS.md",
+          "line": 73
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio.git",
+      "sources": [
+        {
+          "path": "packages\\tools\\helpers\\src\\generateUnPublishPackageMetadata.ts",
+          "line": 23
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/blob/5.x/CONTRIBUTING.md",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/blob/master/CONTRIBUTING.md#adding-a-changeset-changeset",
+      "sources": [
+        {
+          "path": ".github\\actions\\changeset-check\\action.yml",
+          "line": 55
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/blob/master/docker-examples/README.md",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 7
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 7
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/blob/master/docs/migration-v5-to-v6.md",
+      "sources": [
+        {
+          "path": "VERSIONS.md",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/blob/master/packages/plugins/ui-theme/src/i18n/ABOUT_TRANSLATIONS.md",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 260
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 274
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 270
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/blob/master/VERSIONS.md",
+      "sources": [
+        {
+          "path": "SECURITY.md",
+          "line": 15
+        },
+        {
+          "path": "SECURITY.md",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/discussions",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\about.md",
+          "line": 15
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/discussions/1461",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/discussions/new",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 190
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/discussions/new?category=q-a",
+      "sources": [
+        {
+          "path": ".github\\ISSUE_TEMPLATE\\config.yml",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/issues",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 204
+        },
+        {
+          "path": "packages\\api\\package.json",
+          "line": 17
+        },
+        {
+          "path": "packages\\auth\\package.json",
+          "line": 17
+        },
+        {
+          "path": "packages\\cli\\package.json",
+          "line": 18
+        },
+        {
+          "path": "packages\\cli\\src\\cli.ts",
+          "line": 55
+        },
+        {
+          "path": "packages\\config\\package.json",
+          "line": 17
+        },
+        {
+          "path": "packages\\core\\core\\package.json",
+          "line": 30
+        },
+        {
+          "path": "packages\\core\\file-locking\\package.json",
+          "line": 28
+        },
+        {
+          "path": "packages\\core\\i18n\\package.json",
+          "line": 43
+        },
+        {
+          "path": "packages\\core\\tarball\\package.json",
+          "line": 30
+        },
+        {
+          "path": "packages\\core\\types\\package.json",
+          "line": 28
+        },
+        {
+          "path": "packages\\core\\url\\package.json",
+          "line": 30
+        },
+        {
+          "path": "packages\\hooks\\package.json",
+          "line": 17
+        },
+        {
+          "path": "packages\\loaders\\package.json",
+          "line": 17
+        },
+        {
+          "path": "packages\\logger\\package.json",
+          "line": 17
+        },
+        {
+          "path": "packages\\middleware\\package.json",
+          "line": 17
+        },
+        {
+          "path": "packages\\node-api\\package.json",
+          "line": 17
+        },
+        {
+          "path": "packages\\plugins\\audit\\package.json",
+          "line": 25
+        },
+        {
+          "path": "packages\\plugins\\auth-memory\\package.json",
+          "line": 25
+        },
+        {
+          "path": "packages\\plugins\\htpasswd\\package.json",
+          "line": 25
+        },
+        {
+          "path": "packages\\plugins\\local-storage\\package.json",
+          "line": 25
+        },
+        {
+          "path": "packages\\plugins\\memory\\package.json",
+          "line": 25
+        },
+        {
+          "path": "packages\\plugins\\package-filter\\package.json",
+          "line": 30
+        },
+        {
+          "path": "packages\\plugins\\ui-theme\\package.json",
+          "line": 15
+        },
+        {
+          "path": "packages\\proxy\\package.json",
+          "line": 17
+        },
+        {
+          "path": "packages\\search-indexer\\package.json",
+          "line": 30
+        },
+        {
+          "path": "packages\\search\\package.json",
+          "line": 17
+        },
+        {
+          "path": "packages\\server\\express\\package.json",
+          "line": 17
+        },
+        {
+          "path": "packages\\signature\\package.json",
+          "line": 17
+        },
+        {
+          "path": "packages\\store\\package.json",
+          "line": 17
+        },
+        {
+          "path": "packages\\tools\\helpers\\package.json",
+          "line": 16
+        },
+        {
+          "path": "packages\\tools\\helpers\\src\\generateUnPublishPackageMetadata.ts",
+          "line": 36
+        },
+        {
+          "path": "packages\\tools\\plugin-verifier\\package.json",
+          "line": 21
+        },
+        {
+          "path": "packages\\ui-components\\package.json",
+          "line": 14
+        },
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 576
+        },
+        {
+          "path": "packages\\verdaccio\\package.json",
+          "line": 36
+        },
+        {
+          "path": "packages\\web\\package.json",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/issues?q=is%3Aopen+is%3Aissue+label%3A%22issue%3A+bug%22",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 15
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/issues?q=is%3Aopen+is%3Aissue+label%3A%22topic%3A+feature+request%22+",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 17
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/issues?q=is%3Aopen+is%3Aissue+label%3Aissue_needs_triage",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/issues/1642",
+      "sources": [
+        {
+          "path": "packages\\store\\src\\storage.ts",
+          "line": 896
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/issues/301",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 107
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 121
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 117
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/issues/740",
+      "sources": [
+        {
+          "path": "packages\\store\\src\\storage.ts",
+          "line": 1385
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/labels/external-issue",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 218
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/labels/question",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 229
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/pull/1917",
+      "sources": [
+        {
+          "path": "docs\\migrations-guide.md",
+          "line": 25
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/pull/1953",
+      "sources": [
+        {
+          "path": "docs\\migrations-guide.md",
+          "line": 65
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/pull/1996",
+      "sources": [
+        {
+          "path": "docs\\migrations-guide.md",
+          "line": 52
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/pull/2165",
+      "sources": [
+        {
+          "path": "docs\\migrations-guide.md",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/releases/tag/v2.5.0",
+      "sources": [
+        {
+          "path": "packages\\proxy\\src\\proxy.ts",
+          "line": 204
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/security/policy",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 221
+        },
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\about.md",
+          "line": 9
+        },
+        {
+          "path": "security.txt",
+          "line": 5
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/tree/master/e2e/ui",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/tree/master/packages/plugins/ui-theme",
+      "sources": [
+        {
+          "path": "RELEASES.md",
+          "line": 97
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/wiki/Debugging-Verdaccio",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 117
+        },
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 161
+        },
+        {
+          "path": "packages\\verdaccio\\debug\\DEBUGGING.md",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/wiki/Running-and-Debugging-tests",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 375
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio#readme",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 577
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/website/tree/master/website/docs",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 28
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/vitest-dev/vitest/issues/5664#issuecomment-2093986338",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\vitest.config.mjs",
+          "line": 49
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/yarnpkg/berry",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 194
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/yarnpkg/yarn",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 193
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/Yelp/dumb-init",
+      "sources": [
+        {
+          "path": "abappm\\docker\\Dockerfile",
+          "line": 68
+        }
+      ]
+    },
+    {
+      "url": "https://go.microsoft.com/fwlink/?linkid=830387",
+      "sources": [
+        {
+          "path": ".vscode\\launch.json",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "url": "https://help.github.com/articles/fork-a-repo/",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 266
+        }
+      ]
+    },
+    {
+      "url": "https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates",
+      "sources": [
+        {
+          "path": ".github\\dependabot.yml",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "url": "https://httpd.apache.org/docs/2.4/misc/password_encryptions.html",
+      "sources": [
+        {
+          "path": "docs\\migrations-guide.md",
+          "line": 32
+        }
+      ]
+    },
+    {
+      "url": "https://hub.docker.com/r/verdaccio/verdaccio",
+      "sources": [
+        {
+          "path": "VERSIONS.md",
+          "line": 61
+        }
+      ]
+    },
+    {
+      "url": "https://localhost:443/",
+      "sources": [
+        {
+          "path": "packages\\config\\src\\address.ts",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "url": "https://mswjs.io/docs/recipes/mocking-error-responses",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\.storybook\\preview.tsx",
+          "line": 45
+        }
+      ]
+    },
+    {
+      "url": "https://my.company.com/customJS.min.js",
+      "sources": [
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 63
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 63
+        }
+      ]
+    },
+    {
+      "url": "https://mycompany.com/npm",
+      "sources": [
+        {
+          "path": "packages\\proxy\\src\\proxy.ts",
+          "line": 276
+        }
+      ]
+    },
+    {
+      "url": "https://nodejs.org/api/crypto.html#crypto_crypto_createcipher_algorithm_password_options",
+      "sources": [
+        {
+          "path": "packages\\signature\\src\\signature.ts",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "url": "https://nodejs.org/api/crypto.html#crypto_crypto_createcipheriv_algorithm_key_iv_options",
+      "sources": [
+        {
+          "path": "docs\\migrations-guide.md",
+          "line": 90
+        }
+      ]
+    },
+    {
+      "url": "https://nodejs.org/api/crypto.html#crypto_hash_update_data_inputencoding",
+      "sources": [
+        {
+          "path": "packages\\plugins\\htpasswd\\src\\utils.ts",
+          "line": 66
+        }
+      ]
+    },
+    {
+      "url": "https://nodejs.org/dist/latest-v17.x/docs/api/fs.html#file-system-flags",
+      "sources": [
+        {
+          "path": "packages\\plugins\\local-storage\\src\\local-fs.ts",
+          "line": 176
+        }
+      ]
+    },
+    {
+      "url": "https://nodejs.org/docs/latest/api/url.html#new-urlinput-base",
+      "sources": [
+        {
+          "path": "packages\\middleware\\src\\middlewares\\make-url-relative.ts",
+          "line": 32
+        }
+      ]
+    },
+    {
+      "url": "https://nodejs.org/en/about/previous-releases",
+      "sources": [
+        {
+          "path": "VERSIONS.md",
+          "line": 45
+        },
+        {
+          "path": "VERSIONS.md",
+          "line": 53
+        }
+      ]
+    },
+    {
+      "url": "https://opencollective.com/verdaccio",
+      "sources": [
+        {
+          "path": "package.json",
+          "line": 15
+        },
+        {
+          "path": "packages\\api\\package.json",
+          "line": 66
+        },
+        {
+          "path": "packages\\auth\\package.json",
+          "line": 63
+        },
+        {
+          "path": "packages\\cli\\package.json",
+          "line": 65
+        },
+        {
+          "path": "packages\\config\\package.json",
+          "line": 55
+        },
+        {
+          "path": "packages\\core\\core\\package.json",
+          "line": 61
+        },
+        {
+          "path": "packages\\core\\file-locking\\package.json",
+          "line": 55
+        },
+        {
+          "path": "packages\\core\\i18n\\package.json",
+          "line": 55
+        },
+        {
+          "path": "packages\\core\\tarball\\package.json",
+          "line": 57
+        },
+        {
+          "path": "packages\\core\\types\\package.json",
+          "line": 54
+        },
+        {
+          "path": "packages\\core\\url\\package.json",
+          "line": 54
+        },
+        {
+          "path": "packages\\hooks\\package.json",
+          "line": 59
+        },
+        {
+          "path": "packages\\loaders\\package.json",
+          "line": 59
+        },
+        {
+          "path": "packages\\logger\\package.json",
+          "line": 60
+        },
+        {
+          "path": "packages\\middleware\\package.json",
+          "line": 53
+        },
+        {
+          "path": "packages\\node-api\\package.json",
+          "line": 58
+        },
+        {
+          "path": "packages\\plugins\\audit\\package.json",
+          "line": 58
+        },
+        {
+          "path": "packages\\plugins\\auth-memory\\package.json",
+          "line": 53
+        },
+        {
+          "path": "packages\\plugins\\htpasswd\\package.json",
+          "line": 61
+        },
+        {
+          "path": "packages\\plugins\\local-storage\\package.json",
+          "line": 63
+        },
+        {
+          "path": "packages\\plugins\\memory\\package.json",
+          "line": 54
+        },
+        {
+          "path": "packages\\plugins\\package-filter\\package.json",
+          "line": 60
+        },
+        {
+          "path": "packages\\plugins\\ui-theme\\package.json",
+          "line": 69
+        },
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\about.md",
+          "line": 10
+        },
+        {
+          "path": "packages\\proxy\\package.json",
+          "line": 62
+        },
+        {
+          "path": "packages\\search-indexer\\package.json",
+          "line": 65
+        },
+        {
+          "path": "packages\\search\\package.json",
+          "line": 59
+        },
+        {
+          "path": "packages\\server\\express\\package.json",
+          "line": 68
+        },
+        {
+          "path": "packages\\signature\\package.json",
+          "line": 55
+        },
+        {
+          "path": "packages\\store\\package.json",
+          "line": 68
+        },
+        {
+          "path": "packages\\tools\\helpers\\package.json",
+          "line": 20
+        },
+        {
+          "path": "packages\\tools\\helpers\\src\\generateUnPublishPackageMetadata.ts",
+          "line": 28
+        },
+        {
+          "path": "packages\\tools\\plugin-verifier\\package.json",
+          "line": 56
+        },
+        {
+          "path": "packages\\ui-components\\package.json",
+          "line": 18
+        },
+        {
+          "path": "packages\\ui-components\\src\\components\\FundButton\\FundButton.stories.tsx",
+          "line": 26
+        },
+        {
+          "path": "packages\\verdaccio\\package.json",
+          "line": 12
+        },
+        {
+          "path": "packages\\verdaccio\\package.json",
+          "line": 70
+        },
+        {
+          "path": "packages\\web\\package.json",
+          "line": 64
+        }
+      ]
+    },
+    {
+      "url": "https://opencollective.com/verdaccio/logo.txt",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\package.json",
+          "line": 70
+        },
+        {
+          "path": "packages\\verdaccio\\package.json",
+          "line": 71
+        }
+      ]
+    },
+    {
+      "url": "https://openpgpjs.org",
+      "sources": [
+        {
+          "path": "SECURITY.md",
+          "line": 50
+        }
+      ]
+    },
+    {
+      "url": "https://pnpm.io",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 34
+        }
+      ]
+    },
+    {
+      "url": "https://pnpm.io/configuring",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 36
+        }
+      ]
+    },
+    {
+      "url": "https://registry.npmjs.org",
+      "sources": [
+        {
+          "path": ".github\\actions\\build-app\\action.yml",
+          "line": 8
+        },
+        {
+          "path": ".github\\actions\\install-app\\action.yml",
+          "line": 8
+        },
+        {
+          "path": ".github\\workflows\\changesets.yml",
+          "line": 75
+        },
+        {
+          "path": ".github\\workflows\\ci.yml",
+          "line": 323
+        },
+        {
+          "path": ".github\\workflows\\ci.yml",
+          "line": 96
+        },
+        {
+          "path": "abappm\\docker\\Dockerfile",
+          "line": 55
+        },
+        {
+          "path": "abappm\\docker\\Dockerfile",
+          "line": 7
+        },
+        {
+          "path": "Dockerfile",
+          "line": 4
+        },
+        {
+          "path": "packages\\config\\src\\uplinks.ts",
+          "line": 7
+        },
+        {
+          "path": "packages\\plugins\\audit\\src\\audit.ts",
+          "line": 13
+        },
+        {
+          "path": "packages\\tools\\Dockerfile",
+          "line": 22
+        },
+        {
+          "path": "packages\\tools\\local-publish\\src\\index.ts",
+          "line": 17
+        },
+        {
+          "path": "scripts\\check-uncovered-latest.mjs",
+          "line": 119
+        },
+        {
+          "path": "scripts\\check-uncovered-latest.mjs",
+          "line": 62
+        }
+      ]
+    },
+    {
+      "url": "https://registry.npmjs.org/",
+      "sources": [
+        {
+          "path": "e2e\\docker\\docker-build-install-plugin\\docker.yaml",
+          "line": 22
+        },
+        {
+          "path": "e2e\\docker\\docker-e2e-ui\\docker.yaml",
+          "line": 16
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 85
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 81
+        },
+        {
+          "path": "packages\\plugins\\ui-theme\\tools\\_verdaccio.config.yaml",
+          "line": 43
+        },
+        {
+          "path": "packages\\proxy\\src\\proxy.ts",
+          "line": 272
+        },
+        {
+          "path": "packages\\ui-components\\src\\components\\Package\\Package.tsx",
+          "line": 82
+        },
+        {
+          "path": "scripts\\e2e-cli-local.sh",
+          "line": 55
+        },
+        {
+          "path": "scripts\\e2e-config.yaml",
+          "line": 11
+        },
+        {
+          "path": "scripts\\e2e-ui-config.yaml",
+          "line": 17
+        },
+        {
+          "path": "scripts\\e2e-ui-local.sh",
+          "line": 59
+        }
+      ]
+    },
+    {
+      "url": "https://registry.npmjs.org/test/-/test-0.0.2.tgz",
+      "sources": [
+        {
+          "path": "packages\\core\\core\\src\\tarball-utils.ts",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "url": "https://registry.npmjs.org/thirty-two/-/thirty-two@0.0.1.tgz",
+      "sources": [
+        {
+          "path": "packages\\core\\core\\src\\validation-utils.ts",
+          "line": 37
+        }
+      ]
+    },
+    {
+      "url": "https://registry.npmjs.org/verdaccio/-/verdaccio-1.4.0.tgz",
+      "sources": [
+        {
+          "path": "packages\\core\\core\\src\\validation-utils.ts",
+          "line": 40
+        }
+      ]
+    },
+    {
+      "url": "https://registry.npmjs.org/verdaccio/-/verdaccio-5.26.0.tgz",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\ActionBar\\ActionBar.stories.tsx",
+          "line": 43
+        }
+      ]
+    },
+    {
+      "url": "https://registry.verdaccio.pro",
+      "sources": [
+        {
+          "path": ".github\\workflows\\apm.yml",
+          "line": 37
+        }
+      ]
+    },
+    {
+      "url": "https://registry.verdaccio.pro/",
+      "sources": [
+        {
+          "path": ".github\\workflows\\apm.yml",
+          "line": 34
+        }
+      ]
+    },
+    {
+      "url": "https://snyk.io/blog/celebrating-amazing-open-source-innovation-ukraine/",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\Support\\Support.tsx",
+          "line": 14
+        }
+      ]
+    },
+    {
+      "url": "https://snyk.io/vulnerability-disclosure",
+      "sources": [
+        {
+          "path": "SECURITY.md",
+          "line": 33
+        }
+      ]
+    },
+    {
+      "url": "https://somedomain.com/xxx/",
+      "sources": [
+        {
+          "path": "packages\\core\\types\\src\\commons.ts",
+          "line": 37
+        }
+      ]
+    },
+    {
+      "url": "https://somedomain.org",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 146
+        },
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 150
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 151
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 155
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 147
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 151
+        }
+      ]
+    },
+    {
+      "url": "https://somedomain.org/",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 152
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 157
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 153
+        }
+      ]
+    },
+    {
+      "url": "https://somedomain.org/first_prefix",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 154
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 159
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 155
+        }
+      ]
+    },
+    {
+      "url": "https://somedomain.org/my_prefix/",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 148
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 153
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 149
+        }
+      ]
+    },
+    {
+      "url": "https://somedomain.org/second_prefix/",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 156
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 161
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 157
+        }
+      ]
+    },
+    {
+      "url": "https://something.local/",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 201
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 205
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 201
+        }
+      ]
+    },
+    {
+      "url": "https://specifications.freedesktop.org/basedir-spec/latest/",
+      "sources": [
+        {
+          "path": "packages\\config\\src\\config-path.ts",
+          "line": 156
+        }
+      ]
+    },
+    {
+      "url": "https://stackoverflow.com/questions/50963160/invalid-key-length-in-crypto-createcipheriv#50963356",
+      "sources": [
+        {
+          "path": "packages\\signature\\src\\signature.ts",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "url": "https://translate.verdaccio.org/",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 383
+        },
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\about.md",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "url": "https://typedoc.org/schema.json",
+      "sources": [
+        {
+          "path": "packages\\core\\core\\typedoc.json",
+          "line": 2
+        },
+        {
+          "path": "packages\\core\\types\\typedoc.json",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "url": "https://unix:/tmp/http.sock",
+      "sources": [
+        {
+          "path": "packages\\config\\src\\address.ts",
+          "line": 25
+        }
+      ]
+    },
+    {
+      "url": "https://unpkg.com/@changesets/config@1.3.0/schema.json",
+      "sources": [
+        {
+          "path": ".changeset\\config.json",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "url": "https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 208
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 212
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 208
+        }
+      ]
+    },
+    {
+      "url": "https://usehooks.com/useLocalStorage/",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\hooks\\useLocalStorage.ts",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "url": "https://usehooks.com/useOnClickOutside/",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\hooks\\useOnClickOutside.ts",
+          "line": 7
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.nyc3.digitaloceanspaces.com/gpg/publickey.verdaccio@pm.me.asc",
+      "sources": [
+        {
+          "path": "security.txt",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org",
+      "sources": [
+        {
+          "path": "package.json",
+          "line": 12
+        },
+        {
+          "path": "packages\\api\\package.json",
+          "line": 19
+        },
+        {
+          "path": "packages\\auth\\package.json",
+          "line": 19
+        },
+        {
+          "path": "packages\\cli\\package.json",
+          "line": 20
+        },
+        {
+          "path": "packages\\config\\package.json",
+          "line": 20
+        },
+        {
+          "path": "packages\\core\\core\\package.json",
+          "line": 20
+        },
+        {
+          "path": "packages\\core\\file-locking\\package.json",
+          "line": 18
+        },
+        {
+          "path": "packages\\core\\i18n\\package.json",
+          "line": 33
+        },
+        {
+          "path": "packages\\core\\tarball\\package.json",
+          "line": 20
+        },
+        {
+          "path": "packages\\core\\types\\package.json",
+          "line": 18
+        },
+        {
+          "path": "packages\\core\\url\\package.json",
+          "line": 20
+        },
+        {
+          "path": "packages\\hooks\\package.json",
+          "line": 20
+        },
+        {
+          "path": "packages\\loaders\\package.json",
+          "line": 35
+        },
+        {
+          "path": "packages\\logger\\package.json",
+          "line": 20
+        },
+        {
+          "path": "packages\\middleware\\package.json",
+          "line": 20
+        },
+        {
+          "path": "packages\\node-api\\package.json",
+          "line": 19
+        },
+        {
+          "path": "packages\\plugins\\audit\\package.json",
+          "line": 18
+        },
+        {
+          "path": "packages\\plugins\\auth-memory\\package.json",
+          "line": 18
+        },
+        {
+          "path": "packages\\plugins\\htpasswd\\package.json",
+          "line": 18
+        },
+        {
+          "path": "packages\\plugins\\local-storage\\package.json",
+          "line": 18
+        },
+        {
+          "path": "packages\\plugins\\memory\\package.json",
+          "line": 18
+        },
+        {
+          "path": "packages\\plugins\\package-filter\\package.json",
+          "line": 23
+        },
+        {
+          "path": "packages\\plugins\\ui-theme\\package.json",
+          "line": 17
+        },
+        {
+          "path": "packages\\proxy\\package.json",
+          "line": 20
+        },
+        {
+          "path": "packages\\search-indexer\\package.json",
+          "line": 33
+        },
+        {
+          "path": "packages\\search\\package.json",
+          "line": 20
+        },
+        {
+          "path": "packages\\server\\express\\package.json",
+          "line": 20
+        },
+        {
+          "path": "packages\\signature\\package.json",
+          "line": 20
+        },
+        {
+          "path": "packages\\store\\package.json",
+          "line": 20
+        },
+        {
+          "path": "packages\\tools\\helpers\\package.json",
+          "line": 7
+        },
+        {
+          "path": "packages\\tools\\helpers\\src\\generateUnPublishPackageMetadata.ts",
+          "line": 25
+        },
+        {
+          "path": "packages\\tools\\local-publish\\package.json",
+          "line": 8
+        },
+        {
+          "path": "packages\\tools\\plugin-verifier\\package.json",
+          "line": 24
+        },
+        {
+          "path": "packages\\tools\\verdaccio-auth-fake-plugin\\package.json",
+          "line": 8
+        },
+        {
+          "path": "packages\\tools\\verdaccio-prefix-fake-plugin\\package.json",
+          "line": 8
+        },
+        {
+          "path": "packages\\tools\\verdaccio-scoped-fake-plugin\\package.json",
+          "line": 8
+        },
+        {
+          "path": "packages\\ui-components\\package.json",
+          "line": 7
+        },
+        {
+          "path": "packages\\ui-components\\src\\components\\ActionBar\\ActionBar.stories.tsx",
+          "line": 45
+        },
+        {
+          "path": "packages\\ui-components\\src\\components\\Install\\Install.stories.tsx",
+          "line": 25
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Footer\\Footer.tsx",
+          "line": 12
+        },
+        {
+          "path": "packages\\verdaccio\\package.json",
+          "line": 38
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/blog/2019/02/08/the-crazy-story-of-verdaccio",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\about.md",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/blog/2021/04/14/verdaccio-5-migration-guide/",
+      "sources": [
+        {
+          "path": "VERSIONS.md",
+          "line": 20
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/community/security",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 204
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/contributors",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 245
+        },
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\Contributors\\Contributors.tsx",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/best",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 10
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 10
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 10
+        },
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\about.md",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/best#remove-proxy-to-increase-security-at-private-packages",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 102
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 116
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 112
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/cli-registry",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\Help\\Help.tsx",
+          "line": 45
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Header\\RegistryInfoContent\\RegistryInfoContent.tsx",
+          "line": 171
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/configuration/#.verdaccio-db",
+      "sources": [
+        {
+          "path": "docs\\warnings.md",
+          "line": 33
+        },
+        {
+          "path": "packages\\config\\src\\config.ts",
+          "line": 152
+        },
+        {
+          "path": "packages\\core\\core\\src\\warning-utils.ts",
+          "line": 57
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/configuration#authentication",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 74
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 69
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 69
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/configuration#experiments",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 241
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 256
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 252
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/configuration#filters",
+      "sources": [
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 223
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 219
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/configuration#https",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 193
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 197
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 193
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/configuration#legacy-token-signature",
+      "sources": [
+        {
+          "path": "docs\\migrations-guide.md",
+          "line": 75
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/configuration#listen-port",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 183
+        },
+        {
+          "path": "docs\\warnings.md",
+          "line": 19
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 187
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 183
+        },
+        {
+          "path": "packages\\core\\core\\src\\warning-utils.ts",
+          "line": 45
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/configuration#max-body-size",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 180
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 184
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 180
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/configuration#notifications",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 204
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 208
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 204
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/configuration#offline-publish",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 135
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 140
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 136
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/configuration#packages",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 89
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 89
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 85
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/configuration#proxy",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 199
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 203
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 199
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/configuration#security",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 160
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 164
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 160
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/configuration#server",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 104
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 118
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 114
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/configuration#uplinks",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 83
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 82
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 78
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/configuration#url-prefix",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 142
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 147
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 143
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/configuration#user-rate-limit",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 175
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 179
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 175
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/dev-plugins",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 409
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/installation",
+      "sources": [
+        {
+          "path": ".github\\ISSUE_TEMPLATE\\config.yml",
+          "line": 4
+        },
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\about.md",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/logger",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 219
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 243
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 239
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/node-api",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\tools\\verdaccio.js",
+          "line": 30
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/plugin-auth",
+      "sources": [
+        {
+          "path": "packages\\core\\core\\src\\plugin-utils.ts",
+          "line": 138
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/plugin-filter",
+      "sources": [
+        {
+          "path": "packages\\core\\core\\src\\plugin-utils.ts",
+          "line": 201
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/plugin-middleware",
+      "sources": [
+        {
+          "path": "packages\\core\\core\\src\\plugin-utils.ts",
+          "line": 95
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/plugin-storage",
+      "sources": [
+        {
+          "path": "packages\\core\\core\\src\\plugin-utils.ts",
+          "line": 74
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/plugins#middleware-configuration",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 212
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 216
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 212
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/protect-your-dependencies/",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 88
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 88
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 84
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/docs/webui",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 20
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 20
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 20
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/thanks.html",
+      "sources": [
+        {
+          "path": "security.txt",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.pro",
+      "sources": [
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\clerk\\package.json",
+          "line": 19
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\database\\package.json",
+          "line": 17
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\middleware\\package.json",
+          "line": 17
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\storage-sql\\package.json",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "url": "https://vitest.dev/config/#alias",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\vitest.config.mjs",
+          "line": 46
+        }
+      ]
+    },
+    {
+      "url": "https://vitest.dev/config/#coverage",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\vitest.config.mjs",
+          "line": 64
+        }
+      ]
+    },
+    {
+      "url": "https://vitest.dev/config/#environment",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\vitest.config.mjs",
+          "line": 13
+        }
+      ]
+    },
+    {
+      "url": "https://vitest.dev/config/#exclude",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\vitest.config.mjs",
+          "line": 28
+        }
+      ]
+    },
+    {
+      "url": "https://vitest.dev/config/#globals",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\vitest.config.mjs",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "url": "https://vitest.dev/config/#setupfiles",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\vitest.config.mjs",
+          "line": 23
+        }
+      ]
+    },
+    {
+      "url": "https://vitest.dev/config/#snapshotformat",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\vitest.config.mjs",
+          "line": 33
+        }
+      ]
+    },
+    {
+      "url": "https://vitest.dev/config/#snapshotserializers",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\vitest.config.mjs",
+          "line": 41
+        }
+      ]
+    },
+    {
+      "url": "https://vitest.dev/config/#testtimeout",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\vitest.config.mjs",
+          "line": 59
+        }
+      ]
+    },
+    {
+      "url": "https://www.grainger.xyz/posts/changing-from-cipher-to-cipheriv",
+      "sources": [
+        {
+          "path": "packages\\signature\\src\\signature.ts",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/",
+      "sources": [
+        {
+          "path": "packages\\web\\src\\author-utils.ts",
+          "line": 4
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/000000",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\Author\\Author.stories.tsx",
+          "line": 19
+        },
+        {
+          "path": "packages\\ui-components\\src\\components\\Dependencies\\Dependencies.stories.tsx",
+          "line": 117
+        },
+        {
+          "path": "packages\\ui-components\\src\\components\\Dependencies\\Dependencies.stories.tsx",
+          "line": 154
+        },
+        {
+          "path": "packages\\ui-components\\src\\components\\Dependencies\\Dependencies.stories.tsx",
+          "line": 30
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/008127e8f10293f43e62de3b7b3520e1",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 341
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/047ba1e853d20459e531619af5493c56",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 551
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/061bdb74aa4a543108658b277a257b4b",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 321
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/06975001f7f2be7052bcf978700c6112",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 221
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/0a617cebc6539940d7956c86e86c72a6",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 271
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/0d70ebd6c46dc01502bfab5f8c2d2bc5",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 411
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/120d2921c33c1bd8dedfce67a28dcc63",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 506
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/126c1ea4fdb20bbb85c3ff735b7b0964",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 351
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/12a36e093451d4c0f75d4240960ce29b",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 421
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/185e200c3451cfbe341f0e758626303a",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 501
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/1886554b0562a0eeeb78a4d1f27917ea",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 496
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/1e30abe66d21824b89c28d05e5b57d84",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 516
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/1e619ddb2a180222dd3d9f0348e65b9b",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 521
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/204ed93fa5be7e2f9f299ad8bca6431f",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 461
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/22735d1ba5765955914eb2d597dfaab5",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 391
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/2532122835f5ebf1642b707ae088c895",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 361
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/272806ba17639e2fbf811e51eb8bfb99",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 386
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/27a54519dcbe64c6d705f3cc4854595a",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 261
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/2d3b462f08f214ed459967aa7ef206f7",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 251
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/2e095c7cfd278f72825d0fed6e12e3b1",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 231
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/2f624f92326fef845bb2c07b392b7e48",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 526
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/322cd2fad528a55c4351ec76d85ef525",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 246
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/371edff6d79c39bb9e36bde39d41a4b0",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 236
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/3b99683f0a4c26a8906ecbe7968a4ade",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 541
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/3c5c3edef955c93edac672cbad04d7cd",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 281
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/3dd3d627330e7e048c13a7480f19842e",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 266
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/3e8927c60cb043a56fdd6531cfcaddbc",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 346
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/41835625a324201c796a0a0cffe4796b",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 331
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/41a61049006855759bd6ec82ef0543a0",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 216
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/465a42204a22efada0f15b46a7cdad3a",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 256
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/484f0b8ba8b7cc43db0be8f910a91254",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 356
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/4acf72b14fcb459286c988c4523bafc8",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 241
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/4ef03c2bf8d8689527903212d96fb45b",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 206
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/565ccb5374a3e0e31a75f11da2eb57aa",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 471
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/5f9a5ed24c63609d52651258f6dd8c12",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 426
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/6442023756294fd43aa518bbe5cc6dcc",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 446
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/69d0370c58399d0e0bbd15ccabfe1ec5",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 481
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/7289a01fedfdb9ddf855ee4dd4d41ae2",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 436
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/73b84fdf661c11d48d3370bfa197162b",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 401
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/74324a2900906c45949a8c5cee6d0730",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 556
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/77644c51856cab149e0f550c5f0c6ed8",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 561
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/825190aaae6ec7fd95085e1fb6f261d2",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 326
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/87028f33a3e1e5b4201c371abddf93e2",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 456
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/8798ca0a499428e5e8f25d3614ac8b6e",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 406
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/8a810f12c9624ea2092852fe7c19f1ee",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 451
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/8bd1dd86bbf8705a5a702b86a2f3a390",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 486
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/918a15afc52e9b0a67b2651191b23d04",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 396
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/92d1cce007b032f4a63c6df764f18030",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 336
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/93a84a6120969fd181785ff9de834f0a",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 301
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/99da46e4d59664134b176869340f464b",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 476
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/a5825b2d69311e559e28a535e5f0d483",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 276
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/a5a236ba477ee98908600c40cda74f4a",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 211
+        },
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 70
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/ac7f548c31e8a002cfa41bd4c71e222d",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 291
+        },
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 536
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/b4d8831300713259f74aea79f842ca57",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 441
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/b762ce4d14acfece36e783b1592d882b",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 286
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/baa061890d7b352ba121082272419a8a",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 416
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/bef1821d3036b8b9242c4999826c1c3c",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 566
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/c676605ff39f9c7a43f5518a8ce54e12",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 366
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/d9acfc4ed4e49a436738ff26a722dce4",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 226
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/e272ab422c1c629e9be26cba8b6c0166",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 491
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/e5d55dcf2495618e8b9f8778f8353ee0",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 316
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/ec2166ce419f78fb354f128b01a4a44d",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 466
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/ec9e7c590ba4081c25fcf197f90a4ea0",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 311
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/ee5a522e067759ba0403824ecebeab4d",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 296
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/eec9ee62019852da28a3bc91c57907f9",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 431
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/f8288370380881cf3afc5a92a63d652d",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 531
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/f84b8ae496f7c988dce5a71d773e75bb",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 571
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/f9a05677360e5f52fcca6e1af9b0f2ee",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 306
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/fb0c7faeda7f5d5632182a3d80381bfa",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 511
+        }
+      ]
+    },
+    {
+      "url": "https://www.gravatar.com/avatar/fba48015a688c38cc84e5b55b07858c0",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 371
+        },
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 376
+        },
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 381
+        },
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 546
+        }
+      ]
+    },
+    {
+      "url": "https://www.hrw.org/news/2022/03/10/ukraine-russian-air-dropped-bombs-hit-residential-area/",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\Support\\Support.tsx",
+          "line": 26
+        }
+      ]
+    },
+    {
+      "url": "https://www.i18next.com/overview/configuration-options",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\i18n\\config.ts",
+          "line": 23
+        }
+      ]
+    },
+    {
+      "url": "https://www.ifrc.org/",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\Support\\Support.tsx",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "url": "https://www.npmjs.com/org/verdaccio",
+      "sources": [
+        {
+          "path": "VERSIONS.md",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "url": "https://www.npmjs.com/package/",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\utils.ts",
+          "line": 113
+        }
+      ]
+    },
+    {
+      "url": "https://www.npmjs.com/package/@verdaccio/ui-theme",
+      "sources": [
+        {
+          "path": "RELEASES.md",
+          "line": 94
+        }
+      ]
+    },
+    {
+      "url": "https://www.npmjs.com/package/country-flag-icons",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 396
+        }
+      ]
+    },
+    {
+      "url": "https://www.npmjs.com/package/debug",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 107
+        },
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 119
+        }
+      ]
+    },
+    {
+      "url": "https://www.npmjs.com/package/express-rate-limit",
+      "sources": [
+        {
+          "path": "packages\\config\\src\\serverSettings.ts",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "url": "https://www.npmjs.com/package/hpagent",
+      "sources": [
+        {
+          "path": "packages\\proxy\\src\\agent.ts",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "url": "https://www.npmjs.com/package/verdaccio",
+      "sources": [
+        {
+          "path": "VERSIONS.md",
+          "line": 3
+        },
+        {
+          "path": "VERSIONS.md",
+          "line": 57
+        }
+      ]
+    },
+    {
+      "url": "https://www.npmjs.com/search?q=sinopia",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 407
+        }
+      ]
+    },
+    {
+      "url": "https://www.savethechildren.org/us/where-we-work/ukraine/",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\Support\\Support.tsx",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "url": "https://www.verdaccio.org",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\about.md",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/channel/UC5i20v6o7lSjXzAHOvatt0w",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\about.md",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=LeG09zu_p_g",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\Support\\Support.tsx",
+          "line": 10
+        }
+      ]
+    }
+  ]
+}

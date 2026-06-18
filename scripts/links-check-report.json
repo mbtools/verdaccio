@@ -1,0 +1,1480 @@
+{
+  "source": "C:\\GitHub\\verdaccio\\verdaccio\\scripts\\links-extracted.json",
+  "checkedAt": "2026-06-18 10:50:42",
+  "includeOk": false,
+  "summary": {
+    "ok": 259,
+    "failed": 78,
+    "total": 337
+  },
+  "results": [
+    {
+      "url": "http://localhost",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No connection could be made because the target machine actively refused it. (localhost:80); GET: No connection could be made because the target machine actively refused it. (localhost:80)",
+      "sources": [
+        {
+          "path": ".github\\workflows\\docker-proxy-apache-e2e.yml",
+          "line": 38
+        },
+        {
+          "path": ".github\\workflows\\docker-proxy-apache-e2e.yml",
+          "line": 40
+        },
+        {
+          "path": ".github\\workflows\\docker-proxy-apache-e2e.yml",
+          "line": 42
+        },
+        {
+          "path": ".github\\workflows\\docker-proxy-apache-e2e.yml",
+          "line": 44
+        },
+        {
+          "path": ".github\\workflows\\docker-proxy-nginx-e2e.yml",
+          "line": 39
+        },
+        {
+          "path": ".github\\workflows\\docker-proxy-nginx-e2e.yml",
+          "line": 41
+        },
+        {
+          "path": ".github\\workflows\\docker-proxy-nginx-e2e.yml",
+          "line": 43
+        },
+        {
+          "path": ".github\\workflows\\docker-proxy-nginx-e2e.yml",
+          "line": 45
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No connection could be made because the target machine actively refused it. (localhost:4873); GET: No connection could be made because the target machine actively refused it. (localhost:4873)",
+      "sources": [
+        {
+          "path": ".github\\workflows\\changesets-pr.yml",
+          "line": 32
+        },
+        {
+          "path": ".github\\workflows\\ci.yml",
+          "line": 103
+        },
+        {
+          "path": ".github\\workflows\\ci.yml",
+          "line": 197
+        },
+        {
+          "path": ".github\\workflows\\ci.yml",
+          "line": 251
+        },
+        {
+          "path": ".github\\workflows\\docker-build-test.yml",
+          "line": 48
+        },
+        {
+          "path": ".github\\workflows\\smok-test-local-build.yml",
+          "line": 116
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-angular-cli-workflow.yml",
+          "line": 25
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-angular-cli-workflow.yml",
+          "line": 29
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-angular-cli-workflow.yml",
+          "line": 62
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-angular-cli-workflow.yml",
+          "line": 66
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-angular-cli-workflow.yml",
+          "line": 98
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-angular-cli-workflow.yml",
+          "line": 102
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-audit-workflow.yml",
+          "line": 25
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-audit-workflow.yml",
+          "line": 30
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-gatsbyjs-cli-workflow.yml",
+          "line": 25
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-gatsbyjs-cli-workflow.yml",
+          "line": 29
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-gatsbyjs-cli-workflow.yml",
+          "line": 60
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-gatsbyjs-cli-workflow.yml",
+          "line": 64
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 23
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 28
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 33
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 54
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 60
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 90
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 95
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 100
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 123
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 128
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 133
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 156
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 161
+        },
+        {
+          "path": ".github\\workflows\\x-e2e-jest-workflow.yml",
+          "line": 166
+        },
+        {
+          "path": ".github\\workflows\\x-smok-test-docker.yml",
+          "line": 27
+        },
+        {
+          "path": ".github\\workflows\\x-smok-test-docker.yml",
+          "line": 29
+        },
+        {
+          "path": ".github\\workflows\\x-smok-test-docker.yml",
+          "line": 31
+        },
+        {
+          "path": ".github\\workflows\\x-smok-test-docker.yml",
+          "line": 33
+        },
+        {
+          "path": ".github\\workflows\\x-smok-test-module.yml",
+          "line": 22
+        },
+        {
+          "path": ".github\\workflows\\x-smok-test-module.yml",
+          "line": 32
+        },
+        {
+          "path": ".github\\workflows\\x-smok-test-module.yml",
+          "line": 34
+        },
+        {
+          "path": ".github\\workflows\\x-smok-test-module.yml",
+          "line": 41
+        },
+        {
+          "path": ".github\\workflows\\x-smok-test-module.yml",
+          "line": 42
+        },
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 186
+        },
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 178
+        },
+        {
+          "path": "cypress.config.ts",
+          "line": 5
+        },
+        {
+          "path": "cypress\\e2e\\01-home.cy.ts",
+          "line": 3
+        },
+        {
+          "path": "cypress\\e2e\\02-signin.cy.ts",
+          "line": 3
+        },
+        {
+          "path": "cypress\\e2e\\03-layout.cy.ts",
+          "line": 3
+        },
+        {
+          "path": "cypress\\e2e\\04-search.cy.ts",
+          "line": 3
+        },
+        {
+          "path": "cypress\\e2e\\05-settings.cy.ts",
+          "line": 3
+        },
+        {
+          "path": "cypress\\e2e\\06-publish.cy.ts",
+          "line": 3
+        },
+        {
+          "path": "package.json",
+          "line": 142
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 190
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 186
+        },
+        {
+          "path": "scripts\\e2e-cli-local.sh",
+          "line": 15
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No connection could be made because the target machine actively refused it. (localhost:4873); GET: No connection could be made because the target machine actively refused it. (localhost:4873)",
+      "sources": [
+        {
+          "path": ".github\\workflows\\smok-test-local-build.yml",
+          "line": 62
+        },
+        {
+          "path": "docs\\warnings.md",
+          "line": 17
+        },
+        {
+          "path": "packages\\config\\src\\address.ts",
+          "line": 110
+        },
+        {
+          "path": "packages\\config\\src\\address.ts",
+          "line": 136
+        },
+        {
+          "path": "packages\\core\\core\\src\\warning-utils.ts",
+          "line": 44
+        },
+        {
+          "path": "packages\\plugins\\ui-theme\\index.html",
+          "line": 11
+        },
+        {
+          "path": "packages\\plugins\\ui-theme\\index.html",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/-/ping",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No connection could be made because the target machine actively refused it. (localhost:4873); GET: No connection could be made because the target machine actively refused it. (localhost:4873)",
+      "sources": [
+        {
+          "path": ".github\\workflows\\ci.yml",
+          "line": 193
+        },
+        {
+          "path": ".github\\workflows\\ci.yml",
+          "line": 240
+        },
+        {
+          "path": ".github\\workflows\\smok-test-local-build.yml",
+          "line": 40
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/-/static/ui-options.js",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No connection could be made because the target machine actively refused it. (localhost:4873); GET: No connection could be made because the target machine actively refused it. (localhost:4873)",
+      "sources": [
+        {
+          "path": ".github\\workflows\\smok-test-local-build.yml",
+          "line": 71
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/-/user/org.couchdb.user:test",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No connection could be made because the target machine actively refused it. (localhost:4873); GET: No connection could be made because the target machine actively refused it. (localhost:4873)",
+      "sources": [
+        {
+          "path": ".github\\workflows\\ci.yml",
+          "line": 247
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/@scope%2ftest1",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No connection could be made because the target machine actively refused it. (localhost:4873); GET: No connection could be made because the target machine actively refused it. (localhost:4873)",
+      "sources": [
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 34
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/custom-name?write=true",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No connection could be made because the target machine actively refused it. (localhost:4873); GET: No connection could be made because the target machine actively refused it. (localhost:4873)",
+      "sources": [
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 66
+        },
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 73
+        },
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 77
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/custom-name/-/test1-1.0.3.tgz/-rev/16-e11c8db282b2d992",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No connection could be made because the target machine actively refused it. (localhost:4873); GET: No connection could be made because the target machine actively refused it. (localhost:4873)",
+      "sources": [
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 67
+        },
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 79
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/custom-name/-rev/14-5d500cfce92f90fd",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No connection could be made because the target machine actively refused it. (localhost:4873); GET: No connection could be made because the target machine actively refused it. (localhost:4873)",
+      "sources": [
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 75
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/lodash",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No connection could be made because the target machine actively refused it. (localhost:4873); GET: No connection could be made because the target machine actively refused it. (localhost:4873)",
+      "sources": [
+        {
+          "path": ".github\\workflows\\smok-test-local-build.yml",
+          "line": 127
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/package-name?write=true",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No connection could be made because the target machine actively refused it. (localhost:4873); GET: No connection could be made because the target machine actively refused it. (localhost:4873)",
+      "sources": [
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 137
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:4873/package-name/-rev/18-d8ebe3020bd4ac9c",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No connection could be made because the target machine actively refused it. (localhost:4873); GET: No connection could be made because the target machine actively refused it. (localhost:4873)",
+      "sources": [
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 140
+        },
+        {
+          "path": "packages\\api\\src\\publish.ts",
+          "line": 174
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:5555",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No connection could be made because the target machine actively refused it. (localhost:5555); GET: No connection could be made because the target machine actively refused it. (localhost:5555)",
+      "sources": [
+        {
+          "path": "packages\\tools\\helpers\\src\\addNewVersion.ts",
+          "line": 9
+        },
+        {
+          "path": "packages\\tools\\helpers\\src\\generateLocalPackageMetadata.ts",
+          "line": 8
+        },
+        {
+          "path": "packages\\tools\\helpers\\src\\generateRemotePackageMetadata.ts",
+          "line": 8
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:8000",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No connection could be made because the target machine actively refused it. (localhost:8000); GET: No connection could be made because the target machine actively refused it. (localhost:8000)",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 134
+        },
+        {
+          "path": "packages\\plugins\\ui-theme\\vite.config.mjs",
+          "line": 61
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:8000/-/verdaccio/data/package/readme/jquery",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No connection could be made because the target machine actively refused it. (localhost:8000); GET: No connection could be made because the target machine actively refused it. (localhost:8000)",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\store\\routes.ts",
+          "line": 2
+        },
+        {
+          "path": "packages\\ui-components\\src\\utils\\routes.ts",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "url": "http://localhost:8080/bootstrap/-/bootstrap-4.3.1.tgz",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No connection could be made because the target machine actively refused it. (localhost:8080); GET: No connection could be made because the target machine actively refused it. (localhost:8080)",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\Install\\Install.stories.tsx",
+          "line": 23
+        }
+      ]
+    },
+    {
+      "url": "http://pierrecaserta.com/apache-proxy-one-docker-server-many-domains/",
+      "status": 404,
+      "ok": false,
+      "note": "HEAD: Head returned error response; GET: Get returned error response",
+      "sources": [
+        {
+          "path": "e2e\\docker\\apache-verdaccio\\apache_proxy\\Dockerfile",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "url": "http://somedomain.org/",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: The requested name is valid, but no data of the requested type was found. (somedomain.org:80); GET: The requested name is valid, but no data of the requested type was found. (somedomain.org:80)",
+      "sources": [
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 66
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 66
+        }
+      ]
+    },
+    {
+      "url": "http://something.local/",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (something.local:80); GET: No such host is known. (something.local:80)",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 200
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 204
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 200
+        }
+      ]
+    },
+    {
+      "url": "http://verdaccio:4873/",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (verdaccio:4873); GET: No such host is known. (verdaccio:4873)",
+      "sources": [
+        {
+          "path": "e2e\\docker\\apache-verdaccio\\apache_proxy\\conf\\000-default.conf",
+          "line": 13
+        },
+        {
+          "path": "e2e\\docker\\apache-verdaccio\\apache_proxy\\conf\\000-default.conf",
+          "line": 14
+        },
+        {
+          "path": "e2e\\docker\\proxy-nginx\\nginx\\verdaccio.conf",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "url": "http://www.w3.org/",
+      "status": 403,
+      "ok": false,
+      "note": "Head returned error response",
+      "sources": [
+        {
+          "path": "packages\\web\\src\\author-utils.ts",
+          "line": 9
+        }
+      ]
+    },
+    {
+      "url": "http://www.w3.org/1999/xlink",
+      "status": 403,
+      "ok": false,
+      "note": "Head returned error response",
+      "sources": [
+        {
+          "path": "packages\\web\\src\\author-utils.ts",
+          "line": 10
+        }
+      ]
+    },
+    {
+      "url": "http://www.w3.org/2000/svg",
+      "status": 403,
+      "ok": false,
+      "note": "Head returned error response",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\Readme\\github-markdown.css",
+          "line": 205
+        },
+        {
+          "path": "packages\\ui-components\\src\\components\\Readme\\github-markdown.css",
+          "line": 206
+        }
+      ]
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Crypt_(C",
+      "status": 404,
+      "ok": false,
+      "note": "HEAD: Head returned error response; GET: Get returned error response",
+      "sources": [
+        {
+          "path": "packages\\plugins\\htpasswd\\src\\crypt3.ts",
+          "line": 48
+        }
+      ]
+    },
+    {
+      "url": "https://example.org:4873",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: The request was canceled due to the configured HttpClient.Timeout of 30 seconds elapsing.; GET: The request was canceled due to the configured HttpClient.Timeout of 30 seconds elapsing.",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 188
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 192
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 188
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (fake.verdaccio.org:443); GET: No such host is known. (fake.verdaccio.org:443)",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\.storybook\\preview-head.html",
+          "line": 10
+        },
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 200
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/package/readme/*",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (fake.verdaccio.org:443); GET: No such host is known. (fake.verdaccio.org:443)",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\AppRoute\\AppRoute.stories.tsx",
+          "line": 90
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/package/readme/jquery",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (fake.verdaccio.org:443); GET: No such host is known. (fake.verdaccio.org:443)",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\AppTest\\App.stories.tsx",
+          "line": 53
+        },
+        {
+          "path": "packages\\ui-components\\src\\layouts\\Version\\Version.stories.tsx",
+          "line": 78
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Detail\\Detail.stories.tsx",
+          "line": 60
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/package/readme/storybook",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (fake.verdaccio.org:443); GET: No such host is known. (fake.verdaccio.org:443)",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\AppTest\\App.stories.tsx",
+          "line": 33
+        },
+        {
+          "path": "packages\\ui-components\\src\\layouts\\Version\\Version.stories.tsx",
+          "line": 46
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Detail\\Detail.stories.tsx",
+          "line": 44
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Header\\Header.stories.tsx",
+          "line": 60
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\SideBar\\Sidebar.stories.tsx",
+          "line": 24
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/packages",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (fake.verdaccio.org:443); GET: No such host is known. (fake.verdaccio.org:443)",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\AppRoute\\AppRoute.stories.tsx",
+          "line": 83
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Home\\Home.stories.tsx",
+          "line": 36
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/search/*",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (fake.verdaccio.org:443); GET: No such host is known. (fake.verdaccio.org:443)",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\AppRoute\\AppRoute.stories.tsx",
+          "line": 94
+        },
+        {
+          "path": "packages\\ui-components\\src\\components\\Search\\Search.stories.tsx",
+          "line": 53
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Header\\Header.stories.tsx",
+          "line": 63
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/sidebar/*",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (fake.verdaccio.org:443); GET: No such host is known. (fake.verdaccio.org:443)",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\AppRoute\\AppRoute.stories.tsx",
+          "line": 86
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/sidebar/jquery",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (fake.verdaccio.org:443); GET: No such host is known. (fake.verdaccio.org:443)",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\AppTest\\App.stories.tsx",
+          "line": 50
+        },
+        {
+          "path": "packages\\ui-components\\src\\layouts\\Version\\Version.stories.tsx",
+          "line": 75
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Detail\\Detail.stories.tsx",
+          "line": 57
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/sidebar/JSONStream",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (fake.verdaccio.org:443); GET: No such host is known. (fake.verdaccio.org:443)",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\AppTest\\App.stories.tsx",
+          "line": 70
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Detail\\Detail.stories.tsx",
+          "line": 73
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/sidebar/kleur",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (fake.verdaccio.org:443); GET: No such host is known. (fake.verdaccio.org:443)",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\AppTest\\App.stories.tsx",
+          "line": 87
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/data/sidebar/storybook",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (fake.verdaccio.org:443); GET: No such host is known. (fake.verdaccio.org:443)",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\AppTest\\App.stories.tsx",
+          "line": 30
+        },
+        {
+          "path": "packages\\ui-components\\src\\layouts\\Version\\Version.stories.tsx",
+          "line": 43
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Detail\\Detail.stories.tsx",
+          "line": 41
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Header\\Header.stories.tsx",
+          "line": 57
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\SideBar\\Sidebar.stories.tsx",
+          "line": 21
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/-/verdaccio/sec/login",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (fake.verdaccio.org:443); GET: No such host is known. (fake.verdaccio.org:443)",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\components\\AppRoute\\AppRoute.stories.tsx",
+          "line": 111
+        },
+        {
+          "path": "packages\\ui-components\\src\\components\\LoginDialog\\LoginDialog.stories.tsx",
+          "line": 26
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Header\\Header.stories.tsx",
+          "line": 82
+        },
+        {
+          "path": "packages\\ui-components\\src\\sections\\Security\\Security.stories.tsx",
+          "line": 20
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/storybook/-/storybook-6.5.15.tgz",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (fake.verdaccio.org:443); GET: No such host is known. (fake.verdaccio.org:443)",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\sections\\SideBar\\Sidebar.stories.tsx",
+          "line": 27
+        }
+      ]
+    },
+    {
+      "url": "https://fake.verdaccio.org/verdaccio/-/verdaccio-2.7.1.tgz",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (fake.verdaccio.org:443); GET: No such host is known. (fake.verdaccio.org:443)",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\__partials__\\packageMeta.ts",
+          "line": 586
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio-pro/verdaccio-pro.git",
+      "status": 404,
+      "ok": false,
+      "note": "HEAD: Head returned error response; GET: Get returned error response",
+      "sources": [
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\clerk\\package.json",
+          "line": 22
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\database\\package.json",
+          "line": 20
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\middleware\\package.json",
+          "line": 20
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\storage-sql\\package.json",
+          "line": 21
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio-pro/verdaccio-pro/issues",
+      "status": 404,
+      "ok": false,
+      "note": "HEAD: Head returned error response; GET: Get returned error response",
+      "sources": [
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\clerk\\package.json",
+          "line": 26
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\database\\package.json",
+          "line": 24
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\middleware\\package.json",
+          "line": 24
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\storage-sql\\package.json",
+          "line": 25
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/contributing",
+      "status": 404,
+      "ok": false,
+      "note": "HEAD: Head returned error response; GET: Get returned error response",
+      "sources": [
+        {
+          "path": ".github\\stale.yml",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/e2e-tests/tree/7.x",
+      "status": 404,
+      "ok": false,
+      "note": "HEAD: Head returned error response; GET: Get returned error response",
+      "sources": [
+        {
+          "path": "VERSIONS.md",
+          "line": 12
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/ui/issues/119",
+      "status": 404,
+      "ok": false,
+      "note": "HEAD: Head returned error response; GET: Get returned error response",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\url.ts",
+          "line": 67
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/blob/5.x/CONTRIBUTING.md",
+      "status": 404,
+      "ok": false,
+      "note": "HEAD: Head returned error response; GET: Get returned error response",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/blob/master/docs/migration-v5-to-v6.md",
+      "status": 404,
+      "ok": false,
+      "note": "HEAD: Head returned error response; GET: Get returned error response",
+      "sources": [
+        {
+          "path": "VERSIONS.md",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/verdaccio/verdaccio/tree/master/e2e/ui",
+      "status": 404,
+      "ok": false,
+      "note": "HEAD: Head returned error response; GET: Get returned error response",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "url": "https://localhost:443/",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No connection could be made because the target machine actively refused it. (localhost:443); GET: No connection could be made because the target machine actively refused it. (localhost:443)",
+      "sources": [
+        {
+          "path": "packages\\config\\src\\address.ts",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "url": "https://mswjs.io/docs/recipes/mocking-error-responses",
+      "status": 404,
+      "ok": false,
+      "note": "HEAD: Head returned error response; GET: Get returned error response",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\.storybook\\preview.tsx",
+          "line": 45
+        }
+      ]
+    },
+    {
+      "url": "https://my.company.com/customJS.min.js",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (my.company.com:443); GET: No such host is known. (my.company.com:443)",
+      "sources": [
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 63
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 63
+        }
+      ]
+    },
+    {
+      "url": "https://mycompany.com/npm",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond. (mycompany.com:443); GET: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond. (mycompany.com:443)",
+      "sources": [
+        {
+          "path": "packages\\proxy\\src\\proxy.ts",
+          "line": 276
+        }
+      ]
+    },
+    {
+      "url": "https://registry.verdaccio.pro",
+      "status": 503,
+      "ok": false,
+      "note": "Head returned error response",
+      "sources": [
+        {
+          "path": ".github\\workflows\\apm.yml",
+          "line": 37
+        }
+      ]
+    },
+    {
+      "url": "https://registry.verdaccio.pro/",
+      "status": 503,
+      "ok": false,
+      "note": "Head returned error response",
+      "sources": [
+        {
+          "path": ".github\\workflows\\apm.yml",
+          "line": 34
+        }
+      ]
+    },
+    {
+      "url": "https://somedomain.org",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: The requested name is valid, but no data of the requested type was found. (somedomain.org:443); GET: The requested name is valid, but no data of the requested type was found. (somedomain.org:443)",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 146
+        },
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 150
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 151
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 155
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 147
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 151
+        }
+      ]
+    },
+    {
+      "url": "https://somedomain.org/",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: The requested name is valid, but no data of the requested type was found. (somedomain.org:443); GET: The requested name is valid, but no data of the requested type was found. (somedomain.org:443)",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 152
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 157
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 153
+        }
+      ]
+    },
+    {
+      "url": "https://somedomain.org/first_prefix",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: The requested name is valid, but no data of the requested type was found. (somedomain.org:443); GET: The requested name is valid, but no data of the requested type was found. (somedomain.org:443)",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 154
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 159
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 155
+        }
+      ]
+    },
+    {
+      "url": "https://somedomain.org/my_prefix/",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: The requested name is valid, but no data of the requested type was found. (somedomain.org:443); GET: The requested name is valid, but no data of the requested type was found. (somedomain.org:443)",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 148
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 153
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 149
+        }
+      ]
+    },
+    {
+      "url": "https://somedomain.org/second_prefix/",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: The requested name is valid, but no data of the requested type was found. (somedomain.org:443); GET: The requested name is valid, but no data of the requested type was found. (somedomain.org:443)",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 156
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 161
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 157
+        }
+      ]
+    },
+    {
+      "url": "https://something.local/",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (something.local:443); GET: No such host is known. (something.local:443)",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 201
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 205
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 201
+        }
+      ]
+    },
+    {
+      "url": "https://specifications.freedesktop.org/basedir-spec/latest/",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: Operation is not valid due to the current state of the object.; GET: Operation is not valid due to the current state of the object.",
+      "sources": [
+        {
+          "path": "packages\\config\\src\\config-path.ts",
+          "line": 156
+        }
+      ]
+    },
+    {
+      "url": "https://unix:/tmp/http.sock",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: No such host is known. (unix:443); GET: No such host is known. (unix:443)",
+      "sources": [
+        {
+          "path": "packages\\config\\src\\address.ts",
+          "line": 25
+        }
+      ]
+    },
+    {
+      "url": "https://usagge.hipchat.com/v2/room/3729485/notification?auth_token=mySecretToken",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond. (usagge.hipchat.com:443); GET: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond. (usagge.hipchat.com:443)",
+      "sources": [
+        {
+          "path": "abappm\\conf\\config.yaml",
+          "line": 208
+        },
+        {
+          "path": "packages\\config\\src\\conf\\default.yaml",
+          "line": 212
+        },
+        {
+          "path": "packages\\config\\src\\conf\\docker.yaml",
+          "line": 208
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.nyc3.digitaloceanspaces.com/gpg/publickey.verdaccio@pm.me.asc",
+      "status": 403,
+      "ok": false,
+      "note": "Head returned error response",
+      "sources": [
+        {
+          "path": "security.txt",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.org/thanks.html",
+      "status": 404,
+      "ok": false,
+      "note": "HEAD: Head returned error response; GET: Get returned error response",
+      "sources": [
+        {
+          "path": "security.txt",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "url": "https://verdaccio.pro",
+      "status": 0,
+      "ok": false,
+      "note": "HEAD: The requested name is valid, but no data of the requested type was found. (verdaccio.pro:443); GET: The requested name is valid, but no data of the requested type was found. (verdaccio.pro:443)",
+      "sources": [
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\clerk\\package.json",
+          "line": 19
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\database\\package.json",
+          "line": 17
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\middleware\\package.json",
+          "line": 17
+        },
+        {
+          "path": "abappm\\plugins\\@verdaccio-pro\\storage-sql\\package.json",
+          "line": 18
+        }
+      ]
+    },
+    {
+      "url": "https://www.i18next.com/overview/configuration-options",
+      "status": 500,
+      "ok": false,
+      "note": "Head returned error response",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\i18n\\config.ts",
+          "line": 23
+        }
+      ]
+    },
+    {
+      "url": "https://www.ifrc.org/",
+      "status": 403,
+      "ok": false,
+      "note": "Head returned error response",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\Support\\Support.tsx",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "url": "https://www.npmjs.com/org/verdaccio",
+      "status": 403,
+      "ok": false,
+      "note": "Head returned error response",
+      "sources": [
+        {
+          "path": "VERSIONS.md",
+          "line": 3
+        }
+      ]
+    },
+    {
+      "url": "https://www.npmjs.com/package/",
+      "status": 403,
+      "ok": false,
+      "note": "Head returned error response",
+      "sources": [
+        {
+          "path": "packages\\ui-components\\src\\utils\\utils.ts",
+          "line": 113
+        }
+      ]
+    },
+    {
+      "url": "https://www.npmjs.com/package/@verdaccio/ui-theme",
+      "status": 403,
+      "ok": false,
+      "note": "Head returned error response",
+      "sources": [
+        {
+          "path": "RELEASES.md",
+          "line": 94
+        }
+      ]
+    },
+    {
+      "url": "https://www.npmjs.com/package/country-flag-icons",
+      "status": 403,
+      "ok": false,
+      "note": "Head returned error response",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 396
+        }
+      ]
+    },
+    {
+      "url": "https://www.npmjs.com/package/debug",
+      "status": 403,
+      "ok": false,
+      "note": "Head returned error response",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 107
+        },
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 119
+        }
+      ]
+    },
+    {
+      "url": "https://www.npmjs.com/package/express-rate-limit",
+      "status": 403,
+      "ok": false,
+      "note": "Head returned error response",
+      "sources": [
+        {
+          "path": "packages\\config\\src\\serverSettings.ts",
+          "line": 2
+        }
+      ]
+    },
+    {
+      "url": "https://www.npmjs.com/package/hpagent",
+      "status": 403,
+      "ok": false,
+      "note": "Head returned error response",
+      "sources": [
+        {
+          "path": "packages\\proxy\\src\\agent.ts",
+          "line": 19
+        }
+      ]
+    },
+    {
+      "url": "https://www.npmjs.com/package/verdaccio",
+      "status": 403,
+      "ok": false,
+      "note": "Head returned error response",
+      "sources": [
+        {
+          "path": "VERSIONS.md",
+          "line": 3
+        },
+        {
+          "path": "VERSIONS.md",
+          "line": 57
+        }
+      ]
+    },
+    {
+      "url": "https://www.npmjs.com/search?q=sinopia",
+      "status": 403,
+      "ok": false,
+      "note": "Head returned error response",
+      "sources": [
+        {
+          "path": "CONTRIBUTING.md",
+          "line": 407
+        }
+      ]
+    },
+    {
+      "url": "https://www.savethechildren.org/us/where-we-work/ukraine/",
+      "status": 403,
+      "ok": false,
+      "note": "Head returned error response",
+      "sources": [
+        {
+          "path": "packages\\plugins\\ui-theme\\src\\components\\Support\\Support.tsx",
+          "line": 18
+        }
+      ]
+    }
+  ]
+}
