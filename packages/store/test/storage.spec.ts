@@ -610,7 +610,7 @@ describe('storage', () => {
         const config = getConfig(configFile);
         const storage = new Storage(config, logger);
         await storage.init(config);
-        const owner = { name: 'fooUser', email: '' };
+        const owner = { name: 'fooUser', email: 'fooUser@mail.abappm.com' };
         const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
         const options = { ...defaultRequestOptions, username: owner.name };
         await storage.updateManifest(bodyNewManifest, {
@@ -635,7 +635,7 @@ describe('storage', () => {
         const config = getConfig(configFile);
         const storage = new Storage(config, logger);
         await storage.init(config);
-        const firstOwner = { name: 'fooUser', email: '' };
+        const firstOwner = { name: 'fooUser', email: 'fooUser@mail.abappm.com' };
         const bodyNewManifest = generatePackageMetadata(pkgName, '1.0.0');
         const options = { ...defaultRequestOptions, username: firstOwner.name };
         await storage.updateManifest(bodyNewManifest, {
@@ -646,7 +646,7 @@ describe('storage', () => {
         });
 
         // add owner
-        const secondOwner = { name: 'barUser', email: '' };
+        const secondOwner = { name: 'barUser', email: 'barUser@mail.abappm.com' };
         const maintainers = [firstOwner, secondOwner];
 
         const message = await executeChangeOwners(storage, {

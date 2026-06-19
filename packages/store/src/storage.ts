@@ -1352,6 +1352,29 @@ class Storage {
       // Copy current owners to version
       metadata.maintainers = data.maintainers;
 
+      // apm
+      if (Array.isArray(metadata.maintainers)) {
+        metadata.maintainers = metadata.maintainers.map((maintainer) => {
+          if (typeof maintainer === 'string') {
+            if (maintainer === ANONYMOUS_USER) {
+              return { name: maintainer };
+            } else {
+              return { name: maintainer, email: `${maintainer}@mail.abappm.com` };
+            }
+          } else if (maintainer && typeof maintainer === 'object') {
+            if (maintainer.name === ANONYMOUS_USER) {
+              return { name: maintainer.name };
+            } else {
+              return {
+                name: maintainer.name,
+                email: `${maintainer.name}@mail.abappm.com`,
+              };
+            }
+          }
+          return maintainer;
+        });
+      }
+
       // Update tarball stats
       if (metadata.dist) {
         metadata.dist.fileCount = tarballStats.fileCount;
@@ -1456,7 +1479,7 @@ class Storage {
     // TODO: Add email of user
     packageData.maintainers =
       username && username.length > 0
-        ? [{ name: username, email: '' }]
+        ? [{ name: username, email: username + '@mail.abappm.com' }] // apm
         : [{ name: ANONYMOUS_USER, email: '' }];
 
     try {
@@ -1592,6 +1615,11 @@ class Storage {
       if (err && (!err.status || err.status >= HTTP_STATUS.INTERNAL_ERROR)) {
         throw err;
       }
+    }
+
+    // if there is no local metadata and no uplinks configured, we throw an error
+    if (!data && !this.config.uplinks) {
+      throw errorUtils.getNotFound(`${API_ERROR.NO_PACKAGE}: ${name}`);
     }
 
     // if we can't get the local metadata, we try to get the remote metadata
