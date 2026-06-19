@@ -55,11 +55,12 @@ web:
   #
   # HTML tags injected as first child in <body>
   scriptsBodyBefore:
-    - '<div id="beta"></div>'
+    - '<div id="apm-header"></div>'
   #
   # HTML tags injected as last child in </body>
   scriptsBodyAfter:
-    - '<script src="/-/assets/apm-beta-banner.js"></script>'
+    - '<div id="apm-footer"></div>'
+    - '<script src="/-/assets/apm.js"></script>'
   #
   # Public path for template manifest scripts (only manifest)
   publicPath: VERDACCIO_PUBLIC_URL
