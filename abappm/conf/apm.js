@@ -124,7 +124,7 @@ var apmFooterHtml = `
       <div>
         <h4 class="apm-footer-heading">Connect</h4>
         <ul class="apm-footer-links">
-          <li><a href="mailto:hello@abappm.com" target="_blank" rel="noopener noreferrer">Email</a></li>
+          <li><a href="mailto:hello@mail.abappm.com" target="_blank" rel="noopener noreferrer">Email</a></li>
           <li><a href="https://bsky.app/profile/apm.to" target="_blank" rel="noopener noreferrer">Bluesky</a></li>
           <li><a href="https://www.linkedin.com/company/apm.to" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
         </ul>
