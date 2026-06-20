@@ -83,7 +83,7 @@ const Login: React.FC = () => {
   ) : (
     <SecurityLayout>
       <SecurityContainer>
-        <SecurityForm>
+        <SecurityForm as="div">
           <LoginFormHeader />
           <LoginForm
             errors={errors}

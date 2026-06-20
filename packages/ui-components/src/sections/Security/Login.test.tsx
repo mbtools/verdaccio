@@ -1,5 +1,5 @@
 import React from 'react';
-import { vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import storage from '../../store/storage';
 import {
@@ -12,6 +12,17 @@ import {
 } from '../../test/test-react-testing-library';
 import { Route } from '../../utils';
 import Login from './Login';
+import { MessageType } from './Success';
+
+const mockNavigate = vi.fn();
+
+vi.mock('react-router', async (importOriginal) => {
+  const actual = await importOriginal();
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  };
+});
 
 // A valid `next` param: must start with Route.LOGIN_API and end with a UUID
 const VALID_NEXT = '/-/v1/login_cli/12345678-1234-1234-1234-123456789abc';
@@ -21,6 +32,7 @@ describe('<Login /> component', () => {
   beforeEach(() => {
     vi.resetModules();
     vi.resetAllMocks();
+    mockNavigate.mockClear();
     cleanup();
     storage.removeItem('token');
     storage.removeItem('username');
@@ -122,6 +134,9 @@ describe('<Login /> component', () => {
     await waitFor(() => {
       expect(storage.getItem('token')).toBe('valid-mock-token');
       expect(storage.getItem('username')).toBe('testuser');
+      expect(mockNavigate).toHaveBeenCalledWith(
+        `${Route.SUCCESS}?messageType=${MessageType.Login}`
+      );
     });
   });
 

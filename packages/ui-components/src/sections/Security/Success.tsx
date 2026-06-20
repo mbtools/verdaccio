@@ -30,7 +30,7 @@ const Success: React.FC = () => {
   return (
     <SecurityLayout>
       <SecurityContainer>
-        <SecurityForm>
+        <SecurityForm as="div">
           <CheckCircleIcon color="success" />
           <Typography component="h1" gutterBottom={true} variant="h4">
             {t('security.success.title')}
