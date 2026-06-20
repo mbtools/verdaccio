@@ -69,17 +69,25 @@ var apmFooterHtml = `
   .apm-footer-logo-dark {
     display: block;
   }
-  @media (prefers-color-scheme: light) {
-    .apm-footer {
-      background: #f5f5f5;
-      border-top-color: #e0e0e0;
-    }
-    .apm-footer-logo-light {
-      display: block;
-    }
-    .apm-footer-logo-dark {
-      display: none;
-    }
+  .apm-footer.apm-footer--light {
+    background: #ffffff;
+    border-top-color: #e3e3e3;
+    color: #737373;
+  }
+  .apm-footer.apm-footer--light a {
+    color: #737373;
+  }
+  .apm-footer.apm-footer--light a:hover {
+    color: #111111;
+  }
+  .apm-footer.apm-footer--light .apm-footer-heading {
+    color: #333333;
+  }
+  .apm-footer.apm-footer--light .apm-footer-logo-light {
+    display: block;
+  }
+  .apm-footer.apm-footer--light .apm-footer-logo-dark {
+    display: none;
   }
   .apm-footer-copyright {
     margin-top: 3rem;
@@ -88,10 +96,9 @@ var apmFooterHtml = `
     text-align: center;
     font-size: 0.875rem;
   }
-  @media (prefers-color-scheme: light) {
-    .apm-footer-copyright {
-      border-top-color: #e0e0e0;
-    }
+  .apm-footer.apm-footer--light .apm-footer-copyright {
+    border-top-color: #e3e3e3;
+    color: #737373;
   }
 </style>
 <footer class="apm-footer">
@@ -137,6 +144,25 @@ var apmFooterHtml = `
 </footer>
 `;
 
+function isApmLightMode() {
+  try {
+    var stored = localStorage.getItem('darkMode');
+    if (stored !== null) {
+      return JSON.parse(stored) === false;
+    }
+  } catch {
+    return false;
+  }
+  return false;
+}
+
+function syncApmFooterTheme() {
+  var footer = document.querySelector('.apm-footer');
+  if (footer) {
+    footer.classList.toggle('apm-footer--light', isApmLightMode());
+  }
+}
+
 function injectApmFooter() {
   var footer = document.querySelector('[data-testid="footer"]');
   if (!footer || footer.querySelector('.apm-footer')) {
@@ -147,7 +173,23 @@ function injectApmFooter() {
   footer.style.background = 'none';
   footer.style.borderTop = 'none';
   footer.innerHTML = apmFooterHtml;
+  syncApmFooterTheme();
 }
+
+(function hookDarkModeStorage() {
+  var originalSetItem = localStorage.setItem.bind(localStorage);
+  localStorage.setItem = function (key, value) {
+    originalSetItem(key, value);
+    if (key === 'darkMode') {
+      syncApmFooterTheme();
+    }
+  };
+  window.addEventListener('storage', function (event) {
+    if (event.key === 'darkMode') {
+      syncApmFooterTheme();
+    }
+  });
+})();
 
 var footerObserver = new MutationObserver(injectApmFooter);
 footerObserver.observe(document.body, { childList: true, subtree: true });
