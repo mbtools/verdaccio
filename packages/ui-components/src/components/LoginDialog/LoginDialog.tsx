@@ -3,6 +3,7 @@ import DialogContent from '@mui/material/DialogContent';
 import React, { useEffect } from 'react';
 
 import { useAuth } from '../../providers/AuthProvider';
+import LinkExternal from '../LinkExternal/LinkExternal';
 import LoginFormHeader from '../LoginForm/styles';
 import LoginDialogCloseButton from './LoginDialogCloseButton';
 import LoginDialogForm from './LoginDialogForm';
@@ -31,6 +32,11 @@ const LoginDialog: React.FC<Props> = ({ onClose, open = false }) => {
       <DialogContent data-testid="dialogContentLogin">
         <LoginFormHeader />
         <LoginDialogForm />
+        <div style={{ textAlign: 'center', marginTop: 16 }}>
+          <LinkExternal to="https://abappm.com/#pricing" data-testid="signup-link">
+            Not registered? Sign up here
+          </LinkExternal>
+        </div>
       </DialogContent>
     </Dialog>
   );
