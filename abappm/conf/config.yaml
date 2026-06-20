@@ -59,7 +59,6 @@ web:
   #
   # HTML tags injected as last child in </body>
   scriptsBodyAfter:
-    - '<div id="apm-footer"></div>'
     - '<script src="/-/assets/apm.js"></script>'
   #
   # Public path for template manifest scripts (only manifest)

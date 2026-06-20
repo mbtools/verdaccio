@@ -9,7 +9,7 @@ if (window.location.hostname.includes('playground.abappm.com')) {
   document.getElementById('apm-header').style.display = 'none';
 }
 
-document.getElementById('apm-footer').innerHTML = `
+var apmFooterHtml = `
 <style>
   .apm-footer {
     border-top: 1px solid #3d4f5f;
@@ -136,3 +136,19 @@ document.getElementById('apm-footer').innerHTML = `
   </div>
 </footer>
 `;
+
+function injectApmFooter() {
+  var footer = document.querySelector('[data-testid="footer"]');
+  if (!footer || footer.querySelector('.apm-footer')) {
+    return;
+  }
+
+  footer.style.padding = '0';
+  footer.style.background = 'none';
+  footer.style.borderTop = 'none';
+  footer.innerHTML = apmFooterHtml;
+}
+
+var footerObserver = new MutationObserver(injectApmFooter);
+footerObserver.observe(document.body, { childList: true, subtree: true });
+injectApmFooter();
