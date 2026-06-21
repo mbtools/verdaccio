@@ -1030,6 +1030,8 @@ class Storage {
       uplinksLook: false,
     });
 
+    await this.checkAllowedToChangePackage(localPackage, username);
+
     await this.changePackage(
       name,
       { ...localPackage, maintainers: maintainers as Author[] },
