@@ -546,7 +546,7 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		if (c.securityHeaders !== false) app.use(setSecurityHeaders);
 		if (c.prototypePollutionProtection !== false) app.use(prototypePollutionProtection(this.config));
 		if (c.blockUnwantedRequests !== false) app.use(blockUnwantedRequests);
-		// if (c.userAgent) app.use(userAgentFilter(c.userAgent));
+		if (c.userAgent) app.use(userAgentFilter(c.userAgent));
 		if (c.profanityFilter !== false) app.use(profanityFilter);
 		if (c.blacklistFilter !== false) app.use(blacklistFilter);
 		if (c.eventLog !== false) app.use(eventLog(storage, this.logger));
