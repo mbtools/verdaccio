@@ -273,6 +273,9 @@ middlewares:
   '@verdaccio-pro/middleware':
     enabled: VERDACCIO_MIDDLEWARE_ENABLED
     userAgent: VERDACCIO_MIDDLEWARE_USER_AGENT
+    corsAllowedOrigins:
+      - https://playground.abappm.com
+      - https://registry.abappm.com
 
 store:
   '@verdaccio-pro/storage-sql':

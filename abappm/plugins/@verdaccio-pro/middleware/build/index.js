@@ -481,6 +481,7 @@ function resolveUser(req) {
 var eventLog = (storage, logger) => {
 	return (req, res, next) => {
 		const command = isTarballPath(req.path) ? "tarball" : req.get(APM_COMMAND_HEADER);
+		debug$3("command %o", { command });
 		if (!command || !VALID_EVENTS.has(command)) {
 			next();
 			return;
