@@ -33,28 +33,39 @@ let leo_profanity = require("leo-profanity");
 leo_profanity = __toESM(leo_profanity);
 let tldts = require("tldts");
 //#region src/middlewares/security-headers.ts
-var setSecurityHeaders = (req, res, next) => {
-	const origin = req.get("Origin");
-	if (origin) {
-		res.setHeader("Access-Control-Allow-Origin", origin);
-		res.setHeader("Access-Control-Allow-Credentials", "true");
-	} else res.setHeader("Access-Control-Allow-Origin", "*");
-	res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, PUT, POST, DELETE, OPTIONS");
-	res.setHeader("Access-Control-Allow-Headers", "Content-Type, Content-Encoding, Authorization, X-Requested-With, Accept, Origin");
-	res.setHeader("Access-Control-Expose-Headers", "Content-Length, Content-Type, Content-Encoding, ETag, Last-Modified");
-	res.setHeader("Access-Control-Max-Age", "86400");
-	if (req.method === "OPTIONS") {
-		res.status(204).end();
-		return;
-	}
-	if (req.protocol === "https" || req.get("X-Forwarded-Proto") === "https") res.setHeader("Strict-Transport-Security", "max-age=86400; includeSubDomains; preload");
-	res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self'; form-action 'self'; font-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests; report-uri https://csp.abappm.com/csp; report-to default;");
-	res.setHeader("Reporting-Endpoints", "default=\"https://csp.abappm.com/csp\"");
-	res.setHeader("Permissions-Policy", "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(self), usb=(), fullscreen=(self)");
-	res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
-	res.setHeader("X-Robots-Tag", "noindex");
-	res.setHeader("X-Powered-By", "Verdaccio");
-	next();
+var CORS_METHODS = "GET, HEAD, PUT, POST, DELETE, OPTIONS";
+var CORS_HEADERS = "Content-Type, Content-Encoding, Authorization, X-Requested-With, Accept, Origin";
+var CORS_EXPOSE = "Content-Length, Content-Type, Content-Encoding, ETag, Last-Modified";
+var normalizeOrigin = (origin) => origin.endsWith("/") ? origin.slice(0, -1) : origin;
+var setSecurityHeaders = (allowedOrigins = []) => {
+	const allowlist = new Set(allowedOrigins.map(normalizeOrigin));
+	return (req, res, next) => {
+		const origin = req.get("Origin");
+		if (origin) {
+			const normalizedOrigin = normalizeOrigin(origin);
+			if (allowlist.has(normalizedOrigin)) {
+				res.setHeader("Access-Control-Allow-Origin", normalizedOrigin);
+				res.setHeader("Access-Control-Allow-Credentials", "true");
+			} else res.setHeader("Access-Control-Allow-Origin", "*");
+			res.setHeader("Vary", "Origin");
+		} else res.setHeader("Access-Control-Allow-Origin", "*");
+		res.setHeader("Access-Control-Allow-Methods", CORS_METHODS);
+		res.setHeader("Access-Control-Allow-Headers", CORS_HEADERS);
+		res.setHeader("Access-Control-Expose-Headers", CORS_EXPOSE);
+		res.setHeader("Access-Control-Max-Age", "86400");
+		if (req.method === "OPTIONS") {
+			res.status(204).end();
+			return;
+		}
+		if (req.protocol === "https" || req.get("X-Forwarded-Proto") === "https") res.setHeader("Strict-Transport-Security", "max-age=86400; includeSubDomains; preload");
+		res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self'; form-action 'self'; font-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests; report-uri https://csp.abappm.com/csp; report-to default;");
+		res.setHeader("Reporting-Endpoints", "default=\"https://csp.abappm.com/csp\"");
+		res.setHeader("Permissions-Policy", "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(self), usb=(), fullscreen=(self)");
+		res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+		res.setHeader("X-Robots-Tag", "noindex");
+		res.setHeader("X-Powered-By", "Verdaccio");
+		next();
+	};
 };
 //#endregion
 //#region src/middlewares/block-requests.ts
@@ -405,7 +416,7 @@ var blacklistFilter = (req, res, next) => {
 var debug$3 = (0, debug.default)("verdaccio:plugin:pro:middleware:event-log");
 var APM_COMMAND_HEADER = "apm-command";
 var ANONYMOUS_USER = "#";
-var VALID_EVENTS = new Set([
+var VALID_EVENTS = /* @__PURE__ */ new Set([
 	"login",
 	"logout",
 	"user",
@@ -440,6 +451,10 @@ function packageNameFromPath(path) {
 	}
 	return basePath.split("/")[0];
 }
+function isTarballPath(path) {
+	const decoded = decodeURIComponent(path);
+	return /\/-\/[^/]+\.tgz$/.test(decoded);
+}
 function tarballFilenameFromPath(path) {
 	const decoded = decodeURIComponent(path);
 	return decoded.match(/\.tgz$/) ? decoded : null;
@@ -465,7 +480,7 @@ function resolveUser(req) {
 }
 var eventLog = (storage, logger) => {
 	return (req, res, next) => {
-		const command = req.get(APM_COMMAND_HEADER);
+		const command = isTarballPath(req.path) ? "tarball" : req.get(APM_COMMAND_HEADER);
 		if (!command || !VALID_EVENTS.has(command)) {
 			next();
 			return;
@@ -543,7 +558,7 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		if (!this.middlewareConfig.enabled) return;
 		debug$1("Verdaccio Pro Middleware plugin is enabled");
 		const c = this.middlewareConfig;
-		if (c.securityHeaders !== false) app.use(setSecurityHeaders);
+		if (c.securityHeaders !== false) app.use(setSecurityHeaders(c.corsAllowedOrigins));
 		if (c.prototypePollutionProtection !== false) app.use(prototypePollutionProtection(this.config));
 		if (c.blockUnwantedRequests !== false) app.use(blockUnwantedRequests);
 		if (c.userAgent) app.use(userAgentFilter(c.userAgent));

@@ -9,6 +9,8 @@ export interface MiddlewareConfig {
     blacklistFilter?: boolean;
     eventLog?: boolean;
     securityHeaders?: boolean;
+    /** Origins allowed credentialed CORS; all other cross-origin requests receive public wildcard CORS. */
+    corsAllowedOrigins?: string[];
     blockUnwantedRequests?: boolean;
     redirectNpmStyleUrl?: boolean;
     /** RegExp source; requests whose User-Agent header does not match are rejected. */

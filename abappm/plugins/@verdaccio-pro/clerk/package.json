@@ -38,8 +38,8 @@
     "node": ">=24"
   },
   "dependencies": {
-    "@clerk/backend": "3.7.0",
-    "@verdaccio/core": "9.0.0-next-9.19",
+    "@clerk/backend": "3.8.4",
+    "@verdaccio/core": "9.0.0-next-9.20",
     "debug": "4.4.3"
   },
   "scripts": {

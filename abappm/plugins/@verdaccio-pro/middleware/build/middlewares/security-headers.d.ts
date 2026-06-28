@@ -1,3 +1,3 @@
-import { Request, Response, NextFunction } from 'express';
-declare const setSecurityHeaders: (req: Request, res: Response, next: NextFunction) => void;
+import { RequestHandler } from 'express';
+declare const setSecurityHeaders: (allowedOrigins?: string[]) => RequestHandler;
 export default setSecurityHeaders;

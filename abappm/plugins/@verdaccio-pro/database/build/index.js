@@ -42,11 +42,11 @@ var stringBoolean = zod.default.coerce.string().transform((val) => {
 }).default(false);
 var envSchema = zod.default.object({
 	NODE_ENV: zod.default.string().default("development"),
-	DATABASE_SECRET: zod.default.string().trim().min(1).default("caramelicecream"),
+	DATABASE_SECRET: zod.default.string().trim().min(1),
 	DATABASE_URL: zod.default.string().trim().min(1).default("localhost"),
 	DB_POOL_SIZE: zod.default.coerce.number().default(22),
 	DB_SSL: stringBoolean.default(true),
-	DB_SSL_REJECT_UNAUTHORIZED: stringBoolean.default(false),
+	DB_SSL_REJECT_UNAUTHORIZED: stringBoolean.default(true),
 	DB_SSL_CA_PATH: zod.default.string().trim().optional(),
 	DB_SSL_CERT_PATH: zod.default.string().trim().optional(),
 	DB_SSL_KEY_PATH: zod.default.string().trim().optional(),
@@ -61,7 +61,7 @@ var envSchema = zod.default.object({
 	DB_IMPORTING: stringBoolean.default(false),
 	DB_DATA_DIR: zod.default.string().default("sql/data"),
 	DB_FALLBACK: stringBoolean.default(false),
-	DB_SALT: zod.default.string().default("saltypretzel")
+	DB_SALT: zod.default.string().min(1)
 });
 (0, dotenv.config)({
 	debug: false,
@@ -1375,24 +1375,34 @@ var TokenService = class TokenService {
 //#endregion
 //#region src/services/cipher.ts
 var password = ENV.DATABASE_SECRET;
-var algorithm = "aes-192-cbc";
-var keyLength = 24;
 var salt = ENV.DB_SALT;
+var algorithm = "aes-256-gcm";
+var keyLength = 32;
+var ivLength = 12;
+var authTagLength = 16;
 var scryptAsync = (0, node_util.promisify)(node_crypto.scrypt);
 async function getKey() {
 	return scryptAsync(password, salt, keyLength);
 }
 async function encrypt(text) {
 	const key = await getKey();
-	const iv = Buffer.alloc(16);
+	const iv = Buffer.alloc(ivLength);
 	await (0, node_util.promisify)(node_crypto.randomFill)(iv);
 	const cipher = (0, node_crypto.createCipheriv)(algorithm, key, iv);
 	const encrypted = cipher.update(text, "utf8", "hex") + cipher.final("hex");
-	return `${iv.toString("hex")}:${encrypted}`;
+	const authTag = cipher.getAuthTag();
+	return `${iv.toString("hex")}:${authTag.toString("hex")}:${encrypted}`;
 }
 async function decrypt(encryptedText) {
-	const [ivHex, encrypted] = encryptedText.split(":");
-	const decipher = (0, node_crypto.createDecipheriv)(algorithm, await getKey(), Buffer.from(ivHex, "hex"));
+	const parts = encryptedText.split(":");
+	if (parts.length !== 3) throw new Error("Invalid encrypted text format");
+	const [ivHex, authTagHex, encrypted] = parts;
+	const key = await getKey();
+	const iv = Buffer.from(ivHex, "hex");
+	const authTag = Buffer.from(authTagHex, "hex");
+	if (authTag.length !== authTagLength) throw new Error("Invalid authentication tag length");
+	const decipher = (0, node_crypto.createDecipheriv)(algorithm, key, iv);
+	decipher.setAuthTag(authTag);
 	return decipher.update(encrypted, "hex", "utf8") + decipher.final("utf8");
 }
 //#endregion

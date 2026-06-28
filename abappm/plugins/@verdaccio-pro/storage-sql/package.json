@@ -37,12 +37,12 @@
     "node": ">=24"
   },
   "dependencies": {
-    "@verdaccio/config": "9.0.0-next-9.19",
-    "@verdaccio/core": "9.0.0-next-9.19",
-    "@verdaccio/logger": "9.0.0-next-9.19",
+    "@verdaccio/config": "9.0.0-next-9.20",
+    "@verdaccio/core": "9.0.0-next-9.20",
+    "@verdaccio/logger": "9.0.0-next-9.20",
     "@verdaccio-pro/database": "file:../database/verdaccio-pro-database-1.4.2.tgz",
     "debug": "4.4.3",
-    "drizzle-orm": "1.0.0-rc.3"
+    "drizzle-orm": "1.0.0-rc.4"
   },
   "scripts": {
     "build": "vite build",

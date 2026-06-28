@@ -36,11 +36,11 @@
     "node": ">=24"
   },
   "dependencies": {
-    "@verdaccio/core": "9.0.0-next-9.19",
+    "@verdaccio/core": "9.0.0-next-9.20",
     "debug": "4.4.3",
     "dotenv": "17.4.2",
-    "drizzle-orm": "1.0.0-rc.3",
-    "pg": "8.21.0",
+    "drizzle-orm": "1.0.0-rc.4",
+    "pg": "8.22.0",
     "zod": "4.4.3"
   },
   "scripts": {
@@ -59,6 +59,7 @@
     "db:seed": "cross-env DB_SEEDING=true tsx src/db/tools/seed.ts",
     "db:reset": "cross-env DB_RESET=true tsx src/db/tools/reset.ts",
     "db:export": "cross-env DB_EXPORTING=true tsx src/db/tools/export.ts",
-    "db:import": "cross-env DB_IMPORTING=true tsx src/db/tools/import.ts"
+    "db:import": "cross-env DB_IMPORTING=true tsx src/db/tools/import.ts",
+    "db:repair": "tsx src/db/tools/repair.ts"
   }
 }
