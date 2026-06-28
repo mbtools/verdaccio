@@ -37,12 +37,19 @@ let stream = require("stream");
 let node_crypto = require("node:crypto");
 let node_util = require("node:util");
 //#region src/env.ts
+var PRODUCTION_REQUIRED_ENV = [
+	"DATABASE_SECRET",
+	"DB_SALT",
+	"DATABASE_URL"
+];
+var DEV_DEFAULT_DATABASE_SECRET = "caramelicecream";
+var DEV_DEFAULT_DB_SALT = "saltypretzel";
 var stringBoolean = zod.default.coerce.string().transform((val) => {
 	return val === "true";
 }).default(false);
 var envSchema = zod.default.object({
 	NODE_ENV: zod.default.string().default("development"),
-	DATABASE_SECRET: zod.default.string().trim().min(1),
+	DATABASE_SECRET: zod.default.string().trim().min(1).default(DEV_DEFAULT_DATABASE_SECRET),
 	DATABASE_URL: zod.default.string().trim().min(1).default("localhost"),
 	DB_POOL_SIZE: zod.default.coerce.number().default(22),
 	DB_SSL: stringBoolean.default(true),
@@ -61,37 +68,49 @@ var envSchema = zod.default.object({
 	DB_IMPORTING: stringBoolean.default(false),
 	DB_DATA_DIR: zod.default.string().default("sql/data"),
 	DB_FALLBACK: stringBoolean.default(false),
-	DB_SALT: zod.default.string().min(1)
+	DB_SALT: zod.default.string().min(1).default(DEV_DEFAULT_DB_SALT)
 });
 (0, dotenv.config)({
 	debug: false,
 	quiet: true
 });
-var envServer = envSchema.safeParse({
-	NODE_ENV: process.env.NODE_ENV,
-	DATABASE_SECRET: process.env.DATABASE_SECRET,
-	DATABASE_URL: process.env.DATABASE_URL,
-	DB_POOL_SIZE: process.env.DB_POOL_SIZE,
-	DB_SSL: process.env.DB_SSL,
-	DB_SSL_REJECT_UNAUTHORIZED: process.env.DB_SSL_REJECT_UNAUTHORIZED,
-	DB_SSL_CA_PATH: process.env.DB_SSL_CA_PATH,
-	DB_SSL_CERT_PATH: process.env.DB_SSL_CERT_PATH,
-	DB_SSL_KEY_PATH: process.env.DB_SSL_KEY_PATH,
-	DB_SSL_CA: process.env.DB_SSL_CA,
-	DB_SSL_CERT: process.env.DB_SSL_CERT,
-	DB_SSL_KEY: process.env.DB_SSL_KEY,
-	DB_LOGGING: process.env.DB_LOGGING,
-	DB_MIGRATING: process.env.DB_MIGRATING,
-	DB_SEEDING: process.env.DB_SEEDING,
-	DB_RESET: process.env.DB_RESET,
-	DB_EXPORTING: process.env.DB_EXPORTING,
-	DB_IMPORTING: process.env.DB_IMPORTING,
-	DB_DATA_DIR: process.env.DB_DATA_DIR,
-	DB_FALLBACK: process.env.DB_FALLBACK,
-	DB_SALT: process.env.DB_SALT
-});
+function collectEnvInput() {
+	return {
+		NODE_ENV: process.env.NODE_ENV,
+		DATABASE_SECRET: process.env.DATABASE_SECRET,
+		DATABASE_URL: process.env.DATABASE_URL,
+		DB_POOL_SIZE: process.env.DB_POOL_SIZE,
+		DB_SSL: process.env.DB_SSL,
+		DB_SSL_REJECT_UNAUTHORIZED: process.env.DB_SSL_REJECT_UNAUTHORIZED,
+		DB_SSL_CA_PATH: process.env.DB_SSL_CA_PATH,
+		DB_SSL_CERT_PATH: process.env.DB_SSL_CERT_PATH,
+		DB_SSL_KEY_PATH: process.env.DB_SSL_KEY_PATH,
+		DB_SSL_CA: process.env.DB_SSL_CA,
+		DB_SSL_CERT: process.env.DB_SSL_CERT,
+		DB_SSL_KEY: process.env.DB_SSL_KEY,
+		DB_LOGGING: process.env.DB_LOGGING,
+		DB_MIGRATING: process.env.DB_MIGRATING,
+		DB_SEEDING: process.env.DB_SEEDING,
+		DB_RESET: process.env.DB_RESET,
+		DB_EXPORTING: process.env.DB_EXPORTING,
+		DB_IMPORTING: process.env.DB_IMPORTING,
+		DB_DATA_DIR: process.env.DB_DATA_DIR,
+		DB_FALLBACK: process.env.DB_FALLBACK,
+		DB_SALT: process.env.DB_SALT
+	};
+}
+function assertProductionSecurity(env) {
+	if (env.NODE_ENV !== "production") return;
+	const missing = PRODUCTION_REQUIRED_ENV.filter((key) => !process.env[key]?.trim());
+	if (missing.length > 0) throw new Error(`Missing required environment variables in production: ${missing.join(", ")}`);
+	if (env.DATABASE_SECRET === DEV_DEFAULT_DATABASE_SECRET) throw new Error("DATABASE_SECRET must not use the development default in production");
+	if (env.DB_SALT === DEV_DEFAULT_DB_SALT) throw new Error("DB_SALT must not use the development default in production");
+	if (env.DB_SSL && !env.DB_SSL_REJECT_UNAUTHORIZED) throw new Error("DB_SSL_REJECT_UNAUTHORIZED must not be disabled in production");
+}
+var envServer = envSchema.safeParse(collectEnvInput());
 if (!envServer.success) throw new Error(envServer.error.message);
-var ENV = envSchema.parse(process.env);
+assertProductionSecurity(envServer.data);
+var ENV = envServer.data;
 var RESET = "\x1B[0m";
 //#endregion
 //#region src/db/logger.ts

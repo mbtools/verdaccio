@@ -1,7 +1,7 @@
 import { default as z } from 'zod';
 declare const envSchema: z.ZodObject<{
     NODE_ENV: z.ZodDefault<z.ZodString>;
-    DATABASE_SECRET: z.ZodString;
+    DATABASE_SECRET: z.ZodDefault<z.ZodString>;
     DATABASE_URL: z.ZodDefault<z.ZodString>;
     DB_POOL_SIZE: z.ZodDefault<z.ZodCoercedNumber<unknown>>;
     DB_SSL: z.ZodDefault<z.ZodDefault<z.ZodPipe<z.ZodCoercedString<unknown>, z.ZodTransform<boolean, string>>>>;
@@ -20,7 +20,7 @@ declare const envSchema: z.ZodObject<{
     DB_IMPORTING: z.ZodDefault<z.ZodDefault<z.ZodPipe<z.ZodCoercedString<unknown>, z.ZodTransform<boolean, string>>>>;
     DB_DATA_DIR: z.ZodDefault<z.ZodString>;
     DB_FALLBACK: z.ZodDefault<z.ZodDefault<z.ZodPipe<z.ZodCoercedString<unknown>, z.ZodTransform<boolean, string>>>>;
-    DB_SALT: z.ZodString;
+    DB_SALT: z.ZodDefault<z.ZodString>;
 }, z.core.$strip>;
 type Env = z.infer<typeof envSchema>;
 export declare const ENV: Env;
