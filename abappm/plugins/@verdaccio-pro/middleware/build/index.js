@@ -92,6 +92,11 @@ var redirectNpmStyleUrl = (logger) => {
 	};
 };
 //#endregion
+//#region src/middlewares/redirect-robots.ts
+var redirectRobotsTxt = (_req, res) => {
+	res.redirect("/-/assets/robots.txt");
+};
+//#endregion
 //#region src/middlewares/prototype-pollution.ts
 var prototypePollutionProtection = (config) => {
 	return express.default.json({
@@ -574,6 +579,7 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		if (c.blacklistFilter !== false) app.use(blacklistFilter);
 		if (c.eventLog !== false) app.use(eventLog(storage, this.logger));
 		if (c.redirectNpmStyleUrl !== false) app.use("/package/{*all}", redirectNpmStyleUrl(this.logger));
+		app.get("/robots.txt", redirectRobotsTxt);
 	}
 };
 //#endregion

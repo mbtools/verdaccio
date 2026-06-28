@@ -1,0 +1,21 @@
+#                                     
+#     o O O   __ _     ___    _ _     
+#    o       / _` |   | _ \  | ' \    
+#   TS__[O]  \__,_|   | ,_/  |_||_|   
+#  {======|__|"""""|_||_|""|_|"""""|_
+# ./o--000'""`-0-0-'"`-0-0-'"`-0-0-'"
+# 
+# By accessing apm.to websites you agree to our Terms of Service, available at
+# https://abappm.com/terms-of-use/
+#
+# As always, Asimov's Three Laws are in effect:
+# 1. A robot may not injure a human being or, through inaction, allow a human being to come to harm.
+# 2. A robot must obey orders given it by human beings except where such orders would conflict with the First Law.
+# 3. A robot must protect its own existence as long as such protection does not conflict with the First or Second Law.
+
+User-Agent: *
+
+Allow: *
+Disallow: *.tgz
+
+# Sitemap: https://abappm.com/sitemap.xml
