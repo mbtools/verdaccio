@@ -478,10 +478,16 @@ function resolveUser(req) {
 	if (loginMatch) return loginMatch[1];
 	return ANONYMOUS_USER;
 }
+function resolveStorage(storage) {
+	if (typeof storage?.logActivity === "function" || typeof storage?.incrementDownloads === "function") return storage;
+	const plugin = storage?.localStorage?.getStoragePlugin?.();
+	if (plugin && (typeof plugin.logActivity === "function" || typeof plugin.incrementDownloads === "function")) return plugin;
+	return storage;
+}
 var eventLog = (storage, logger) => {
 	return (req, res, next) => {
 		const command = isTarballPath(req.path) ? "tarball" : req.get(APM_COMMAND_HEADER);
-		debug$3("command %o", { command });
+		debug$3("command %o", command);
 		if (!command || !VALID_EVENTS.has(command)) {
 			next();
 			return;
@@ -493,13 +499,14 @@ var eventLog = (storage, logger) => {
 		}
 		const { name, version } = parsePackageFromUrl(req.path);
 		const user = resolveUser(req);
-		if (typeof storage.logActivity === "function") {
+		const store = resolveStorage(storage);
+		if (typeof store.logActivity === "function") {
 			debug$3("logging activity %o", {
 				command,
 				name,
 				version
 			});
-			storage.logActivity(user, method, command, name, version).catch((error) => {
+			store.logActivity(user, method, command, name, version).catch((error) => {
 				const errorMsg = error instanceof Error ? error.message : String(error);
 				logger.error({
 					error: errorMsg,
@@ -509,11 +516,11 @@ var eventLog = (storage, logger) => {
 				}, "failed to log activity");
 			});
 		}
-		if (typeof storage.incrementDownloads === "function" && command === "tarball") {
+		if (typeof store.incrementDownloads === "function" && command === "tarball") {
 			const filename = tarballFilenameFromPath(req.path);
 			if (filename) {
 				debug$3("incrementing downloads %o", { filename });
-				storage.incrementDownloads(filename).catch((error) => {
+				store.incrementDownloads(filename).catch((error) => {
 					const errorMsg = error instanceof Error ? error.message : String(error);
 					logger.error({
 						error: errorMsg,
