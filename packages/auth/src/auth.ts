@@ -217,6 +217,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     password: string,
     cb: (error: VerdaccioError | null, user?: RemoteUser) => void
   ): void {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     const plugins = this.plugins.slice(0);
     debug('add user %o', user);
@@ -462,11 +463,11 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
 
       const { authorization } = req.headers;
       if (isNil(authorization)) {
-        debug('jwt, authentication header is missing');
+        // debug('jwt, authentication header is missing'); // apm
         return next();
       }
 
-      if (!isAuthHeaderValid(authorization)) {
+      if (typeof authorization !== 'string' || !isAuthHeaderValid(authorization)) {
         debug('api middleware authentication heather is invalid');
         return next(errorUtils.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
       }
@@ -594,7 +595,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         return next();
       }
 
-      if (!isAuthHeaderValid(authorization)) {
+      if (typeof authorization !== 'string' || !isAuthHeaderValid(authorization)) {
         return next(errorUtils.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
       }
 
