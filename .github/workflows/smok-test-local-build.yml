@@ -110,10 +110,15 @@ jobs:
             fi
           done
       - name: Install lodash through verdaccio
+        env:
+          NPM_TOKEN: ''
+          NODE_AUTH_TOKEN: ''
         run: |
           mkdir /tmp/test-project && cd /tmp/test-project
+          echo "registry=http://localhost:4873" > .npmrc
           npm init -y
-          npm install lodash --registry http://localhost:4873 2>&1 | tee /tmp/npm-install.log
+          npm ping
+          npm install lodash 2>&1 | tee /tmp/npm-install.log
           # Verify lodash was installed
           if [ ! -d node_modules/lodash ]; then
             echo "::error::lodash was not installed"
