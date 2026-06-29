@@ -19,7 +19,7 @@ plugins: /verdaccio/plugins
 # Web UI settings
 # https://verdaccio.org/docs/webui
 web:
-  title: apm - A Package Manager for ABAP
+  title: VERDACCIO_WEB_TITLE
   # Disable complete web UI
   enable: true
   # Custom colors for header background and font
@@ -50,7 +50,6 @@ web:
   #
   # HTML tags injected before ends </head>
   metaScripts:
-    - '<meta name="robots" content="noindex">'
     - '<meta name="description" content="apm - A Package Manager 📦, a Website 🌐, and a Registry 📑 for ABAP">'
   #
   # HTML tags injected as first child in <body>
