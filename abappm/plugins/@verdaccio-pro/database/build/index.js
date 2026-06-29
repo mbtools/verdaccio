@@ -426,16 +426,22 @@ var tarballs = (0, drizzle_orm_pg_core.pgTable)("tarballs", {
 ] })]);
 /**
 * Downloads
+*
+* All PK columns must be NOT NULL. Unused dimensions use sentinel defaults.
 */
+var DOWNLOAD_AGGREGATE_KEY = "";
+var DOWNLOAD_AGGREGATE_YEAR = 0;
+var DOWNLOAD_AGGREGATE_MONTH = 0;
+var DOWNLOAD_AGGREGATE_DATE = "1970-01-01";
 var downloads = (0, drizzle_orm_pg_core.pgTable)("downloads", {
 	id: (0, drizzle_orm_pg_core.serial)().unique(),
-	org_id: (0, drizzle_orm_pg_core.integer)().references(() => orgs.id),
+	org_id: (0, drizzle_orm_pg_core.integer)().notNull().references(() => orgs.id),
 	timeslice: timesliceEnum().notNull().$type(),
-	year: (0, drizzle_orm_pg_core.integer)(),
-	month: (0, drizzle_orm_pg_core.integer)(),
-	date: (0, drizzle_orm_pg_core.date)(),
-	name: (0, drizzle_orm_pg_core.text)(),
-	version: (0, drizzle_orm_pg_core.text)(),
+	year: (0, drizzle_orm_pg_core.integer)().notNull().default(0),
+	month: (0, drizzle_orm_pg_core.integer)().notNull().default(0),
+	date: (0, drizzle_orm_pg_core.date)().notNull().default(DOWNLOAD_AGGREGATE_DATE),
+	name: (0, drizzle_orm_pg_core.text)().notNull().default(""),
+	version: (0, drizzle_orm_pg_core.text)().notNull().default(""),
 	count: (0, drizzle_orm_pg_core.integer)().notNull()
 }, (t) => [(0, drizzle_orm_pg_core.primaryKey)({ columns: [
 	t.org_id,
@@ -689,8 +695,8 @@ var DownloadsService = class {
 				year,
 				month,
 				date: today,
-				name: null,
-				version: null,
+				name: "",
+				version: "",
 				count: 1
 			},
 			{
@@ -698,29 +704,29 @@ var DownloadsService = class {
 				timeslice: "m",
 				year,
 				month,
-				date: null,
-				name: null,
-				version: null,
+				date: DOWNLOAD_AGGREGATE_DATE,
+				name: "",
+				version: "",
 				count: 1
 			},
 			{
 				org_id,
 				timeslice: "y",
 				year,
-				month: null,
-				date: null,
-				name: null,
-				version: null,
+				month: 0,
+				date: DOWNLOAD_AGGREGATE_DATE,
+				name: "",
+				version: "",
 				count: 1
 			},
 			{
 				org_id,
 				timeslice: "t",
-				year: null,
-				month: null,
-				date: null,
-				name: null,
-				version: null,
+				year: 0,
+				month: 0,
+				date: DOWNLOAD_AGGREGATE_DATE,
+				name: "",
+				version: "",
 				count: 1
 			}
 		];
@@ -747,7 +753,7 @@ var DownloadsService = class {
 		return (await this.db.select({
 			date: downloads.date,
 			count: (0, drizzle_orm.sum)(downloads.count)
-		}).from(downloads).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(downloads.timeslice, timeslice), (0, drizzle_orm.between)(downloads.date, startDate, endDate), (0, drizzle_orm.isNull)(downloads.name))).groupBy(downloads.date).orderBy(downloads.date)).map((d) => ({
+		}).from(downloads).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(downloads.timeslice, timeslice), (0, drizzle_orm.between)(downloads.date, startDate, endDate), (0, drizzle_orm.eq)(downloads.name, ""))).groupBy(downloads.date).orderBy(downloads.date)).map((d) => ({
 			date: d.date,
 			count: Number(d.count)
 		}));
@@ -1208,7 +1214,7 @@ var PackageService = class PackageService {
 				debug$5("dist-tags error: %o", error);
 			}
 			try {
-				await tx.delete(metadata).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(metadata.org_id, org_id), (0, drizzle_orm.eq)(metadata.name, name)));
+				await tx.update(metadata).set({ deleted: /* @__PURE__ */ new Date() }).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(metadata.org_id, org_id), (0, drizzle_orm.eq)(metadata.name, name)));
 				debug$5("package metadata deleted successfully");
 			} catch (error) {
 				debug$5("package metadata error: %o", error);
@@ -1605,6 +1611,10 @@ var VerdaccioSecretService = class {
 };
 //#endregion
 exports.ANONYMOUS_USER = ANONYMOUS_USER;
+exports.DOWNLOAD_AGGREGATE_DATE = DOWNLOAD_AGGREGATE_DATE;
+exports.DOWNLOAD_AGGREGATE_KEY = DOWNLOAD_AGGREGATE_KEY;
+exports.DOWNLOAD_AGGREGATE_MONTH = DOWNLOAD_AGGREGATE_MONTH;
+exports.DOWNLOAD_AGGREGATE_YEAR = DOWNLOAD_AGGREGATE_YEAR;
 exports.DownloadsService = DownloadsService;
 exports.ENV = ENV;
 exports.EventLogService = EventLogService;

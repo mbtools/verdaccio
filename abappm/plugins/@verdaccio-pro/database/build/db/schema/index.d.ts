@@ -2098,7 +2098,13 @@ export declare const tarballs: import('../../../node_modules/drizzle-orm/pg-core
 }>;
 /**
  * Downloads
+ *
+ * All PK columns must be NOT NULL. Unused dimensions use sentinel defaults.
  */
+export declare const DOWNLOAD_AGGREGATE_KEY = "";
+export declare const DOWNLOAD_AGGREGATE_YEAR = 0;
+export declare const DOWNLOAD_AGGREGATE_MONTH = 0;
+export declare const DOWNLOAD_AGGREGATE_DATE = "1970-01-01";
 export declare const downloads: import('../../../node_modules/drizzle-orm/pg-core').PgTableWithColumns<{
     name: "downloads";
     schema: undefined;
@@ -2118,13 +2124,13 @@ export declare const downloads: import('../../../node_modules/drizzle-orm/pg-cor
             identity: undefined;
             generated: undefined;
         }>;
-        org_id: import('../../../node_modules/drizzle-orm/pg-core').PgBuildColumn<"downloads", import('../../../node_modules/drizzle-orm/pg-core').PgIntegerBuilder, {
+        org_id: import('../../../node_modules/drizzle-orm/pg-core').PgBuildColumn<"downloads", import('../../../node_modules/drizzle-orm/pg-core').SetNotNull<import('../../../node_modules/drizzle-orm/pg-core').PgIntegerBuilder>, {
             name: string;
             tableName: "downloads";
             dataType: "number int32";
             data: number;
             driverParam: string | number;
-            notNull: false;
+            notNull: true;
             hasDefault: false;
             isPrimaryKey: false;
             isAutoincrement: false;
@@ -2148,14 +2154,14 @@ export declare const downloads: import('../../../node_modules/drizzle-orm/pg-cor
             identity: undefined;
             generated: undefined;
         }>;
-        year: import('../../../node_modules/drizzle-orm/pg-core').PgBuildColumn<"downloads", import('../../../node_modules/drizzle-orm/pg-core').PgIntegerBuilder, {
+        year: import('../../../node_modules/drizzle-orm/pg-core').PgBuildColumn<"downloads", import('../../../node_modules/drizzle-orm/pg-core').SetHasDefault<import('../../../node_modules/drizzle-orm/pg-core').SetNotNull<import('../../../node_modules/drizzle-orm/pg-core').PgIntegerBuilder>>, {
             name: string;
             tableName: "downloads";
             dataType: "number int32";
             data: number;
             driverParam: string | number;
-            notNull: false;
-            hasDefault: false;
+            notNull: true;
+            hasDefault: true;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;
@@ -2163,14 +2169,14 @@ export declare const downloads: import('../../../node_modules/drizzle-orm/pg-cor
             identity: undefined;
             generated: undefined;
         }>;
-        month: import('../../../node_modules/drizzle-orm/pg-core').PgBuildColumn<"downloads", import('../../../node_modules/drizzle-orm/pg-core').PgIntegerBuilder, {
+        month: import('../../../node_modules/drizzle-orm/pg-core').PgBuildColumn<"downloads", import('../../../node_modules/drizzle-orm/pg-core').SetHasDefault<import('../../../node_modules/drizzle-orm/pg-core').SetNotNull<import('../../../node_modules/drizzle-orm/pg-core').PgIntegerBuilder>>, {
             name: string;
             tableName: "downloads";
             dataType: "number int32";
             data: number;
             driverParam: string | number;
-            notNull: false;
-            hasDefault: false;
+            notNull: true;
+            hasDefault: true;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;
@@ -2178,14 +2184,14 @@ export declare const downloads: import('../../../node_modules/drizzle-orm/pg-cor
             identity: undefined;
             generated: undefined;
         }>;
-        date: import('../../../node_modules/drizzle-orm/pg-core').PgBuildColumn<"downloads", import('../../../node_modules/drizzle-orm/pg-core').PgDateStringBuilder, {
+        date: import('../../../node_modules/drizzle-orm/pg-core').PgBuildColumn<"downloads", import('../../../node_modules/drizzle-orm/pg-core').SetHasDefault<import('../../../node_modules/drizzle-orm/pg-core').SetNotNull<import('../../../node_modules/drizzle-orm/pg-core').PgDateStringBuilder>>, {
             name: string;
             tableName: "downloads";
             dataType: "string date";
             data: string;
             driverParam: string;
-            notNull: false;
-            hasDefault: false;
+            notNull: true;
+            hasDefault: true;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;
@@ -2193,14 +2199,14 @@ export declare const downloads: import('../../../node_modules/drizzle-orm/pg-cor
             identity: undefined;
             generated: undefined;
         }>;
-        name: import('../../../node_modules/drizzle-orm/pg-core').PgBuildColumn<"downloads", import('../../../node_modules/drizzle-orm/pg-core').PgTextBuilder<[string, ...string[]]>, {
+        name: import('../../../node_modules/drizzle-orm/pg-core').PgBuildColumn<"downloads", import('../../../node_modules/drizzle-orm/pg-core').SetHasDefault<import('../../../node_modules/drizzle-orm/pg-core').SetNotNull<import('../../../node_modules/drizzle-orm/pg-core').PgTextBuilder<[string, ...string[]]>>>, {
             name: string;
             tableName: "downloads";
             dataType: "string";
             data: string;
             driverParam: string;
-            notNull: false;
-            hasDefault: false;
+            notNull: true;
+            hasDefault: true;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;
@@ -2208,14 +2214,14 @@ export declare const downloads: import('../../../node_modules/drizzle-orm/pg-cor
             identity: undefined;
             generated: undefined;
         }>;
-        version: import('../../../node_modules/drizzle-orm/pg-core').PgBuildColumn<"downloads", import('../../../node_modules/drizzle-orm/pg-core').PgTextBuilder<[string, ...string[]]>, {
+        version: import('../../../node_modules/drizzle-orm/pg-core').PgBuildColumn<"downloads", import('../../../node_modules/drizzle-orm/pg-core').SetHasDefault<import('../../../node_modules/drizzle-orm/pg-core').SetNotNull<import('../../../node_modules/drizzle-orm/pg-core').PgTextBuilder<[string, ...string[]]>>>, {
             name: string;
             tableName: "downloads";
             dataType: "string";
             data: string;
             driverParam: string;
-            notNull: false;
-            hasDefault: false;
+            notNull: true;
+            hasDefault: true;
             isPrimaryKey: false;
             isAutoincrement: false;
             hasRuntimeDefault: false;
