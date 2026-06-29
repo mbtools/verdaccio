@@ -2,12 +2,13 @@ export { DownloadsService, type Downloads, type DownloadsByVersion } from './dow
 export { EventLogService, ANONYMOUS_USER, type Method } from './event-log';
 export { GlobalTadirService } from './gtadir';
 export { LocalPackagesService } from './local-package';
-export { type metadataVersion, type readmeVersion, clearReadmesFromManifest, getMetadataFromManifest, getReadmesFromManifest, mergeReadmesIntoManifest, } from './manifest';
+export { type metadataVersion, type readmeVersion, stripReadmesFromManifest as clearReadmesFromManifest, getMetadataFromManifest, getReadmesFromManifest, mergeReadmesIntoManifest, } from './manifest';
+export { effectiveAccess, extractAccessFromPublishBody, isValidPackageAccess, resolveStoredAccess, SCOPED_DEFAULT_ACCESS, stripAccessFromManifest, type PackageAccess, type PublishBody, } from './access';
 export { OrgService, PUBLIC_PACKAGES, resolveOrgName } from './org';
 export { PackageService, type DistTagsList } from './package';
 export { TarballService } from './tarball';
 export { TenantService } from './tenant';
 export { TokenService, type Token } from './token';
 export { UserSecretsService } from './user-secrets';
-export { getISODate, getISODates, getNameFromPackageAndScope, getScopeFromName, getPackageFromName, getPackageInfoFromPath as getPackageInfoFromFilename, unescapeHtmlEntities, } from './utils';
+export { getISODate, getISODates, getNameFromPackageAndScope, getScopeFromName, getPackageFromName, getPackageInfoFromPath as getPackageInfoFromFilename, isScopedPackage, unescapeHtmlEntities, } from './utils';
 export { VerdaccioSecretService } from './verdaccio-secret';

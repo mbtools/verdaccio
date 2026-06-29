@@ -6,7 +6,6 @@ type PackageKeyedTable = {
 };
 export declare function addError(ctx: CheckContext, message: string): void;
 export declare function addWarning(ctx: CheckContext, message: string): void;
-export declare function isScopedPackage(name: string): boolean;
 export declare function orgIdCondition(table: PackageKeyedTable, orgId: number | null): SQL | undefined;
 export declare function packageKeyCondition(table: PackageKeyedTable, orgId: number | null, packageName: string): SQL | undefined;
 export declare function validateScopedOrgId(ctx: CheckContext, packageName: string, orgId: number | null): boolean;

@@ -1,3 +1,4 @@
+export declare const accessEnum: import('../../../node_modules/drizzle-orm/pg-core').PgEnum<["public", "restricted"]>;
 export declare const permissionEnum: import('../../../node_modules/drizzle-orm/pg-core').PgEnum<["r", "w"]>;
 export declare const timesliceEnum: import('../../../node_modules/drizzle-orm/pg-core').PgEnum<["d", "m", "y", "t"]>;
 export declare const methodEnum: import('../../../node_modules/drizzle-orm/pg-core').PgEnum<["get", "post", "put", "delete"]>;
@@ -1318,6 +1319,21 @@ export declare const packages: import('../../../node_modules/drizzle-orm/pg-core
             isAutoincrement: false;
             hasRuntimeDefault: false;
             enumValues: undefined;
+            identity: undefined;
+            generated: undefined;
+        }>;
+        access: import('../../../node_modules/drizzle-orm/pg-core').PgBuildColumn<"packages", import('../../../node_modules/drizzle-orm/pg-core').Set$Type<import('../../../node_modules/drizzle-orm/pg-core').PgEnumColumnBuilder<["public", "restricted"]>, "public" | "restricted">, {
+            name: string;
+            tableName: "packages";
+            dataType: "string enum";
+            data: "public" | "restricted";
+            driverParam: string;
+            notNull: false;
+            hasDefault: false;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: ["public", "restricted"];
             identity: undefined;
             generated: undefined;
         }>;

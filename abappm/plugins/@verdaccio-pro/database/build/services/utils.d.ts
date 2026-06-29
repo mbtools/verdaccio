@@ -1,3 +1,4 @@
+export declare const isScopedPackage: (name: string) => boolean;
 export declare const getScopeFromName: (name: string) => string;
 export declare const getPackageFromName: (name: string) => string;
 export declare const getNameFromPackageAndScope: (packageName: string, scope: string) => string;

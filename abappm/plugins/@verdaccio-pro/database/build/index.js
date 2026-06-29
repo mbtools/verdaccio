@@ -171,6 +171,7 @@ var timestampsDeleted = {
 	...timestamps,
 	deleted: (0, drizzle_orm_pg_core.timestamp)()
 };
+var accessEnum = (0, drizzle_orm_pg_core.pgEnum)("access", ["public", "restricted"]);
 var permissionEnum = (0, drizzle_orm_pg_core.pgEnum)("permissions", ["r", "w"]);
 var timesliceEnum = (0, drizzle_orm_pg_core.pgEnum)("timeslices", [
 	"d",
@@ -321,6 +322,7 @@ var packages = (0, drizzle_orm_pg_core.pgTable)("packages", {
 	org_id: (0, drizzle_orm_pg_core.integer)().references(() => orgs.id),
 	name: (0, drizzle_orm_pg_core.text)().notNull(),
 	json: (0, drizzle_orm_pg_core.jsonb)().notNull(),
+	access: accessEnum().$type(),
 	...timestampsDeleted
 }, (t) => [(0, drizzle_orm_pg_core.primaryKey)({ columns: [t.org_id, t.name] })]);
 /**
@@ -581,6 +583,9 @@ var counterSchema = (0, drizzle_orm_pg_core.pgTable)("counter", {
 });
 //#endregion
 //#region src/services/utils.ts
+var isScopedPackage = (name) => {
+	return name.startsWith("@") && name.includes("/");
+};
 var getScopeFromName = (name) => {
 	return name.startsWith("@") ? name.split("/")[0] : "";
 };
@@ -959,7 +964,7 @@ var getReadmesFromManifest = (manifest) => {
 	});
 	return readmes;
 };
-var clearReadmesFromManifest = (manifest) => {
+var stripReadmesFromManifest = (manifest) => {
 	const manifestCopy = JSON.parse(JSON.stringify(manifest));
 	for (const version in manifestCopy.versions) manifestCopy.versions[version].readdown = "";
 	manifestCopy.readme = "";
@@ -986,6 +991,28 @@ var getMetadataFromManifest = (manifest) => {
 	return metadata;
 };
 //#endregion
+//#region src/services/access.ts
+var SCOPED_DEFAULT_ACCESS = "restricted";
+function isValidPackageAccess(value) {
+	return value === "public" || value === "restricted";
+}
+function resolveStoredAccess(name, requestedAccess) {
+	if (!isScopedPackage(name)) return null;
+	if (requestedAccess && isValidPackageAccess(requestedAccess)) return requestedAccess;
+	return SCOPED_DEFAULT_ACCESS;
+}
+function extractAccessFromPublishBody(manifest) {
+	if (isValidPackageAccess(manifest.access)) return manifest.access;
+}
+function stripAccessFromManifest(manifest) {
+	const { access: _access, ...manifestWithoutAccess } = manifest;
+	return manifestWithoutAccess;
+}
+function effectiveAccess(name, stored) {
+	if (!isScopedPackage(name)) return "public";
+	return stored ?? "restricted";
+}
+//#endregion
 //#region src/services/package.ts
 var debug$5 = (0, debug.default)("verdaccio:plugin:pro:db");
 var PackageService = class PackageService {
@@ -1000,9 +1027,28 @@ var PackageService = class PackageService {
 		debug$5("package exists: %o", exists);
 		return exists;
 	}
-	async create(name, manifest) {
-		await this.save(name, manifest);
+	async create(name, manifest, options) {
+		await this.save(name, manifest, options);
 		debug$5("package created successfully");
+	}
+	async getAccess(name) {
+		return effectiveAccess(name, await this.getStoredAccess(name));
+	}
+	async setAccess(name, access) {
+		if (!isScopedPackage(name)) throw _verdaccio_core.errorUtils.getBadRequest("Access can only be changed for scoped packages");
+		if (!isValidPackageAccess(access)) throw _verdaccio_core.errorUtils.getBadRequest("Invalid access value");
+		const org_id = await this.tenant.get(name);
+		const [updated] = await this.db.update(packages).set({
+			access,
+			updated: /* @__PURE__ */ new Date()
+		}).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(packages.org_id, org_id), (0, drizzle_orm.eq)(packages.name, name), (0, drizzle_orm.isNull)(packages.deleted))).returning({ name: packages.name });
+		if (!updated) throw _verdaccio_core.errorUtils.getNotFound("package not found");
+		debug$5("package access set to %o", access);
+	}
+	async getStoredAccess(name) {
+		const org_id = await this.tenant.get(name);
+		const [row] = await this.db.select({ access: packages.access }).from(packages).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(packages.org_id, org_id), (0, drizzle_orm.eq)(packages.name, name), (0, drizzle_orm.isNull)(packages.deleted)));
+		return row?.access ?? null;
 	}
 	async read(name, noThrow) {
 		const org_id = await this.tenant.get(name);
@@ -1018,9 +1064,16 @@ var PackageService = class PackageService {
 		debug$5("package read successfully");
 		return manifestMerged;
 	}
-	async save(name, manifest) {
+	async save(name, manifest, options) {
 		const org_id = await this.tenant.get(name);
+		const publishAccess = options?.access ?? extractAccessFromPublishBody(manifest);
 		await this.db.transaction(async (tx) => {
+			let accessToStore;
+			if (publishAccess !== void 0) accessToStore = resolveStoredAccess(name, publishAccess);
+			else {
+				const [existing] = await tx.select({ access: packages.access }).from(packages).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(packages.org_id, org_id), (0, drizzle_orm.eq)(packages.name, name), (0, drizzle_orm.isNull)(packages.deleted)));
+				accessToStore = existing?.access ?? resolveStoredAccess(name);
+			}
 			const tags = manifest["dist-tags"];
 			const distTagsData = Object.entries(tags).map(([tag, version]) => ({
 				org_id,
@@ -1092,19 +1145,22 @@ var PackageService = class PackageService {
 				debug$5("package metadata error: %o", error);
 				tx.rollback();
 			}
-			const manifestClean = clearReadmesFromManifest(manifest);
+			const manifestClean = stripAccessFromManifest(stripReadmesFromManifest(manifest));
+			const packageUpdateSet = {
+				json: drizzle_orm.sql`excluded.json`,
+				updated: /* @__PURE__ */ new Date(),
+				deleted: null
+			};
+			if (publishAccess !== void 0) packageUpdateSet.access = accessToStore;
 			try {
 				await tx.insert(packages).values({
 					org_id,
 					name,
-					json: manifestClean
+					json: manifestClean,
+					access: accessToStore
 				}).onConflictDoUpdate({
 					target: [packages.org_id, packages.name],
-					set: {
-						json: drizzle_orm.sql`excluded.json`,
-						updated: /* @__PURE__ */ new Date(),
-						deleted: null
-					}
+					set: packageUpdateSet
 				});
 				debug$5("package saved successfully");
 			} catch (error) {
@@ -1547,12 +1603,14 @@ exports.LocalPackagesService = LocalPackagesService;
 exports.OrgService = OrgService;
 exports.PUBLIC_PACKAGES = PUBLIC_PACKAGES;
 exports.PackageService = PackageService;
+exports.SCOPED_DEFAULT_ACCESS = SCOPED_DEFAULT_ACCESS;
 exports.TarballService = TarballService;
 exports.TenantService = TenantService;
 exports.TokenService = TokenService;
 exports.UserSecretsService = UserSecretsService;
 exports.VerdaccioSecretService = VerdaccioSecretService;
-exports.clearReadmesFromManifest = clearReadmesFromManifest;
+exports.accessEnum = accessEnum;
+exports.clearReadmesFromManifest = stripReadmesFromManifest;
 exports.clerkEvents = clerkEvents;
 exports.clerkMembers = clerkMembers;
 exports.clerkOrgs = clerkOrgs;
@@ -1560,8 +1618,10 @@ exports.clerkUsers = clerkUsers;
 exports.counterSchema = counterSchema;
 exports.distTags = distTags;
 exports.downloads = downloads;
+exports.effectiveAccess = effectiveAccess;
 exports.eventLog = eventLog;
 exports.events = events;
+exports.extractAccessFromPublishBody = extractAccessFromPublishBody;
 exports.getDatabase = getDatabase;
 exports.getISODate = getISODate;
 exports.getISODates = getISODates;
@@ -1572,6 +1632,8 @@ exports.getPackageInfoFromFilename = getPackageInfoFromPath;
 exports.getReadmesFromManifest = getReadmesFromManifest;
 exports.getScopeFromName = getScopeFromName;
 exports.gtadir = gtadir;
+exports.isScopedPackage = isScopedPackage;
+exports.isValidPackageAccess = isValidPackageAccess;
 exports.localPackages = localPackages;
 exports.loggerFactory = loggerFactory;
 exports.mergeReadmesIntoManifest = mergeReadmesIntoManifest;
@@ -1585,8 +1647,10 @@ exports.paddleSubscriptions = paddleSubscriptions;
 exports.permissionEnum = permissionEnum;
 exports.readmes = readmes;
 exports.resolveOrgName = resolveOrgName;
+exports.resolveStoredAccess = resolveStoredAccess;
 exports.roles = roles;
 exports.secrets = secrets;
+exports.stripAccessFromManifest = stripAccessFromManifest;
 exports.subscriptionStatusEnum = subscriptionStatusEnum;
 exports.tarballs = tarballs;
 exports.teamMembers = teamMembers;

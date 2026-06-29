@@ -6,4 +6,5 @@ export { default as prototypePollutionProtection } from './prototype-pollution';
 export { default as profanityFilter } from './profanity-filter';
 export { default as blacklistFilter } from './blacklist-filter';
 export { default as eventLog, type ActivityStorage } from './event-log';
+export { default as httpLog } from './http-log';
 export { default as userAgentFilter } from './user-agent-filter';

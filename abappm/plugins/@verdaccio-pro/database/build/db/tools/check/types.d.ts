@@ -9,6 +9,7 @@ export interface PackageRow {
     org_id: number | null;
     name: string;
     json: unknown;
+    access: 'public' | 'restricted' | null;
     deleted: Date | null;
 }
 export interface CheckContext {

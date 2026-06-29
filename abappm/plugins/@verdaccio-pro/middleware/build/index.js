@@ -32,6 +32,10 @@ express = __toESM(express);
 let leo_profanity = require("leo-profanity");
 leo_profanity = __toESM(leo_profanity);
 let tldts = require("tldts");
+let node_crypto = require("node:crypto");
+let node_fs_promises = require("node:fs/promises");
+let node_path = require("node:path");
+node_path = __toESM(node_path);
 //#region src/middlewares/security-headers.ts
 var CORS_METHODS = "GET, HEAD, PUT, POST, DELETE, OPTIONS";
 var CORS_HEADERS = "Content-Type, Content-Encoding, Authorization, X-Requested-With, Accept, Origin";
@@ -70,12 +74,16 @@ var setSecurityHeaders = (allowedOrigins = []) => {
 //#endregion
 //#region src/middlewares/block-requests.ts
 var blockUnwantedRequests = (req, res, next) => {
-	if (/\.(env|php|exe|cmd|bat|sh|csh|ksh|zsh|ps1|txt|pdf|doc|docx|xls|xlsx|ppt|pptx)$/.test(req.url)) res.status(404).send("Not Found");
+	if (req.path === "/robots.txt" || req.path === "/sitemap.xml") {
+		next();
+		return;
+	}
+	if (/\.(env|php|exe|cmd|bat|sh|csh|ksh|zsh|ps1|txt|pdf|doc|docx|xls|xlsx|ppt|pptx)$/.test(req.path)) res.status(404).send("Not Found");
 	else next();
 };
 //#endregion
 //#region src/middlewares/redirect-npm.ts
-var debug$6 = (0, debug.default)("verdaccio:plugin:pro:middleware");
+var debug$7 = (0, debug.default)("verdaccio:plugin:pro:middleware");
 var redirectNpmStyleUrl = (logger) => {
 	return (req, res, _next) => {
 		let packageName = req.params.all;
@@ -84,10 +92,10 @@ var redirectNpmStyleUrl = (logger) => {
 			res.status(404).send("Not Found");
 			return;
 		}
-		debug$6("redirect from %o", req.url);
+		debug$7("redirect from %o", req.url);
 		const redirectTo = "/-/web/detail/" + packageName;
 		logger.info({ redirectTo }, "Redirecting to @{redirectTo}");
-		debug$6("redirect to %o", redirectTo);
+		debug$7("redirect to %o", redirectTo);
 		res.redirect(redirectTo);
 	};
 };
@@ -275,7 +283,7 @@ var profanity_fr_default = [
 ];
 //#endregion
 //#region src/middlewares/profanity-filter.ts
-var debug$5 = (0, debug.default)("verdaccio:plugin:pro:middleware:profanity");
+var debug$6 = (0, debug.default)("verdaccio:plugin:pro:middleware:profanity");
 leo_profanity.default.reset();
 leo_profanity.default.add(profanity_de_default);
 leo_profanity.default.add(profanity_fr_default);
@@ -305,7 +313,7 @@ var profanityFilter = (req, res, next) => {
 		return;
 	}
 	if (valueContainsProfanity(req.body)) {
-		debug$5("request body contained profanity");
+		debug$6("request body contained profanity");
 		res.status(400).send("Bad Request");
 		return;
 	}
@@ -351,7 +359,7 @@ var BLOCKED_REGISTRABLE_DOMAINS = [
 ];
 //#endregion
 //#region src/middlewares/blacklist-filter.ts
-var debug$4 = (0, debug.default)("verdaccio:plugin:pro:middleware:blacklist");
+var debug$5 = (0, debug.default)("verdaccio:plugin:pro:middleware:blacklist");
 var blocked = new Set(BLOCKED_REGISTRABLE_DOMAINS);
 var hrefSrcRe = /(?:\bhref\s*=|\bsrc\s*=)\s*["']([^"']+)["']/gi;
 var absoluteUrlRe = /https?:\/\/[^\s"'<>\]]+/gi;
@@ -410,7 +418,7 @@ var blacklistFilter = (req, res, next) => {
 		return;
 	}
 	if (valueContainsBlockedUrl(req.body)) {
-		debug$4("request body contained a blocked URL");
+		debug$5("request body contained a blocked URL");
 		res.status(400).send("Bad Request");
 		return;
 	}
@@ -418,7 +426,7 @@ var blacklistFilter = (req, res, next) => {
 };
 //#endregion
 //#region src/middlewares/event-log.ts
-var debug$3 = (0, debug.default)("verdaccio:plugin:pro:middleware:event-log");
+var debug$4 = (0, debug.default)("verdaccio:plugin:pro:middleware:event-log");
 var APM_COMMAND_HEADER = "apm-command";
 var ANONYMOUS_USER = "#";
 var VALID_EVENTS = /* @__PURE__ */ new Set([
@@ -492,7 +500,6 @@ function resolveStorage(storage) {
 var eventLog = (storage, logger) => {
 	return (req, res, next) => {
 		const command = isTarballPath(req.path) ? "tarball" : req.get(APM_COMMAND_HEADER);
-		debug$3("command %o", command);
 		if (!command || !VALID_EVENTS.has(command)) {
 			next();
 			return;
@@ -502,11 +509,12 @@ var eventLog = (storage, logger) => {
 			next();
 			return;
 		}
+		debug$4("command %o", command);
 		const { name, version } = parsePackageFromUrl(req.path);
 		const user = resolveUser(req);
 		const store = resolveStorage(storage);
 		if (typeof store.logActivity === "function") {
-			debug$3("logging activity %o", {
+			debug$4("logging activity %o", {
 				command,
 				name,
 				version
@@ -524,7 +532,7 @@ var eventLog = (storage, logger) => {
 		if (typeof store.incrementDownloads === "function" && command === "tarball") {
 			const filename = tarballFilenameFromPath(req.path);
 			if (filename) {
-				debug$3("incrementing downloads %o", { filename });
+				debug$4("incrementing downloads %o", { filename });
 				store.incrementDownloads(filename).catch((error) => {
 					const errorMsg = error instanceof Error ? error.message : String(error);
 					logger.error({
@@ -534,6 +542,95 @@ var eventLog = (storage, logger) => {
 				});
 			}
 		}
+		next();
+	};
+};
+//#endregion
+//#region src/middlewares/http-log.ts
+var debug$3 = (0, debug.default)("verdaccio:plugin:pro:middleware:http-log");
+var HTTP_LOG_DIR = "http-logs";
+function requestPath(req) {
+	return req.originalUrl ?? req.url;
+}
+function serializeBody(body) {
+	if (body === void 0 || body === null) return "";
+	if (typeof body === "string") return body;
+	if (Buffer.isBuffer(body)) return body.toString("utf8");
+	return JSON.stringify(body);
+}
+function parseBody(body) {
+	if (body === void 0 || body === null || body === "") return body ?? null;
+	if (typeof body === "string") try {
+		return JSON.parse(body);
+	} catch {
+		return body;
+	}
+	return body;
+}
+function fingerprint(method, requestPathValue, body) {
+	return `${method}\0${requestPathValue}\0${body}`;
+}
+function timestampForFilename(date) {
+	return date.toISOString().replace(/[:.]/g, "-");
+}
+function safeFilenamePart(value) {
+	return value.replace(/[^a-zA-Z0-9._@-]/g, "_");
+}
+function resolveUsername(req) {
+	if (req.remote_user?.name) return req.remote_user.name;
+	return null;
+}
+function resolveLogDir(config) {
+	const baseDir = config.configPath ? node_path.default.dirname(config.configPath) : process.cwd();
+	return node_path.default.join(baseDir, HTTP_LOG_DIR);
+}
+var httpLog = (config, logger) => {
+	const logDir = resolveLogDir(config);
+	const seen = /* @__PURE__ */ new Set();
+	let dirReady = null;
+	const ensureLogDir = () => {
+		if (!dirReady) dirReady = (0, node_fs_promises.mkdir)(logDir, { recursive: true }).then(() => void 0);
+		return dirReady;
+	};
+	return (req, _res, next) => {
+		const method = req.method;
+		const requestPathValue = requestPath(req);
+		const key = fingerprint(method, requestPathValue, serializeBody(req.body));
+		if (seen.has(key)) {
+			debug$3("skipping duplicate request %o", {
+				method,
+				path: requestPathValue
+			});
+			next();
+			return;
+		}
+		seen.add(key);
+		const now = /* @__PURE__ */ new Date();
+		const hash = (0, node_crypto.createHash)("sha256").update(key).digest("hex").slice(0, 8);
+		const username = resolveUsername(req);
+		const filename = username ? `${timestampForFilename(now)}-${safeFilenamePart(username)}-${hash}.json` : `${timestampForFilename(now)}-${hash}.json`;
+		const filePath = node_path.default.join(logDir, filename);
+		const payload = {
+			timestamp: now.toISOString(),
+			method,
+			path: requestPathValue,
+			body: parseBody(req.body)
+		};
+		ensureLogDir().then(() => (0, node_fs_promises.writeFile)(filePath, JSON.stringify(payload, null, 2), "utf8")).then(() => {
+			debug$3("logged request %o", {
+				filePath,
+				method,
+				path: requestPathValue
+			});
+		}).catch((error) => {
+			seen.delete(key);
+			const errorMsg = error instanceof Error ? error.message : String(error);
+			logger.error({
+				error: errorMsg,
+				method,
+				path: requestPathValue
+			}, "failed to write http log");
+		});
 		next();
 	};
 };
@@ -573,6 +670,7 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		const c = this.middlewareConfig;
 		if (c.securityHeaders !== false) app.use(setSecurityHeaders(c.corsAllowedOrigins));
 		if (c.prototypePollutionProtection !== false) app.use(prototypePollutionProtection(this.config));
+		if (c.httpLog) app.use(httpLog(this.config, this.logger));
 		if (c.blockUnwantedRequests !== false) app.use(blockUnwantedRequests);
 		if (c.userAgent) app.use(userAgentFilter(c.userAgent));
 		if (c.profanityFilter !== false) app.use(profanityFilter);

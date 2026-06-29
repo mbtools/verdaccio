@@ -4,7 +4,7 @@ export type readmeVersion = {
     markdown: string;
 };
 export declare const getReadmesFromManifest: (manifest: Manifest) => readmeVersion[];
-export declare const clearReadmesFromManifest: (manifest: Manifest) => Manifest;
+export declare const stripReadmesFromManifest: (manifest: Manifest) => Manifest;
 export declare const mergeReadmesIntoManifest: (manifest: Manifest, readmes: readmeVersion[]) => Manifest;
 export type metadataVersion = {
     version: string;

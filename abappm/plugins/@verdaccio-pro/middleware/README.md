@@ -20,15 +20,39 @@ NO WARRANTIES, [Functional Source License](https://fsl.software), [MIT Future Li
 
 ### Security Headers
 
-Automatically sets HTTP security headers (Strict-Transport-Security, Content-Security-Policy, Permissions-Policy, Referrer-Policy, X-Robots-Tag, X-Powered-By) on all responses to improve security and privacy.
+Sets security headers and configurable CORS on all responses (Strict-Transport-Security, Content-Security-Policy, Permissions-Policy, Referrer-Policy, X-Robots-Tag, X-Powered-By). Use `corsAllowedOrigins` to allow credentialed CORS for specific origins; all other cross-origin requests receive public wildcard CORS.
+
+### Prototype Pollution Protection
+
+Rejects JSON bodies containing `__proto__`, `constructor`, or `prototype` keys.
+
+### Profanity Filter
+
+Rejects write requests whose JSON body contains profanity.
+
+### Blacklist Filter
+
+Rejects write requests whose JSON body links to blocked adult domains.
+
+### Event Log
+
+Records package and user activity events to storage.
+
+### HTTP Log
+
+Writes each HTTP request to a timestamped file under `http-logs/`. Off by default; set `httpLog: true` to enable.
 
 ### Block Unwanted Requests
 
-Blocks requests for common unwanted file extensions (e.g., `.php`, `.exe`, `.cmd`, `.ps1`, `.txt`, `.pdf`, `.doc`, `.docx`, `.xls`, `.xlsx`, `.ppt`, `.pptx`) to reduce attack surface and bot noise.
+Returns 404 for requests probing common non-registry file extensions (e.g., `.php`, `.exe`, `.cmd`, `.ps1`, `.txt`, `.pdf`, `.doc`, `.docx`, `.xls`, `.xlsx`, `.ppt`, `.pptx`) to reduce attack surface and bot noise.
 
 ### NPM-style URL Redirect
 
-Redirects NPM-style package URLs (e.g., `/package/@scope/pkg`) to the Verdaccio web UI for a better user experience.
+Redirects `/package/*` URLs to the web UI detail page (e.g., `/package/@scope/pkg` → `/-/web/detail/@scope/pkg`).
+
+### User-Agent Filter
+
+When set, rejects requests whose `User-Agent` header does not match the given RegExp source.
 
 ## Quickstart
 
@@ -38,6 +62,37 @@ Add the following to your Verdaccio configuration:
 middleware:
   '@verdaccio-pro/middleware':
     enabled: true
+```
+
+## Configuration
+
+Boolean options are enabled by default when omitted; set to `false` to disable. `httpLog` is off unless set to `true`. `userAgent` is only applied when set.
+
+```yaml
+middleware:
+  '@verdaccio-pro/middleware':
+    enabled: true
+    # Rejects JSON bodies containing __proto__, constructor, or prototype keys.
+    prototypePollutionProtection: true
+    # Rejects write requests whose JSON body contains profanity.
+    profanityFilter: true
+    # Rejects write requests whose JSON body links to blocked adult domains.
+    blacklistFilter: true
+    # Records package and user activity events to storage.
+    eventLog: true
+    # Writes each HTTP request to a timestamped file under http-logs/.
+    httpLog: false
+    # Sets security headers and configurable CORS on all responses.
+    securityHeaders: true
+    # Origins allowed credentialed CORS; all other cross-origin requests receive public wildcard CORS.
+    corsAllowedOrigins:
+      - https://app.example.com
+    # Returns 404 for requests probing common non-registry file extensions.
+    blockUnwantedRequests: true
+    # Redirects /package/* URLs to the web UI detail page.
+    redirectNpmStyleUrl: true
+    # RegExp source; requests whose User-Agent header does not match are rejected.
+    userAgent: '^npm/'
 ```
 
 ## About
