@@ -273,6 +273,7 @@ middlewares:
   '@verdaccio-pro/middleware':
     enabled: VERDACCIO_MIDDLEWARE_ENABLED
     userAgent: VERDACCIO_MIDDLEWARE_USER_AGENT
+    httpLog: VERDACCIO_MIDDLEWARE_HTTP_LOG
     corsAllowedOrigins:
       - https://playground.abappm.com
       - https://registry.abappm.com
