@@ -582,156 +582,6 @@ var counterSchema = (0, drizzle_orm_pg_core.pgTable)("counter", {
 	createdAt: (0, drizzle_orm_pg_core.timestamp)("created_at", { mode: "date" }).defaultNow().notNull()
 });
 //#endregion
-//#region src/services/utils.ts
-var isScopedPackage = (name) => {
-	return name.startsWith("@") && name.includes("/");
-};
-var getScopeFromName = (name) => {
-	return name.startsWith("@") ? name.split("/")[0] : "";
-};
-var getPackageFromName = (name) => {
-	return name.startsWith("@") ? name.split("/")[1] : name;
-};
-var getNameFromPackageAndScope = (packageName, scope) => {
-	return scope.length > 0 ? `${scope}/${packageName}` : packageName;
-};
-var getVersionFromFilename = (filename) => {
-	const match = filename.match(/^.*-(\d+\.\d+\.\d+.*)\.tgz$/);
-	if (!match) throw new Error(`Invalid tarball filename: ${filename}`);
-	return match[1];
-};
-var getPackageInfoFromPath = (path) => {
-	let match;
-	if (path.startsWith("/@")) match = path.match(/^(\/@[^/]+\/[^/]+)\/-\/[^/]+-(\d+\.\d+\.\d+.*)\.tgz$/);
-	else match = path.match(/^(\/?[^/]+)\/-\/[^/]+-(\d+\.\d+\.\d+.*)\.tgz$/);
-	if (!match) throw new Error(`Invalid tarball path: ${path}`);
-	return {
-		name: match[1],
-		version: match[2]
-	};
-};
-var getISODate = (date) => {
-	return new Date(date).toISOString().split("T")[0];
-};
-var getISODates = (start, end) => {
-	const dates = [];
-	dates.push(getISODate(start));
-	dates.push(getISODate(end || start));
-	return dates;
-};
-var unescapeHtmlEntities = (json) => {
-	return json.replace(/\\u003e/g, ">").replace(/\\u003c/g, "<").replace(/\\u0026/g, "&");
-};
-//#endregion
-//#region src/services/downloads.ts
-var debug$9 = (0, debug.default)("verdaccio:plugin:pro:db");
-var DownloadsService = class {
-	constructor(database, logger) {
-		this.db = database;
-		this.logger = logger;
-	}
-	async increment(path) {
-		const { name, version } = getPackageInfoFromPath(path);
-		const now = /* @__PURE__ */ new Date();
-		const year = now.getFullYear();
-		const month = now.getMonth() + 1;
-		const today = now.toISOString().split("T")[0];
-		const data = [
-			{
-				timeslice: "d",
-				year,
-				month,
-				date: today,
-				name,
-				version,
-				count: 1
-			},
-			{
-				timeslice: "d",
-				year,
-				month,
-				date: today,
-				name: null,
-				version: null,
-				count: 1
-			},
-			{
-				timeslice: "m",
-				year,
-				month,
-				date: null,
-				name: null,
-				version: null,
-				count: 1
-			},
-			{
-				timeslice: "y",
-				year,
-				month: null,
-				date: null,
-				name: null,
-				version: null,
-				count: 1
-			},
-			{
-				timeslice: "t",
-				year: null,
-				month: null,
-				date: null,
-				name: null,
-				version: null,
-				count: 1
-			}
-		];
-		try {
-			await this.db.insert(downloads).values(data).onConflictDoUpdate({
-				target: [
-					downloads.timeslice,
-					downloads.year,
-					downloads.month,
-					downloads.date,
-					downloads.name,
-					downloads.version
-				],
-				set: { count: drizzle_orm.sql`${downloads.count} + 1` }
-			});
-			debug$9("downloads incremented successfully");
-		} catch (error) {
-			debug$9("downloads error: %o", error);
-		}
-	}
-	async getDownloads(timeslice, start, end) {
-		const [startDate, endDate] = getISODates(start, end);
-		return (await this.db.select({
-			date: downloads.date,
-			count: (0, drizzle_orm.sum)(downloads.count)
-		}).from(downloads).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(downloads.timeslice, timeslice), (0, drizzle_orm.between)(downloads.date, startDate, endDate), (0, drizzle_orm.isNull)(downloads.name))).groupBy(downloads.date).orderBy(downloads.date)).map((d) => ({
-			date: d.date,
-			count: Number(d.count)
-		}));
-	}
-	async getByPackage(packageName, start, end) {
-		const [startDate, endDate] = getISODates(start, end);
-		return (await this.db.select({
-			date: downloads.date,
-			count: (0, drizzle_orm.sum)(downloads.count)
-		}).from(downloads).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(downloads.timeslice, "d"), (0, drizzle_orm.between)(downloads.date, startDate, endDate), (0, drizzle_orm.eq)(downloads.name, packageName))).groupBy(downloads.date).orderBy(downloads.date)).map((d) => ({
-			date: d.date,
-			count: Number(d.count)
-		}));
-	}
-	async getByVersion(packageName, start, end) {
-		const [startDate, endDate] = getISODates(start, end);
-		return (await this.db.select({
-			version: downloads.version,
-			count: (0, drizzle_orm.sum)(downloads.count)
-		}).from(downloads).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(downloads.timeslice, "d"), (0, drizzle_orm.between)(downloads.date, startDate, endDate), (0, drizzle_orm.eq)(downloads.name, packageName))).groupBy(downloads.version).orderBy(downloads.version)).map((d) => ({
-			version: d.version,
-			count: Number(d.count)
-		}));
-	}
-};
-//#endregion
 //#region src/services/org.ts
 var PUBLIC_PACKAGES = "@";
 function resolveOrgName(packageName) {
@@ -763,6 +613,166 @@ var TenantService = class {
 	}
 	async get(name) {
 		return await this.org.getOrgIdfromPackage(name);
+	}
+};
+//#endregion
+//#region src/services/utils.ts
+var isScopedPackage = (name) => {
+	return name.startsWith("@") && name.includes("/");
+};
+var getScopeFromName = (name) => {
+	return name.startsWith("@") ? name.split("/")[0] : "";
+};
+var getPackageFromName = (name) => {
+	return name.startsWith("@") ? name.split("/")[1] : name;
+};
+var getNameFromPackageAndScope = (packageName, scope) => {
+	return scope.length > 0 ? `${scope}/${packageName}` : packageName;
+};
+var getVersionFromFilename = (filename) => {
+	const match = filename.match(/^.*-(\d+\.\d+\.\d+.*)\.tgz$/);
+	if (!match) throw new Error(`Invalid tarball filename: ${filename}`);
+	return match[1];
+};
+var getPackageInfoFromPath = (path) => {
+	let match;
+	if (path.startsWith("/@")) match = path.match(/^\/(@[^/]+\/[^/]+)\/-\/[^/]+-(\d+\.\d+\.\d+.*)\.tgz$/);
+	else match = path.match(/^\/?([^/]+)\/-\/[^/]+-(\d+\.\d+\.\d+.*)\.tgz$/);
+	if (!match) throw new Error(`Invalid tarball path: ${path}`);
+	return {
+		name: match[1],
+		version: match[2]
+	};
+};
+var getISODate = (date) => {
+	return new Date(date).toISOString().split("T")[0];
+};
+var getISODates = (start, end) => {
+	const dates = [];
+	dates.push(getISODate(start));
+	dates.push(getISODate(end || start));
+	return dates;
+};
+var unescapeHtmlEntities = (json) => {
+	return json.replace(/\\u003e/g, ">").replace(/\\u003c/g, "<").replace(/\\u0026/g, "&");
+};
+//#endregion
+//#region src/services/downloads.ts
+var debug$9 = (0, debug.default)("verdaccio:plugin:pro:db");
+var DownloadsService = class {
+	constructor(database, logger, tenant) {
+		this.db = database;
+		this.logger = logger;
+		this.tenant = tenant ?? new TenantService(database, logger);
+	}
+	async increment(path) {
+		const { name, version } = getPackageInfoFromPath(path);
+		const org_id = await this.tenant.get(name);
+		const now = /* @__PURE__ */ new Date();
+		const year = now.getFullYear();
+		const month = now.getMonth() + 1;
+		const today = now.toISOString().split("T")[0];
+		const data = [
+			{
+				org_id,
+				timeslice: "d",
+				year,
+				month,
+				date: today,
+				name,
+				version,
+				count: 1
+			},
+			{
+				org_id,
+				timeslice: "d",
+				year,
+				month,
+				date: today,
+				name: null,
+				version: null,
+				count: 1
+			},
+			{
+				org_id,
+				timeslice: "m",
+				year,
+				month,
+				date: null,
+				name: null,
+				version: null,
+				count: 1
+			},
+			{
+				org_id,
+				timeslice: "y",
+				year,
+				month: null,
+				date: null,
+				name: null,
+				version: null,
+				count: 1
+			},
+			{
+				org_id,
+				timeslice: "t",
+				year: null,
+				month: null,
+				date: null,
+				name: null,
+				version: null,
+				count: 1
+			}
+		];
+		try {
+			await this.db.insert(downloads).values(data).onConflictDoUpdate({
+				target: [
+					downloads.org_id,
+					downloads.timeslice,
+					downloads.year,
+					downloads.month,
+					downloads.date,
+					downloads.name,
+					downloads.version
+				],
+				set: { count: drizzle_orm.sql`${downloads.count} + 1` }
+			});
+			debug$9("downloads incremented successfully");
+		} catch (error) {
+			debug$9("downloads error: %o", error);
+		}
+	}
+	async getDownloads(timeslice, start, end) {
+		const [startDate, endDate] = getISODates(start, end);
+		return (await this.db.select({
+			date: downloads.date,
+			count: (0, drizzle_orm.sum)(downloads.count)
+		}).from(downloads).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(downloads.timeslice, timeslice), (0, drizzle_orm.between)(downloads.date, startDate, endDate), (0, drizzle_orm.isNull)(downloads.name))).groupBy(downloads.date).orderBy(downloads.date)).map((d) => ({
+			date: d.date,
+			count: Number(d.count)
+		}));
+	}
+	async getByPackage(packageName, start, end) {
+		const [startDate, endDate] = getISODates(start, end);
+		const org_id = await this.tenant.get(packageName);
+		return (await this.db.select({
+			date: downloads.date,
+			count: (0, drizzle_orm.sum)(downloads.count)
+		}).from(downloads).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(downloads.org_id, org_id), (0, drizzle_orm.eq)(downloads.timeslice, "d"), (0, drizzle_orm.between)(downloads.date, startDate, endDate), (0, drizzle_orm.eq)(downloads.name, packageName))).groupBy(downloads.date).orderBy(downloads.date)).map((d) => ({
+			date: d.date,
+			count: Number(d.count)
+		}));
+	}
+	async getByVersion(packageName, start, end) {
+		const [startDate, endDate] = getISODates(start, end);
+		const org_id = await this.tenant.get(packageName);
+		return (await this.db.select({
+			version: downloads.version,
+			count: (0, drizzle_orm.sum)(downloads.count)
+		}).from(downloads).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(downloads.org_id, org_id), (0, drizzle_orm.eq)(downloads.timeslice, "d"), (0, drizzle_orm.between)(downloads.date, startDate, endDate), (0, drizzle_orm.eq)(downloads.name, packageName))).groupBy(downloads.version).orderBy(downloads.version)).map((d) => ({
+			version: d.version,
+			count: Number(d.count)
+		}));
 	}
 };
 //#endregion

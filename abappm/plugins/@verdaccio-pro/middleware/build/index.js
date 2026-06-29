@@ -593,14 +593,14 @@ var httpLog = (config, logger) => {
 		return dirReady;
 	};
 	return (req, _res, next) => {
+		if ((/* @__PURE__ */ new RegExp("^(/|-/ping|-/static|-/assets|.*\\.js$|.*\\.css$)")).test(req.path)) {
+			next();
+			return;
+		}
 		const method = req.method;
 		const requestPathValue = requestPath(req);
 		const key = fingerprint(method, requestPathValue, serializeBody(req.body));
 		if (seen.has(key)) {
-			debug$3("skipping duplicate request %o", {
-				method,
-				path: requestPathValue
-			});
 			next();
 			return;
 		}
