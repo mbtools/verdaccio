@@ -35,7 +35,7 @@ Add the following to your Verdaccio configuration:
 auth:
   '@verdaccio-pro/clerk':
     enabled: true
-    clerk_secret_key: # can also be set via CLERK_SECRET_KEY environment variable
+    clerk_secret_key:  # can also be set via CLERK_SECRET_KEY environment variable
 ```
 
 ### 2. Environment Variables

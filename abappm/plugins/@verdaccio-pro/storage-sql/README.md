@@ -49,14 +49,14 @@ store:
 
 To customize the database connection, you can set the following environment variables:
 
-| Variable                     | Default    | Description                                                                |
-| ---------------------------- | ---------- | -------------------------------------------------------------------------- |
-| `DATABASE_URL`               | _required_ | PostgreSQL connection string (e.g., `postgresql://user:pass@host:5432/db`) |
-| `DATABASE_SECRET`            | _required_ | Secret key for encryption                                                  |
-| `DB_SSL`                     | `true`     | Enable SSL connection to database                                          |
-| `DB_SSL_REJECT_UNAUTHORIZED` | `true`     | Reject self-signed SSL certificates (set to `false` for development)       |
-| `DB_POOL_SIZE`               | `22`       | Database connection pool size                                              |
-| `DB_LOGGING`                 | `false`    | Enable SQL query logging                                                   |
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `DATABASE_URL` | *required* | PostgreSQL connection string (e.g., `postgresql://user:pass@host:5432/db`) |
+| `DATABASE_SECRET` | *required* | Secret key for encryption |
+| `DB_SSL` | `true` | Enable SSL connection to database |
+| `DB_SSL_REJECT_UNAUTHORIZED` | `true` | Reject self-signed SSL certificates (set to `false` for development) |
+| `DB_POOL_SIZE` | `22` | Database connection pool size |
+| `DB_LOGGING` | `false` | Enable SQL query logging |
 
 **Example for development (local database without SSL):**
 
