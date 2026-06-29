@@ -6,7 +6,7 @@ import type { RequestOptions } from '@verdaccio/url';
 import type { $RequestExtend } from '../types';
 import { sanitizeUrlForLog } from './sanitize-url';
 
-const debug = buildDebug('verdaccio:middleware:request-options');
+const debug = buildDebug('verdaccio+:middleware:request-options');
 
 export function getRequestOptions(req: $RequestExtend): RequestOptions {
   const requestOptions = {

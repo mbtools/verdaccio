@@ -116,7 +116,7 @@ export type RequestOptions = {
 export function getPublicUrl(url_prefix: string = '', requestOptions: RequestOptions): string {
   if (validateURL(process.env.VERDACCIO_PUBLIC_URL as string)) {
     const envURL = new URL(wrapPrefix(url_prefix), process.env.VERDACCIO_PUBLIC_URL as string).href;
-    debug('public url by env %o', envURL);
+    // debug('public url by env %o', envURL); // apm
     return envURL;
   } else if (requestOptions.headers['host']) {
     const host = requestOptions.headers['host'];

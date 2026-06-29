@@ -5,7 +5,7 @@ import { errorUtils } from '@verdaccio/core';
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 import { sanitizeUrlForLog } from './sanitize-url';
 
-const debug = buildDebug('verdaccio:middleware:encode');
+const debug = buildDebug('verdaccio+:middleware:encode');
 
 /**
  * Encode / in a scoped package name to be matched as a single parameter in routes

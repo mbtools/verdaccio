@@ -27,6 +27,8 @@ const allowedEnvConfig = ['http_proxy', 'https_proxy', 'no_proxy'];
 const debug = buildDebug('verdaccio:config');
 
 export const WEB_TITLE = 'Verdaccio';
+export const WEB_PRIMARY_COLOR = '#4b5e40';
+export const WEB_DEFAULT_LANGUAGE = 'en-US';
 
 // we limit max 1000 request per 15 minutes on user endpoints
 export const defaultUserRateLimiting = {
@@ -58,6 +60,7 @@ class Config implements AppConfig {
   public flags: FlagsConfig;
   public userRateLimit: RateLimit;
   public constructor(config: ConfigYaml & { config_path: string }) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     this.storage = process.env.VERDACCIO_STORAGE_PATH || config.storage;
     if (!config.configPath) {

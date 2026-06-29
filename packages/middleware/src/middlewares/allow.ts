@@ -4,7 +4,7 @@ import { API_ERROR, errorUtils, reqUtils, tarballUtils } from '@verdaccio/core';
 
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
-const debug = buildDebug('verdaccio:middleware:allow');
+const debug = buildDebug('verdaccio+:middleware:allow');
 
 export function allow<T>(
   auth: T,

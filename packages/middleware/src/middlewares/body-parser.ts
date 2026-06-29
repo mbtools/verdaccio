@@ -4,7 +4,7 @@ import express from 'express';
 
 import type { Config } from '@verdaccio/types';
 
-const debug = buildDebug('verdaccio:middleware:body-parser');
+const debug = buildDebug('verdaccio+:middleware:body-parser');
 
 /**
  * Check if a body parser is already registered on the router

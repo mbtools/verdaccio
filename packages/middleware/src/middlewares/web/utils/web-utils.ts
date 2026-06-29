@@ -1,7 +1,7 @@
 import buildDebug from 'debug';
 import { isNil } from 'lodash-es';
 
-const debug = buildDebug('verdaccio:web:middlwares');
+const debug = buildDebug('verdaccio+:middleware:web:utils');
 
 export function validatePrimaryColor(primaryColor) {
   const isHex = /^#([0-9A-F]{3}){1,2}$/i.test(primaryColor);

@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 
 import { HEADERS } from '@verdaccio/core';
 
-const debug = buildDebug('verdaccio:middleware:web:security');
+const debug = buildDebug('verdaccio+:middleware:web:security');
 
 export function setSecurityWebHeaders(_req, res, next): void {
   // disable loading in frames (clickjacking, etc.)

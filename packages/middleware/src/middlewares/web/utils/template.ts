@@ -5,7 +5,7 @@ import type { TemplateUIOptions } from '@verdaccio/types';
 import type { Manifest } from './manifest';
 import { getManifestValue } from './manifest';
 
-const debug = buildDebug('verdaccio:web:render:template');
+const debug = buildDebug('verdaccio+:middleware:web:render:template');
 
 export type Template = {
   manifest: Manifest;

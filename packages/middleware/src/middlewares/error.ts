@@ -8,7 +8,7 @@ import type { Logger } from '@verdaccio/types';
 
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 
-const debug = buildDebug('verdaccio:middleware:error');
+const debug = buildDebug('verdaccio+:middleware:error');
 
 export const handleError = (logger: Logger) =>
   function handleError(

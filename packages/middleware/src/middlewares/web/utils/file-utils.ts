@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import { HTTP_STATUS, fileUtils } from '@verdaccio/core';
 
-const debug = buildDebug('verdaccio:middleware:web:utils');
+const debug = buildDebug('verdaccio+:middleware:web:utils');
 
 export const sendFileCallback = (next) => (err) => {
   if (!err) {

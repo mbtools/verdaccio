@@ -6,7 +6,7 @@ import { errorUtils } from '@verdaccio/core';
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 import { sanitizeUrlForLog } from './sanitize-url';
 
-const debug = buildDebug('verdaccio:middleware:make-url-relative');
+const debug = buildDebug('verdaccio+:middleware:make-url-relative');
 
 /**
  * Removes the host from the URL and turns it into a relative URL.

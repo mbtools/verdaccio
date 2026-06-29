@@ -6,7 +6,7 @@ import { HEADERS, constants } from '@verdaccio/core';
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
 import { sanitizeUrlForLog } from './sanitize-url';
 
-const debug = buildDebug('verdaccio:middleware:log');
+const debug = buildDebug('verdaccio+:middleware:log');
 
 function isStaticRequest(url: string): boolean {
   return url.startsWith('/-/static/') || url.startsWith('/-/ping') || url.startsWith('/favicon');

@@ -8,7 +8,7 @@ import type { $NextFunctionVer, $RequestExtend, $ResponseExtend, MiddlewareError
 
 export type FinalBody = Manifest | MiddlewareError | string;
 
-const debug = buildDebug('verdaccio:middleware:final');
+const debug = buildDebug('verdaccio+:middleware:final');
 
 export function final(
   body: FinalBody,
