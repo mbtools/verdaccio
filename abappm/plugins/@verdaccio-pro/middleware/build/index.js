@@ -589,7 +589,10 @@ var httpLog = (config, logger) => {
 	const seen = /* @__PURE__ */ new Set();
 	let dirReady = null;
 	const ensureLogDir = () => {
-		if (!dirReady) dirReady = (0, node_fs_promises.mkdir)(logDir, { recursive: true }).then(() => void 0);
+		if (!dirReady) {
+			dirReady = (0, node_fs_promises.mkdir)(logDir, { recursive: true }).then(() => void 0);
+			debug$3("created log directory %s", logDir);
+		}
 		return dirReady;
 	};
 	return (req, _res, next) => {
@@ -670,7 +673,7 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		const c = this.middlewareConfig;
 		if (c.securityHeaders !== false) app.use(setSecurityHeaders(c.corsAllowedOrigins));
 		if (c.prototypePollutionProtection !== false) app.use(prototypePollutionProtection(this.config));
-		if (c.httpLog) app.use(httpLog(this.config, this.logger));
+		if (c.httpLog !== false) app.use(httpLog(this.config, this.logger));
 		if (c.blockUnwantedRequests !== false) app.use(blockUnwantedRequests);
 		if (c.userAgent) app.use(userAgentFilter(c.userAgent));
 		if (c.profanityFilter !== false) app.use(profanityFilter);
