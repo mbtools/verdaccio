@@ -432,6 +432,8 @@ var tarballs = (0, drizzle_orm_pg_core.pgTable)("tarballs", {
 var DOWNLOAD_AGGREGATE_KEY = "";
 var DOWNLOAD_AGGREGATE_YEAR = 0;
 var DOWNLOAD_AGGREGATE_MONTH = 0;
+var DOWNLOAD_AGGREGATE_DAY = 0;
+var DOWNLOAD_AGGREGATE_WEEKDAY = 0;
 var DOWNLOAD_AGGREGATE_DATE = "1970-01-01";
 var downloads = (0, drizzle_orm_pg_core.pgTable)("downloads", {
 	id: (0, drizzle_orm_pg_core.serial)().unique(),
@@ -439,6 +441,8 @@ var downloads = (0, drizzle_orm_pg_core.pgTable)("downloads", {
 	timeslice: timesliceEnum().notNull().$type(),
 	year: (0, drizzle_orm_pg_core.integer)().notNull().default(0),
 	month: (0, drizzle_orm_pg_core.integer)().notNull().default(0),
+	day: (0, drizzle_orm_pg_core.integer)().notNull().default(0),
+	weekday: (0, drizzle_orm_pg_core.integer)().notNull().default(0),
 	date: (0, drizzle_orm_pg_core.date)().notNull().default(DOWNLOAD_AGGREGATE_DATE),
 	name: (0, drizzle_orm_pg_core.text)().notNull().default(""),
 	version: (0, drizzle_orm_pg_core.text)().notNull().default(""),
@@ -448,6 +452,8 @@ var downloads = (0, drizzle_orm_pg_core.pgTable)("downloads", {
 	t.timeslice,
 	t.year,
 	t.month,
+	t.day,
+	t.weekday,
 	t.date,
 	t.name,
 	t.version
@@ -677,6 +683,8 @@ var DownloadsService = class {
 		const now = /* @__PURE__ */ new Date();
 		const year = now.getFullYear();
 		const month = now.getMonth() + 1;
+		const day = now.getDate();
+		const weekday = (now.getDay() + 6) % 7 + 1;
 		const today = now.toISOString().split("T")[0];
 		const data = [
 			{
@@ -684,6 +692,8 @@ var DownloadsService = class {
 				timeslice: "d",
 				year,
 				month,
+				day,
+				weekday,
 				date: today,
 				name,
 				version,
@@ -694,6 +704,8 @@ var DownloadsService = class {
 				timeslice: "d",
 				year,
 				month,
+				day,
+				weekday,
 				date: today,
 				name: "",
 				version: "",
@@ -704,6 +716,8 @@ var DownloadsService = class {
 				timeslice: "m",
 				year,
 				month,
+				day: 0,
+				weekday: 0,
 				date: DOWNLOAD_AGGREGATE_DATE,
 				name: "",
 				version: "",
@@ -714,6 +728,8 @@ var DownloadsService = class {
 				timeslice: "y",
 				year,
 				month: 0,
+				day: 0,
+				weekday: 0,
 				date: DOWNLOAD_AGGREGATE_DATE,
 				name: "",
 				version: "",
@@ -724,6 +740,8 @@ var DownloadsService = class {
 				timeslice: "t",
 				year: 0,
 				month: 0,
+				day: 0,
+				weekday: 0,
 				date: DOWNLOAD_AGGREGATE_DATE,
 				name: "",
 				version: "",
@@ -737,6 +755,8 @@ var DownloadsService = class {
 					downloads.timeslice,
 					downloads.year,
 					downloads.month,
+					downloads.day,
+					downloads.weekday,
 					downloads.date,
 					downloads.name,
 					downloads.version
@@ -1612,8 +1632,10 @@ var VerdaccioSecretService = class {
 //#endregion
 exports.ANONYMOUS_USER = ANONYMOUS_USER;
 exports.DOWNLOAD_AGGREGATE_DATE = DOWNLOAD_AGGREGATE_DATE;
+exports.DOWNLOAD_AGGREGATE_DAY = DOWNLOAD_AGGREGATE_DAY;
 exports.DOWNLOAD_AGGREGATE_KEY = DOWNLOAD_AGGREGATE_KEY;
 exports.DOWNLOAD_AGGREGATE_MONTH = DOWNLOAD_AGGREGATE_MONTH;
+exports.DOWNLOAD_AGGREGATE_WEEKDAY = DOWNLOAD_AGGREGATE_WEEKDAY;
 exports.DOWNLOAD_AGGREGATE_YEAR = DOWNLOAD_AGGREGATE_YEAR;
 exports.DownloadsService = DownloadsService;
 exports.ENV = ENV;
