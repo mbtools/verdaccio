@@ -3,17 +3,6 @@ name: Docker publish apm to docker.io
 on:
   workflow_dispatch:
   push:
-    paths:
-      - '.github/workflows/apm.yml'
-      - 'packages/**'
-      - 'docker-bin/**'
-      - 'bin/**'
-      - 'pnpm-*.yaml'
-      - '.dockerignore'
-      - 'docker-compose.yml'
-      - 'Dockerfile'
-      - 'config.yaml'
-      - 'abappm/**'
     branches:
       - 'apm'
 
