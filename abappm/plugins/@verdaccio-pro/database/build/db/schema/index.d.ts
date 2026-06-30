@@ -2104,6 +2104,8 @@ export declare const tarballs: import('../../../node_modules/drizzle-orm/pg-core
 export declare const DOWNLOAD_AGGREGATE_KEY = "";
 export declare const DOWNLOAD_AGGREGATE_YEAR = 0;
 export declare const DOWNLOAD_AGGREGATE_MONTH = 0;
+export declare const DOWNLOAD_AGGREGATE_DAY = 0;
+export declare const DOWNLOAD_AGGREGATE_WEEKDAY = 0;
 export declare const DOWNLOAD_AGGREGATE_DATE = "1970-01-01";
 export declare const downloads: import('../../../node_modules/drizzle-orm/pg-core').PgTableWithColumns<{
     name: "downloads";
@@ -2170,6 +2172,36 @@ export declare const downloads: import('../../../node_modules/drizzle-orm/pg-cor
             generated: undefined;
         }>;
         month: import('../../../node_modules/drizzle-orm/pg-core').PgBuildColumn<"downloads", import('../../../node_modules/drizzle-orm/pg-core').SetHasDefault<import('../../../node_modules/drizzle-orm/pg-core').SetNotNull<import('../../../node_modules/drizzle-orm/pg-core').PgIntegerBuilder>>, {
+            name: string;
+            tableName: "downloads";
+            dataType: "number int32";
+            data: number;
+            driverParam: string | number;
+            notNull: true;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            identity: undefined;
+            generated: undefined;
+        }>;
+        day: import('../../../node_modules/drizzle-orm/pg-core').PgBuildColumn<"downloads", import('../../../node_modules/drizzle-orm/pg-core').SetHasDefault<import('../../../node_modules/drizzle-orm/pg-core').SetNotNull<import('../../../node_modules/drizzle-orm/pg-core').PgIntegerBuilder>>, {
+            name: string;
+            tableName: "downloads";
+            dataType: "number int32";
+            data: number;
+            driverParam: string | number;
+            notNull: true;
+            hasDefault: true;
+            isPrimaryKey: false;
+            isAutoincrement: false;
+            hasRuntimeDefault: false;
+            enumValues: undefined;
+            identity: undefined;
+            generated: undefined;
+        }>;
+        weekday: import('../../../node_modules/drizzle-orm/pg-core').PgBuildColumn<"downloads", import('../../../node_modules/drizzle-orm/pg-core').SetHasDefault<import('../../../node_modules/drizzle-orm/pg-core').SetNotNull<import('../../../node_modules/drizzle-orm/pg-core').PgIntegerBuilder>>, {
             name: string;
             tableName: "downloads";
             dataType: "number int32";
