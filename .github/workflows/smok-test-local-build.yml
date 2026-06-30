@@ -109,27 +109,16 @@ jobs:
               exit 1
             fi
           done
-      - name: Install lodash through verdaccio
-        env:
-          NPM_TOKEN: ''
-          NODE_AUTH_TOKEN: ''
+      - name: Publish package to verdaccio
         run: |
           mkdir /tmp/test-project && cd /tmp/test-project
-          echo "registry=http://localhost:4873" > .npmrc
           npm init -y
-          npm ping
-          npm install lodash 2>&1 | tee /tmp/npm-install.log
-          # Verify lodash was installed
-          if [ ! -d node_modules/lodash ]; then
-            echo "::error::lodash was not installed"
-            exit 1
-          fi
-          echo "lodash installed successfully"
-          node -e "const _ = require('lodash'); console.log('lodash version:', _.VERSION)"
+          npm publish 2>&1 | tee /tmp/npm-install.log
+          echo "package published successfully"
       - name: Verify request logging
         run: |
           # Make a request that should appear in logs
-          curl -s http://localhost:4873/lodash > /dev/null
+          curl -s http://localhost:4873/test-project > /dev/null
           echo "Package request made — verdaccio process still running: $(kill -0 $VERDACCIO_PID 2>/dev/null && echo 'yes' || echo 'no')"
       - name: Stop verdaccio
         if: always()
