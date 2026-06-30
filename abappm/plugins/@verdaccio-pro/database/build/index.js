@@ -670,7 +670,7 @@ var unescapeHtmlEntities = (json) => {
 };
 //#endregion
 //#region src/services/downloads.ts
-var debug$9 = (0, debug.default)("verdaccio:plugin:pro:db");
+var debug$9 = (0, debug.default)("verdaccio:plugin:PRO:db");
 var DownloadsService = class {
 	constructor(database, logger, tenant) {
 		this.db = database;
@@ -803,7 +803,7 @@ var DownloadsService = class {
 };
 //#endregion
 //#region src/services/event-log.ts
-var debug$8 = (0, debug.default)("verdaccio:plugin:pro:db");
+var debug$8 = (0, debug.default)("verdaccio:plugin:PRO:db");
 var ANONYMOUS_USER = "#";
 var EventLogService = class {
 	constructor(database, logger, tenant) {
@@ -849,7 +849,7 @@ var EventLogService = class {
 };
 //#endregion
 //#region src/services/gtadir.ts
-var debug$7 = (0, debug.default)("verdaccio:plugin:pro:db");
+var debug$7 = (0, debug.default)("verdaccio:plugin:PRO:db");
 var GlobalTadirService = class {
 	constructor(database, logger, tenant) {
 		this.db = database;
@@ -936,7 +936,7 @@ var GlobalTadirService = class {
 };
 //#endregion
 //#region src/services/local-package.ts
-var debug$6 = (0, debug.default)("verdaccio:plugin:pro:db");
+var debug$6 = (0, debug.default)("verdaccio:plugin:PRO:db");
 var LocalPackagesService = class {
 	constructor(database, logger, tenant) {
 		this.db = database;
@@ -1050,7 +1050,7 @@ function effectiveAccess(name, stored) {
 }
 //#endregion
 //#region src/services/package.ts
-var debug$5 = (0, debug.default)("verdaccio:plugin:pro:db");
+var debug$5 = (0, debug.default)("verdaccio:plugin:PRO:db");
 var PackageService = class PackageService {
 	constructor(database, logger, tenant) {
 		this.db = database;
@@ -1300,7 +1300,7 @@ var PackageService = class PackageService {
 };
 //#endregion
 //#region src/services/tarball.ts
-var debug$4 = (0, debug.default)("verdaccio:plugin:pro:db");
+var debug$4 = (0, debug.default)("verdaccio:plugin:PRO:db");
 var CHUNK_SIZE = 256 * 1024;
 var TarballService = class {
 	constructor(database, logger, tenant) {
@@ -1423,7 +1423,7 @@ var TarballService = class {
 };
 //#endregion
 //#region src/services/token.ts
-var debug$3 = (0, debug.default)("verdaccio:plugin:pro:db");
+var debug$3 = (0, debug.default)("verdaccio:plugin:PRO:db");
 var TokenService = class TokenService {
 	constructor(database, logger) {
 		this.db = database;
@@ -1518,7 +1518,7 @@ async function decrypt(encryptedText) {
 }
 //#endregion
 //#region src/services/user-secrets.ts
-var debug$2 = (0, debug.default)("verdaccio:plugin:pro:db");
+var debug$2 = (0, debug.default)("verdaccio:plugin:PRO:db");
 var USER_HASH_SEPARATOR = "|";
 var UserSecretsService = class {
 	constructor(database, logger) {
@@ -1598,7 +1598,7 @@ var UserSecretsService = class {
 };
 //#endregion
 //#region src/services/verdaccio-secret.ts
-var debug$1 = (0, debug.default)("verdaccio:plugin:pro:db");
+var debug$1 = (0, debug.default)("verdaccio:plugin:PRO:db");
 var SECRET_NAME = "verdaccio";
 var VerdaccioSecretService = class {
 	constructor(database, logger) {

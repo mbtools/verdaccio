@@ -29,7 +29,7 @@ debug = __toESM(debug);
 let _clerk_backend = require("@clerk/backend");
 let _verdaccio_core = require("@verdaccio/core");
 //#region src/plugin.ts
-var debug$1 = (0, debug.default)("verdaccio:plugin:pro:clerk");
+var debug$1 = (0, debug.default)("verdaccio:plugin:PRO:clerk");
 function isIncorrectPasswordError(error) {
 	return typeof error === "object" && error !== null && "errors" in error && Array.isArray(error.errors) && error.errors.some((e) => e.code === "incorrect_password");
 }

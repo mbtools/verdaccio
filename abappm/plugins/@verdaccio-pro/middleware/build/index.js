@@ -83,7 +83,7 @@ var blockUnwantedRequests = (req, res, next) => {
 };
 //#endregion
 //#region src/middlewares/redirect-npm.ts
-var debug$7 = (0, debug.default)("verdaccio:plugin:pro:middleware");
+var debug$7 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
 var redirectNpmStyleUrl = (logger) => {
 	return (req, res, _next) => {
 		let packageName = req.params.all;
@@ -283,7 +283,7 @@ var profanity_fr_default = [
 ];
 //#endregion
 //#region src/middlewares/profanity-filter.ts
-var debug$6 = (0, debug.default)("verdaccio:plugin:pro:middleware:profanity");
+var debug$6 = (0, debug.default)("verdaccio:plugin:PRO:middleware:profanity");
 leo_profanity.default.reset();
 leo_profanity.default.add(profanity_de_default);
 leo_profanity.default.add(profanity_fr_default);
@@ -359,7 +359,7 @@ var BLOCKED_REGISTRABLE_DOMAINS = [
 ];
 //#endregion
 //#region src/middlewares/blacklist-filter.ts
-var debug$5 = (0, debug.default)("verdaccio:plugin:pro:middleware:blacklist");
+var debug$5 = (0, debug.default)("verdaccio:plugin:PRO:middleware:blacklist");
 var blocked = new Set(BLOCKED_REGISTRABLE_DOMAINS);
 var hrefSrcRe = /(?:\bhref\s*=|\bsrc\s*=)\s*["']([^"']+)["']/gi;
 var absoluteUrlRe = /https?:\/\/[^\s"'<>\]]+/gi;
@@ -426,7 +426,7 @@ var blacklistFilter = (req, res, next) => {
 };
 //#endregion
 //#region src/middlewares/event-log.ts
-var debug$4 = (0, debug.default)("verdaccio:plugin:pro:middleware:event-log");
+var debug$4 = (0, debug.default)("verdaccio:plugin:PRO:middleware:event-log");
 var APM_COMMAND_HEADER = "apm-command";
 var ANONYMOUS_USER = "#";
 var VALID_EVENTS = /* @__PURE__ */ new Set([
@@ -547,7 +547,7 @@ var eventLog = (storage, logger) => {
 };
 //#endregion
 //#region src/middlewares/http-log.ts
-var debug$3 = (0, debug.default)("verdaccio:plugin:pro:middleware:http-log");
+var debug$3 = (0, debug.default)("verdaccio:plugin:PRO:middleware:http-log");
 var HTTP_LOG_DIR = "http-logs";
 function requestPath(req) {
 	return req.originalUrl ?? req.url;
@@ -619,6 +619,7 @@ var httpLog = (config, logger) => {
 			path: requestPathValue,
 			body: parseBody(req.body)
 		};
+		debug$3("http-log: %o", filePath);
 		ensureLogDir().then(() => (0, node_fs_promises.writeFile)(filePath, JSON.stringify(payload, null, 2), "utf8")).then(() => {
 			debug$3("logged request %o", {
 				filePath,
@@ -639,7 +640,7 @@ var httpLog = (config, logger) => {
 };
 //#endregion
 //#region src/middlewares/user-agent-filter.ts
-var debug$2 = (0, debug.default)("verdaccio:plugin:pro:middleware:user-agent");
+var debug$2 = (0, debug.default)("verdaccio:plugin:PRO:middleware:user-agent");
 var userAgentFilter = (pattern) => {
 	let regex;
 	try {
@@ -659,7 +660,7 @@ var userAgentFilter = (pattern) => {
 };
 //#endregion
 //#region src/plugin.ts
-var debug$1 = (0, debug.default)("verdaccio:plugin:pro:middleware");
+var debug$1 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
 var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 	constructor(config, options) {
 		super(config, options);
