@@ -175,13 +175,13 @@ export function allow_action(action: ActionsAllowed, logger: Logger): AllowActio
   ): void {
     logger.trace({ remote: user.name }, `[auth/allow_action]: user: @{remote}`);
     const { name, groups } = user;
-    debug('allow_action "%s": groups %s', action, groups);
+    debug('allow_action "%s": user "%s" has groups %s', action, name, groups);
     const groupAccess = pkg[action] as string[];
-    debug('allow_action "%s": groupAccess %s', action, groupAccess);
+    debug('allow_action "%s": package "%s" has groupAccess %s', action, pkg.name, groupAccess);
     const hasPermission = groupAccess.some((group) => {
       return name === group || groups.includes(group);
     });
-    debug('package "%s" has permission "%s"', name, hasPermission);
+    debug('user "%s" has permission "%s"', name, hasPermission);
     logger.trace(
       { pkgName: pkg.name, hasPermission, remote: user.name, groupAccess },
       `[auth/allow_action]: hasPermission? @{hasPermission} for user: @{remote}, package: @{pkgName}`
