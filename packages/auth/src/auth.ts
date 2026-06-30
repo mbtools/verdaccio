@@ -283,7 +283,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
 
       plugin.allow_access(user, pkg, (err: VerdaccioError | null, ok?: boolean): void => {
         if (err) {
-          debug('forbidden access. Error: %o', err);
+          debug('forbidden access: %o', err.message);
           return callback(err);
         }
 
@@ -333,7 +333,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
 
       plugin.allow_unpublish(user, pkg, (err: VerdaccioError | null, ok?: boolean): void => {
         if (err) {
-          debug('forbidden unpublish. Error: %o', err);
+          debug('forbidden unpublish: %o', err.message);
           return callback(err);
         }
 
@@ -399,7 +399,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
 
       plugin.allow_publish(user, pkg, (err: VerdaccioError | null, ok?: boolean): void => {
         if (err) {
-          debug('forbidden publish. Error: %o', err);
+          debug('forbidden publish: %o', err.message);
           return callback(err);
         }
 
