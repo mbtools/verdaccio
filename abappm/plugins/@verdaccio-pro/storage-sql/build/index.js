@@ -30,7 +30,7 @@ let drizzle_orm = require("drizzle-orm");
 let _verdaccio_core = require("@verdaccio/core");
 let _verdaccio_pro_database = require("@verdaccio-pro/database");
 //#region src/storage-handler.ts
-var debug$2 = (0, debug.default)("verdaccio:plugin:pro:storage:sql:handler");
+var debug$2 = (0, debug.default)("verdaccio:plugin:PRO:storage:sql:handler");
 var SqlStorageHandler = class {
 	constructor(packageService, tarballService, logger, packageName) {
 		debug$2("start storage handler");
@@ -86,7 +86,7 @@ var SqlStorageHandler = class {
 };
 //#endregion
 //#region src/storage-plugin.ts
-var debug$1 = (0, debug.default)("verdaccio:plugin:pro:storage:sql");
+var debug$1 = (0, debug.default)("verdaccio:plugin:PRO:storage:sql");
 var SqlStoragePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 	constructor(config, options) {
 		debug$1("start storage plugin");
