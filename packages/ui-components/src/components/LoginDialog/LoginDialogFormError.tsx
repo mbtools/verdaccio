@@ -6,6 +6,7 @@ import { common } from '@mui/material/colors';
 import React, { memo } from 'react';
 
 import type { Theme } from '../../';
+import LinkifyText from '../LinkifyText';
 
 const StyledSnackbarContent = styled(SnackbarContent)<{ theme?: Theme }>(({ theme }) => ({
   backgroundColor: theme.palette.error.dark,
@@ -29,7 +30,7 @@ const LoginDialogFormError = memo(({ error }: Props) => {
       message={
         <Box alignItems="center" data-testid="error" display="flex">
           <StyledErrorIcon />
-          {error.message}
+          <LinkifyText>{error.message}</LinkifyText>
         </Box>
       }
     />

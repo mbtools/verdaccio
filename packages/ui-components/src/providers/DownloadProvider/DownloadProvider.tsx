@@ -5,6 +5,7 @@ import React, { createContext, useCallback, use, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useTarballDownload } from '../../api/use-data-mutation';
+import LinkifyText from '../../components/LinkifyText';
 import { downloadFile, extractFileName } from '../../utils/url';
 
 export interface DownloadContextProps {
@@ -56,7 +57,7 @@ export const DownloadProvider: React.FC<{ children: ReactNode }> = ({ children }
           severity="error"
           sx={{ width: '100%' }}
         >
-          {downloadError}
+          <LinkifyText>{downloadError}</LinkifyText>
         </Alert>
       </Snackbar>
     </DownloadContext>
