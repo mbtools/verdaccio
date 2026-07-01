@@ -74,11 +74,12 @@ var setSecurityHeaders = (allowedOrigins = []) => {
 //#endregion
 //#region src/middlewares/block-requests.ts
 var blockUnwantedRequests = (req, res, next) => {
-	if (req.path.includes("/robots.txt") || req.path.includes("/sitemap.xml")) {
+	const path = req.path ?? req.url?.split("?")[0] ?? "";
+	if (path.includes("/robots.txt") || path.includes("/sitemap.xml")) {
 		next();
 		return;
 	}
-	if (/\.(env|php|exe|cmd|bat|sh|csh|ksh|zsh|ps1|txt|pdf|doc|docx|xls|xlsx|ppt|pptx)$/.test(req.path)) res.status(404).send("Not Found");
+	if (/\.(env|php|exe|cmd|bat|sh|csh|ksh|zsh|ps1|txt|pdf|doc|docx|xls|xlsx|ppt|pptx)$/.test(path)) res.status(404).send("Not Found");
 	else next();
 };
 //#endregion
