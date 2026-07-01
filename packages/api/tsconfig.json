@@ -4,13 +4,8 @@
     "rootDir": "./src",
     "outDir": "./build"
   },
-  "include": [
-    "src/**/*.ts",
-    "types/*.d.ts"
-  ],
-  "exclude": [
-    "src/**/*.test.ts"
-  ],
+  "include": ["src/**/*.ts", "types/*.d.ts"],
+  "exclude": ["src/**/*.test.ts"],
   "references": [
     {
       "path": "../auth"
