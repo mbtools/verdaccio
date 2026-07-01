@@ -3,50 +3,37 @@
   "version": "1.4.2",
   "description": "Database Layer for Verdaccio Pro (Postgres/Drizzle)",
   "keywords": [
-    "verdaccio",
-    "verdaccio-pro",
     "database",
+    "drizzle",
     "postgres",
-    "drizzle"
+    "verdaccio",
+    "verdaccio-pro"
   ],
+  "homepage": "https://verdaccio.pro",
+  "bugs": {
+    "url": "https://github.com/verdaccio-pro/verdaccio-pro/issues"
+  },
+  "license": "FSL-1.1-MIT",
   "author": {
     "name": "Marc Bernard",
     "url": "https://github.com/mbtools"
   },
-  "license": "FSL-1.1-MIT",
-  "homepage": "https://verdaccio.pro",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/verdaccio-pro/verdaccio-pro.git",
     "directory": "packages/database"
   },
-  "bugs": {
-    "url": "https://github.com/verdaccio-pro/verdaccio-pro/issues"
-  },
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/verdaccio-pro"
   },
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
   "files": [
     "build"
   ],
-  "engines": {
-    "node": ">=24"
-  },
-  "dependencies": {
-    "@verdaccio/core": "9.0.0-next-9.20",
-    "debug": "4.4.3",
-    "dotenv": "17.4.2",
-    "drizzle-orm": "1.0.0-rc.4",
-    "pg": "8.22.0",
-    "zod": "4.4.3"
-  },
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "scripts": {
     "build": "vite build",
-    "lint": "eslint src",
-    "lint:fix": "eslint src --fix",
     "test": "cross-env NODE_ENV=test vitest run",
     "db-server:file": "pglite-server --db=local.db",
     "db-server:memory": "pglite-server",
@@ -61,5 +48,16 @@
     "db:export": "cross-env DB_EXPORTING=true tsx src/db/tools/export.ts",
     "db:import": "cross-env DB_IMPORTING=true tsx src/db/tools/import.ts",
     "db:repair": "tsx src/db/tools/repair.ts"
+  },
+  "dependencies": {
+    "@verdaccio/core": "9.0.0-next-9.20",
+    "debug": "4.4.3",
+    "dotenv": "17.4.2",
+    "drizzle-orm": "1.0.0-rc.4",
+    "pg": "8.22.0",
+    "zod": "4.4.3"
+  },
+  "engines": {
+    "node": ">=24"
   }
 }

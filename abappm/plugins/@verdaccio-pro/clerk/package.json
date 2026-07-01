@@ -3,49 +3,47 @@
   "version": "1.2.0",
   "description": "Clerk Auth Plugin for Verdaccio Pro",
   "keywords": [
-    "verdaccio",
-    "verdaccio-pro",
-    "plugin",
-    "security",
     "authentication",
     "authorization",
-    "clerk"
+    "clerk",
+    "plugin",
+    "security",
+    "verdaccio",
+    "verdaccio-pro"
   ],
+  "homepage": "https://verdaccio.pro",
+  "bugs": {
+    "url": "https://github.com/verdaccio-pro/verdaccio-pro/issues"
+  },
+  "license": "FSL-1.1-MIT",
   "author": {
     "name": "Marc Bernard",
     "url": "https://github.com/mbtools"
   },
-  "license": "FSL-1.1-MIT",
-  "homepage": "https://verdaccio.pro",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/verdaccio-pro/verdaccio-pro.git",
     "directory": "packages/auth-clerk"
   },
-  "bugs": {
-    "url": "https://github.com/verdaccio-pro/verdaccio-pro/issues"
-  },
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/verdaccio-pro"
   },
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
   "files": [
     "build"
   ],
-  "engines": {
-    "node": ">=24"
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "vite build",
+    "test": "cross-env NODE_ENV=test vitest run"
   },
   "dependencies": {
     "@clerk/backend": "3.8.4",
     "@verdaccio/core": "9.0.0-next-9.20",
     "debug": "4.4.3"
   },
-  "scripts": {
-    "build": "vite build",
-    "lint": "eslint src",
-    "lint:fix": "eslint src --fix",
-    "test": "cross-env NODE_ENV=test vitest run"
+  "engines": {
+    "node": ">=24"
   }
 }
