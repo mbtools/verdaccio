@@ -74,7 +74,7 @@ var setSecurityHeaders = (allowedOrigins = []) => {
 //#endregion
 //#region src/middlewares/block-requests.ts
 var blockUnwantedRequests = (req, res, next) => {
-	if (req.path === "/robots.txt" || req.path === "/sitemap.xml") {
+	if (req.path.includes("/robots.txt") || req.path.includes("/sitemap.xml")) {
 		next();
 		return;
 	}
@@ -596,7 +596,7 @@ var httpLog = (config, logger) => {
 		return dirReady;
 	};
 	return (req, _res, next) => {
-		if ((/* @__PURE__ */ new RegExp("^(/|-/ping|-/static|-/assets|.*\\.js$|.*\\.css$)")).test(req.path)) {
+		if ((/* @__PURE__ */ new RegExp("^(/$|-/ping|-/static|-/assets)")).test(req.path)) {
 			next();
 			return;
 		}
@@ -613,13 +613,16 @@ var httpLog = (config, logger) => {
 		const username = resolveUsername(req);
 		const filename = username ? `${timestampForFilename(now)}-${safeFilenamePart(username)}-${hash}.json` : `${timestampForFilename(now)}-${hash}.json`;
 		const filePath = node_path.default.join(logDir, filename);
+		const { pathname, search } = new URL(req.protocol + "://" + req.get("host") + req.originalUrl);
+		const query = search ? Object.fromEntries(new URLSearchParams(search).entries()) : "";
 		const payload = {
 			timestamp: now.toISOString(),
+			userAgent: req.get("user-agent"),
 			method,
-			path: requestPathValue,
+			path: pathname,
+			query,
 			body: parseBody(req.body)
 		};
-		debug$3("http-log: %o", filePath);
 		ensureLogDir().then(() => (0, node_fs_promises.writeFile)(filePath, JSON.stringify(payload, null, 2), "utf8")).then(() => {
 			debug$3("logged request %o", {
 				filePath,
@@ -672,10 +675,10 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		if (!this.middlewareConfig.enabled) return;
 		debug$1("Verdaccio Pro Middleware plugin is enabled");
 		const c = this.middlewareConfig;
+		if (c.blockUnwantedRequests !== false) app.use(blockUnwantedRequests);
 		if (c.securityHeaders !== false) app.use(setSecurityHeaders(c.corsAllowedOrigins));
 		if (c.prototypePollutionProtection !== false) app.use(prototypePollutionProtection(this.config));
 		if (c.httpLog !== false) app.use(httpLog(this.config, this.logger));
-		if (c.blockUnwantedRequests !== false) app.use(blockUnwantedRequests);
 		if (c.userAgent) app.use(userAgentFilter(c.userAgent));
 		if (c.profanityFilter !== false) app.use(profanityFilter);
 		if (c.blacklistFilter !== false) app.use(blacklistFilter);
