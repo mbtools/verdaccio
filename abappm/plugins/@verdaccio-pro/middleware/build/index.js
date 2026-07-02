@@ -84,7 +84,7 @@ var blockUnwantedRequests = (req, res, next) => {
 };
 //#endregion
 //#region src/middlewares/redirect-npm.ts
-var debug$7 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
+var debug$8 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
 var redirectNpmStyleUrl = (logger) => {
 	return (req, res, _next) => {
 		let packageName = req.params.all;
@@ -93,10 +93,10 @@ var redirectNpmStyleUrl = (logger) => {
 			res.status(404).send("Not Found");
 			return;
 		}
-		debug$7("redirect from %o", req.url);
+		debug$8("redirect from %o", req.url);
 		const redirectTo = "/-/web/detail/" + packageName;
 		logger.info({ redirectTo }, "Redirecting to @{redirectTo}");
-		debug$7("redirect to %o", redirectTo);
+		debug$8("redirect to %o", redirectTo);
 		res.redirect(redirectTo);
 	};
 };
@@ -104,6 +104,43 @@ var redirectNpmStyleUrl = (logger) => {
 //#region src/middlewares/redirect-robots.ts
 var redirectRobotsTxt = (_req, res) => {
 	res.redirect("/-/assets/robots.txt");
+};
+//#endregion
+//#region src/middlewares/generate-sitemap.ts
+var debug$7 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
+function getBaseUrl(req) {
+	const forwardedProto = req.get("x-forwarded-proto");
+	const forwardedHost = req.get("x-forwarded-host");
+	const protocol = forwardedProto?.split(",")[0]?.trim() || req.protocol || "http";
+	const host = forwardedHost?.split(",")[0]?.trim() || req.get("host");
+	return host ? `${protocol}://${host}` : "";
+}
+function escapeXml(value) {
+	return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+}
+function buildPackageUrl(packageName) {
+	return `/-/web/detail/${packageName.split("/").map((segment) => encodeURIComponent(segment)).join("/")}`;
+}
+function buildSitemapXml(baseUrl, packageNames) {
+	return [
+		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+		"<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">",
+		[baseUrl, ...packageNames.map((packageName) => `${baseUrl}${buildPackageUrl(packageName)}`)].map((url) => `  <url><loc>${escapeXml(url)}</loc></url>`).join("\n"),
+		"</urlset>"
+	].join("\n");
+}
+var generateSitemap = (storage, logger) => {
+	return async (req, res) => {
+		try {
+			const sitemap = buildSitemapXml(getBaseUrl(req), await storage.get());
+			res.setHeader("Content-Type", "application/xml; charset=utf-8");
+			res.send(sitemap);
+		} catch (error) {
+			logger.error({ error }, "Failed to generate sitemap");
+			debug$7("failed to generate sitemap: %o", error);
+			res.status(500).send("Failed to generate sitemap");
+		}
+	};
 };
 //#endregion
 //#region src/middlewares/prototype-pollution.ts
@@ -665,6 +702,21 @@ var userAgentFilter = (pattern) => {
 //#endregion
 //#region src/plugin.ts
 var debug$1 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
+var BUILD_INFO_KEYS = [
+	"BUILD_DATE",
+	"BUILD_SHA",
+	"NODE_VERSION",
+	"VERDACCIO_VERSION"
+];
+function getBuildInfoFromEnv(env = process.env) {
+	return BUILD_INFO_KEYS.reduce((buildInfo, key) => {
+		buildInfo[key] = env[key] ?? null;
+		return buildInfo;
+	}, {});
+}
+function buildInfo(_req, res) {
+	res.send({ env: getBuildInfoFromEnv() });
+}
 var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 	constructor(config, options) {
 		super(config, options);
@@ -686,6 +738,8 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		if (c.eventLog !== false) app.use(eventLog(storage, this.logger));
 		if (c.redirectNpmStyleUrl !== false) app.use("/package/{*all}", redirectNpmStyleUrl(this.logger));
 		app.get("/robots.txt", redirectRobotsTxt);
+		app.get("/sitemap.xml", generateSitemap(storage, this.logger));
+		app.get("/-/_build", buildInfo);
 	}
 };
 //#endregion
