@@ -108,6 +108,12 @@ var redirectRobotsTxt = (_req, res) => {
 //#endregion
 //#region src/middlewares/generate-sitemap.ts
 var debug$7 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
+function resolveStorage$1(storage) {
+	if (typeof storage?.get === "function") return storage;
+	const plugin = storage?.localStorage?.getStoragePlugin?.();
+	if (plugin && typeof plugin.get === "function") return plugin;
+	return storage;
+}
 function getBaseUrl(req) {
 	const forwardedProto = req.get("x-forwarded-proto");
 	const forwardedHost = req.get("x-forwarded-host");
@@ -132,7 +138,7 @@ function buildSitemapXml(baseUrl, packageNames) {
 var generateSitemap = (storage, logger) => {
 	return async (req, res) => {
 		try {
-			const sitemap = buildSitemapXml(getBaseUrl(req), await storage.get());
+			const sitemap = buildSitemapXml(getBaseUrl(req), await resolveStorage$1(storage).get());
 			res.setHeader("Content-Type", "application/xml; charset=utf-8");
 			res.send(sitemap);
 		} catch (error) {
