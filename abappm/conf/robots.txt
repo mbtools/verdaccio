@@ -5,7 +5,7 @@
 #  {======|__|"""""|_||_|""|_|"""""|_
 # ./o--000'""`-0-0-'"`-0-0-'"`-0-0-'"
 # 
-# By accessing apm.to websites you agree to our Terms of Service, available at
+# By accessing apm.to and abappm.com websites you agree to our Terms of Service, available at
 # https://abappm.com/terms-of-use/
 #
 # As always, Asimov's Three Laws are in effect:
@@ -18,4 +18,4 @@ User-Agent: *
 Allow: *
 Disallow: *.tgz
 
-# Sitemap: https://abappm.com/sitemap.xml
+Sitemap: /sitemap.xml
