@@ -2,6 +2,9 @@ import { Request, Response } from 'express';
 import { Logger } from '@verdaccio/types';
 type SitemapStorage = {
     get(): Promise<string[]>;
+    localStorage?: {
+        getStoragePlugin?: () => SitemapStorage;
+    };
 };
 declare function getBaseUrl(req: Request): string;
 declare function buildPackageUrl(packageName: string): string;
