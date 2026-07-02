@@ -265,10 +265,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     callback: pluginUtils.AccessCallback
   ): void {
     const plugins = this.plugins.slice(0);
-    const pkg = Object.assign(
-      { name: packageName, version: packageVersion },
-      authUtils.getMatchedPackagesSpec(packageName, this.config.packages)
-    ) as AllowAccess & PackageAccess;
+    const matchedPackageSpec = authUtils.getMatchedPackagesSpec(packageName, this.config.packages);
 
     debug('check access permissions for user %o to package %o', user.name, packageName);
 
@@ -280,6 +277,15 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         debug('plugin does not implement allow_access');
         return next();
       }
+
+      const packageSpec =
+        typeof plugin?.getPackagesSpec === 'function'
+          ? plugin.getPackagesSpec(packageName)
+          : matchedPackageSpec;
+      const pkg = Object.assign(
+        { name: packageName, version: packageVersion },
+        packageSpec
+      ) as AllowAccess & PackageAccess;
 
       plugin.allow_access(user, pkg, (err: VerdaccioError | null, ok?: boolean): void => {
         if (err) {
@@ -315,10 +321,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     callback: Callback
   ): void {
     const plugins = this.plugins.slice(0);
-    const pkg = Object.assign(
-      { name: packageName, version: packageVersion },
-      authUtils.getMatchedPackagesSpec(packageName, this.config.packages)
-    );
+    const matchedPackageSpec = authUtils.getMatchedPackagesSpec(packageName, this.config.packages);
 
     debug('check unpublish permissions for user %o to package %o', user.name, packageName);
 
@@ -330,6 +333,15 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         debug('plugin does not implement allow_unpublish');
         return next();
       }
+
+      const packageSpec =
+        typeof plugin?.getPackagesSpec === 'function'
+          ? plugin.getPackagesSpec(packageName)
+          : matchedPackageSpec;
+      const pkg = Object.assign(
+        { name: packageName, version: packageVersion },
+        packageSpec
+      ) as AllowAccess & PackageAccess;
 
       plugin.allow_unpublish(user, pkg, (err: VerdaccioError | null, ok?: boolean): void => {
         if (err) {
@@ -381,10 +393,7 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
     callback: Callback
   ): void {
     const plugins = this.plugins.slice(0);
-    const pkg = Object.assign(
-      { name: packageName, version: packageVersion },
-      authUtils.getMatchedPackagesSpec(packageName, this.config.packages)
-    );
+    const matchedPackageSpec = authUtils.getMatchedPackagesSpec(packageName, this.config.packages);
 
     debug('check publish permissions for user %o to package %o', user.name, packageName);
 
@@ -396,6 +405,15 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
         debug('plugin does not implement allow_publish');
         return next();
       }
+
+      const packageSpec =
+        typeof plugin?.getPackagesSpec === 'function'
+          ? plugin.getPackagesSpec(packageName)
+          : matchedPackageSpec;
+      const pkg = Object.assign(
+        { name: packageName, version: packageVersion },
+        packageSpec
+      ) as AllowAccess & PackageAccess;
 
       plugin.allow_publish(user, pkg, (err: VerdaccioError | null, ok?: boolean): void => {
         if (err) {

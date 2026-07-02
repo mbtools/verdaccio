@@ -172,6 +172,7 @@ export interface Auth<T> extends Plugin<T> {
     newPassword: string,
     cb: AuthChangePasswordCallback
   ): void;
+  getPackagesSpec?(pkgName: string): PackageAccess | void;
   allow_publish?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
   allow_publish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthAccessCallback): void;
   allow_access?(user: RemoteUser, pkg: T & PackageAccess, cb: AccessCallback): void;
