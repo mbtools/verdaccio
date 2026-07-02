@@ -1,6 +1,10 @@
-import { Express } from 'express';
+import { Express, Request, Response } from 'express';
 import { pluginUtils } from '@verdaccio/core';
 import { Config, Logger } from '@verdaccio/types';
+declare const BUILD_INFO_KEYS: readonly ["BUILD_DATE", "BUILD_SHA", "NODE_VERSION", "VERDACCIO_VERSION"];
+type BuildInfoKey = (typeof BUILD_INFO_KEYS)[number];
+export declare function getBuildInfoFromEnv(env?: NodeJS.ProcessEnv): Record<BuildInfoKey, string | null>;
+export declare function buildInfo(_req: Request, res: Response): void;
 /** When an option is omitted, true. Set to false to skip a particular middleware. */
 export interface MiddlewareConfig {
     enabled: boolean;
