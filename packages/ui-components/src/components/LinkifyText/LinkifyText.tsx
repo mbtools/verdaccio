@@ -4,10 +4,14 @@ import React, { Fragment } from 'react';
 const URL_PATTERN = /(https?:\/\/[^\s]+)/g;
 
 interface Props {
-  children: string;
+  children: string | null | undefined;
 }
 
 const LinkifyText: React.FC<Props> = ({ children }) => {
+  if (!children) {
+    return null;
+  }
+
   const parts = children.split(URL_PATTERN);
 
   return (

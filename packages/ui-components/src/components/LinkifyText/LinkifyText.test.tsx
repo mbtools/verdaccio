@@ -23,4 +23,9 @@ describe('<LinkifyText /> component', () => {
     const link = screen.getByRole('link', { name: 'https://example.com' });
     expect(link).toHaveAttribute('href', 'https://example.com');
   });
+
+  test('should render nothing when children is null', () => {
+    const { container } = render(<LinkifyText>{null}</LinkifyText>);
+    expect(container).toBeEmptyDOMElement();
+  });
 });
