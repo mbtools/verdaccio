@@ -56,7 +56,10 @@ jobs:
             type=sha
 
       - name: Set build date
-        run: echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_ENV
+        run: echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+
+      - name: Set Verdaccio version
+        run: echo "VERDACCIO_VERSION=$(node -p 'require(\"./packages/verdaccio/package.json\").version')" >> $GITHUB_ENV
 
       - name: Docker Build & Push
         uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf # v7.2.0
@@ -69,3 +72,4 @@ jobs:
           build-args: |
             BUILD_SHA=${{ github.sha }}
             BUILD_DATE=${{ env.BUILD_DATE }}
+            VERDACCIO_VERSION=${{ env.VERDACCIO_VERSION }}

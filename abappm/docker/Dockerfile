@@ -44,6 +44,7 @@ FROM node:24-alpine AS app
 
 ARG BUILD_SHA
 ARG BUILD_DATE
+ARG VERDACCIO_VERSION
 
 LABEL maintainer="https://github.com/abapPM" \
       dockerfile="Dockerfile-apm" \
@@ -58,6 +59,7 @@ ENV NODE_ENV=production \
     VERDACCIO_PORT=4873 \
     VERDACCIO_PROTOCOL=http \
     VERDACCIO_ADDRESS=0.0.0.0 \
+    VERDACCIO_VERSION=$VERDACCIO_VERSION \
     BUILD_SHA=$BUILD_SHA \
     BUILD_DATE=$BUILD_DATE
 ENV PATH=$VERDACCIO_APP_DIR/docker-bin:$PATH \

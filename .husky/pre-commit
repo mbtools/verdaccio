@@ -10,7 +10,18 @@ STAGED=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(js|jsx|t
 
 if [ -n "$STAGED" ]; then
   echo "Formatting staged files (oxfmt)..."
-  echo "$STAGED" | xargs pnpm exec oxfmt --
+  if ! OXFMT_OUTPUT=$(echo "$STAGED" | xargs pnpm exec oxfmt -- 2>&1); then
+    OXFMT_STATUS=$?
+    echo "$OXFMT_OUTPUT"
+    case "$OXFMT_OUTPUT" in
+      *"Expected at least one target file. All matched files may have been excluded by ignore rules."*)
+        echo "Skipping oxfmt because all staged files are ignored."
+        ;;
+      *)
+        exit "$OXFMT_STATUS"
+        ;;
+    esac
+  fi
 
   LINTABLE=$(echo "$STAGED" | grep -E '\.(js|jsx|ts|tsx|mjs|cjs)$' || true)
   if [ -n "$LINTABLE" ]; then
