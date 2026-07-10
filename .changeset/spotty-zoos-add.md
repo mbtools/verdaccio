@@ -1,8 +1,7 @@
 ---
 '@verdaccio/middleware': patch
 '@verdaccio/core': patch
-'@verdaccio/api': patch
-'@verdaccio/web': patch
+'@verdaccio/url': patch
 ---
 
 fix(middleware): logging aborted requests

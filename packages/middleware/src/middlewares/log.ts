@@ -12,6 +12,11 @@ function isStaticRequest(url: string): boolean {
   return url.startsWith('/-/static/') || url.startsWith('/-/ping') || url.startsWith('/favicon');
 }
 
+// Keep export of constants for backward compatibility
+export const LOG_STATUS_MESSAGE = constants.LOG_STATUS_MESSAGE;
+export const LOG_VERDACCIO_ERROR = constants.LOG_VERDACCIO_ERROR;
+export const LOG_VERDACCIO_BYTES = constants.LOG_VERDACCIO_BYTES;
+
 // Converts all @{...} to %o for debug compatibility
 function convertToDebugString(template: string): string {
   return template.replace(/@\{[^}]+\}/g, '%o');
@@ -45,18 +50,11 @@ export const log = (logger, options: LogOptions = {}) => {
     req.url = requestUrl;
     const _skipLog = hideStaticLogs && isStaticRequest(requestUrl);
     if (_skipLog) {
-      debug(convertToDebugString(constants.LOG_REQUEST_MESSAGE), req.ip, req.method, logUrl);
+      if (debug.enabled) {
+        debug(convertToDebugString(constants.LOG_REQUEST_MESSAGE), req.ip, req.method, req.url);
+      }
     } else {
-      req.log.info(
-        {
-          req: {
-            ip: req.ip,
-            method: req.method,
-            url: logUrl,
-          },
-        },
-        constants.LOG_REQUEST_MESSAGE
-      );
+      req.log.info({ req, ip: req.ip }, constants.LOG_REQUEST_MESSAGE);
     }
     req.originalUrl = req.url;
 
@@ -92,7 +90,7 @@ export const log = (logger, options: LogOptions = {}) => {
       return {
         request: {
           method: req.method,
-          url: logUrl,
+          url: req.originalUrl,
         },
         user: req.remote_user?.name || null,
         remoteIP,
@@ -144,27 +142,29 @@ export const log = (logger, options: LogOptions = {}) => {
       const message = context.error ? constants.LOG_VERDACCIO_ERROR : constants.LOG_VERDACCIO_BYTES;
 
       if (_skipLog) {
-        if (context.error) {
-          debug(
-            convertToDebugString(constants.LOG_VERDACCIO_ERROR),
-            context.status,
-            context.user,
-            context.remoteIP,
-            context.request.method,
-            context.request.url,
-            context.error
-          );
-        } else {
-          debug(
-            convertToDebugString(constants.LOG_VERDACCIO_BYTES),
-            context.status,
-            context.user,
-            context.remoteIP,
-            context.request.method,
-            context.request.url,
-            context.bytes.in,
-            context.bytes.out
-          );
+        if (debug.enabled) {
+          if (context.error) {
+            debug(
+              convertToDebugString(message),
+              context.status,
+              context.user,
+              context.remoteIP,
+              context.request.method,
+              context.request.url,
+              context.error
+            );
+          } else {
+            debug(
+              convertToDebugString(message),
+              context.status,
+              context.user,
+              context.remoteIP,
+              context.request.method,
+              context.request.url,
+              context.bytes.in,
+              context.bytes.out
+            );
+          }
         }
       } else {
         req.log.http(context, message);
