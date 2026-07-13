@@ -45,10 +45,9 @@ export const log = (logger, options: LogOptions = {}) => {
       req.headers.cookie = '<Classified>';
     }
 
-    const requestUrl = req.originalUrl ?? req.url ?? '';
-    const logUrl = sanitizeUrlForLog(requestUrl);
-    req.url = requestUrl;
-    const _skipLog = hideStaticLogs && isStaticRequest(requestUrl);
+    const saveUrl = req.originalUrl;
+    req.url = sanitizeUrlForLog(saveUrl);
+    const _skipLog = hideStaticLogs && isStaticRequest(req.url);
     if (_skipLog) {
       if (debug.enabled) {
         debug(convertToDebugString(constants.LOG_REQUEST_MESSAGE), req.ip, req.method, req.url);
@@ -56,7 +55,7 @@ export const log = (logger, options: LogOptions = {}) => {
     } else {
       req.log.info({ req, ip: req.ip }, constants.LOG_REQUEST_MESSAGE);
     }
-    req.originalUrl = req.url;
+    req.originalUrl = saveUrl;
 
     if (isNil(_auth) === false) {
       req.headers.authorization = _auth;
@@ -107,13 +106,25 @@ export const log = (logger, options: LogOptions = {}) => {
       if (abortLogged || requestCompleted) return;
       abortLogged = true;
 
-      req.log.info(
-        {
-          ...getRequestContext(),
-          status: constants.HTTP_STATUS.CLIENT_CLOSED_REQUEST,
-        },
-        constants.LOG_VERDACCIO_ABORT
-      );
+      const context = {
+        ...getRequestContext(),
+        status: constants.HTTP_STATUS.CLIENT_CLOSED_REQUEST,
+      };
+
+      if (_skipLog) {
+        if (debug.enabled) {
+          debug(
+            convertToDebugString(constants.LOG_VERDACCIO_ABORT),
+            context.status,
+            context.user,
+            context.remoteIP,
+            context.request.method,
+            context.request.url
+          );
+        }
+      } else {
+        req.log.info(context, constants.LOG_VERDACCIO_ABORT);
+      }
     };
 
     const cleanupSocketListeners = () => {
