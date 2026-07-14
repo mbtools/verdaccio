@@ -81,6 +81,7 @@ export default function (route: Router, auth: Auth, config: Config, logger: Logg
 
       const userName = reqUtils.paramToString(req.params.org_couchdb_user);
       if (!validationUtils.validateUserName(userName, name)) {
+        debug('mismatch username: %o, name: %o', userName, name);
         return next(errorUtils.getBadRequest(API_ERROR.USERNAME_MISMATCH));
       }
 
