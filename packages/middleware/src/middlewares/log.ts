@@ -4,7 +4,6 @@ import { isNil } from 'lodash-es';
 import { HEADERS, constants } from '@verdaccio/core';
 
 import type { $NextFunctionVer, $RequestExtend, $ResponseExtend } from '../types';
-import { sanitizeUrlForLog } from './sanitize-url';
 
 const debug = buildDebug('verdaccio+:middleware:log');
 
@@ -45,8 +44,7 @@ export const log = (logger, options: LogOptions = {}) => {
       req.headers.cookie = '<Classified>';
     }
 
-    const saveUrl = req.originalUrl;
-    req.url = sanitizeUrlForLog(saveUrl);
+    req.url = req.originalUrl;
     const _skipLog = hideStaticLogs && isStaticRequest(req.url);
     if (_skipLog) {
       if (debug.enabled) {
@@ -55,7 +53,7 @@ export const log = (logger, options: LogOptions = {}) => {
     } else {
       req.log.info({ req, ip: req.ip }, constants.LOG_REQUEST_MESSAGE);
     }
-    req.originalUrl = saveUrl;
+    req.originalUrl = req.url;
 
     if (isNil(_auth) === false) {
       req.headers.authorization = _auth;
