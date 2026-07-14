@@ -814,15 +814,15 @@ var EventLogService = class {
 		this.userCache = /* @__PURE__ */ new Map();
 	}
 	async log(user, method, event, name, version) {
-		const data = {
-			org_id: await this.tenant.get(name),
-			user_id: await this.getUserId(user),
-			method,
-			event_id: await this.getEventId(event),
-			name,
-			version
-		};
 		try {
+			const data = {
+				org_id: await this.tenant.get(name),
+				user_id: await this.getUserId(user),
+				method,
+				event_id: await this.getEventId(event),
+				name,
+				version
+			};
 			await this.db.insert(eventLog).values(data);
 			debug$8("activity logged successfully");
 		} catch (error) {
@@ -832,7 +832,11 @@ var EventLogService = class {
 	async getUserId(user) {
 		if (!user || user === "") return this.getUserId("#");
 		if (this.userCache.has(user)) return this.userCache.get(user);
-		const [ids] = await this.db.select({ id: users.id }).from(users).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(users.user, user), (0, drizzle_orm.isNull)(users.deleted)));
+		let [ids] = await this.db.select({ id: users.id }).from(users).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(users.user, user), (0, drizzle_orm.isNull)(users.deleted)));
+		if (!ids) {
+			[ids] = await this.db.insert(users).values({ user }).onConflictDoNothing().returning({ id: users.id });
+			if (!ids) [ids] = await this.db.select({ id: users.id }).from(users).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(users.user, user), (0, drizzle_orm.isNull)(users.deleted)));
+		}
 		if (!ids) throw _verdaccio_core.errorUtils.getNotFound(`user "${user}" not found`);
 		const id = ids.id;
 		this.userCache.set(user, id);
