@@ -5,28 +5,31 @@ if ! pnpm install --frozen-lockfile --lockfile-only 2>/dev/null; then
   exit 1
 fi
 
+# Run an oxc command over a newline-separated file list, tolerating the case
+# where every file is excluded by ignore rules (oxfmt/oxlint otherwise abort).
+run_over_files() {
+  files=$1
+  shift
+  output=$(echo "$files" | xargs "$@" 2>&1)
+  status=$?
+  [ -n "$output" ] && echo "$output"
+  if [ "$status" -ne 0 ] && echo "$output" | grep -q "Expected at least one target file"; then
+    return 0
+  fi
+  return "$status"
+}
+
 # Format and lint staged files with oxfmt + oxlint, then re-stage any fixes.
 STAGED=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(js|jsx|ts|tsx|mjs|cjs|json|jsonc|json5|md|yml|yaml|html)$' || true)
 
 if [ -n "$STAGED" ]; then
   echo "Formatting staged files (oxfmt)..."
-  if ! OXFMT_OUTPUT=$(echo "$STAGED" | xargs pnpm exec oxfmt -- 2>&1); then
-    OXFMT_STATUS=$?
-    echo "$OXFMT_OUTPUT"
-    case "$OXFMT_OUTPUT" in
-      *"Expected at least one target file. All matched files may have been excluded by ignore rules."*)
-        echo "Skipping oxfmt because all staged files are ignored."
-        ;;
-      *)
-        exit "$OXFMT_STATUS"
-        ;;
-    esac
-  fi
+  run_over_files "$STAGED" pnpm exec oxfmt -- || exit 1
 
   LINTABLE=$(echo "$STAGED" | grep -E '\.(js|jsx|ts|tsx|mjs|cjs)$' || true)
   if [ -n "$LINTABLE" ]; then
     echo "Linting staged files (oxlint --fix)..."
-    echo "$LINTABLE" | xargs pnpm exec oxlint --fix --
+    run_over_files "$LINTABLE" pnpm exec oxlint --fix -- || exit 1
   fi
 
   # Re-stage files that oxfmt/oxlint modified
