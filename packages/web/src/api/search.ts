@@ -3,7 +3,7 @@ import { Router } from 'express';
 import { URLSearchParams } from 'node:url';
 
 import type { Auth } from '@verdaccio/auth';
-import { HTTP_STATUS, reqUtils } from '@verdaccio/core';
+import { errorUtils, reqUtils } from '@verdaccio/core';
 import type { searchUtils } from '@verdaccio/core';
 import { WebUrls } from '@verdaccio/middleware';
 import type { Storage } from '@verdaccio/store';
@@ -37,7 +37,7 @@ function addSearchWebApi(storage: Storage, auth: Auth): Router {
     WebUrls.search,
     async function (
       req: $RequestExtend,
-      _res: $ResponseExtend,
+      res: $ResponseExtend,
       next: $NextFunctionVer
     ): Promise<void> {
       const abort = new AbortController();
@@ -45,12 +45,11 @@ function addSearchWebApi(storage: Storage, auth: Auth): Router {
         debug('search web aborted');
         abort.abort();
       };
-
+      req.socket.on('close', onClientClose);
+      res.on('finish', () => {
+        req.socket.removeListener('close', onClientClose);
+      });
       try {
-        req.socket.on('close', onClientClose);
-        _res.on('finish', () => {
-          req.socket.removeListener('close', onClientClose);
-        });
         const text = reqUtils.paramToString(req.params.anything);
         // These values are declared as optimal by npm cli
         // FUTURE: could be overwritten by ui settings.
@@ -84,11 +83,7 @@ function addSearchWebApi(storage: Storage, auth: Auth): Router {
 
         next(final);
       } catch (err: any) {
-        if (err.status === HTTP_STATUS.NOT_FOUND || err.code === HTTP_STATUS.NOT_FOUND) {
-          next([]);
-          return;
-        }
-        next(err);
+        next(errorUtils.getInternalError(err.message));
       } finally {
         req.socket.off('close', onClientClose);
       }
