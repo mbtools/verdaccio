@@ -36,7 +36,7 @@ export function isES6<T>(plugin: PluginType<T>): boolean {
  * @param {*} path the module's path
  * @return {Object}
  */
-export function tryLoad<T>(path: string): PluginType<T> | null {
+export function tryLoad<T>(path: string, onError: any): PluginType<T> | null {
   try {
     debug('loading plugin %s', path);
     return requireModule(path) as PluginType<T>;
@@ -118,7 +118,7 @@ function resolveEntryPoint(dirPath: string): string {
 export async function tryLoadAsync<T>(path: string, onError: any): Promise<PluginType<T> | null> {
   // Try require first (handles CJS and will be fast)
   try {
-    const cjsResult = tryLoad<T>(path);
+    const cjsResult = tryLoad<T>(path, onError);
     if (cjsResult !== null) {
       return cjsResult;
     }
