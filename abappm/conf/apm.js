@@ -9,6 +9,24 @@ if (window.location.hostname.includes('playground.abappm.com')) {
   document.getElementById('apm-header').style.display = 'none';
 }
 
+(function injectJsonLd() {
+  var script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'apm Registry',
+    url: 'https://registry.abappm.com/',
+    description: 'apm - A Package Manager 📦, a Website 🌐, and a Registry 📑 for ABAP',
+    publisher: {
+      '@type': 'Organization',
+      name: 'apm.to Inc.',
+      url: 'https://abappm.com',
+    },
+  });
+  document.head.appendChild(script);
+})();
+
 var apmFooterHtml = `
 <style>
   .apm-footer {
