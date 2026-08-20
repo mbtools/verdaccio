@@ -35,7 +35,7 @@
   "types": "build/index.d.ts",
   "scripts": {
     "build": "vite build",
-    "test": "cross-env NODE_ENV=test vitest run --max-concurrency=1"
+    "test": "cross-env NODE_ENV=test vitest run --max-concurrency=1 --fileParallelism=false"
   },
   "dependencies": {
     "@verdaccio-pro/database": "file:../database/verdaccio-pro-database-1.4.3.tgz",

@@ -44,13 +44,14 @@ var PRODUCTION_REQUIRED_ENV = [
 ];
 var DEV_DEFAULT_DATABASE_SECRET = "caramelicecream";
 var DEV_DEFAULT_DB_SALT = "saltypretzel";
+var DEV_DEFAULT_DATABASE_URL = "postgresql://postgres:postgres@127.0.0.1:5432/postgres";
 var stringBoolean = zod.default.coerce.string().transform((val) => {
 	return val === "true";
 }).default(false);
 var envSchema = zod.default.object({
 	NODE_ENV: zod.default.string().default("development"),
 	DATABASE_SECRET: zod.default.string().trim().min(1).default(DEV_DEFAULT_DATABASE_SECRET),
-	DATABASE_URL: zod.default.string().trim().min(1).default("localhost"),
+	DATABASE_URL: zod.default.string().trim().min(1).default(DEV_DEFAULT_DATABASE_URL),
 	DB_POOL_SIZE: zod.default.coerce.number().default(22),
 	DB_SSL: stringBoolean.default(true),
 	DB_SSL_REJECT_UNAUTHORIZED: stringBoolean.default(true),
@@ -144,7 +145,10 @@ var loggerFactory = (logger) => {
 };
 //#endregion
 //#region src/db/index.ts
+var connections = /* @__PURE__ */ new Map();
 var getDatabase = (url, logger) => {
+	const cached = connections.get(url);
+	if (cached) return cached;
 	const drizzleLogger = loggerFactory(logger);
 	const sslConfig = ENV.DB_SSL ? {
 		rejectUnauthorized: ENV.DB_SSL_REJECT_UNAUTHORIZED,
@@ -152,15 +156,18 @@ var getDatabase = (url, logger) => {
 		cert: ENV.DB_SSL_CERT_PATH ? (0, node_fs.readFileSync)((0, node_path.resolve)(ENV.DB_SSL_CERT_PATH), "utf8") : ENV.DB_SSL_CERT ?? void 0,
 		key: ENV.DB_SSL_KEY_PATH ? (0, node_fs.readFileSync)((0, node_path.resolve)(ENV.DB_SSL_KEY_PATH), "utf8") : ENV.DB_SSL_KEY ?? void 0
 	} : false;
-	const isSingleConnection = ENV.DATABASE_URL.includes("localhost") || ENV.DATABASE_URL.includes("127.0.0.1") || ENV.DATABASE_URL.includes("file:") || ENV.DB_MIGRATING || ENV.DB_SEEDING || ENV.DB_RESET || ENV.DB_EXPORTING || ENV.DB_IMPORTING;
-	return (0, drizzle_orm_node_postgres.drizzle)({
+	const isLocalDatabase = url.includes("localhost") || url.includes("127.0.0.1") || url.includes("file:");
+	const isSingleConnection = isLocalDatabase || ENV.DB_MIGRATING || ENV.DB_SEEDING || ENV.DB_RESET || ENV.DB_EXPORTING || ENV.DB_IMPORTING;
+	const db = (0, drizzle_orm_node_postgres.drizzle)({
 		connection: {
 			connectionString: url,
 			max: isSingleConnection ? 1 : ENV.DB_POOL_SIZE,
-			ssl: sslConfig
+			ssl: isLocalDatabase ? false : sslConfig
 		},
 		logger: drizzleLogger
 	});
+	connections.set(url, db);
+	return db;
 };
 //#endregion
 //#region src/db/schema/index.ts
