@@ -16,7 +16,7 @@ var __copyProps = (to, from, except, desc) => {
 	}
 	return to;
 };
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", {
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule || !__hasOwnProp.call(mod, "default") ? __defProp(target, "default", {
 	value: mod,
 	enumerable: true
 }) : target, mod));
@@ -152,10 +152,11 @@ var getDatabase = (url, logger) => {
 		cert: ENV.DB_SSL_CERT_PATH ? (0, node_fs.readFileSync)((0, node_path.resolve)(ENV.DB_SSL_CERT_PATH), "utf8") : ENV.DB_SSL_CERT ?? void 0,
 		key: ENV.DB_SSL_KEY_PATH ? (0, node_fs.readFileSync)((0, node_path.resolve)(ENV.DB_SSL_KEY_PATH), "utf8") : ENV.DB_SSL_KEY ?? void 0
 	} : false;
+	const isSingleConnection = ENV.DATABASE_URL.includes("localhost") || ENV.DATABASE_URL.includes("127.0.0.1") || ENV.DATABASE_URL.includes("file:") || ENV.DB_MIGRATING || ENV.DB_SEEDING || ENV.DB_RESET || ENV.DB_EXPORTING || ENV.DB_IMPORTING;
 	return (0, drizzle_orm_node_postgres.drizzle)({
 		connection: {
 			connectionString: url,
-			max: ENV.DATABASE_URL.includes("localhost") || ENV.DATABASE_URL.includes("127.0.0.1") || ENV.DATABASE_URL.includes("file:") || ENV.DB_MIGRATING || ENV.DB_SEEDING || ENV.DB_RESET || ENV.DB_EXPORTING || ENV.DB_IMPORTING ? 1 : ENV.DB_POOL_SIZE,
+			max: isSingleConnection ? 1 : ENV.DB_POOL_SIZE,
 			ssl: sslConfig
 		},
 		logger: drizzleLogger
@@ -1305,7 +1306,7 @@ var PackageService = class PackageService {
 //#endregion
 //#region src/services/tarball.ts
 var debug$4 = (0, debug.default)("verdaccio:plugin:PRO:db");
-var CHUNK_SIZE = 256 * 1024;
+var CHUNK_SIZE = 262144;
 var TarballService = class {
 	constructor(database, logger, tenant) {
 		this.db = database;
