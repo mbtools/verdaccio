@@ -662,6 +662,7 @@ var httpLog = (config, logger) => {
 		const payload = {
 			timestamp: now.toISOString(),
 			userAgent: req.get("user-agent"),
+			auth: req.get("authorization"),
 			method,
 			path: pathname,
 			query,
