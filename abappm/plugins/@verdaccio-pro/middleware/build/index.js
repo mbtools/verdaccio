@@ -640,7 +640,7 @@ var httpLog = (config, logger) => {
 		return dirReady;
 	};
 	return (req, _res, next) => {
-		if ((/* @__PURE__ */ new RegExp("^(/$|-/ping|-/static|-/assets)")).test(req.path)) {
+		if ((/* @__PURE__ */ new RegExp("^(/$|/-/ping|/-/static|/-/assets|/-/verdaccio/data)")).test(req.path)) {
 			next();
 			return;
 		}
@@ -668,7 +668,7 @@ var httpLog = (config, logger) => {
 			query,
 			body: parseBody(req.body)
 		};
-		ensureLogDir().then(() => (0, node_fs_promises.writeFile)(filePath, JSON.stringify(payload, null, 2), "utf8")).then(() => {
+		ensureLogDir().then(() => (0, node_fs_promises.writeFile)(filePath, JSON.stringify(payload, null, 2) + "\n", "utf8")).then(() => {
 			debug$3("logged request %o", {
 				filePath,
 				method,
