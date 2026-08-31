@@ -1,17 +1,15 @@
 import { builtinModules, createRequire } from 'node:module';
 import path from 'node:path';
 
-import dts from 'vite-plugin-dts';
 import { defineConfig } from 'vite';
+
+import { nativeDts } from '../../../vite.lib.config.mjs';
 
 const dirname = import.meta.dirname;
 const require = createRequire(path.resolve(dirname, 'package.json'));
 const pkg = require('./package.json');
 
-const nodeBuiltins = new Set([
-  ...builtinModules,
-  ...builtinModules.map((m) => `node:${m}`),
-]);
+const nodeBuiltins = new Set([...builtinModules, ...builtinModules.map((m) => `node:${m}`)]);
 
 const externalDeps = new Set([
   ...Object.keys(pkg.dependencies ?? {}),
@@ -32,21 +30,14 @@ const sharedOutput = {
 };
 
 export default defineConfig({
-  plugins: [
-    dts({
-      tsconfigPath: path.resolve(dirname, 'tsconfig.build.json'),
-    }),
-  ],
+  plugins: [nativeDts(dirname)],
   build: {
     outDir: 'build',
     emptyOutDir: true,
     sourcemap: true,
     minify: false,
     lib: {
-      entry: [
-        path.resolve(dirname, 'src/index.ts'),
-        path.resolve(dirname, 'src/cli.ts'),
-      ],
+      entry: [path.resolve(dirname, 'src/index.ts'), path.resolve(dirname, 'src/cli.ts')],
     },
     rolldownOptions: {
       external: isExternal,

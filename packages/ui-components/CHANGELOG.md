@@ -1,5 +1,88 @@
 # @verdaccio/ui-components
 
+## 5.0.0-next-9.20
+
+### Minor Changes
+
+- 30601b3: feat: staged publishing (`npm stage`) behind the `stage` flag
+
+  Adds the `/-/stage` endpoints so a package version can be uploaded for review and
+  only becomes installable once a maintainer approves it. Everything is gated by
+  the new `stage` feature flag, which defaults to `false`.
+
+  ```yaml
+  flags:
+    stage: true
+  ```
+
+  The whole `npm stage` family is supported — `publish`, `list`, `view`,
+  `download`, `approve` and `reject` — verified end to end against npm 11.17.
+  Staging never asks for a one-time password: deferring proof of presence to
+  approval time is the point of the flow, which lets a pipeline prepare a release
+  that a human approves later.
+
+  Package access gains a `stage` entry deciding who may submit a version for
+  review:
+
+  ```yaml
+  packages:
+    "my-company-*":
+      access: $authenticated
+      stage: developers
+      publish: release-managers
+  ```
+
+  It falls back to `publish` when omitted, exactly as `unpublish` already does, so
+  existing configurations are unaffected. Granting it to a group that lacks
+  `publish` is what turns review into a real gate: those users can propose a
+  release but neither publish one directly nor approve their own submission, though
+  they can always withdraw it. Auth plugins can implement `allow_stage`; returning
+  `undefined` defers to `allow_publish`.
+
+  Staging fires a notification with `publishType: 'stage'` and rejecting fires
+  `unstage`, so a staged version no longer waits unnoticed until somebody runs
+  `npm stage list`. Approving keeps reporting `publish`, because that is what it
+  does.
+
+  Staged items are persisted through the storage plugin interface, so any storage
+  plugin works unchanged, and the namespace is never registered in the plugin
+  database — staged versions stay out of search and the package list.
+
+  The web UI gains a "Staged packages" view (list, detail, approve, reject,
+  download) that appears only while the flag is on.
+
+## 5.0.0-next-9.19
+
+### Patch Changes
+
+- dd4f91c: Annotate the `useLoginForm` return type so declaration emit no longer fails
+
+  The inferred return type referenced `react-hook-form`'s internal `FormState`,
+  which `tsc --emitDeclarationOnly` could not name portably (TS2883). Declaring the
+  return as `UseFormReturn<LoginFormValues> & { onSubmit }` fixes the build.
+
+## 5.0.0-next-9.18
+
+### Patch Changes
+
+- 60d8e97: fix(ui-components): lint and test warnings
+
+## 5.0.0-next-9.17
+
+### Patch Changes
+
+- 9463808: fix(ui): keep the homepage action icon legible on hover
+
+## 5.0.0-next-9.16
+
+### Patch Changes
+
+- 6a87488: Fix type resolution for the TypeScript 7 upgrade: switch the UI packages to `moduleResolution: bundler` (required to resolve react-router 8 types via its `exports` map), declare `@mui/system` as a direct dependency so emitted declarations can reference its types portably, and replace the legacy `@mui/material/styles/createTheme` module augmentation with the `@mui/material/styles` entry point.
+
+  Declaration files are now emitted with the TypeScript compiler itself (`tsc --emitDeclarationOnly`) instead of `vite-plugin-dts`, which has no JS compiler API to hook into on TypeScript 7. This drops the `@typescript/typescript6` fallback install (and with it a duplicated i18next instance that left the settings dialog's language list empty). `runCli()` in `@verdaccio/cli` is now correctly typed as `Promise<void>` — the previous `Promise<number>` annotation was wrong and only survived because the old declaration generator ignored type errors.
+
+  The Cypress e2e specs are now bundled with Vite (the default webpack/ts-loader preprocessor requires the TypeScript JS compiler API, which TypeScript 7 no longer ships).
+
 ## 5.0.0-next-9.15
 
 ### Patch Changes

@@ -1,15 +1,11 @@
-import { builtinModules } from 'node:module';
+import { spawn } from 'node:child_process';
+import { builtinModules, createRequire } from 'node:module';
 import fs from 'node:fs';
 import path from 'node:path';
-import { createRequire } from 'node:module';
 
-import dts from 'vite-plugin-dts';
 import { defineConfig } from 'vite';
 
-const nodeBuiltins = new Set([
-  ...builtinModules,
-  ...builtinModules.map((m) => `node:${m}`),
-]);
+const nodeBuiltins = new Set([...builtinModules, ...builtinModules.map((m) => `node:${m}`)]);
 
 /**
  * Copies non-TypeScript files from src/ to the output directory,
@@ -43,6 +39,46 @@ function copyDir(src, dest) {
 }
 
 /**
+ * Emits .d.ts declarations with the TypeScript compiler itself
+ * (`tsc --emitDeclarationOnly`). TypeScript 7's native compiler has no JS
+ * compiler API, so plugin-based generators (vite-plugin-dts/unplugin-dts)
+ * would need a parallel TypeScript 6 install just to drive them.
+ */
+export function nativeDts(dirname) {
+  // The build runs once per output format; only emit declarations once.
+  let emitted = false;
+  return {
+    name: 'verdaccio:native-dts',
+    apply: 'build',
+    async closeBundle() {
+      if (emitted) return;
+      emitted = true;
+      // Resolve via package.json — TS 7 does not export `./bin/tsc`, and on Windows
+      // `.bin/tsc` is a Unix shell shim that spawn cannot execute directly.
+      const require = createRequire(import.meta.url);
+      const tscJs = path.join(
+        path.dirname(require.resolve('typescript/package.json')),
+        'bin',
+        'tsc'
+      );
+      await new Promise((resolve, reject) => {
+        const child = spawn(
+          process.execPath,
+          [tscJs, '-p', path.resolve(dirname, 'tsconfig.build.json'), '--emitDeclarationOnly'],
+          { cwd: dirname, stdio: 'inherit' }
+        );
+        child.on('error', reject);
+        child.on('close', (code) =>
+          code === 0
+            ? resolve()
+            : reject(new Error(`tsc --emitDeclarationOnly exited with code ${code}`))
+        );
+      });
+    },
+  };
+}
+
+/**
  * Creates a shared Vite config for building Node.js library packages.
  *
  * Outputs both ESM (.mjs) and CJS (.js) to build/ with preserved module structure,
@@ -66,11 +102,13 @@ export function createLibConfig(dirname, options = {}) {
 
   // Externalize all declared dependencies so they are not bundled.
   const bundleSet = new Set(bundleDeps);
-  const externalDeps = new Set([
-    ...Object.keys(pkg.dependencies ?? {}),
-    ...Object.keys(pkg.devDependencies ?? {}),
-    ...Object.keys(pkg.peerDependencies ?? {}),
-  ].filter((dep) => !bundleSet.has(dep)));
+  const externalDeps = new Set(
+    [
+      ...Object.keys(pkg.dependencies ?? {}),
+      ...Object.keys(pkg.devDependencies ?? {}),
+      ...Object.keys(pkg.peerDependencies ?? {}),
+    ].filter((dep) => !bundleSet.has(dep))
+  );
 
   const isExternal = (id) => {
     if (nodeBuiltins.has(id)) return true;
@@ -86,13 +124,8 @@ export function createLibConfig(dirname, options = {}) {
 
   return defineConfig({
     plugins: [
-      dts({
-        tsconfigPath: path.resolve(dirname, 'tsconfig.build.json'),
-      }),
-      copyStaticFiles(
-        path.resolve(dirname, 'src'),
-        path.resolve(dirname, outDir)
-      ),
+      nativeDts(dirname),
+      copyStaticFiles(path.resolve(dirname, 'src'), path.resolve(dirname, outDir)),
     ],
     build: {
       outDir,
@@ -107,24 +140,24 @@ export function createLibConfig(dirname, options = {}) {
         external: isExternal,
         output: esmOnly
           ? {
-            format: 'es',
-            entryFileNames: '[name].js',
-            ...sharedOutput,
-          }
-          : [
-            {
               format: 'es',
-              entryFileNames: '[name].mjs',
-              ...sharedOutput,
-            },
-            {
-              format: 'cjs',
               entryFileNames: '[name].js',
-              esModule: true,
-              exports: 'named',
               ...sharedOutput,
-            },
-          ],
+            }
+          : [
+              {
+                format: 'es',
+                entryFileNames: '[name].mjs',
+                ...sharedOutput,
+              },
+              {
+                format: 'cjs',
+                entryFileNames: '[name].js',
+                esModule: true,
+                exports: 'named',
+                ...sharedOutput,
+              },
+            ],
       },
     },
   });

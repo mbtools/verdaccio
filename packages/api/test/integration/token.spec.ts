@@ -16,10 +16,56 @@ import {
   generateTokenCLI,
   getNewToken,
   initializeServer,
+  initializeServerWithContext,
   publishVersionWithToken,
 } from './_helper';
 
+import { TFA_TOKEN_KEY, TfaStore } from '@verdaccio/auth';
+
 describe('token', () => {
+  describe('reserved keys', () => {
+    // the token store doubles as a per-user key-value store (web login sessions,
+    // two-factor configuration). Those rows are not tokens.
+    const withTfaRow = async (username: string) => {
+      const { app, config, logger, storage } = await initializeServerWithContext('token.yaml');
+      const token = await getNewToken(app, { name: username, password: 'secretPass' });
+      const tfa = new TfaStore(storage, config.secret, logger);
+      await tfa.beginEnrolment(username, 'auth-and-writes', 'Verdaccio');
+
+      return { app, token, storage };
+    };
+
+    test('should not list the two-factor row as a token', async () => {
+      const { app, token, storage } = await withTfaRow('jota_reserved');
+
+      // the row really is there, it is the listing that must hide it
+      const stored = await storage.readTokens({ user: 'jota_reserved' });
+      expect(stored.some(({ key }) => key === TFA_TOKEN_KEY)).toBe(true);
+
+      const response = await supertest(app)
+        .get('/-/npm/v1/tokens')
+        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+        .expect(HTTP_STATUS.OK);
+
+      expect(response.body.objects.some(({ key }) => key === TFA_TOKEN_KEY)).toBe(false);
+      // the payload is encrypted, but it has no business being served at all
+      expect(JSON.stringify(response.body)).not.toContain(TFA_TOKEN_KEY);
+    });
+
+    test('should refuse to revoke the two-factor row', async () => {
+      const { app, token, storage } = await withTfaRow('jota_reserved2');
+
+      // revoking it here would switch two-factor off without a password or OTP
+      await supertest(app)
+        .delete(`/-/npm/v1/tokens/token/${TFA_TOKEN_KEY}`)
+        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+        .expect(HTTP_STATUS.NOT_FOUND);
+
+      const stored = await storage.readTokens({ user: 'jota_reserved2' });
+      expect(stored.some(({ key }) => key === TFA_TOKEN_KEY)).toBe(true);
+    });
+  });
+
   describe('basics', () => {
     test.each([['token.yaml'], ['token.jwt.yaml']])('should list empty tokens', async (conf) => {
       const app = await initializeServer(conf);
@@ -95,22 +141,55 @@ describe('token', () => {
     });
 
     test.each([['token.yaml'], ['token.jwt.yaml']])(
-      'should fail if readonly is missing',
+      'should reject readonly when it has the wrong type',
       async (conf) => {
         const app = await initializeServer(conf);
         const credentials = { name: 'jota_token', password: 'secretPass' };
         const token = await getNewToken(app, credentials);
         const resp = await generateTokenCLI(app, token, {
           password: credentials.password,
+          readonly: 'nope',
           cidr_whitelist: [],
+        });
+        expect(resp.body.error).toEqual(SUPPORT_ERRORS.PARAMETERS_NOT_VALID);
+      }
+    );
+
+    test.each([['token.yaml'], ['token.jwt.yaml']])(
+      'should reject cidr_whitelist when it has the wrong type',
+      async (conf) => {
+        const app = await initializeServer(conf);
+        const credentials = { name: 'jota_token', password: 'secretPass' };
+        const token = await getNewToken(app, credentials);
+        const resp = await generateTokenCLI(app, token, {
+          password: credentials.password,
+          readonly: false,
+          cidr_whitelist: 'not-an-array',
         });
         expect(resp.body.error).toEqual(SUPPORT_ERRORS.PARAMETERS_NOT_VALID);
       }
     );
   });
 
+  // npm >= 11 rewrote `npm token create` to omit `readonly` and to send
+  // `cidr_whitelist` only with `--cidr`; the endpoint must default them.
   test.each([['token.yaml'], ['token.jwt.yaml']])(
-    'should fail if cidr_whitelist is missing',
+    'should default readonly to false when omitted',
+    async (conf) => {
+      const app = await initializeServer(conf);
+      const credentials = { name: 'jota_token', password: 'secretPass' };
+      const token = await getNewToken(app, credentials);
+      const resp = await generateTokenCLI(app, token, {
+        password: credentials.password,
+        cidr_whitelist: [],
+      });
+      expect(resp.body.token).toBeDefined();
+      expect(resp.body.readonly).toBe(false);
+    }
+  );
+
+  test.each([['token.yaml'], ['token.jwt.yaml']])(
+    'should default cidr_whitelist to empty when omitted',
     async (conf) => {
       const app = await initializeServer(conf);
       const credentials = { name: 'jota_token', password: 'secretPass' };
@@ -119,7 +198,61 @@ describe('token', () => {
         password: credentials.password,
         readonly: false,
       });
-      expect(resp.body.error).toEqual(SUPPORT_ERRORS.PARAMETERS_NOT_VALID);
+      expect(resp.body.token).toBeDefined();
+      expect(resp.body.cidr).toEqual([]);
+    }
+  );
+
+  test.each([['token.yaml'], ['token.jwt.yaml']])(
+    'should create a token from a body with only a password',
+    async (conf) => {
+      const app = await initializeServer(conf);
+      const credentials = { name: 'jota_token', password: 'secretPass' };
+      const token = await getNewToken(app, credentials);
+      const resp = await generateTokenCLI(app, token, {
+        password: credentials.password,
+      });
+      expect(resp.body.token).toBeDefined();
+      expect(resp.body.readonly).toBe(false);
+      expect(resp.body.cidr).toEqual([]);
+    }
+  );
+
+  // npm >= 11 granular access token options are accepted but not enforced; the
+  // token is still created (a warning is logged, including the client user
+  // agent) rather than failing.
+  test.each([['token.yaml'], ['token.jwt.yaml']])(
+    'should create a token ignoring unsupported granular options',
+    async (conf) => {
+      const app = await initializeServer(conf);
+      const credentials = { name: 'jota_token', password: 'secretPass' };
+      const token = await getNewToken(app, credentials);
+      const resp = await supertest(app)
+        .post('/-/npm/v1/tokens')
+        .set(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON)
+        // the package-manager user agent is captured in the warning log
+        .set('user-agent', 'npm/12.0.0-pre.0.0 node/v24.15.0 darwin x64')
+        .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
+        .send(
+          JSON.stringify({
+            password: credentials.password,
+            readonly: false,
+            cidr_whitelist: [],
+            packages_and_scopes_permission: 'read-only',
+            packages: ['@scope/pkg'],
+            scopes: ['@scope'],
+            orgs: ['my-org'],
+            expires: 30,
+            description: 'ci token',
+            bypass_2fa: true,
+          })
+        )
+        .expect(HEADER_TYPE.CONTENT_TYPE, HEADERS.JSON_CHARSET);
+
+      expect(resp.body.token).toBeDefined();
+      // the unsupported options are not persisted on the token
+      expect(resp.body).not.toHaveProperty('packages_and_scopes_permission');
+      expect(resp.body).not.toHaveProperty('expires');
     }
   );
 

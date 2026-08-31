@@ -1,14 +1,36 @@
-import type { Response, Router } from 'express';
+import type { RequestHandler, Response, Router } from 'express';
 import { isBoolean, isNil } from 'lodash-es';
 
 import type { Auth } from '@verdaccio/auth';
-import { getApiToken } from '@verdaccio/auth';
-import { HEADERS, HTTP_STATUS, SUPPORT_ERRORS, cryptoUtils, errorUtils } from '@verdaccio/core';
+import { getApiToken, isReservedTokenKey } from '@verdaccio/auth';
+import {
+  HEADERS,
+  HTTP_STATUS,
+  SUPPORT_ERRORS,
+  cryptoUtils,
+  errorUtils,
+  reqUtils,
+} from '@verdaccio/core';
 import { TOKEN_API_ENDPOINTS, rateLimit } from '@verdaccio/middleware';
 import type { Storage } from '@verdaccio/store';
 import type { Config, Logger, RemoteUser, Token } from '@verdaccio/types';
 
 import type { $NextFunctionVer, $RequestExtend } from '../../types/custom';
+
+// Granular access token options (npm >= 11) that Verdaccio does not implement
+// yet. They are accepted so `npm token create` succeeds, but the restrictions
+// they express are NOT enforced — warn so the operator is not misled.
+const UNSUPPORTED_TOKEN_OPTIONS = [
+  'packages_and_scopes_permission',
+  'packages',
+  'packages_all',
+  'scopes',
+  'orgs',
+  'orgs_permission',
+  'expires',
+  'description',
+  'bypass_2fa',
+];
 
 export type NormalizeToken = Token & {
   cidr_whitelist: string[];
@@ -30,7 +52,9 @@ export default function (
   auth: Auth,
   storage: Storage,
   config: Config,
-  logger: Logger
+  logger: Logger,
+  /** No-op unless the caller has two-factor enabled for this operation. */
+  requireOtp: RequestHandler = (_req, _res, next) => next()
 ): void {
   route.get(
     TOKEN_API_ENDPOINTS.get_tokens,
@@ -40,7 +64,12 @@ export default function (
 
       if (isNil(name) === false) {
         try {
-          const tokens = await storage.readTokens({ user: name });
+          // the token store doubles as a per-user key-value store; rows under a
+          // reserved key are internal state, not access tokens, and listing them
+          // would expose their payload through `npm token ls`
+          const tokens = (await storage.readTokens({ user: name })).filter(
+            ({ key }) => isReservedTokenKey(key) === false
+          );
           const totalTokens = tokens.length;
           logger.debug({ totalTokens }, 'token list retrieved: @{totalTokens}');
 
@@ -63,12 +92,29 @@ export default function (
   route.post(
     TOKEN_API_ENDPOINTS.get_tokens,
     rateLimit(config?.userRateLimit),
+    requireOtp,
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer) {
-      const { password, readonly, cidr_whitelist } = req.body;
+      const { password } = req.body;
       const { name } = req.remote_user;
+      // `readonly` and `cidr_whitelist` are optional: npm >= 11 rewrote
+      // `npm token create` to omit them (and only sends `cidr_whitelist` with
+      // `--cidr`), so default them rather than rejecting the request. A wrong
+      // type is still rejected.
+      const readonly = req.body.readonly ?? false;
+      const cidr_whitelist = req.body.cidr_whitelist ?? [];
 
       if (!isBoolean(readonly) || !Array.isArray(cidr_whitelist)) {
         return next(errorUtils.getCode(HTTP_STATUS.BAD_DATA, SUPPORT_ERRORS.PARAMETERS_NOT_VALID));
+      }
+
+      const unsupportedOptions = UNSUPPORTED_TOKEN_OPTIONS.filter(
+        (option) => isNil(req.body[option]) === false
+      );
+      if (unsupportedOptions.length > 0) {
+        logger.warn(
+          { options: unsupportedOptions.join(', '), userAgent: req.get('user-agent') ?? 'unknown' },
+          'granular access token options are not supported yet and will be ignored: @{options} (client: @{userAgent})'
+        );
       }
 
       auth.authenticate(name, password, async (err, user?: RemoteUser) => {
@@ -137,13 +183,21 @@ export default function (
     TOKEN_API_ENDPOINTS.delete_token,
     rateLimit(config?.userRateLimit),
     async (req: $RequestExtend, res: Response, next: $NextFunctionVer) => {
-      const {
-        params: { tokenKey },
-      } = req;
+      const tokenKey = reqUtils.paramToString(req.params.tokenKey);
       const { name } = req.remote_user;
 
       if (isNil(name) === false) {
         logger.debug({ name }, '@{name} has requested remove a token');
+        if (isReservedTokenKey(tokenKey)) {
+          // this row is not a token: deleting it here would switch two-factor
+          // off without the password and one-time password `npm profile
+          // disable-2fa` requires
+          logger.warn(
+            { tokenKey, name },
+            'refused to revoke reserved key @{tokenKey} for user @{name}'
+          );
+          return next(errorUtils.getNotFound('token not found'));
+        }
         try {
           await storage.deleteToken(name, tokenKey);
           logger.info({ tokenKey, name }, 'token id @{tokenKey} was revoked for user @{name}');

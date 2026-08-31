@@ -48,6 +48,14 @@ export interface PackageAccessYaml {
   proxy?: string;
   access?: string;
   unpublish?: string;
+  /**
+   * Who may submit a version for review with `npm stage publish`.
+   *
+   * Falls back to `publish` when omitted, which keeps the historical behaviour.
+   * Setting it to a narrower group than `publish` is what separates proposing a
+   * release from making one.
+   */
+  stage?: string;
 }
 
 export interface Headers {
@@ -102,6 +110,23 @@ export type FlagsConfig = {
    * @default false
    */
   createUser?: boolean;
+
+  /**
+   * Enables the staged publish workflow (`npm stage`).
+   *
+   * Adds the `/-/stage` endpoints, which let a version be uploaded for review
+   * and only become installable once a maintainer approves it.
+   *
+   * @default false
+   */
+  stage?: boolean;
+
+  /**
+   * Enables two-factor authentication (TOTP).
+   *
+   * @default false
+   */
+  tfa?: boolean;
 
   /**
    * Enables web-based login flow.
@@ -266,6 +291,11 @@ export type ServerSettingsConf = {
   // express-rate-limit settings
   rateLimit: RateLimit;
   keepAliveTimeout?: number;
+  legacyAuthCache?: {
+    enabled?: boolean;
+    maxEntries?: number;
+    ttlMs?: number;
+  };
   /**
    * Plugins should be prefixed verdaccio-XXXXXX by default.
    * To override the default prefix, use this property without `-`

@@ -1,5 +1,95 @@
 # @verdaccio/proxy
 
+## 9.0.0-next-9.30
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.30
+- @verdaccio/config@9.0.0-next-9.30
+
+## 9.0.0-next-9.29
+
+### Patch Changes
+
+- Updated dependencies [30601b3]
+- Updated dependencies [30601b3]
+  - @verdaccio/core@9.0.0-next-9.29
+  - @verdaccio/config@9.0.0-next-9.29
+
+## 9.0.0-next-9.28
+
+### Patch Changes
+
+- Updated dependencies [dd4f91c]
+  - @verdaccio/core@9.0.0-next-9.28
+  - @verdaccio/config@9.0.0-next-9.28
+
+## 9.0.0-next-9.27
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.27
+- @verdaccio/config@9.0.0-next-9.27
+
+## 9.0.0-next-9.26
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.26
+- @verdaccio/config@9.0.0-next-9.26
+
+## 9.0.0-next-9.25
+
+### Patch Changes
+
+- Updated dependencies [4861978]
+- Updated dependencies [d7937a3]
+  - @verdaccio/config@9.0.0-next-9.25
+  - @verdaccio/core@9.0.0-next-9.25
+
+## 9.0.0-next-9.24
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.24
+- @verdaccio/config@9.0.0-next-9.24
+
+## 9.0.0-next-9.23
+
+### Patch Changes
+
+- Updated dependencies [5ec045c]
+  - @verdaccio/core@9.0.0-next-9.23
+  - @verdaccio/config@9.0.0-next-9.23
+
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- 3574350: chore: return 403 error when uplink does on tarball path
+
+  Previously, any non-200/404 response from an uplink (e.g. a security proxy blocking a package download) would result in a generic 500 error being returned to the client. This change propagates 403 responses from the uplink through to the client, including any error detail from the response body, so callers can distinguish authorization failures from other upstream errors.
+
+- Updated dependencies [6795216]
+- Updated dependencies [c499c4e]
+  - @verdaccio/config@9.0.0-next-9.22
+  - @verdaccio/core@9.0.0-next-9.22
+
+## 9.0.0-next-9.21
+
+### Patch Changes
+
+- Updated dependencies [5aa8cca]
+  - @verdaccio/core@9.0.0-next-9.21
+  - @verdaccio/config@9.0.0-next-9.21
+
+## 9.0.0-next-9.20
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.20
+- @verdaccio/config@9.0.0-next-9.20
+
 ## 9.0.0-next-9.19
 
 ### Patch Changes

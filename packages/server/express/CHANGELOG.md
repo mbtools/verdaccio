@@ -1,5 +1,200 @@
 # @verdaccio/server
 
+## 9.0.0-next-9.30
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.30
+- @verdaccio/config@9.0.0-next-9.30
+- @verdaccio/api@9.0.0-next-9.30
+- @verdaccio/auth@9.0.0-next-9.30
+- @verdaccio/loaders@9.0.0-next-9.30
+- @verdaccio/logger@9.0.0-next-9.30
+- @verdaccio/middleware@9.0.0-next-9.30
+- verdaccio-audit@14.0.0-next-9.30
+- @verdaccio/store@9.0.0-next-9.30
+- @verdaccio/web@9.0.0-next-9.30
+
+## 9.0.0-next-9.29
+
+### Patch Changes
+
+- Updated dependencies [30601b3]
+- Updated dependencies [30601b3]
+- Updated dependencies [30601b3]
+- Updated dependencies [30601b3]
+  - @verdaccio/core@9.0.0-next-9.29
+  - @verdaccio/config@9.0.0-next-9.29
+  - @verdaccio/middleware@9.0.0-next-9.29
+  - @verdaccio/auth@9.0.0-next-9.29
+  - @verdaccio/store@9.0.0-next-9.29
+  - @verdaccio/api@9.0.0-next-9.29
+  - @verdaccio/logger@9.0.0-next-9.29
+  - verdaccio-audit@14.0.0-next-9.29
+  - @verdaccio/web@9.0.0-next-9.29
+  - @verdaccio/loaders@9.0.0-next-9.29
+
+## 9.0.0-next-9.28
+
+### Patch Changes
+
+- Updated dependencies [5a31242]
+- Updated dependencies [dd4f91c]
+  - @verdaccio/api@9.0.0-next-9.28
+  - @verdaccio/core@9.0.0-next-9.28
+  - @verdaccio/web@9.0.0-next-9.28
+  - @verdaccio/auth@9.0.0-next-9.28
+  - @verdaccio/config@9.0.0-next-9.28
+  - @verdaccio/loaders@9.0.0-next-9.28
+  - @verdaccio/logger@9.0.0-next-9.28
+  - @verdaccio/middleware@9.0.0-next-9.28
+  - verdaccio-audit@14.0.0-next-9.28
+  - @verdaccio/store@9.0.0-next-9.28
+
+## 9.0.0-next-9.27
+
+### Major Changes
+
+- 8857b15: Remove support for incoming HTTP Basic authentication. Verdaccio now accepts Bearer tokens for API authentication and advertises only `Bearer` in `WWW-Authenticate` responses.
+
+  Web UI session tokens are accepted as Bearer authentication for package API requests, so the same package access rules apply to Web UI and package manager clients.
+
+### Patch Changes
+
+- Updated dependencies [8857b15]
+  - @verdaccio/auth@9.0.0-next-9.27
+  - @verdaccio/api@9.0.0-next-9.27
+  - @verdaccio/middleware@9.0.0-next-9.27
+  - @verdaccio/web@9.0.0-next-9.27
+  - verdaccio-audit@14.0.0-next-9.27
+  - @verdaccio/store@9.0.0-next-9.27
+  - @verdaccio/core@9.0.0-next-9.27
+  - @verdaccio/config@9.0.0-next-9.27
+  - @verdaccio/loaders@9.0.0-next-9.27
+  - @verdaccio/logger@9.0.0-next-9.27
+
+## 9.0.0-next-9.26
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.26
+- @verdaccio/config@9.0.0-next-9.26
+- @verdaccio/web@9.0.0-next-9.26
+- @verdaccio/api@9.0.0-next-9.26
+- @verdaccio/auth@9.0.0-next-9.26
+- @verdaccio/loaders@9.0.0-next-9.26
+- @verdaccio/logger@9.0.0-next-9.26
+- @verdaccio/middleware@9.0.0-next-9.26
+- verdaccio-audit@14.0.0-next-9.26
+- @verdaccio/store@9.0.0-next-9.26
+
+## 9.0.0-next-9.25
+
+### Patch Changes
+
+- Updated dependencies [4861978]
+- Updated dependencies [d7937a3]
+- Updated dependencies [d7937a3]
+- Updated dependencies [7a4c68d]
+  - @verdaccio/auth@9.0.0-next-9.25
+  - @verdaccio/config@9.0.0-next-9.25
+  - @verdaccio/middleware@9.0.0-next-9.25
+  - @verdaccio/api@9.0.0-next-9.25
+  - verdaccio-audit@14.0.0-next-9.25
+  - @verdaccio/web@9.0.0-next-9.25
+  - @verdaccio/loaders@9.0.0-next-9.25
+  - @verdaccio/store@9.0.0-next-9.25
+  - @verdaccio/core@9.0.0-next-9.25
+  - @verdaccio/logger@9.0.0-next-9.25
+
+## 9.0.0-next-9.24
+
+### Patch Changes
+
+- @verdaccio/store@9.0.0-next-9.24
+- @verdaccio/api@9.0.0-next-9.24
+- @verdaccio/web@9.0.0-next-9.24
+- @verdaccio/core@9.0.0-next-9.24
+- @verdaccio/config@9.0.0-next-9.24
+- @verdaccio/auth@9.0.0-next-9.24
+- @verdaccio/loaders@9.0.0-next-9.24
+- @verdaccio/logger@9.0.0-next-9.24
+- @verdaccio/middleware@9.0.0-next-9.24
+- verdaccio-audit@14.0.0-next-9.24
+
+## 9.0.0-next-9.23
+
+### Patch Changes
+
+- Updated dependencies [5ec045c]
+  - @verdaccio/core@9.0.0-next-9.23
+  - @verdaccio/api@9.0.0-next-9.23
+  - @verdaccio/auth@9.0.0-next-9.23
+  - @verdaccio/config@9.0.0-next-9.23
+  - @verdaccio/loaders@9.0.0-next-9.23
+  - @verdaccio/logger@9.0.0-next-9.23
+  - @verdaccio/middleware@9.0.0-next-9.23
+  - verdaccio-audit@14.0.0-next-9.23
+  - @verdaccio/store@9.0.0-next-9.23
+  - @verdaccio/web@9.0.0-next-9.23
+
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- Updated dependencies [6795216]
+- Updated dependencies [d3b0352]
+- Updated dependencies [3574350]
+- Updated dependencies [c499c4e]
+  - @verdaccio/config@9.0.0-next-9.22
+  - @verdaccio/loaders@9.0.0-next-9.22
+  - @verdaccio/logger@9.0.0-next-9.22
+  - @verdaccio/store@9.0.0-next-9.22
+  - @verdaccio/middleware@9.0.0-next-9.22
+  - @verdaccio/core@9.0.0-next-9.22
+  - @verdaccio/api@9.0.0-next-9.22
+  - @verdaccio/web@9.0.0-next-9.22
+  - @verdaccio/auth@9.0.0-next-9.22
+  - verdaccio-audit@14.0.0-next-9.22
+
+## 9.0.0-next-9.21
+
+### Patch Changes
+
+- Updated dependencies [51d49f0]
+- Updated dependencies [51d49f0]
+- Updated dependencies [3649cb0]
+- Updated dependencies [5aa8cca]
+  - @verdaccio/store@9.0.0-next-9.21
+  - @verdaccio/api@9.0.0-next-9.21
+  - @verdaccio/middleware@9.0.0-next-9.21
+  - @verdaccio/core@9.0.0-next-9.21
+  - @verdaccio/web@9.0.0-next-9.21
+  - @verdaccio/auth@9.0.0-next-9.21
+  - @verdaccio/config@9.0.0-next-9.21
+  - @verdaccio/loaders@9.0.0-next-9.21
+  - @verdaccio/logger@9.0.0-next-9.21
+  - verdaccio-audit@14.0.0-next-9.21
+
+## 9.0.0-next-9.20
+
+### Patch Changes
+
+- Updated dependencies [fde2f1b]
+- Updated dependencies [506e965]
+- Updated dependencies [dee3b5d]
+- Updated dependencies [7078d03]
+  - @verdaccio/api@9.0.0-next-9.20
+  - @verdaccio/store@9.0.0-next-9.20
+  - @verdaccio/middleware@9.0.0-next-9.20
+  - @verdaccio/auth@9.0.0-next-9.20
+  - @verdaccio/core@9.0.0-next-9.20
+  - @verdaccio/logger@9.0.0-next-9.20
+  - verdaccio-audit@14.0.0-next-9.20
+  - @verdaccio/web@9.0.0-next-9.20
+  - @verdaccio/config@9.0.0-next-9.20
+  - @verdaccio/loaders@9.0.0-next-9.20
+
 ## 9.0.0-next-9.19
 
 ### Patch Changes

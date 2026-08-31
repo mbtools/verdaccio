@@ -1,5 +1,175 @@
 # @verdaccio/middleware
 
+## 9.0.0-next-9.30
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.30
+- @verdaccio/config@9.0.0-next-9.30
+- @verdaccio/url@14.0.0-next-9.30
+
+## 9.0.0-next-9.29
+
+### Minor Changes
+
+- 30601b3: feat: staged publishing (`npm stage`) behind the `stage` flag
+
+  Adds the `/-/stage` endpoints so a package version can be uploaded for review and
+  only becomes installable once a maintainer approves it. Everything is gated by
+  the new `stage` feature flag, which defaults to `false`.
+
+  ```yaml
+  flags:
+    stage: true
+  ```
+
+  The whole `npm stage` family is supported — `publish`, `list`, `view`,
+  `download`, `approve` and `reject` — verified end to end against npm 11.17.
+  Staging never asks for a one-time password: deferring proof of presence to
+  approval time is the point of the flow, which lets a pipeline prepare a release
+  that a human approves later.
+
+  Package access gains a `stage` entry deciding who may submit a version for
+  review:
+
+  ```yaml
+  packages:
+    "my-company-*":
+      access: $authenticated
+      stage: developers
+      publish: release-managers
+  ```
+
+  It falls back to `publish` when omitted, exactly as `unpublish` already does, so
+  existing configurations are unaffected. Granting it to a group that lacks
+  `publish` is what turns review into a real gate: those users can propose a
+  release but neither publish one directly nor approve their own submission, though
+  they can always withdraw it. Auth plugins can implement `allow_stage`; returning
+  `undefined` defers to `allow_publish`.
+
+  Staging fires a notification with `publishType: 'stage'` and rejecting fires
+  `unstage`, so a staged version no longer waits unnoticed until somebody runs
+  `npm stage list`. Approving keeps reporting `publish`, because that is what it
+  does.
+
+  Staged items are persisted through the storage plugin interface, so any storage
+  plugin works unchanged, and the namespace is never registered in the plugin
+  database — staged versions stay out of search and the package list.
+
+  The web UI gains a "Staged packages" view (list, detail, approve, reject,
+  download) that appears only while the flag is on.
+
+### Patch Changes
+
+- Updated dependencies [30601b3]
+- Updated dependencies [30601b3]
+  - @verdaccio/core@9.0.0-next-9.29
+  - @verdaccio/config@9.0.0-next-9.29
+  - @verdaccio/url@14.0.0-next-9.29
+
+## 9.0.0-next-9.28
+
+### Patch Changes
+
+- Updated dependencies [dd4f91c]
+  - @verdaccio/core@9.0.0-next-9.28
+  - @verdaccio/config@9.0.0-next-9.28
+  - @verdaccio/url@14.0.0-next-9.28
+
+## 9.0.0-next-9.27
+
+### Major Changes
+
+- 8857b15: Remove support for incoming HTTP Basic authentication. Verdaccio now accepts Bearer tokens for API authentication and advertises only `Bearer` in `WWW-Authenticate` responses.
+
+  Web UI session tokens are accepted as Bearer authentication for package API requests, so the same package access rules apply to Web UI and package manager clients.
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.27
+- @verdaccio/config@9.0.0-next-9.27
+- @verdaccio/url@14.0.0-next-9.27
+
+## 9.0.0-next-9.26
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.26
+- @verdaccio/config@9.0.0-next-9.26
+- @verdaccio/url@14.0.0-next-9.26
+
+## 9.0.0-next-9.25
+
+### Patch Changes
+
+- d7937a3: Update `express-rate-limit` to 8.6.0 and refresh transitive audit fixes for `fast-uri` and `ip-address`.
+- Updated dependencies [4861978]
+- Updated dependencies [d7937a3]
+  - @verdaccio/config@9.0.0-next-9.25
+  - @verdaccio/core@9.0.0-next-9.25
+  - @verdaccio/url@14.0.0-next-9.25
+
+## 9.0.0-next-9.24
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.24
+- @verdaccio/config@9.0.0-next-9.24
+- @verdaccio/url@14.0.0-next-9.24
+
+## 9.0.0-next-9.23
+
+### Patch Changes
+
+- Updated dependencies [5ec045c]
+  - @verdaccio/core@9.0.0-next-9.23
+  - @verdaccio/config@9.0.0-next-9.23
+  - @verdaccio/url@14.0.0-next-9.23
+
+## 9.0.0-next-9.22
+
+### Patch Changes
+
+- c499c4e: fix: refactor parsing of req.params
+- Updated dependencies [6795216]
+- Updated dependencies [c499c4e]
+  - @verdaccio/config@9.0.0-next-9.22
+  - @verdaccio/core@9.0.0-next-9.22
+  - @verdaccio/url@14.0.0-next-9.22
+
+## 9.0.0-next-9.21
+
+### Patch Changes
+
+- 3649cb0: chore(middleware): log aborted requests
+- 5aa8cca: fix(middleware): logging aborted requests
+- Updated dependencies [5aa8cca]
+  - @verdaccio/core@9.0.0-next-9.21
+  - @verdaccio/url@14.0.0-next-9.21
+  - @verdaccio/config@9.0.0-next-9.21
+
+## 9.0.0-next-9.20
+
+### Patch Changes
+
+- dee3b5d: fix(middleware): serve static files when staticPath contains a dot-prefixed ancestor
+- 7078d03: fix: tie generated token CIDR enforcement to trust proxy
+
+  The `enforceGeneratedTokenMetadata` middleware resolved the client address by
+  reading the `X-Forwarded-For` header directly (and taking its left-most,
+  client-most entry), regardless of the application's `trust proxy` setting. Any
+  client could therefore satisfy a generated token's `cidr_whitelist` by sending a
+  forged `X-Forwarded-For` header, defeating the CIDR restriction.
+
+  The middleware now derives the client address from Express' `req.ip`, which
+  already honors `config.server.trustProxy`: forwarded headers are trusted only
+  for operator-configured proxies, otherwise the direct socket address is used and
+  `X-Forwarded-For` is ignored.
+
+  - @verdaccio/core@9.0.0-next-9.20
+  - @verdaccio/config@9.0.0-next-9.20
+  - @verdaccio/url@14.0.0-next-9.20
+
 ## 9.0.0-next-9.19
 
 ### Major Changes

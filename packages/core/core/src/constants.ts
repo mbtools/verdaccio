@@ -9,6 +9,7 @@ export const USERS = 'users';
 export const MAINTAINERS = 'maintainers';
 export const DEFAULT_USER = 'Anonymous'; // for display purposes
 export const ANONYMOUS_USER = 'anonymous'; // for username purposes
+export const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export const HEADER_TYPE = {
   CONTENT_ENCODING: 'content-encoding',
@@ -69,12 +70,14 @@ export const HEADERS = {
  * HTTP status codes used throughout Verdaccio.
  */
 export const HTTP_STATUS = {
-  /** 202: The request has been accepted for processing, but the processing is not yet complete. */
-  ACCEPTED: httpCodes.ACCEPTED,
   /** 200: Standard response for successful HTTP requests. */
   OK: httpCodes.OK,
   /** 201: The request has been fulfilled and resulted in a new resource being created. */
   CREATED: httpCodes.CREATED,
+  /** 202: The request has been accepted for processing, but the processing is not yet complete. */
+  ACCEPTED: httpCodes.ACCEPTED,
+  /** 204: The request succeeded and the response carries no body. */
+  NO_CONTENT: httpCodes.NO_CONTENT,
   /** 300: Indicates multiple options for the resource from which the client may choose. */
   MULTIPLE_CHOICES: httpCodes.MULTIPLE_CHOICES,
   /** 304: Indicates that the resource has not been modified since the last request. */
@@ -95,6 +98,8 @@ export const HTTP_STATUS = {
   UNSUPPORTED_MEDIA: httpCodes.UNSUPPORTED_MEDIA_TYPE,
   /** 422: The request was well-formed but was unable to be followed due to semantic errors. */
   BAD_DATA: httpCodes.UNPROCESSABLE_ENTITY,
+  /** 499: The request was aborted by the client. */
+  CLIENT_CLOSED_REQUEST: 499,
   /** 500: The server has encountered a situation it doesn't know how to handle. */
   INTERNAL_ERROR: httpCodes.INTERNAL_SERVER_ERROR,
   /** 501: The request method is not supported by the server and cannot be handled. */
@@ -133,6 +138,8 @@ export const LOG_STATUS_MESSAGE =
   "@{status}, user: @{user}(@{remoteIP}), req: '@{request.method} @{request.url}'";
 export const LOG_VERDACCIO_ERROR = `${LOG_STATUS_MESSAGE}, error: @{!error}`;
 export const LOG_VERDACCIO_BYTES = `${LOG_STATUS_MESSAGE}, bytes: @{bytes.in}/@{bytes.out}`;
+export const LOG_VERDACCIO_ABORT = `${LOG_STATUS_MESSAGE}, request aborted by client`;
+export const LOG_REQUEST_MESSAGE = "@{ip} requested '@{req.method} @{req.url}'";
 
 export const ROLES = {
   $ALL: '$all',

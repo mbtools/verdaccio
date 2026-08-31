@@ -183,6 +183,14 @@ export interface Auth<T, TStorage = unknown> extends Plugin<T> {
     pkg: AllowAccess & PackageAccess,
     cb: AuthAccessCallback
   ): void;
+  /**
+   * Whether the user may stage a version for review (`npm stage publish`).
+   *
+   * Answer `undefined` to defer to `allow_publish`, which is what the built-in
+   * plugin does when the packages configuration has no `stage` entry.
+   */
+  allow_stage?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
+  allow_stage?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthAccessCallback): void;
   apiJWTmiddleware?(helpers: any): RequestHandler;
 }
 
