@@ -26,10 +26,10 @@ importers:
         version: 4.14.3
       '@emotion/react':
         specifier: 11.14.0
-        version: 11.14.0(@types/react@19.2.17)(react@19.2.7)
+        version: 11.14.0(@types/react@19.2.17)(react@19.2.8)
       '@emotion/styled':
         specifier: 11.14.1
-        version: 11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7)
+        version: 11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8)
       '@testing-library/dom':
         specifier: 10.4.1
         version: 10.4.1
@@ -38,10 +38,10 @@ importers:
         version: 6.9.1
       '@testing-library/react':
         specifier: 16.3.2
-        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@testing-library/user-event':
-        specifier: 14.6.1
-        version: 14.6.1(@testing-library/dom@10.4.1)
+        specifier: 14.6.6
+        version: 14.6.6(@testing-library/dom@10.4.1)
       '@types/body-parser':
         specifier: 1.19.6
         version: 1.19.6
@@ -136,8 +136,8 @@ importers:
         specifier: 5.3.2
         version: 5.3.2
       concurrently:
-        specifier: 10.0.3
-        version: 10.0.3
+        specifier: 10.0.5
+        version: 10.0.5
       cross-env:
         specifier: 10.1.0
         version: 10.1.0
@@ -221,30 +221,30 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/api:
     dependencies:
       '@verdaccio/auth':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../auth
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../config
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../core/core
       '@verdaccio/hooks':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../hooks
       '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../logger
       '@verdaccio/middleware':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../middleware
       '@verdaccio/store':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../store
       debug:
         specifier: 4.4.3
@@ -260,10 +260,10 @@ importers:
         specifier: 4.17.12
         version: 4.17.12
       '@verdaccio/test-helper':
-        specifier: workspace:5.0.0-next-9.28
+        specifier: workspace:5.0.0-next-9.31
         version: link:../tools/helpers
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../core/types
       mockdate:
         specifier: 3.0.5
@@ -271,6 +271,9 @@ importers:
       nock:
         specifier: 13.5.6
         version: 13.5.6
+      otpauth:
+        specifier: 9.5.1
+        version: 9.5.1
       rimraf:
         specifier: 6.1.3
         version: 6.1.3
@@ -282,21 +285,21 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/auth:
     dependencies:
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../config
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../core/core
       '@verdaccio/loaders':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../loaders
       '@verdaccio/signature':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../signature
       debug:
         specifier: 4.4.3
@@ -304,21 +307,24 @@ importers:
       lodash-es:
         specifier: 4.18.1
         version: 4.18.1
+      otpauth:
+        specifier: 9.5.1
+        version: 9.5.1
       verdaccio-htpasswd:
-        specifier: workspace:14.0.0-next-9.27
+        specifier: workspace:14.0.0-next-9.30
         version: link:../plugins/htpasswd
     devDependencies:
       '@types/lodash-es':
         specifier: 4.17.12
         version: 4.17.12
       '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../logger
       '@verdaccio/middleware':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../middleware
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../core/types
       express:
         specifier: 5.2.1
@@ -334,24 +340,24 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/cli:
     dependencies:
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../config
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../core/core
       '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../logger
       '@verdaccio/node-api':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../node-api
       '@verdaccio/server':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../server/express
       clipanion:
         specifier: 4.0.0-rc.4
@@ -362,27 +368,27 @@ importers:
       semver:
         specifier: 7.8.5
         version: 7.8.5
-      tsx:
-        specifier: 4.22.4
-        version: 4.22.4
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../core/types
       rimraf:
         specifier: 6.1.3
         version: 6.1.3
+      tsx:
+        specifier: 4.22.4
+        version: 4.22.4
       vite:
         specifier: 8.2.1
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/config:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../core/core
       debug:
         specifier: 4.4.3
@@ -405,7 +411,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/core/core:
     dependencies:
@@ -432,7 +438,7 @@ importers:
         version: 7.8.5
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../types
       express:
         specifier: 5.2.1
@@ -448,7 +454,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/core/file-locking:
     dependencies:
@@ -457,7 +463,7 @@ importers:
         version: 1.0.4
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../types
       rimraf:
         specifier: 6.1.3
@@ -467,7 +473,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/core/i18n:
     devDependencies:
@@ -481,10 +487,10 @@ importers:
   packages/core/tarball:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../core
       '@verdaccio/url':
-        specifier: workspace:14.0.0-next-9.27
+        specifier: workspace:14.0.0-next-9.30
         version: link:../url
       debug:
         specifier: 4.4.3
@@ -497,7 +503,7 @@ importers:
         version: 3.1.7
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../types
       node-mocks-http:
         specifier: 1.14.1
@@ -510,7 +516,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/core/types:
     dependencies:
@@ -528,7 +534,7 @@ importers:
   packages/core/url:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../core
       debug:
         specifier: 4.4.3
@@ -548,15 +554,15 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/hooks:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../core/core
       '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../logger
       debug:
         specifier: 4.4.3
@@ -569,13 +575,13 @@ importers:
         version: 4.7.9
     devDependencies:
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../config
       '@verdaccio/test-helper':
-        specifier: workspace:5.0.0-next-9.28
+        specifier: workspace:5.0.0-next-9.31
         version: link:../tools/helpers
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../core/types
       nock:
         specifier: 13.5.6
@@ -588,12 +594,12 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/loaders:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../core/core
       debug:
         specifier: 4.4.3
@@ -609,10 +615,10 @@ importers:
         specifier: workspace:1.0.0-next-9.0
         version: link:../tools/verdaccio-scoped-fake-plugin
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../config
       '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../logger
       customprefix-auth:
         specifier: workspace:4.0.0-next-9.1
@@ -628,19 +634,19 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/logger:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../core/core
       colorette:
         specifier: 2.0.20
         version: 2.0.20
       dayjs:
-        specifier: 1.11.21
-        version: 1.11.21
+        specifier: 1.11.23
+        version: 1.11.23
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
@@ -658,7 +664,7 @@ importers:
         version: 4.2.1
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../core/types
       cross-env:
         specifier: 10.1.0
@@ -671,18 +677,18 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/middleware:
     dependencies:
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../config
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../core/core
       '@verdaccio/url':
-        specifier: workspace:14.0.0-next-9.27
+        specifier: workspace:14.0.0-next-9.30
         version: link:../core/url
       debug:
         specifier: 4.4.3
@@ -704,10 +710,10 @@ importers:
         specifier: 4.17.12
         version: 4.17.12
       '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../logger
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../core/types
       http-errors:
         specifier: 2.0.1
@@ -723,15 +729,15 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/node-api:
     dependencies:
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../config
       '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../logger
       debug:
         specifier: 4.4.3
@@ -751,15 +757,15 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/plugins/audit:
     dependencies:
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../config
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../core/core
       express:
         specifier: 5.2.1
@@ -772,16 +778,16 @@ importers:
         version: 1.2.0
     devDependencies:
       '@verdaccio/auth':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../auth
       '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../logger
       '@verdaccio/plugin-verifier':
-        specifier: workspace:1.0.0-next-9.23
+        specifier: workspace:1.0.0-next-9.26
         version: link:../../tools/plugin-verifier
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../../core/types
       nock:
         specifier: 13.5.6
@@ -797,12 +803,12 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/plugins/auth-memory:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../core/core
       debug:
         specifier: 4.4.3
@@ -812,13 +818,13 @@ importers:
         specifier: 4.1.13
         version: 4.1.13
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../config
       '@verdaccio/plugin-verifier':
-        specifier: workspace:1.0.0-next-9.23
+        specifier: workspace:1.0.0-next-9.26
         version: link:../../tools/plugin-verifier
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../../core/types
       rimraf:
         specifier: 6.1.3
@@ -828,12 +834,12 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/plugins/htpasswd:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../core/core
       '@verdaccio/file-locking':
         specifier: workspace:14.0.0-next-9.4
@@ -855,13 +861,13 @@ importers:
         version: 1.1.4
     devDependencies:
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../config
       '@verdaccio/plugin-verifier':
-        specifier: workspace:1.0.0-next-9.23
+        specifier: workspace:1.0.0-next-9.26
         version: link:../../tools/plugin-verifier
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../../core/types
       mockdate:
         specifier: 3.0.5
@@ -874,12 +880,12 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/plugins/local-storage:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../core/core
       '@verdaccio/file-locking':
         specifier: workspace:14.0.0-next-9.4
@@ -904,10 +910,10 @@ importers:
         specifier: 4.17.12
         version: 4.17.12
       '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../logger
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../../core/types
       rimraf:
         specifier: 6.1.3
@@ -917,12 +923,12 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/plugins/memory:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../core/core
       debug:
         specifier: 4.4.3
@@ -932,13 +938,13 @@ importers:
         version: 4.17.2
     devDependencies:
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../config
       '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../logger
       '@verdaccio/plugin-verifier':
-        specifier: workspace:1.0.0-next-9.23
+        specifier: workspace:1.0.0-next-9.26
         version: link:../../tools/plugin-verifier
       cross-env:
         specifier: 10.1.0
@@ -951,12 +957,12 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/plugins/package-filter:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../core/core
       debug:
         specifier: 4.4.3
@@ -969,16 +975,16 @@ importers:
         specifier: 4.1.13
         version: 4.1.13
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../config
       '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../logger
       '@verdaccio/plugin-verifier':
-        specifier: workspace:1.0.0-next-9.23
+        specifier: workspace:1.0.0-next-9.26
         version: link:../../tools/plugin-verifier
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../../core/types
       rimraf:
         specifier: 6.1.3
@@ -988,7 +994,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/plugins/ui-theme:
     dependencies:
@@ -998,7 +1004,7 @@ importers:
     devDependencies:
       '@mui/material':
         specifier: 7.3.11
-        version: 7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        version: 7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@testing-library/dom':
         specifier: 10.4.1
         version: 10.4.1
@@ -1007,16 +1013,16 @@ importers:
         version: 6.9.1
       '@testing-library/react':
         specifier: 16.3.2
-        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@verdaccio/ui-components':
-        specifier: workspace:5.0.0-next-9.18
+        specifier: workspace:5.0.0-next-9.20
         version: link:../../ui-components
       '@verdaccio/ui-i18n':
         specifier: workspace:10.0.0-next-9.4
         version: link:../../core/i18n
       '@vitejs/plugin-react':
-        specifier: 6.0.3
-        version: 6.0.3(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        specifier: 6.0.5
+        version: 6.0.5(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
       country-flag-icons:
         specifier: 1.6.20
         version: 1.6.20
@@ -1024,8 +1030,8 @@ importers:
         specifier: 10.1.0
         version: 10.1.0
       dayjs:
-        specifier: 1.11.21
-        version: 1.11.21
+        specifier: 1.11.23
+        version: 1.11.23
       i18next:
         specifier: 25.10.10
         version: 25.10.10(typescript@7.0.2)
@@ -1033,20 +1039,20 @@ importers:
         specifier: 0.3.7
         version: 0.3.7
       react:
-        specifier: 19.2.7
-        version: 19.2.7
+        specifier: 19.2.8
+        version: 19.2.8
       react-dom:
-        specifier: 19.2.7
-        version: 19.2.7(react@19.2.7)
+        specifier: 19.2.8
+        version: 19.2.8(react@19.2.8)
       react-i18next:
         specifier: 16.6.6
-        version: 16.6.6(i18next@25.10.10(typescript@7.0.2))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(typescript@7.0.2)
+        version: 16.6.6(i18next@25.10.10(typescript@7.0.2))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2)
       react-markdown:
         specifier: 10.1.0
-        version: 10.1.0(@types/react@19.2.17)(react@19.2.7)
+        version: 10.1.0(@types/react@19.2.17)(react@19.2.8)
       react-router:
         specifier: 8.3.0
-        version: 8.3.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        version: 8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       rimraf:
         specifier: 6.1.3
         version: 6.1.3
@@ -1055,7 +1061,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
       whatwg-fetch:
         specifier: 3.6.20
         version: 3.6.20
@@ -1063,10 +1069,10 @@ importers:
   packages/proxy:
     dependencies:
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../config
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../core/core
       JSONStream:
         specifier: 1.3.5
@@ -1088,10 +1094,10 @@ importers:
         specifier: 4.17.12
         version: 4.17.12
       '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../logger
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../core/types
       get-stream:
         specifier: 9.0.1
@@ -1107,21 +1113,21 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/search:
     dependencies:
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../config
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../core/core
       '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../logger
       '@verdaccio/proxy':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../proxy
       debug:
         specifier: 4.4.3
@@ -1134,7 +1140,7 @@ importers:
         specifier: 4.17.12
         version: 4.17.12
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../core/types
       nock:
         specifier: 13.5.6
@@ -1147,7 +1153,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/search-indexer:
     dependencies:
@@ -1159,7 +1165,7 @@ importers:
         version: 4.4.3(supports-color@5.5.0)
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../core/types
       rimraf:
         specifier: 6.1.3
@@ -1169,36 +1175,36 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/server/express:
     dependencies:
       '@verdaccio/api':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../api
       '@verdaccio/auth':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../auth
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../config
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../core/core
       '@verdaccio/loaders':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../loaders
       '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../logger
       '@verdaccio/middleware':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../middleware
       '@verdaccio/store':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../store
       '@verdaccio/web':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../web
       compression:
         specifier: 1.8.1
@@ -1216,14 +1222,14 @@ importers:
         specifier: 4.18.1
         version: 4.18.1
       verdaccio-audit:
-        specifier: workspace:14.0.0-next-9.27
+        specifier: workspace:14.0.0-next-9.30
         version: link:../../plugins/audit
     devDependencies:
       '@types/lodash-es':
         specifier: 4.17.12
         version: 4.17.12
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../../core/types
       rimraf:
         specifier: 6.1.3
@@ -1236,15 +1242,15 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/signature:
     dependencies:
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../config
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../core/core
       debug:
         specifier: 4.4.3
@@ -1254,7 +1260,7 @@ importers:
         version: 9.0.3
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../core/types
       rimraf:
         specifier: 6.1.3
@@ -1264,36 +1270,36 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/store:
     dependencies:
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../config
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../core/core
       '@verdaccio/loaders':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../loaders
       '@verdaccio/local-storage':
-        specifier: workspace:14.0.0-next-9.27
+        specifier: workspace:14.0.0-next-9.30
         version: link:../plugins/local-storage
       '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../logger
       '@verdaccio/proxy':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../proxy
       '@verdaccio/search':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../search
       '@verdaccio/tarball':
-        specifier: workspace:14.0.0-next-9.27
+        specifier: workspace:14.0.0-next-9.30
         version: link:../core/tarball
       '@verdaccio/url':
-        specifier: workspace:14.0.0-next-9.27
+        specifier: workspace:14.0.0-next-9.30
         version: link:../core/url
       debug:
         specifier: 4.4.3
@@ -1309,10 +1315,10 @@ importers:
         specifier: 4.17.12
         version: 4.17.12
       '@verdaccio/test-helper':
-        specifier: workspace:5.0.0-next-9.28
+        specifier: workspace:5.0.0-next-9.31
         version: link:../tools/helpers
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../core/types
       mockdate:
         specifier: 3.0.5
@@ -1331,24 +1337,24 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/tools/helpers:
     dependencies:
       '@verdaccio/auth':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../auth
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../config
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../core/core
       '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../logger
       '@verdaccio/middleware':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../middleware
       debug:
         specifier: 4.4.3
@@ -1361,7 +1367,7 @@ importers:
         version: 7.1.4
     devDependencies:
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../../core/types
       rimraf:
         specifier: 6.1.3
@@ -1371,33 +1377,33 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/tools/local-publish:
     devDependencies:
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../config
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../core/core
       tsx:
         specifier: 4.22.4
         version: 4.22.4
       verdaccio:
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../verdaccio
 
   packages/tools/plugin-verifier:
     dependencies:
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../core/core
       '@verdaccio/loaders':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../loaders
       '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../logger
       clipanion:
         specifier: 4.0.0-rc.4
@@ -1414,7 +1420,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   packages/tools/verdaccio-auth-fake-plugin: {}
 
@@ -1426,25 +1432,25 @@ importers:
     dependencies:
       '@emotion/react':
         specifier: 11.14.0
-        version: 11.14.0(@types/react@19.2.17)(react@19.2.7)
+        version: 11.14.0(@types/react@19.2.17)(react@19.2.8)
       '@emotion/styled':
         specifier: 11.14.1
-        version: 11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7)
+        version: 11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8)
       '@hookform/resolvers':
-        specifier: 5.4.0
-        version: 5.4.0(react-hook-form@7.81.0(react@19.2.7))
+        specifier: 5.9.1
+        version: 5.9.1(@standard-schema/spec@1.1.0)(ajv@8.20.0)(react-hook-form@7.86.0(react@19.2.8))(typanion@3.14.0)(yup@1.7.1)
       '@microlink/react-json-view':
-        specifier: 1.31.22
-        version: 1.31.22(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        specifier: 1.31.28
+        version: 1.31.28(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@mui/icons-material':
         specifier: 7.3.11
-        version: 7.3.11(@mui/material@7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@types/react@19.2.17)(react@19.2.7)
+        version: 7.3.11(@mui/material@7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.17)(react@19.2.8)
       '@mui/material':
         specifier: 7.3.11
-        version: 7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        version: 7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@mui/system':
         specifier: 7.3.11
-        version: 7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7)
+        version: 7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8)
       '@verdaccio/ui-i18n':
         specifier: workspace:10.0.0-next-9.4
         version: link:../core/i18n
@@ -1452,17 +1458,17 @@ importers:
         specifier: 1.6.20
         version: 1.6.20
       dayjs:
-        specifier: 1.11.21
-        version: 1.11.21
+        specifier: 1.11.23
+        version: 1.11.23
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
       dompurify:
-        specifier: 3.4.13
-        version: 3.4.13
+        specifier: 3.4.14
+        version: 3.4.14
       highlight.js:
-        specifier: 11.11.1
-        version: 11.11.1
+        specifier: 11.12.0
+        version: 11.12.0
       highlightjs-sap-abap:
         specifier: 0.3.0
         version: 0.3.0
@@ -1470,8 +1476,8 @@ importers:
         specifier: 25.10.10
         version: 25.10.10(typescript@7.0.2)
       js-base64:
-        specifier: 3.8.0
-        version: 3.8.0
+        specifier: 3.9.3
+        version: 3.9.3
       localstorage-memory:
         specifier: 1.0.3
         version: 1.0.3
@@ -1494,32 +1500,32 @@ importers:
         specifier: 8.0.1
         version: 8.0.1
       react:
-        specifier: 19.2.7
-        version: 19.2.7
+        specifier: 19.2.8
+        version: 19.2.8
       react-dom:
-        specifier: 19.2.7
-        version: 19.2.7(react@19.2.7)
+        specifier: 19.2.8
+        version: 19.2.8(react@19.2.8)
       react-hook-form:
-        specifier: 7.81.0
-        version: 7.81.0(react@19.2.7)
+        specifier: 7.86.0
+        version: 7.86.0(react@19.2.8)
       react-i18next:
         specifier: 16.6.6
-        version: 16.6.6(i18next@25.10.10(typescript@7.0.2))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(typescript@7.0.2)
+        version: 16.6.6(i18next@25.10.10(typescript@7.0.2))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2)
       react-markdown:
         specifier: 10.1.0
-        version: 10.1.0(@types/react@19.2.17)(react@19.2.7)
+        version: 10.1.0(@types/react@19.2.17)(react@19.2.8)
       react-router:
         specifier: 8.3.0
-        version: 8.3.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        version: 8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       react-virtualized:
         specifier: 9.22.6
-        version: 9.22.6(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        version: 9.22.6(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       semver:
         specifier: 7.8.5
         version: 7.8.5
       swr:
-        specifier: 2.4.2
-        version: 2.4.2(react@19.2.7)
+        specifier: 2.5.1
+        version: 2.5.1(react@19.2.8)
       validator:
         specifier: 13.15.35
         version: 13.15.35
@@ -1529,13 +1535,13 @@ importers:
     devDependencies:
       '@storybook/addon-docs':
         specifier: 10.2.17
-        version: 10.2.17(@types/react@19.2.17)(esbuild@0.28.1)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 10.2.17(@types/react@19.2.17)(esbuild@0.28.1)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
       '@storybook/addon-links':
         specifier: 10.2.17
-        version: 10.2.17(react@19.2.7)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))
+        version: 10.2.17(react@19.2.8)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))
       '@storybook/react-vite':
         specifier: 10.2.17
-        version: 10.2.17(esbuild@0.28.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(typescript@7.0.2)(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 10.2.17(esbuild@0.28.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@7.0.2)(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
       '@testing-library/dom':
         specifier: 10.4.1
         version: 10.4.1
@@ -1544,7 +1550,7 @@ importers:
         version: 6.9.1
       '@testing-library/react':
         specifier: 16.3.2
-        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@types/lodash-es':
         specifier: 4.17.12
         version: 4.17.12
@@ -1552,11 +1558,11 @@ importers:
         specifier: 24.13.2
         version: 24.13.2
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../core/types
       '@vitejs/plugin-react':
-        specifier: 6.0.3
-        version: 6.0.3(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        specifier: 6.0.5
+        version: 6.0.5(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
       cross-env:
         specifier: 10.1.0
         version: 10.1.0
@@ -1565,7 +1571,7 @@ importers:
         version: 6.6.0
       jsdom:
         specifier: 29.1.1
-        version: 29.1.1(@noble/hashes@1.8.0)
+        version: 29.1.1(@noble/hashes@2.2.0)
       mockdate:
         specifier: 3.0.5
         version: 3.0.5
@@ -1583,13 +1589,13 @@ importers:
         version: 6.1.3
       storybook:
         specifier: 10.2.17
-        version: 10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+        version: 10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       vite:
         specifier: 8.2.1
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
       whatwg-fetch:
         specifier: 3.6.20
         version: 3.6.20
@@ -1597,25 +1603,25 @@ importers:
   packages/verdaccio:
     dependencies:
       '@verdaccio/cli':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../cli
       '@verdaccio/node-api':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../node-api
       '@verdaccio/package-filter':
-        specifier: workspace:14.0.0-next-9.51
+        specifier: workspace:14.0.0-next-9.54
         version: link:../plugins/package-filter
       '@verdaccio/server':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../server/express
       '@verdaccio/ui-theme':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../plugins/ui-theme
       verdaccio-audit:
-        specifier: workspace:14.0.0-next-9.27
+        specifier: workspace:14.0.0-next-9.30
         version: link:../plugins/audit
       verdaccio-htpasswd:
-        specifier: workspace:14.0.0-next-9.27
+        specifier: workspace:14.0.0-next-9.30
         version: link:../plugins/htpasswd
     devDependencies:
       rimraf:
@@ -1631,31 +1637,31 @@ importers:
   packages/web:
     dependencies:
       '@verdaccio/auth':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../auth
       '@verdaccio/config':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../config
       '@verdaccio/core':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../core/core
       '@verdaccio/loaders':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../loaders
       '@verdaccio/logger':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../logger
       '@verdaccio/middleware':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../middleware
       '@verdaccio/store':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../store
       '@verdaccio/tarball':
-        specifier: workspace:14.0.0-next-9.27
+        specifier: workspace:14.0.0-next-9.30
         version: link:../core/tarball
       '@verdaccio/ui-theme':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../plugins/ui-theme
       debug:
         specifier: 4.4.3
@@ -1671,17 +1677,17 @@ importers:
         specifier: 4.17.12
         version: 4.17.12
       '@verdaccio/api':
-        specifier: workspace:9.0.0-next-9.27
+        specifier: workspace:9.0.0-next-9.30
         version: link:../api
       '@verdaccio/test-helper':
-        specifier: workspace:5.0.0-next-9.28
+        specifier: workspace:5.0.0-next-9.31
         version: link:../tools/helpers
       '@verdaccio/types':
-        specifier: workspace:14.0.0-next-9.12
+        specifier: workspace:14.0.0-next-9.13
         version: link:../core/types
       jsdom:
         specifier: 29.1.1
-        version: 29.1.1(@noble/hashes@1.8.0)
+        version: 29.1.1(@noble/hashes@2.2.0)
       nock:
         specifier: 13.5.6
         version: 13.5.6
@@ -1696,7 +1702,7 @@ importers:
         version: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+        version: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
 packages:
 
@@ -2134,10 +2140,83 @@ packages:
   '@gerrit0/mini-shiki@3.13.1':
     resolution: {integrity: sha512-fDWM5QQc70jwBIt/WYMybdyXdyBmoJe7r1hpM+V/bHnyla79sygVDK2/LlVxIPc4n5FA3B5Wzt7AQH2+psNphg==}
 
-  '@hookform/resolvers@5.4.0':
-    resolution: {integrity: sha512-EIsqr/t/qbinPIhGjMdtvutIN1Kk4uwbROE9/UQ93CAVGR7GkA7Y92+fX80OzXi/OB67jVFYwKGO1WzkxmkFZw==}
+  '@hookform/resolvers@5.9.1':
+    resolution: {integrity: sha512-7b7vsbraJxKgjVSA1Nur9tLwj539WGJUBLA7QNvXnFoT2pM5Z7G+6rlukk4B2/QrTZy6huRtH6wKeESPKuIr6w==}
     peerDependencies:
+      '@sinclair/typebox': '>=0.25.24'
+      '@standard-schema/spec': ^1.0.0
+      '@typeschema/main': '>=0.13.7'
+      '@vinejs/vine': ^2.0.0 || ^3.0.0 || ^4.0.0
+      ajv: ^8.12.0
+      ajv-errors: ^3.0.0
+      ajv-formats: ^2.1.1
+      arktype: ^2.0.0
+      ata-validator: ^1.2.0
+      class-transformer: '>=0.4.0'
+      class-validator: '>=0.12.0'
+      computed-types: ^1.0.0
+      effect: ^3.10.3
+      fluentvalidation-ts: ^3.0.0
+      fp-ts: ^2.7.0
+      io-ts: ^2.0.0
+      joi: ^17.0.0 || ^18.0.0
+      nope-validator: '>=0.12.0'
       react-hook-form: ^7.55.0
+      superstruct: '>=0.12.0'
+      typanion: ^3.3.2
+      valibot: '>=0.31.0 || ^1.0.0-beta.4 || ^1.0.0-rc'
+      vest: '>=6.0.0'
+      yup: ^1.0.0
+      zod: ^3.25.0 || ^4.0.0
+    peerDependenciesMeta:
+      '@sinclair/typebox':
+        optional: true
+      '@standard-schema/spec':
+        optional: true
+      '@typeschema/main':
+        optional: true
+      '@vinejs/vine':
+        optional: true
+      ajv:
+        optional: true
+      ajv-errors:
+        optional: true
+      ajv-formats:
+        optional: true
+      arktype:
+        optional: true
+      ata-validator:
+        optional: true
+      class-transformer:
+        optional: true
+      class-validator:
+        optional: true
+      computed-types:
+        optional: true
+      effect:
+        optional: true
+      fluentvalidation-ts:
+        optional: true
+      fp-ts:
+        optional: true
+      io-ts:
+        optional: true
+      joi:
+        optional: true
+      nope-validator:
+        optional: true
+      superstruct:
+        optional: true
+      typanion:
+        optional: true
+      valibot:
+        optional: true
+      vest:
+        optional: true
+      yup:
+        optional: true
+      zod:
+        optional: true
 
   '@inquirer/confirm@5.1.2':
     resolution: {integrity: sha512-VKgaKxw2I3cu2smedeMFyxuYyI+HABlFY1Px4j8NueA7xDskKAo9hxEQemTpp1Fu4OiTtOCgU4eK91BVuBKH3g==}
@@ -2233,8 +2312,8 @@ packages:
       '@types/react': '>=16'
       react: '>=16'
 
-  '@microlink/react-json-view@1.31.22':
-    resolution: {integrity: sha512-cfszidqClRqjnF5YQ5PSGeORo9MnMZvDv+csgq92G1LRZduWEBjeHXKLnulvhE7bX9+ORvjRCWcMQfwRlhPxmA==}
+  '@microlink/react-json-view@1.31.28':
+    resolution: {integrity: sha512-G4lQITsTrf+yZGrP6171dCb4dGusFrrSrNMaJ6TTISx2Cfp5qYDYb2eI3DepwDkdB+HzTq2OV52m1jzc+riNuw==}
     engines: {node: '>=17'}
     peerDependencies:
       react: '>= 15'
@@ -2342,6 +2421,10 @@ packages:
   '@noble/hashes@1.8.0':
     resolution: {integrity: sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A==}
     engines: {node: ^14.21.3 || >=16}
+
+  '@noble/hashes@2.2.0':
+    resolution: {integrity: sha512-IYqDGiTXab6FniAgnSdZwgWbomxpy9FtYvLKs7wCUs2a8RkITG+DFGO1DM9cr+E3/RgADRpFjrKVaJ1z6sjtEg==}
+    engines: {node: '>= 20.19.0'}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -2884,8 +2967,14 @@ packages:
       '@types/react-dom':
         optional: true
 
-  '@testing-library/user-event@14.6.1':
-    resolution: {integrity: sha512-vq7fv0rnt+QTXgPxr5Hjc210p6YKq2kmdziLgnsZGgLJ9e6VAShx1pACLuRjd/AS/sr7phAR58OIIpf0LlmQNw==}
+  '@testing-library/user-event@14.6.5':
+    resolution: {integrity: sha512-FhqjldLTpteueBaKflhNFlMT3+PM0O5fiBUivht6b9CZ1eesJyy7+g3Jr7XwJzt/Hip3ZG5hWwK1MX1FuDiE4w==}
+    engines: {node: '>=12', npm: '>=6'}
+    peerDependencies:
+      '@testing-library/dom': '>=7.21.4'
+
+  '@testing-library/user-event@14.6.6':
+    resolution: {integrity: sha512-Jbs9FpkkIDw8FgSc6kOVsOv8JuuqGAL7J4X1oot77JxAoDlkNn2GRkd0aYRVuQ+pVQAiHWVkE4rX/dkF5fBiCw==}
     engines: {node: '>=12', npm: '>=6'}
     peerDependencies:
       '@testing-library/dom': '>=7.21.4'
@@ -3218,8 +3307,8 @@ packages:
     engines: {node: '>=24'}
     hasBin: true
 
-  '@vitejs/plugin-react@6.0.3':
-    resolution: {integrity: sha512-vmFvco5/QuC2f9Oj+wTk0+9XeDFkHxSamwZKYc7MxYwKICfvUvlMhqKI0VuICPltGqh1neqBKDvO4kes1ya8vg==}
+  '@vitejs/plugin-react@6.0.5':
+    resolution: {integrity: sha512-BOVzne/NL162sMdResB25mUv+vWMF5NoAjNf09TeGlE7ZpszZWSD3winycicLJw72yeVsoCn/2kOhEuCvEShMA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
       '@rolldown/plugin-babel': ^0.1.7 || ^0.2.0
@@ -3713,8 +3802,8 @@ packages:
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
-  concurrently@10.0.3:
-    resolution: {integrity: sha512-hc3LH4UaKWd/bbyDK/IGVa4RB6PtQ3CUYwtrkzqHn+wIG3Hr5fhpRlk0L/gCa8ZE1L/Ufj50Zho69cI5w8SQBA==}
+  concurrently@10.0.5:
+    resolution: {integrity: sha512-JaP/CoftUrCcAFW/g//RbgEGwlelnEae6cfBLgH6ZdO6s8jPkn6p9SB9u6pdVxYXoiSnFqseOlHfrEfF82TVOg==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -3811,6 +3900,9 @@ packages:
 
   dayjs@1.11.21:
     resolution: {integrity: sha512-98IT+HOahAisibz/yjKbzuOBwYcjJ7BCLPzARyHiyEBmRz4fatF+KPJszEHXsGYjUG234aH/cOjW1wwTbKUZlA==}
+
+  dayjs@1.11.23:
+    resolution: {integrity: sha512-QDTCU0M0MxR3hQfnlDJfwekQiaanm1ubOD231u73WBckQ/fsamwRLiE2GBz6D3a/xF1NgfiDLJjXBa1hYOYTtQ==}
 
   debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -3914,8 +4006,8 @@ packages:
   dom-helpers@5.2.1:
     resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
 
-  dompurify@3.4.13:
-    resolution: {integrity: sha512-2vmYIoqjze2d+kakP8S/nS5shfsl587kzwEjcGlTdiksUVgFHnFCsLYDVj/JNqJVOQZGSYBTmuycv0PodwmnMQ==}
+  dompurify@3.4.14:
+    resolution: {integrity: sha512-dVoH9z+MY+C9IilgGCk3YfFqjLi3fChm2OiKJMzh6axrJ5qwxqWaZamgmHrpv22CN/KdbZJuGEGgfQoL00LTdg==}
 
   dotenv@8.6.0:
     resolution: {integrity: sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==}
@@ -4296,8 +4388,8 @@ packages:
   headers-polyfill@4.0.3:
     resolution: {integrity: sha512-IScLbePpkvO846sIwOtOTDjutRMWdXdJmXdMvk6gCBHxFO8d+QKOQedyZSxFTTFYRSmlgSTDtXqqq4pcenBXLQ==}
 
-  highlight.js@11.11.1:
-    resolution: {integrity: sha512-Xwwo44whKBVCYoliBQwaPvtd/2tYFkRQtXDWj1nackaV2JPXx3L0+Jvd8/qCJ2p+ML0/XVkJ2q+Mr+UVdpJK5w==}
+  highlight.js@11.12.0:
+    resolution: {integrity: sha512-nbfWpyRMcMrPMmDwJB+dhX/eiaPKtc2RB+0QZskqJ3WjRA/FDS0e9hZrx8EC/lbEv8gXy98FcDbNa/dspAaJMg==}
     engines: {node: '>=12.0.0'}
 
   highlightjs-sap-abap@0.3.0:
@@ -4546,8 +4638,8 @@ packages:
     resolution: {integrity: sha512-HGYWWS/ehqTV3xN10i23tkPkpH46MLCIMFNCaaKNavAXTF1RkqxawEPtnjnGZ6XKSInBKkiOA5BKS+aZiY3AvA==}
     engines: {node: '>=8'}
 
-  js-base64@3.8.0:
-    resolution: {integrity: sha512-65kvbemyZhj+ExQt1PEFyBEjL5vAHysu1lJdW1AwhhChkO8ZBPizYk/m9GVrpbS2Je1hF+UYZ+6KywqtZV8mHw==}
+  js-base64@3.9.3:
+    resolution: {integrity: sha512-uwYQp+VJ38FVvtim6qNbit6e9uT6dwWQ4Y1+H9TxhW5hcHjpHwoxlR0nMpqUmIFOmu4VqMxwdJA88gIVuZJQ/g==}
 
   js-tokens@10.0.0:
     resolution: {integrity: sha512-lM/UBzQmfJRo9ABXbPWemivdCW8V2G8FHaHdypQaIy523snUjog0W71ayWXTjiR+ixeMyVHN2XcpnTd/liPg/Q==}
@@ -5203,6 +5295,9 @@ packages:
   ospath@1.2.2:
     resolution: {integrity: sha512-o6E5qJV5zkAbIDNhGSIlyOhScKXgQrSRMilfph0clDfM0nEnBOlKlH4sWDmG95BW/CvwNz0vmm7dJVtU2KlMiA==}
 
+  otpauth@9.5.1:
+    resolution: {integrity: sha512-fJmDAHc8wImfqqqOXIlBvT1dEKrZK0Cmb2VEgScpNTolCz0PHh6ExUZGv4sLtOsWNaHCQlD+rRqaPgnoxFoZjQ==}
+
   outdent@0.5.0:
     resolution: {integrity: sha512-/jHxFIzoMXdqPzTaCpFzAAWhpkSjZPF4Vsn6jAfNpmbH/ymsmd7Qc6VE9BGn0L6YMj6uwpQLxCECpus4ukKS9Q==}
 
@@ -5488,8 +5583,13 @@ packages:
     peerDependencies:
       react: ^19.2.7
 
-  react-hook-form@7.81.0:
-    resolution: {integrity: sha512-ocbmr2p5KBMoAfj4WCUvped33lVi1Kd5DuDUvQDnB6VEAacOjPI/jMbtDdbhco4y9ct4xUuCmMY0b/C9L0QHjw==}
+  react-dom@19.2.8:
+    resolution: {integrity: sha512-rVprimfGBG3DR+Tq0IQG2DT5PxKth1WIGDmj5yPmlzr4YBe7uyE+Du4oVqTDXZSHGGGXRtTJEGSSePyQCMBglQ==}
+    peerDependencies:
+      react: ^19.2.8
+
+  react-hook-form@7.86.0:
+    resolution: {integrity: sha512-4kbWJrh5jPZt1+YqVcXcGKffGcXV/XVbozknLh0Yjh0KhpoAkus21TAQhzRYqNwFkkObmnSvRlZZ3GT+ehoIrA==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
@@ -5558,6 +5658,10 @@ packages:
 
   react@19.2.7:
     resolution: {integrity: sha512-HNe9WslTbXmFK8o8cmwgAeJFSBvt1bPdHCVKtaaV+WlAN36mpT4hcRpwbf3fY56ar2oIXzsBpOAiIRHAdY0OlQ==}
+    engines: {node: '>=0.10.0'}
+
+  react@19.2.8:
+    resolution: {integrity: sha512-PWaYA1L/q9u2u7xYQi+Y3L3Yfnie7XyLeaJICV1MGD6LprsBxcAqGjYyr0eY3p+QdsA+x/Irkt4Qif8D63+Sbw==}
     engines: {node: '>=0.10.0'}
 
   read-package-json-fast@4.0.0:
@@ -5722,6 +5826,10 @@ packages:
 
   shell-quote@1.8.4:
     resolution: {integrity: sha512-VsC6n6vz1ihYYyZZwX7YZSF5l5x36ca17OC+a69h94YqB7X6XLwf+5MOgynYir2SLFUbl8gIYvBo8K8RoNQ6bQ==}
+    engines: {node: '>= 0.4'}
+
+  shell-quote@1.9.0:
+    resolution: {integrity: sha512-Iov+JwFv/2HcTpcwNMKd8+IWNb8tboQJNQTkAY/LLVK7gGH9jy+LGkVqPxfekHl+yMmiqXszdGWXgkfml7hjqA==}
     engines: {node: '>= 0.4'}
 
   shelljs@0.10.0:
@@ -5910,8 +6018,8 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  swr@2.4.2:
-    resolution: {integrity: sha512-ej644Y2bvkIajfR32KGeSSdBXQW+ScjGjkybZgSE7kFpk9eGnV44XY9FJylXi+W75pavSX1PVNB57W5EbhGIYw==}
+  swr@2.5.1:
+    resolution: {integrity: sha512-BRw55e8r0B7SpDN20CAzoQAHl7y1yP7/Zt7oqUjMv0vSt2u2Xnkm88Ws+VypbV9BXHQVuSuyVq7zMjO16wSExw==}
     peerDependencies:
       react: ^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -6911,17 +7019,17 @@ snapshots:
 
   '@emotion/memoize@0.9.0': {}
 
-  '@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7)':
+  '@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8)':
     dependencies:
       '@babel/runtime': 7.29.7
       '@emotion/babel-plugin': 11.13.5
       '@emotion/cache': 11.14.0
       '@emotion/serialize': 1.3.3
-      '@emotion/use-insertion-effect-with-fallbacks': 1.2.0(react@19.2.7)
+      '@emotion/use-insertion-effect-with-fallbacks': 1.2.0(react@19.2.8)
       '@emotion/utils': 1.4.2
       '@emotion/weak-memoize': 0.4.0
       hoist-non-react-statics: 3.3.2
-      react: 19.2.7
+      react: 19.2.8
     optionalDependencies:
       '@types/react': 19.2.17
     transitivePeerDependencies:
@@ -6937,16 +7045,16 @@ snapshots:
 
   '@emotion/sheet@1.4.0': {}
 
-  '@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7)':
+  '@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8)':
     dependencies:
       '@babel/runtime': 7.29.7
       '@emotion/babel-plugin': 11.13.5
       '@emotion/is-prop-valid': 1.3.1
-      '@emotion/react': 11.14.0(@types/react@19.2.17)(react@19.2.7)
+      '@emotion/react': 11.14.0(@types/react@19.2.17)(react@19.2.8)
       '@emotion/serialize': 1.3.3
-      '@emotion/use-insertion-effect-with-fallbacks': 1.2.0(react@19.2.7)
+      '@emotion/use-insertion-effect-with-fallbacks': 1.2.0(react@19.2.8)
       '@emotion/utils': 1.4.2
-      react: 19.2.7
+      react: 19.2.8
     optionalDependencies:
       '@types/react': 19.2.17
     transitivePeerDependencies:
@@ -6954,9 +7062,9 @@ snapshots:
 
   '@emotion/unitless@0.10.0': {}
 
-  '@emotion/use-insertion-effect-with-fallbacks@1.2.0(react@19.2.7)':
+  '@emotion/use-insertion-effect-with-fallbacks@1.2.0(react@19.2.8)':
     dependencies:
-      react: 19.2.7
+      react: 19.2.8
 
   '@emotion/utils@1.4.2': {}
 
@@ -7042,9 +7150,9 @@ snapshots:
   '@esbuild/win32-x64@0.28.1':
     optional: true
 
-  '@exodus/bytes@1.15.0(@noble/hashes@1.8.0)':
+  '@exodus/bytes@1.15.0(@noble/hashes@2.2.0)':
     optionalDependencies:
-      '@noble/hashes': 1.8.0
+      '@noble/hashes': 2.2.0
 
   '@gerrit0/mini-shiki@3.13.1':
     dependencies:
@@ -7054,10 +7162,15 @@ snapshots:
       '@shikijs/types': 3.13.0
       '@shikijs/vscode-textmate': 10.0.2
 
-  '@hookform/resolvers@5.4.0(react-hook-form@7.81.0(react@19.2.7))':
+  '@hookform/resolvers@5.9.1(@standard-schema/spec@1.1.0)(ajv@8.20.0)(react-hook-form@7.86.0(react@19.2.8))(typanion@3.14.0)(yup@1.7.1)':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.81.0(react@19.2.7)
+      react-hook-form: 7.86.0(react@19.2.8)
+    optionalDependencies:
+      '@standard-schema/spec': 1.1.0
+      ajv: 8.20.0
+      typanion: 3.14.0
+      yup: 1.7.1
 
   '@inquirer/confirm@5.1.2(@types/node@24.13.2)':
     dependencies:
@@ -7168,13 +7281,13 @@ snapshots:
       '@types/react': 19.2.17
       react: 19.2.7
 
-  '@microlink/react-json-view@1.31.22(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+  '@microlink/react-json-view@1.31.28(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
-      react: 19.2.7
+      react: 19.2.8
       react-base16-styling: 0.10.0
-      react-dom: 19.2.7(react@19.2.7)
+      react-dom: 19.2.8(react@19.2.8)
       react-lifecycles-compat: 3.0.4
-      react-textarea-autosize: 8.5.9(@types/react@19.2.17)(react@19.2.7)
+      react-textarea-autosize: 8.5.9(@types/react@19.2.17)(react@19.2.8)
     transitivePeerDependencies:
       - '@types/react'
 
@@ -7189,45 +7302,45 @@ snapshots:
 
   '@mui/core-downloads-tracker@7.3.11': {}
 
-  '@mui/icons-material@7.3.11(@mui/material@7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@types/react@19.2.17)(react@19.2.7)':
+  '@mui/icons-material@7.3.11(@mui/material@7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@types/react@19.2.17)(react@19.2.8)':
     dependencies:
       '@babel/runtime': 7.29.7
-      '@mui/material': 7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      react: 19.2.7
+      '@mui/material': 7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      react: 19.2.8
     optionalDependencies:
       '@types/react': 19.2.17
 
-  '@mui/material@7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+  '@mui/material@7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@babel/runtime': 7.29.7
       '@mui/core-downloads-tracker': 7.3.11
-      '@mui/system': 7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7)
+      '@mui/system': 7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8)
       '@mui/types': 7.4.12(@types/react@19.2.17)
-      '@mui/utils': 7.3.11(@types/react@19.2.17)(react@19.2.7)
+      '@mui/utils': 7.3.11(@types/react@19.2.17)(react@19.2.8)
       '@popperjs/core': 2.11.8
       '@types/react-transition-group': 4.4.12(@types/react@19.2.17)
       clsx: 2.1.1
       csstype: 3.2.3
       prop-types: 15.8.1
-      react: 19.2.7
-      react-dom: 19.2.7(react@19.2.7)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
       react-is: 19.2.4
-      react-transition-group: 4.4.5(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      react-transition-group: 4.4.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
     optionalDependencies:
-      '@emotion/react': 11.14.0(@types/react@19.2.17)(react@19.2.7)
-      '@emotion/styled': 11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7)
+      '@emotion/react': 11.14.0(@types/react@19.2.17)(react@19.2.8)
+      '@emotion/styled': 11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8)
       '@types/react': 19.2.17
 
-  '@mui/private-theming@7.3.11(@types/react@19.2.17)(react@19.2.7)':
+  '@mui/private-theming@7.3.11(@types/react@19.2.17)(react@19.2.8)':
     dependencies:
       '@babel/runtime': 7.29.7
-      '@mui/utils': 7.3.11(@types/react@19.2.17)(react@19.2.7)
+      '@mui/utils': 7.3.11(@types/react@19.2.17)(react@19.2.8)
       prop-types: 15.8.1
-      react: 19.2.7
+      react: 19.2.8
     optionalDependencies:
       '@types/react': 19.2.17
 
-  '@mui/styled-engine@7.3.10(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7))(react@19.2.7)':
+  '@mui/styled-engine@7.3.10(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@babel/runtime': 7.29.7
       '@emotion/cache': 11.14.0
@@ -7235,25 +7348,25 @@ snapshots:
       '@emotion/sheet': 1.4.0
       csstype: 3.2.3
       prop-types: 15.8.1
-      react: 19.2.7
+      react: 19.2.8
     optionalDependencies:
-      '@emotion/react': 11.14.0(@types/react@19.2.17)(react@19.2.7)
-      '@emotion/styled': 11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7)
+      '@emotion/react': 11.14.0(@types/react@19.2.17)(react@19.2.8)
+      '@emotion/styled': 11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8)
 
-  '@mui/system@7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7)':
+  '@mui/system@7.3.11(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8)':
     dependencies:
       '@babel/runtime': 7.29.7
-      '@mui/private-theming': 7.3.11(@types/react@19.2.17)(react@19.2.7)
-      '@mui/styled-engine': 7.3.10(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7))(react@19.2.7)
+      '@mui/private-theming': 7.3.11(@types/react@19.2.17)(react@19.2.8)
+      '@mui/styled-engine': 7.3.10(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8))(react@19.2.8)
       '@mui/types': 7.4.12(@types/react@19.2.17)
-      '@mui/utils': 7.3.11(@types/react@19.2.17)(react@19.2.7)
+      '@mui/utils': 7.3.11(@types/react@19.2.17)(react@19.2.8)
       clsx: 2.1.1
       csstype: 3.2.3
       prop-types: 15.8.1
-      react: 19.2.7
+      react: 19.2.8
     optionalDependencies:
-      '@emotion/react': 11.14.0(@types/react@19.2.17)(react@19.2.7)
-      '@emotion/styled': 11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.7))(@types/react@19.2.17)(react@19.2.7)
+      '@emotion/react': 11.14.0(@types/react@19.2.17)(react@19.2.8)
+      '@emotion/styled': 11.14.1(@emotion/react@11.14.0(@types/react@19.2.17)(react@19.2.8))(@types/react@19.2.17)(react@19.2.8)
       '@types/react': 19.2.17
 
   '@mui/types@7.4.12(@types/react@19.2.17)':
@@ -7262,14 +7375,14 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.17
 
-  '@mui/utils@7.3.11(@types/react@19.2.17)(react@19.2.7)':
+  '@mui/utils@7.3.11(@types/react@19.2.17)(react@19.2.8)':
     dependencies:
       '@babel/runtime': 7.29.7
       '@mui/types': 7.4.12(@types/react@19.2.17)
       '@types/prop-types': 15.7.15
       clsx: 2.1.1
       prop-types: 15.8.1
-      react: 19.2.7
+      react: 19.2.8
       react-is: 19.2.4
     optionalDependencies:
       '@types/react': 19.2.17
@@ -7277,6 +7390,8 @@ snapshots:
   '@noble/hashes@1.4.0': {}
 
   '@noble/hashes@1.8.0': {}
+
+  '@noble/hashes@2.2.0': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -7593,15 +7708,15 @@ snapshots:
 
   '@standard-schema/utils@0.3.0': {}
 
-  '@storybook/addon-docs@10.2.17(@types/react@19.2.17)(esbuild@0.28.1)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))':
+  '@storybook/addon-docs@10.2.17(@types/react@19.2.17)(esbuild@0.28.1)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))':
     dependencies:
       '@mdx-js/react': 3.1.0(@types/react@19.2.17)(react@19.2.7)
-      '@storybook/csf-plugin': 10.2.17(esbuild@0.28.1)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+      '@storybook/csf-plugin': 10.2.17(esbuild@0.28.1)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
       '@storybook/icons': 2.0.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@storybook/react-dom-shim': 10.2.17(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))
+      '@storybook/react-dom-shim': 10.2.17(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
-      storybook: 10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      storybook: 10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       ts-dedent: 2.2.0
     transitivePeerDependencies:
       - '@types/react'
@@ -7610,17 +7725,17 @@ snapshots:
       - vite
       - webpack
 
-  '@storybook/addon-links@10.2.17(react@19.2.7)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))':
+  '@storybook/addon-links@10.2.17(react@19.2.8)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))':
     dependencies:
       '@storybook/global': 5.0.0
-      storybook: 10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      storybook: 10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
     optionalDependencies:
-      react: 19.2.7
+      react: 19.2.8
 
-  '@storybook/builder-vite@10.2.17(esbuild@0.28.1)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))':
+  '@storybook/builder-vite@10.2.17(esbuild@0.28.1)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))':
     dependencies:
-      '@storybook/csf-plugin': 10.2.17(esbuild@0.28.1)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
-      storybook: 10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@storybook/csf-plugin': 10.2.17(esbuild@0.28.1)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+      storybook: 10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       ts-dedent: 2.2.0
       vite: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
     transitivePeerDependencies:
@@ -7628,9 +7743,9 @@ snapshots:
       - rollup
       - webpack
 
-  '@storybook/csf-plugin@10.2.17(esbuild@0.28.1)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))':
+  '@storybook/csf-plugin@10.2.17(esbuild@0.28.1)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))':
     dependencies:
-      storybook: 10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      storybook: 10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       unplugin: 2.3.11
     optionalDependencies:
       esbuild: 0.28.1
@@ -7643,25 +7758,36 @@ snapshots:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
 
-  '@storybook/react-dom-shim@10.2.17(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))':
+  '@storybook/icons@2.0.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+    dependencies:
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+
+  '@storybook/react-dom-shim@10.2.17(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))':
     dependencies:
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
-      storybook: 10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      storybook: 10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
 
-  '@storybook/react-vite@10.2.17(esbuild@0.28.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(typescript@7.0.2)(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))':
+  '@storybook/react-dom-shim@10.2.17(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))':
+    dependencies:
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
+      storybook: 10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+
+  '@storybook/react-vite@10.2.17(esbuild@0.28.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@7.0.2)(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))':
     dependencies:
       '@joshwooding/vite-plugin-react-docgen-typescript': 0.6.4(typescript@7.0.2)(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
       '@rollup/pluginutils': 5.3.0
-      '@storybook/builder-vite': 10.2.17(esbuild@0.28.1)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
-      '@storybook/react': 10.2.17(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(typescript@7.0.2)
+      '@storybook/builder-vite': 10.2.17(esbuild@0.28.1)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+      '@storybook/react': 10.2.17(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@7.0.2)
       empathic: 2.0.0
       magic-string: 0.30.21
-      react: 19.2.7
+      react: 19.2.8
       react-docgen: 8.0.2
-      react-dom: 19.2.7(react@19.2.7)
+      react-dom: 19.2.8(react@19.2.8)
       resolve: 1.22.10
-      storybook: 10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      storybook: 10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       tsconfig-paths: 4.2.0
       vite: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
     transitivePeerDependencies:
@@ -7671,14 +7797,14 @@ snapshots:
       - typescript
       - webpack
 
-  '@storybook/react@10.2.17(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(typescript@7.0.2)':
+  '@storybook/react@10.2.17(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@7.0.2)':
     dependencies:
       '@storybook/global': 5.0.0
-      '@storybook/react-dom-shim': 10.2.17(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))
-      react: 19.2.7
+      '@storybook/react-dom-shim': 10.2.17(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))
+      react: 19.2.8
       react-docgen: 8.0.2
-      react-dom: 19.2.7(react@19.2.7)
-      storybook: 10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      react-dom: 19.2.8(react@19.2.8)
+      storybook: 10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
     optionalDependencies:
       typescript: 7.0.2
     transitivePeerDependencies:
@@ -7704,17 +7830,21 @@ snapshots:
       picocolors: 1.1.1
       redent: 3.0.0
 
-  '@testing-library/react@16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+  '@testing-library/react@16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@babel/runtime': 7.29.7
       '@testing-library/dom': 10.4.1
-      react: 19.2.7
-      react-dom: 19.2.7(react@19.2.7)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
     optionalDependencies:
       '@types/react': 19.2.17
       '@types/react-dom': 19.2.3(@types/react@19.2.17)
 
-  '@testing-library/user-event@14.6.1(@testing-library/dom@10.4.1)':
+  '@testing-library/user-event@14.6.5(@testing-library/dom@10.4.1)':
+    dependencies:
+      '@testing-library/dom': 10.4.1
+
+  '@testing-library/user-event@14.6.6(@testing-library/dom@10.4.1)':
     dependencies:
       '@testing-library/dom': 10.4.1
 
@@ -8012,7 +8142,7 @@ snapshots:
 
   '@verdaccio/registry-cli@1.1.0': {}
 
-  '@vitejs/plugin-react@6.0.3(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))':
+  '@vitejs/plugin-react@6.0.5(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))':
     dependencies:
       '@rolldown/pluginutils': 1.0.1
       vite: 8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)
@@ -8029,7 +8159,7 @@ snapshots:
       obug: 2.1.1
       std-env: 4.1.0
       tinyrainbow: 3.1.0
-      vitest: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
+      vitest: 4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
 
   '@vitest/expect@3.2.4':
     dependencies:
@@ -8498,11 +8628,11 @@ snapshots:
 
   concat-map@0.0.1: {}
 
-  concurrently@10.0.3:
+  concurrently@10.0.5:
     dependencies:
       chalk: 5.6.2
       rxjs: 7.8.2
-      shell-quote: 1.8.4
+      shell-quote: 1.9.0
       supports-color: 10.2.2
       tree-kill: 1.2.2
       yargs: 18.0.0
@@ -8619,16 +8749,18 @@ snapshots:
     dependencies:
       assert-plus: 1.0.0
 
-  data-urls@7.0.0(@noble/hashes@1.8.0):
+  data-urls@7.0.0(@noble/hashes@2.2.0):
     dependencies:
       whatwg-mimetype: 5.0.0
-      whatwg-url: 16.0.1(@noble/hashes@1.8.0)
+      whatwg-url: 16.0.1(@noble/hashes@2.2.0)
     transitivePeerDependencies:
       - '@noble/hashes'
 
   dataloader@1.4.0: {}
 
   dayjs@1.11.21: {}
+
+  dayjs@1.11.23: {}
 
   debug@2.6.9:
     dependencies:
@@ -8717,7 +8849,7 @@ snapshots:
       '@babel/runtime': 7.29.7
       csstype: 3.2.3
 
-  dompurify@3.4.13:
+  dompurify@3.4.14:
     optionalDependencies:
       '@types/trusted-types': 2.0.7
 
@@ -9192,7 +9324,7 @@ snapshots:
 
   headers-polyfill@4.0.3: {}
 
-  highlight.js@11.11.1: {}
+  highlight.js@11.12.0: {}
 
   highlightjs-sap-abap@0.3.0: {}
 
@@ -9202,9 +9334,9 @@ snapshots:
 
   hpagent@1.2.0: {}
 
-  html-encoding-sniffer@6.0.0(@noble/hashes@1.8.0):
+  html-encoding-sniffer@6.0.0(@noble/hashes@2.2.0):
     dependencies:
-      '@exodus/bytes': 1.15.0(@noble/hashes@1.8.0)
+      '@exodus/bytes': 1.15.0(@noble/hashes@2.2.0)
     transitivePeerDependencies:
       - '@noble/hashes'
 
@@ -9381,7 +9513,7 @@ snapshots:
       html-escaper: 2.0.2
       istanbul-lib-report: 3.0.1
 
-  js-base64@3.8.0: {}
+  js-base64@3.9.3: {}
 
   js-tokens@10.0.0: {}
 
@@ -9406,17 +9538,17 @@ snapshots:
 
   jsbn@0.1.1: {}
 
-  jsdom@29.1.1(@noble/hashes@1.8.0):
+  jsdom@29.1.1(@noble/hashes@2.2.0):
     dependencies:
       '@asamuzakjp/css-color': 5.1.11
       '@asamuzakjp/dom-selector': 7.1.1
       '@bramus/specificity': 2.4.2
       '@csstools/css-syntax-patches-for-csstree': 1.1.6(css-tree@3.2.1)
-      '@exodus/bytes': 1.15.0(@noble/hashes@1.8.0)
+      '@exodus/bytes': 1.15.0(@noble/hashes@2.2.0)
       css-tree: 3.2.1
-      data-urls: 7.0.0(@noble/hashes@1.8.0)
+      data-urls: 7.0.0(@noble/hashes@2.2.0)
       decimal.js: 10.6.0
-      html-encoding-sniffer: 6.0.0(@noble/hashes@1.8.0)
+      html-encoding-sniffer: 6.0.0(@noble/hashes@2.2.0)
       is-potential-custom-element-name: 1.0.1
       lru-cache: 11.5.0
       parse5: 8.0.1
@@ -9427,7 +9559,7 @@ snapshots:
       w3c-xmlserializer: 5.0.0
       webidl-conversions: 8.0.1
       whatwg-mimetype: 5.0.0
-      whatwg-url: 16.0.1(@noble/hashes@1.8.0)
+      whatwg-url: 16.0.1(@noble/hashes@2.2.0)
       xml-name-validator: 5.0.0
     transitivePeerDependencies:
       - '@noble/hashes'
@@ -10127,6 +10259,10 @@ snapshots:
 
   ospath@1.2.2: {}
 
+  otpauth@9.5.1:
+    dependencies:
+      '@noble/hashes': 2.2.0
+
   outdent@0.5.0: {}
 
   outvariant@1.4.3: {}
@@ -10434,19 +10570,24 @@ snapshots:
       react: 19.2.7
       scheduler: 0.27.0
 
-  react-hook-form@7.81.0(react@19.2.7):
+  react-dom@19.2.8(react@19.2.8):
     dependencies:
-      react: 19.2.7
+      react: 19.2.8
+      scheduler: 0.27.0
 
-  react-i18next@16.6.6(i18next@25.10.10(typescript@7.0.2))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(typescript@7.0.2):
+  react-hook-form@7.86.0(react@19.2.8):
+    dependencies:
+      react: 19.2.8
+
+  react-i18next@16.6.6(i18next@25.10.10(typescript@7.0.2))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(typescript@7.0.2):
     dependencies:
       '@babel/runtime': 7.29.7
       html-parse-stringify: 3.0.1
       i18next: 25.10.10(typescript@7.0.2)
-      react: 19.2.7
-      use-sync-external-store: 1.6.0(react@19.2.7)
+      react: 19.2.8
+      use-sync-external-store: 1.6.0(react@19.2.8)
     optionalDependencies:
-      react-dom: 19.2.7(react@19.2.7)
+      react-dom: 19.2.8(react@19.2.8)
       typescript: 7.0.2
 
   react-is@16.13.1: {}
@@ -10457,7 +10598,7 @@ snapshots:
 
   react-lifecycles-compat@3.0.4: {}
 
-  react-markdown@10.1.0(@types/react@19.2.17)(react@19.2.7):
+  react-markdown@10.1.0(@types/react@19.2.17)(react@19.2.8):
     dependencies:
       '@types/hast': 3.0.4
       '@types/mdast': 4.0.3
@@ -10466,7 +10607,7 @@ snapshots:
       hast-util-to-jsx-runtime: 2.3.0
       html-url-attributes: 3.0.0
       mdast-util-to-hast: 13.0.2
-      react: 19.2.7
+      react: 19.2.8
       remark-parse: 11.0.0
       remark-rehype: 11.0.0
       unified: 11.0.4
@@ -10475,43 +10616,45 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  react-router@8.3.0(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
+  react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
     dependencies:
       cookie-es: 3.1.1
-      react: 19.2.7
+      react: 19.2.8
     optionalDependencies:
-      react-dom: 19.2.7(react@19.2.7)
+      react-dom: 19.2.8(react@19.2.8)
 
-  react-textarea-autosize@8.5.9(@types/react@19.2.17)(react@19.2.7):
+  react-textarea-autosize@8.5.9(@types/react@19.2.17)(react@19.2.8):
     dependencies:
       '@babel/runtime': 7.29.7
-      react: 19.2.7
-      use-composed-ref: 1.3.0(react@19.2.7)
-      use-latest: 1.2.1(@types/react@19.2.17)(react@19.2.7)
+      react: 19.2.8
+      use-composed-ref: 1.3.0(react@19.2.8)
+      use-latest: 1.2.1(@types/react@19.2.17)(react@19.2.8)
     transitivePeerDependencies:
       - '@types/react'
 
-  react-transition-group@4.4.5(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
+  react-transition-group@4.4.5(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
     dependencies:
       '@babel/runtime': 7.29.7
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
-      react: 19.2.7
-      react-dom: 19.2.7(react@19.2.7)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
 
-  react-virtualized@9.22.6(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
+  react-virtualized@9.22.6(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
     dependencies:
       '@babel/runtime': 7.29.7
       clsx: 1.2.1
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
-      react: 19.2.7
-      react-dom: 19.2.7(react@19.2.7)
+      react: 19.2.8
+      react-dom: 19.2.8(react@19.2.8)
       react-lifecycles-compat: 3.0.4
 
   react@19.2.7: {}
+
+  react@19.2.8: {}
 
   read-package-json-fast@4.0.0:
     dependencies:
@@ -10715,6 +10858,8 @@ snapshots:
 
   shell-quote@1.8.4: {}
 
+  shell-quote@1.9.0: {}
+
   shelljs@0.10.0:
     dependencies:
       execa: 5.1.1
@@ -10817,19 +10962,19 @@ snapshots:
 
   steno@4.0.2: {}
 
-  storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
+  storybook@10.2.17(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
     dependencies:
       '@storybook/global': 5.0.0
-      '@storybook/icons': 2.0.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@storybook/icons': 2.0.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@testing-library/jest-dom': 6.9.1
-      '@testing-library/user-event': 14.6.1(@testing-library/dom@10.4.1)
+      '@testing-library/user-event': 14.6.5(@testing-library/dom@10.4.1)
       '@vitest/expect': 3.2.4
       '@vitest/spy': 3.2.4
       esbuild: 0.28.1
       open: 10.2.0
       recast: 0.23.9
       semver: 7.8.5
-      use-sync-external-store: 1.6.0(react@19.2.7)
+      use-sync-external-store: 1.6.0(react@19.2.8)
       ws: 8.19.0
     optionalDependencies:
       prettier: 2.8.8
@@ -10935,11 +11080,11 @@ snapshots:
 
   supports-preserve-symlinks-flag@1.0.0: {}
 
-  swr@2.4.2(react@19.2.7):
+  swr@2.5.1(react@19.2.8):
     dependencies:
       dequal: 2.0.3
-      react: 19.2.7
-      use-sync-external-store: 1.6.0(react@19.2.7)
+      react: 19.2.8
+      use-sync-external-store: 1.6.0(react@19.2.8)
 
   symbol-tree@3.2.4: {}
 
@@ -11248,26 +11393,26 @@ snapshots:
       minimatch: 9.0.9
       minimist: 1.2.8
 
-  use-composed-ref@1.3.0(react@19.2.7):
+  use-composed-ref@1.3.0(react@19.2.8):
     dependencies:
-      react: 19.2.7
+      react: 19.2.8
 
-  use-isomorphic-layout-effect@1.1.2(@types/react@19.2.17)(react@19.2.7):
+  use-isomorphic-layout-effect@1.1.2(@types/react@19.2.17)(react@19.2.8):
     dependencies:
-      react: 19.2.7
+      react: 19.2.8
     optionalDependencies:
       '@types/react': 19.2.17
 
-  use-latest@1.2.1(@types/react@19.2.17)(react@19.2.7):
+  use-latest@1.2.1(@types/react@19.2.17)(react@19.2.8):
     dependencies:
-      react: 19.2.7
-      use-isomorphic-layout-effect: 1.1.2(@types/react@19.2.17)(react@19.2.7)
+      react: 19.2.8
+      use-isomorphic-layout-effect: 1.1.2(@types/react@19.2.17)(react@19.2.8)
     optionalDependencies:
       '@types/react': 19.2.17
 
-  use-sync-external-store@1.6.0(react@19.2.7):
+  use-sync-external-store@1.6.0(react@19.2.8):
     dependencies:
-      react: 19.2.7
+      react: 19.2.8
 
   utf8-byte-length@1.0.4: {}
 
@@ -11312,7 +11457,7 @@ snapshots:
       tsx: 4.22.4
       yaml: 2.8.1
 
-  vitest@4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)):
+  vitest@4.1.10(@types/node@24.13.2)(@vitest/coverage-v8@4.1.10)(jsdom@29.1.1(@noble/hashes@2.2.0))(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1)):
     dependencies:
       '@vitest/expect': 4.1.10
       '@vitest/mocker': 4.1.10(msw@2.12.10(@types/node@24.13.2)(typescript@7.0.2))(vite@8.2.1(@types/node@24.13.2)(esbuild@0.28.1)(tsx@4.22.4)(yaml@2.8.1))
@@ -11337,7 +11482,7 @@ snapshots:
     optionalDependencies:
       '@types/node': 24.13.2
       '@vitest/coverage-v8': 4.1.10(vitest@4.1.10)
-      jsdom: 29.1.1(@noble/hashes@1.8.0)
+      jsdom: 29.1.1(@noble/hashes@2.2.0)
     transitivePeerDependencies:
       - msw
 
@@ -11357,9 +11502,9 @@ snapshots:
 
   whatwg-mimetype@5.0.0: {}
 
-  whatwg-url@16.0.1(@noble/hashes@1.8.0):
+  whatwg-url@16.0.1(@noble/hashes@2.2.0):
     dependencies:
-      '@exodus/bytes': 1.15.0(@noble/hashes@1.8.0)
+      '@exodus/bytes': 1.15.0(@noble/hashes@2.2.0)
       tr46: 6.0.0
       webidl-conversions: 8.0.1
     transitivePeerDependencies:
