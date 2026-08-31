@@ -1,5 +1,25 @@
 # @verdaccio/logger
 
+## 9.0.0-next-9.30
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.30
+
+## 9.0.0-next-9.29
+
+### Patch Changes
+
+- Updated dependencies [30601b3]
+  - @verdaccio/core@9.0.0-next-9.29
+
+## 9.0.0-next-9.28
+
+### Patch Changes
+
+- Updated dependencies [dd4f91c]
+  - @verdaccio/core@9.0.0-next-9.28
+
 ## 9.0.0-next-9.27
 
 ### Patch Changes
