@@ -302,7 +302,7 @@ importers:
         specifier: workspace:9.0.0-next-9.30
         version: link:../signature
       '@verdaccio/store':
-        specifier: workspace:9.0.0-next-9.19
+        specifier: workspace:9.0.0-next-9.30
         version: link:../store
       debug:
         specifier: 4.4.3
@@ -814,7 +814,7 @@ importers:
         specifier: workspace:9.0.0-next-9.30
         version: link:../../core/core
       '@verdaccio/store':
-        specifier: workspace:9.0.0-next-9.19
+        specifier: workspace:9.0.0-next-9.30
         version: link:../../store
       debug:
         specifier: 4.4.3
