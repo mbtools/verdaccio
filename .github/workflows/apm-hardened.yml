@@ -1,4 +1,4 @@
-name: Docker publish apm to docker.io
+name: Docker publish apm (hardened)
 
 on:
   workflow_dispatch:
