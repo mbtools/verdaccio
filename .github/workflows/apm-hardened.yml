@@ -2,6 +2,9 @@ name: Docker publish apm (hardened)
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - 'apm'
 
 permissions:
   contents: read
