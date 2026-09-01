@@ -1,0 +1,72 @@
+name: Docker publish apm to docker.io
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: apm-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    if: github.repository == 'mbtools/verdaccio'
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Package Verdaccio Pro Plugins
+        run: |
+          cd abappm/plugins/@verdaccio-pro/database
+          npm pack
+          cd /
+
+      - name: Copy Dockerfile for Root Build Context
+        run: |
+          cp abappm/docker/.dockerignore ./.dockerignore
+          cp abappm/docker/Dockerfile-Hardened ./Dockerfile
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@96fe6ef7f33517b61c61be40b68a1882f3264fb8 # v4.2.0
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
+        with:
+          driver-opts: network=host
+
+      - name: Login Docker Hub
+        uses: docker/login-action@af1e73f918a031802d376d3c8bbc3fe56130a9b0 # v4.4.0
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Prepare Docker Image Tags
+        id: docker_meta
+        uses: docker/metadata-action@dc802804100637a589fabce1cb79ff13a1411302 # v6.2.0
+        with:
+          images: abappm/registry
+          tags: |
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'apm') }}
+            type=sha
+
+      - name: Set Build Date and Verdaccio Version
+        run: |
+          echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_ENV
+          VERSION=$(node --print "require('./packages/verdaccio/package.json').version")
+          echo "VERDACCIO_VERSION=${VERSION}" >> $GITHUB_ENV
+
+      - name: Docker Build & Push
+        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
+        with:
+          context: .
+          platforms: linux/amd64
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
+          build-args: |
+            BUILD_SHA=${{ github.sha }}
+            BUILD_DATE=${{ env.BUILD_DATE }}
+            VERDACCIO_VERSION=${{ env.VERDACCIO_VERSION }}
