@@ -41,7 +41,7 @@
     "debug": "4.4.3",
     "express": "5.2.1",
     "leo-profanity": "1.9.0",
-    "tldts": "7.4.10"
+    "tldts": "7.4.11"
   },
   "engines": {
     "node": ">=24"
