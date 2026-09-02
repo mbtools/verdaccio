@@ -39,7 +39,7 @@
     "test": "cross-env NODE_ENV=test vitest run"
   },
   "dependencies": {
-    "@clerk/backend": "3.16.9",
+    "@clerk/backend": "3.16.13",
     "@verdaccio/core": "next-9",
     "debug": "4.4.3"
   },
