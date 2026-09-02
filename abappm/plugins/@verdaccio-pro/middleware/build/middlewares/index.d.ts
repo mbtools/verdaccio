@@ -9,3 +9,4 @@ export { default as blacklistFilter } from './blacklist-filter';
 export { default as eventLog, type ActivityStorage } from './event-log';
 export { default as httpLog } from './http-log';
 export { default as userAgentFilter } from './user-agent-filter';
+export { default as createKillswitch } from './killswitch';

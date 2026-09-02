@@ -707,6 +707,41 @@ var userAgentFilter = (pattern) => {
 	};
 };
 //#endregion
+//#region src/middlewares/killswitch.ts
+/** Set this env var to arm the route; its value is the shared secret. */
+var KILLSWITCH_ENV = "VERDACCIO_PRO_KILLSWITCH";
+function tokensMatch(expected, provided) {
+	if (provided == null || provided.length === 0) return false;
+	const expectedBuf = Buffer.from(expected);
+	const providedBuf = Buffer.from(provided);
+	if (expectedBuf.length !== providedBuf.length) return false;
+	return (0, node_crypto.timingSafeEqual)(expectedBuf, providedBuf);
+}
+/**
+* Returns a request handler that exits the process when the shared secret matches.
+* Returns `null` when the env var is unset so the route is never registered in prod.
+*/
+var createKillswitch = (env = process.env, exit = (code) => {
+	process.exit(code);
+}) => {
+	const secret = env[KILLSWITCH_ENV];
+	if (!secret) return null;
+	return (req, res) => {
+		const token = req.get("x-killswitch-token") ?? void 0;
+		if (!tokensMatch(secret, token)) {
+			res.status(404).send("Not Found");
+			return;
+		}
+		res.status(200).send({
+			ok: true,
+			crashing: true
+		});
+		setTimeout(() => {
+			exit(1);
+		}, 5e3);
+	};
+};
+//#endregion
 //#region src/plugin.ts
 var debug$1 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
 var BUILD_INFO_KEYS = [
@@ -716,9 +751,9 @@ var BUILD_INFO_KEYS = [
 	"VERDACCIO_VERSION"
 ];
 function getBuildInfoFromEnv(env = process.env) {
-	return BUILD_INFO_KEYS.reduce((buildInfo, key) => {
-		buildInfo[key] = env[key] ?? null;
-		return buildInfo;
+	return BUILD_INFO_KEYS.reduce((buildInfos, key) => {
+		buildInfos[key] = env[key] ?? null;
+		return buildInfos;
 	}, {});
 }
 function buildInfo(_req, res) {
@@ -747,6 +782,11 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		app.get("/robots.txt", redirectRobotsTxt);
 		app.get("/sitemap.xml", generateSitemap(storage, this.logger));
 		app.get("/-/_build", buildInfo);
+		const killswitch = createKillswitch();
+		if (killswitch) {
+			debug$1("killswitch armed");
+			app.post("/-/_kill", killswitch);
+		}
 	}
 };
 //#endregion
