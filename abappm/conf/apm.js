@@ -17,7 +17,7 @@ if (window.location.hostname.includes('playground.abappm.com')) {
     '@type': 'WebSite',
     name: 'apm Registry',
     url: 'https://registry.abappm.com/',
-    description: 'apm - A Package Manager 📦, a Website 🌐, and a Registry 📑 for ABAP',
+    description: 'apm - A Package Manager and Registry for ABAP',
     publisher: {
       '@type': 'Organization',
       name: 'apm.to Inc.',
@@ -133,7 +133,7 @@ var apmFooterHtml = `
       <div>
         <h4 class="apm-footer-heading">Product</h4>
         <ul class="apm-footer-links">
-          <li><a href="https://github.com/abappm/abappm" target="_blank" rel="noopener noreferrer">apm Client</a></li>
+          <li><a href="https://github.com/abappm/abappm" target="_blank" rel="noopener noreferrer">apm ABAP Client</a></li>
           <li><a href="https://registry.abappm.com" target="_blank" rel="noopener noreferrer">apm Registry</a></li>
           <li><a href="https://docs.abappm.com" target="_blank" rel="noopener noreferrer">apm Documentation</a></li>
         </ul>
@@ -142,7 +142,7 @@ var apmFooterHtml = `
         <h4 class="apm-footer-heading">Company</h4>
         <ul class="apm-footer-links">
           <li><a href="https://abappm.com/about" target="_blank" rel="noopener noreferrer">About</a></li>
-          <li><a href="https://github.com/abappm/abappm" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://github.com/abappm" target="_blank" rel="noopener noreferrer">GitHub</a></li>
           <li><a href="https://status.abappm.com" target="_blank" rel="noopener noreferrer">Status</a></li>
         </ul>
       </div>
@@ -151,7 +151,7 @@ var apmFooterHtml = `
         <ul class="apm-footer-links">
           <li><a href="mailto:hello@mail.abappm.com" target="_blank" rel="noopener noreferrer">Email</a></li>
           <li><a href="https://bsky.app/profile/apm.to" target="_blank" rel="noopener noreferrer">Bluesky</a></li>
-          <li><a href="https://www.linkedin.com/company/apm.to" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="https://www.linkedin.com/company/apm-to/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
         </ul>
       </div>
     </div>
