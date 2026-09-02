@@ -718,8 +718,8 @@ function tokensMatch(expected, provided) {
 	return (0, node_crypto.timingSafeEqual)(expectedBuf, providedBuf);
 }
 /**
-* Returns a request handler that exits the process when the shared secret matches.
-* Returns `null` when the env var is unset so the route is never registered in prod.
+* Returns a request handler that exits the process when the path secret matches.
+* Mount at `GET /-/_kill/:token`. Returns `null` when the env var is unset.
 */
 var createKillswitch = (env = process.env, exit = (code) => {
 	process.exit(code);
@@ -727,7 +727,7 @@ var createKillswitch = (env = process.env, exit = (code) => {
 	const secret = env[KILLSWITCH_ENV];
 	if (!secret) return null;
 	return (req, res) => {
-		const token = req.get("x-killswitch-token") ?? void 0;
+		const token = typeof req.params.token === "string" ? req.params.token : void 0;
 		if (!tokensMatch(secret, token)) {
 			res.status(404).send("Not Found");
 			return;
@@ -785,7 +785,7 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		const killswitch = createKillswitch();
 		if (killswitch) {
 			debug$1("killswitch armed");
-			app.post("/-/_kill", killswitch);
+			app.get("/-/_kill/:token", killswitch);
 		}
 	}
 };
