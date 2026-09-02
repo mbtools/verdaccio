@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio-pro/middleware",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Middleware Plugin for Verdaccio Pro",
   "keywords": [
     "middleware",
