@@ -1,7 +1,7 @@
 #
 # --- Build Stage ---
 #
-FROM --platform=${BUILDPLATFORM:-linux/amd64} dhi.io/alpine-base:3.23-dev AS builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} dhi.io/node:24-alpine3.23-dev AS builder
 
 ENV NODE_ENV=production \
     VERDACCIO_BUILD_REGISTRY=https://registry.npmjs.org \
@@ -20,7 +20,7 @@ COPY abappm/plugins /opt/verdaccio-plugins
 COPY abappm/i18n ./packages/plugins/ui-theme/src/i18n/download_translations
 
 # Install dependencies, build, and deploy the verdaccio package
-RUN npm install -g corepack && \
+RUN corepack enable && \
     corepack install && \
     pnpm config set registry $VERDACCIO_BUILD_REGISTRY && \
     pnpm install --frozen-lockfile --ignore-scripts && \
@@ -43,7 +43,7 @@ RUN mkdir -p /verdaccio/storage && \
 #
 # --- Production Stage ---
 #
-FROM dhi.io/alpine-base:3.23 AS app
+FROM dhi.io/node:24-alpine3.23 AS app
 
 ARG BUILD_SHA
 ARG BUILD_DATE
@@ -69,7 +69,7 @@ ENV NODE_ENV=production \
 ENV PATH=$VERDACCIO_APP_DIR/docker-bin:$PATH \
     HOME=$VERDACCIO_APP_DIR
 
-# dhi.io/alpine-base runtime runs as nonroot; COPY --chown creates dirs without USER root
+# dhi.io/node runtime runs as nonroot; COPY --chown creates dirs without USER root
 COPY --from=builder --chown=${VERDACCIO_USER_UID}:0 /opt/verdaccio-deploy /opt/verdaccio
 COPY --from=builder --chown=${VERDACCIO_USER_UID}:0 /opt/verdaccio-conf /verdaccio/conf
 COPY --from=builder --chown=${VERDACCIO_USER_UID}:0 /opt/verdaccio-plugins /verdaccio/plugins
@@ -84,7 +84,4 @@ EXPOSE $VERDACCIO_PORT
 
 VOLUME /verdaccio/storage
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD wget --quiet --tries=1 --spider http://localhost:$VERDACCIO_PORT/-/ping || exit 1
-
-CMD ["/bin/sh", "-c", "$VERDACCIO_APP_DIR/bin/verdaccio --config /verdaccio/conf/config.yaml --listen $VERDACCIO_PROTOCOL://$VERDACCIO_ADDRESS:$VERDACCIO_PORT"]
+CMD ["/opt/verdaccio/bin/verdaccio", "--config", "/verdaccio/conf/config.yaml", "--listen", "http://0.0.0.0:4873"]
