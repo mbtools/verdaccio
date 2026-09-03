@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 'apm-hardened'
+      - 'apm'
 
 permissions:
   contents: read
 
 concurrency:
-  group: apm-${{ github.ref }}
+  group: apm-hardened-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -52,7 +52,7 @@ jobs:
         with:
           images: abappm/registry
           tags: |
-            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'apm-hardened') }}
+            type=raw,value=hardened,enable=${{ github.ref == format('refs/heads/{0}', 'apm') }}
             type=sha
 
       - name: Set Build Date and Verdaccio Version
