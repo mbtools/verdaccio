@@ -21,5 +21,5 @@ export { log } from './middlewares/log';
 export type { LogOptions } from './middlewares/log';
 export { sanitizeUrlForLog } from './middlewares/sanitize-url';
 export * from './types';
-export * from './middlewares/api_urls';
+export * from './middlewares/api-urls';
 export * from './middlewares/web/web-urls';
