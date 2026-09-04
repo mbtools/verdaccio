@@ -10,18 +10,14 @@ import { hasLogin, validatePrimaryColor } from './web-utils';
 
 const DEFAULT_LANGUAGE = 'en-US';
 
-function resolveLogo(
-  logo: string | undefined,
-  url_prefix: string | undefined,
-  requestOptions: RequestOptions
-) {
+function resolveLogo(logo: string | undefined) {
   if (typeof logo !== 'string') {
     return '';
   }
   const isLocalFile = logo && !isURLhasValidProtocol(logo);
 
   if (isLocalFile) {
-    return `${getPublicUrl(url_prefix, requestOptions)}-/static/${path.basename(logo)}`;
+    return `-/static/${path.basename(logo)}`;
   } else if (isURLhasValidProtocol(logo)) {
     return logo;
   } else {
@@ -43,9 +39,9 @@ export function getUIOptions(
   const title = config?.web?.title ?? WEB_TITLE;
   const login = hasLogin(config);
   const scope = config?.web?.scope ?? '';
-  const favicon = resolveLogo(config?.web?.favicon, config?.url_prefix, requestOptions);
-  const logo = resolveLogo(config?.web?.logo, config?.url_prefix, requestOptions);
-  const logoDark = resolveLogo(config?.web?.logoDark, config?.url_prefix, requestOptions);
+  const favicon = resolveLogo(config?.web?.favicon);
+  const logo = resolveLogo(config?.web?.logo);
+  const logoDark = resolveLogo(config?.web?.logoDark);
   const pkgManagers = config?.web?.pkgManagers ?? ['yarn', 'pnpm', 'npm'];
   const version = res.locals.app_version ?? '';
   const flags = {

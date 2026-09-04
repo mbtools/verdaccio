@@ -30,12 +30,12 @@ export default function renderTemplate(template: Template, manifest: AssetManife
         <meta charset="utf-8">
         <base href="${template?.options.base}">
         <title>${template?.options?.title ?? ''}</title>
-        <link rel="icon" href="${template?.options.base}-/static/favicon.ico">
+        <link rel="icon" href="-/static/favicon.ico">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="${template?.options.base}-/static/ui-options.js"></script>
+        <script src="-/static/ui-options.js"></script>
         ${
           template.manifest.css?.length
-            ? getManifestValue(template.manifest.css, manifest, template?.options.base)
+            ? getManifestValue(template.manifest.css, manifest)
                 .map((item) => `<link rel="stylesheet" href="${item}">`)
                 .join('\n        ')
             : ''
@@ -45,7 +45,7 @@ export default function renderTemplate(template: Template, manifest: AssetManife
       <body class="body">
         ${template?.scriptsBodyBefore ? template.scriptsBodyBefore.join('') : ''}
         <div id="root"></div>
-        ${getManifestValue(template.manifest.js, manifest, template?.options.base)
+        ${getManifestValue(template.manifest.js, manifest)
           .map((item) => `<script type="module" src="${item}"></script>`)
           .join(`\n        `)}
         ${template?.scriptsBodyAfter ? template.scriptsBodyAfter.join('') : ''}

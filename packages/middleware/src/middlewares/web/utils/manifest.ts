@@ -9,21 +9,13 @@ export type Manifest = {
 
 const debug = buildDebug('verdaccio:middleware:web:render:manifest');
 
-export function getManifestValue(
-  manifestItems: string[],
-  manifest,
-  basePath: string = ''
-): string[] {
+export function getManifestValue(manifestItems: string[], manifest): string[] {
   return manifestItems?.map((item) => {
     debug('resolve item %o', item);
-    const resolvedItem = `${stripTrailingSlash(basePath)}/${stripLeadingSlash(manifest[item])}`;
+    const resolvedItem = stripLeadingSlash(manifest[item]);
     debug('resolved item %o', resolvedItem);
     return resolvedItem;
   });
-}
-
-function stripTrailingSlash(path: string): string {
-  return path.replace(/\/$/, '');
 }
 
 function stripLeadingSlash(path: string): string {
