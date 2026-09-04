@@ -141,6 +141,7 @@ export type PackageManagers = 'pnpm' | 'yarn' | 'npm' | string;
 // FUTURE: WebConf and TemplateUIOptions should be merged .
 export type CommonWebConf = {
   title?: string;
+  description?: string;
   logo?: string;
   logoDark?: string;
   favicon?: string;

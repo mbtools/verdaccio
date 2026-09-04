@@ -1,6 +1,7 @@
 ---
+'@verdaccio/config': patch
 '@verdaccio/middleware': patch
-'@verdaccio/url': patch
+'@verdaccio/types': patch
 ---
 
 chore: use verdaccio as sidecar

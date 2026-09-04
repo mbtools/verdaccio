@@ -28,6 +28,7 @@ export default function renderTemplate(template: Template, manifest: AssetManife
       <html lang="en-us">
       <head>
         <meta charset="utf-8">
+        <meta name="description" content="${template?.options?.description ?? ''}">
         <base href="${template?.options.base}">
         <title>${template?.options?.title ?? ''}</title>
         <link rel="icon" href="-/static/favicon.ico">
