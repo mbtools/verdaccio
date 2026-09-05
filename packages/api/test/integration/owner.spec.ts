@@ -31,7 +31,7 @@ describe('owner', () => {
     const maintainers = manifest.body.maintainers;
     expect(maintainers).toHaveLength(1);
     // TODO: This should eventually include the email of the user
-    expect(maintainers).toEqual([{ name: credentials.name, email: '' }]);
+    expect(maintainers).toEqual([{ name: credentials.name, email: 'test@mail.abappm.com' }]);
   });
 
   test.each([
@@ -42,7 +42,7 @@ describe('owner', () => {
     nock('https://registry.npmjs.org').get(`/${path}`).reply(404);
     const app = await initializeServer('owner.yaml');
     const credentials = { name: 'test', password: 'test' };
-    const firstOwner = { name: 'test', email: '' };
+    const firstOwner = { name: 'test', email: 'test@mail.abappm.com' };
     const response = await createUser(app, credentials.name, credentials.password);
     expect(response.body.ok).toMatch(`user '${credentials.name}' created`);
     await publishVersionWithToken(app, pkgName, '1.0.0', response.body.token).expect(
@@ -100,7 +100,7 @@ describe('owner', () => {
     nock('https://registry.npmjs.org').get(`/${path}`).reply(404);
     const app = await initializeServer('owner.yaml');
     const credentials = { name: 'test', password: 'test' };
-    const firstOwner = { name: 'test', email: '' };
+    const firstOwner = { name: 'test', email: 'test@mail.abappm.com' };
     const response = await createUser(app, credentials.name, credentials.password);
     expect(response.body.ok).toMatch(`user '${credentials.name}' created`);
     await publishVersionWithToken(app, pkgName, '1.0.0', response.body.token).expect(

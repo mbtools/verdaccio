@@ -303,7 +303,7 @@ describe('AuthTest', () => {
 
         expect(callback).toHaveBeenCalledTimes(1);
         expect(callback).toHaveBeenCalledWith(
-          errorUtils.getForbidden('user foo is not allowed to access package foo')
+          errorUtils.getForbidden('User foo is not allowed to access package foo')
         );
       });
 
@@ -352,7 +352,7 @@ describe('AuthTest', () => {
 
         expect(callback).toHaveBeenCalledTimes(1);
         expect(callback).toHaveBeenCalledWith(
-          errorUtils.getForbidden('user foo is not allowed to publish package foo')
+          errorUtils.getForbidden('User foo is not allowed to publish or download package foo')
         );
       });
 
@@ -399,7 +399,7 @@ describe('AuthTest', () => {
 
         expect(callback).toHaveBeenCalledTimes(1);
         expect(callback).toHaveBeenCalledWith(
-          errorUtils.getForbidden('user foo is not allowed to unpublish package foo')
+          errorUtils.getForbidden('User foo is not allowed to unpublish or deprecate package foo')
         );
       });
 
@@ -433,7 +433,7 @@ describe('AuthTest', () => {
 
         expect(callback).toHaveBeenCalledTimes(1);
         expect(callback).toHaveBeenCalledWith(
-          errorUtils.getForbidden('user foo is not allowed to publish package foo')
+          errorUtils.getForbidden('User foo is not allowed to publish or download package foo')
         );
       });
 

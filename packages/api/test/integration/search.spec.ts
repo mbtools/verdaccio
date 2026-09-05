@@ -45,7 +45,7 @@ describe('search', () => {
               license: 'ISC',
               maintainers: [
                 {
-                  email: '',
+                  email: 'test@mail.abappm.com',
                   name: 'test',
                   username: 'test',
                 },
@@ -107,7 +107,7 @@ describe('search', () => {
               license: 'ISC',
               maintainers: [
                 {
-                  email: '',
+                  email: 'test@mail.abappm.com',
                   name: 'test',
                   username: 'test',
                 },
