@@ -71,7 +71,7 @@ class API {
     return new Promise((resolve, reject) => {
       fetch(url, {
         method,
-        credentials: token ? 'include' : 'same-origin',
+        credentials: 'same-origin',
         signal: options.signal,
         ...options,
       })

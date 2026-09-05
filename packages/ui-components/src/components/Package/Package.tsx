@@ -136,7 +136,7 @@ const Package: React.FC<PackageInterface> = ({
     url.isURL(homepage) && (
       <LinkExternal to={homepage}>
         <Tooltip aria-label={t('package.homepage')} title={t('package.visit-home-page')}>
-          <IconButton aria-label={t('package.homepage')} size="large">
+          <IconButton aria-label={t('package.homepage')} color="primary" size="large">
             <HomeIcon />
           </IconButton>
         </Tooltip>
@@ -238,9 +238,9 @@ const Package: React.FC<PackageInterface> = ({
 
 export default Package;
 
-const iconStyle = ({ theme }: { theme?: Theme }) => css`
+const iconStyle = ({ theme }: { theme: Theme }) => css`
   margin: 0 10px 0 0;
-  fill: ${theme?.palette.mode === 'light' ? grey[900] : common.white};
+  fill: ${theme.palette.mode === 'light' ? grey[900] : common.white};
 `;
 
 const StyledVersion = styled(Version)<{ theme?: Theme }>`

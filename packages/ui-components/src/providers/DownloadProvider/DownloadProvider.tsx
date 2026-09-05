@@ -1,7 +1,7 @@
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import type { ReactNode } from 'react';
-import React, { createContext, useCallback, use, useState } from 'react';
+import React, { createContext, useCallback, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useTarballDownload } from '../../api/use-data-mutation';
@@ -39,7 +39,7 @@ export const DownloadProvider: React.FC<{ children: ReactNode }> = ({ children }
         setHasDownloadError(true);
       }
     },
-    [download, t]
+    [download]
   );
 
   return (
@@ -60,7 +60,7 @@ export const DownloadProvider: React.FC<{ children: ReactNode }> = ({ children }
 };
 
 export const useDownload = () => {
-  const context = use(DownloadContext);
+  const context = useContext(DownloadContext);
   if (!context) {
     throw new Error('useDownload must be used within a DownloadProvider');
   }

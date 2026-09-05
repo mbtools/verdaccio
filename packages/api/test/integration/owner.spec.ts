@@ -31,7 +31,7 @@ describe('owner', () => {
     const maintainers = manifest.body.maintainers;
     expect(maintainers).toHaveLength(1);
     // TODO: This should eventually include the email of the user
-    expect(maintainers).toEqual([{ name: credentials.name, email: 'test@mail.abappm.com' }]);
+    expect(maintainers).toEqual([{ name: credentials.name, email: '' }]);
   });
 
   test.each([

@@ -44,7 +44,6 @@ describe('parseConfig', () => {
 
   test('parses dateThreshold', () => {
     const result = parseConfig({ dateThreshold: '2024-01-01' });
-    console.log(result.dateThreshold);
     expect(result.dateThreshold).toBeInstanceOf(Date);
     expect(result.dateThreshold!.getUTCFullYear()).toBe(2024);
   });
