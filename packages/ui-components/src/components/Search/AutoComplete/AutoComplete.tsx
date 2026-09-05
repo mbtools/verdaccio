@@ -18,6 +18,7 @@ export type OnSelecItem = (
 interface Props {
   suggestions?: SearchResultWeb[];
   suggestionsLoading?: boolean;
+  hasError?: boolean;
   placeholder: string;
   renderOption?: (props: any, option: any) => React.JSX.Element;
   renderInput: (params: any) => React.JSX.Element;
@@ -36,6 +37,7 @@ const AutoComplete: FC<Props> = ({
   getOptionLabel,
   onSelectItem,
   suggestionsLoading = false,
+  hasError = false,
 }: Props) => {
   const { t } = useTranslation();
   const [inputValue, setInputValue] = useState('');
@@ -82,11 +84,12 @@ const AutoComplete: FC<Props> = ({
         inputValue={inputValue}
         loading={suggestionsLoading}
         loadingText={t('autoComplete.loading')}
-        noOptionsText={t('autoComplete.no-results-found')}
+        // a failed search must not read as "no results found"
+        noOptionsText={hasError ? t('autoComplete.error') : t('autoComplete.no-results-found')}
         onChange={onSelectItem as any}
         onClose={handleOnClose}
         onInputChange={handleOnInputChange}
-        options={suggestions}
+        options={hasError ? [] : suggestions}
         renderInput={renderInput}
         renderOption={renderOption}
         renderTags={() => null}

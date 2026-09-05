@@ -5,12 +5,12 @@ import React, { createContext, useCallback, use, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useTarballDownload } from '../../api/use-data-mutation';
-import LinkifyText from '../../components/LinkifyText';
 import { downloadFile, extractFileName } from '../../utils/url';
 
 export interface DownloadContextProps {
   downloadTarball: (args: { link: string }) => Promise<void>;
   isDownloading: boolean;
+  hasDownloadError: boolean;
 }
 
 export const DownloadContext = createContext<DownloadContextProps | undefined>(undefined);
@@ -18,49 +18,44 @@ export const DownloadContext = createContext<DownloadContextProps | undefined>(u
 export const DownloadProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { t } = useTranslation();
   const { download, isDownloading } = useTarballDownload();
-  const [downloadError, setDownloadError] = useState<string | null>(null);
+  const [hasDownloadError, setHasDownloadError] = useState(false);
 
   const downloadTarball = useCallback(
     async ({ link }: { link: string }) => {
       try {
+        setHasDownloadError(false);
         const fileStream = await download({ link });
-        if (!fileStream) return;
+        if (!fileStream) {
+          // clicking download and having nothing happen sends the user
+          // retrying blindly; an empty response is an error too
+          setHasDownloadError(true);
+          return;
+        }
 
         const fileName = extractFileName(link);
         downloadFile(fileStream, fileName);
       } catch (error) {
         console.error('Error during tarball download:', error);
-        const message = error instanceof Error ? error.message : t('error.unspecific');
-        setDownloadError(message);
+        setHasDownloadError(true);
       }
     },
     [download, t]
   );
 
-  const handleCloseError = useCallback(() => {
-    setDownloadError(null);
-  }, []);
-
   return (
-    <DownloadContext value={{ downloadTarball, isDownloading }}>
+    <DownloadContext.Provider value={{ downloadTarball, isDownloading, hasDownloadError }}>
       {children}
       <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         autoHideDuration={6000}
-        onClose={handleCloseError}
-        open={downloadError !== null}
+        onClose={() => setHasDownloadError(false)}
+        open={hasDownloadError}
       >
         {/* @ts-ignore - Alert does accept children despite the type error */}
-        <Alert
-          data-testid="download-tarball-error"
-          onClose={handleCloseError}
-          severity="error"
-          sx={{ width: '100%' }}
-        >
-          <LinkifyText>{downloadError}</LinkifyText>
+        <Alert onClose={() => setHasDownloadError(false)} severity="error" variant="filled">
+          {t('error.download-tarball')}
         </Alert>
       </Snackbar>
-    </DownloadContext>
+    </DownloadContext.Provider>
   );
 };
 
