@@ -1,6 +1,6 @@
 const GITHUB_REF = 'HEAD';
 
-export function normalizeGitHubRepositoryUrl(repositoryUrl: string): string | null {
+export function normalizeRepositoryUrl(repositoryUrl: string): string | null {
   let url = repositoryUrl.trim();
   if (url.includes('git+')) {
     url = url.split('git+')[1];
@@ -22,10 +22,10 @@ export function normalizeGitHubRepositoryUrl(repositoryUrl: string): string | nu
   }
 }
 
-export function parseGitHubOwnerRepo(
+export function parseOwnerRepo(
   repositoryUrl: string
 ): { owner: string; repo: string } | null {
-  const normalized = normalizeGitHubRepositoryUrl(repositoryUrl);
+  const normalized = normalizeRepositoryUrl(repositoryUrl);
   if (!normalized) {
     return null;
   }
@@ -86,7 +86,7 @@ function splitRelativeUrl(url: string): { path: string; suffix: string } {
   return { path, suffix };
 }
 
-export function toRawGitHubContentUrl(
+export function toRawContentUrl(
   owner: string,
   repo: string,
   relativePath: string,
@@ -101,7 +101,7 @@ export function rewriteRelativeUrls(html: string, repositoryUrl?: string): strin
   if (!repositoryUrl || !repositoryUrl.includes('/github.com/')) {
     return html;
   }
-  const ownerRepo = parseGitHubOwnerRepo(repositoryUrl);
+  const ownerRepo = parseOwnerRepo(repositoryUrl);
   if (!ownerRepo) {
     return html;
   }
@@ -111,7 +111,7 @@ export function rewriteRelativeUrls(html: string, repositoryUrl?: string): strin
     if (!shouldRewriteRelativeUrl(url)) {
       return url;
     }
-    return toRawGitHubContentUrl(owner, repo, url);
+    return toRawContentUrl(owner, repo, url);
   };
 
   if (typeof DOMParser !== 'undefined') {
