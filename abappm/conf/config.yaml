@@ -51,23 +51,23 @@ web:
   # HTML tags injected before ends </head>
   metaScripts:
     - '<link rel="canonical" href="https://registry.abappm.com/">'
-    - '<meta name="description" content="apm - A Package Manager 📦, a Website 🌐, and a Registry 📑 for ABAP">'
+    - '<meta name="description" content="apm is a package manager and registry for ABAP">'
     - '<meta name="keywords" content="abap, package, manager, registry, abap package, abap registry, abap package manager, abap registry, abap package manager registry">'
     - '<meta name="author" content="Marc F. Bernard">'
     - '<meta name="robots" content="index, follow">'
     - '<meta property="og:type" content="website">'
     - '<meta property="og:locale" content="en_US">'
     - '<meta property="og:site_name" content="apm Registry">'
-    - '<meta property="og:title" content="apm Registry - A Package Manager for ABAP">'
-    - '<meta property="og:description" content="apm - A Package Manager 📦, a Website 🌐, and a Registry 📑 for ABAP">'
+    - '<meta property="og:title" content="apm Registry">'
+    - '<meta property="og:description" content="apm is a package manager and registry for ABAP">'
     - '<meta property="og:url" content="https://registry.abappm.com/">'
     - '<meta property="og:image" content="https://registry.abappm.com/-/assets/apm_social_preview.png">'
     - '<meta property="og:image:width" content="1280">'
     - '<meta property="og:image:height" content="640">'
-    - '<meta property="og:image:alt" content="apm Registry - A Package Manager for ABAP">'
+    - '<meta property="og:image:alt" content="apm is a package manager and registry for ABAP">'
     - '<meta name="twitter:card" content="summary_large_image">'
-    - '<meta name="twitter:title" content="apm Registry - A Package Manager for ABAP">'
-    - '<meta name="twitter:description" content="apm - A Package Manager 📦, a Website 🌐, and a Registry 📑 for ABAP">'
+    - '<meta name="twitter:title" content="apm Registry">'
+    - '<meta name="twitter:description" content="apm is a package manager and registry for ABAP">'
     - '<meta name="twitter:image" content="https://registry.abappm.com/-/assets/apm_social_preview.png">'
   #
   # HTML tags injected as first child in <body>
@@ -84,7 +84,7 @@ web:
     - apm
   rateLimit:
     windowMs: 60000 # 1 minute
-    max: 100
+    max: 30
   assetFolder: /verdaccio/conf
 
 # Settings for authentication plugin
@@ -125,7 +125,7 @@ packages:
 server:
   rateLimit:
     windowMs: 60000 # 1 minute
-    max: 100
+    max: 30
   keepAliveTimeout: 60
   # Controls how requests with dotfile path segments (e.g. /.env, /.well-known/) are handled.
   # 'deny' returns 403, 'ignore' returns 404 (default), 'allow' passes through.
