@@ -1,4 +1,0 @@
-# @verdaccio-scope/verdaccio-esm-plugin — scoped pure ESM package
-auth:
-  '@verdaccio-scope/verdaccio-esm-plugin':
-    enabled: true

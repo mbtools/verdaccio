@@ -1,4 +1,0 @@
-# verdaccio-esmplugin in test-plugin-storage (pure ESM package, "type": "module")
-auth:
-  esmplugin:
-    enabled: true
