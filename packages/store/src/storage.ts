@@ -465,7 +465,16 @@ class Storage {
     forwardContentLength(localStream);
     localStream.on('open', async () => {
       isOpen = true;
-      await pipeline(localStream, localTarballStream, { signal });
+      try {
+        await pipeline(localStream, localTarballStream, { signal });
+      } catch (err: any) {
+        // pipeline already destroyed both streams; an unhandled rejection
+        // here would kill the process
+        this.logger.warn(
+          { err, filename },
+          'error streaming local tarball @{filename}: @{err.message}'
+        );
+      }
     });
 
     localStream.on('error', (err: any) => {
@@ -1413,13 +1422,29 @@ class Storage {
       });
     } else {
       const localStorageWriteStream = await storage.writeTarball(filename, { signal });
+      // a failed write emits 'close' too — it must never reach the metadata update
+      let uploadFailed = false;
 
       localStorageWriteStream.on('open', async () => {
-        await pipeline(uploadStream, transformHash, localStorageWriteStream, { signal });
+        try {
+          await pipeline(uploadStream, transformHash, localStorageWriteStream, { signal });
+        } catch (err: any) {
+          // pipeline already destroyed the streams; an unhandled rejection
+          // here would kill the process
+          uploadFailed = true;
+          this.logger.warn(
+            { err, filename, pkgName },
+            'error uploading tarball @{filename} for @{pkgName}: @{err.message}'
+          );
+        }
       });
 
       // once the file descriptor has been closed
       localStorageWriteStream.on('close', async () => {
+        if (uploadFailed) {
+          debug('skip metadata update for failed upload %o for %o', filename, pkgName);
+          return;
+        }
         try {
           debug('uploaded tarball %o for %o', filename, pkgName);
           // update the package metadata
@@ -1450,6 +1475,7 @@ class Storage {
 
       // something went wrong writing into the local storage
       localStorageWriteStream.on('error', async (err: any) => {
+        uploadFailed = true;
         uploadStream.emit('error', err);
       });
     }
