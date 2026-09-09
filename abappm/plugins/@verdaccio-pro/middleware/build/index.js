@@ -61,13 +61,15 @@ var setSecurityHeaders = (allowedOrigins = []) => {
 			res.status(204).end();
 			return;
 		}
-		if (req.protocol === "https" || req.get("X-Forwarded-Proto") === "https") res.setHeader("Strict-Transport-Security", "max-age=86400; includeSubDomains; preload");
+		if (req.protocol === "https" || req.get("X-Forwarded-Proto") === "https") res.setHeader("Strict-Transport-Security", "max-age=86400; includeSubDomains");
 		res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self'; form-action 'self'; font-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests; report-to default;");
 		res.setHeader("Reporting-Endpoints", "default=\"https://csp.abappm.com/csp\"");
 		res.setHeader("Permissions-Policy", "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(self), usb=(), fullscreen=(self)");
 		res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
-		res.setHeader("X-Robots-Tag", "noindex");
-		res.setHeader("X-Powered-By", "Verdaccio");
+		res.setHeader("X-Powered-By", "");
+		res.setHeader("X-Frame-Options", "DENY");
+		res.setHeader("X-Content-Type-Options", "nosniff");
+		res.setHeader("X-XSS-Protection", "1; mode=block");
 		next();
 	};
 };
