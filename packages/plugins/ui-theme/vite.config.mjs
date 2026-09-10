@@ -117,6 +117,7 @@ export default defineConfig(({ command }) => ({
     minify: true,
     chunkSizeWarningLimit: 2560,
     rolldownOptions: {
+      platform: 'browser',
       input: { main: path.resolve(import.meta.dirname, './src/index.tsx') },
       output: {
         entryFileNames: '[name].[hash].js',

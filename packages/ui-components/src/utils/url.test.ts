@@ -50,7 +50,7 @@ describe('utils', () => {
     afterEach(() => {
       vi.restoreAllMocks();
       vi.useRealTimers();
-      delete (navigator as any).msSaveBlob;
+      delete (navigator as unknown as Record<string, unknown>).msSaveBlob;
     });
 
     test('should create and revoke an object url for the blob', () => {
