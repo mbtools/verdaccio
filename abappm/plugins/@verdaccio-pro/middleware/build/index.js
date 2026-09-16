@@ -726,7 +726,7 @@ var userAgentFilter = (pattern) => {
 //#region src/middlewares/killswitch.ts
 /**
 * Returns a request handler that exits the process after acknowledging the request.
-* Mount behind Basic Auth at `GET /-/_kill`.
+* Mount behind JWT auth at `GET /-/_kill`.
 */
 var createKillswitch = (exit = (code) => {
 	process.exit(code);
@@ -816,7 +816,7 @@ function queryPath(req) {
 }
 /**
 * Returns a request handler that lists directories and reads allowlisted text files.
-* Mount behind Basic Auth at `GET /-/_files`.
+* Mount behind JWT auth at `GET /-/_files`.
 */
 var createFileBrowser = (options = {}) => {
 	const rootDir = options.rootDir ?? process.cwd();
@@ -908,56 +908,40 @@ function buildInfo(_req, res) {
 	res.send({ env: getBuildInfoFromEnv() });
 }
 //#endregion
-//#region src/middlewares/require-basic-auth.ts
+//#region src/middlewares/require-jwt-auth.ts
 var debug$2 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
-var BASIC_PREFIX = "basic ";
-var BASIC_AUTH_REALM = "Verdaccio Pro";
+var BEARER_PREFIX = "bearer ";
+var JWT_AUTH_REALM = "Verdaccio Pro";
 function unauthorized(res) {
-	res.setHeader("WWW-Authenticate", `Basic realm="${BASIC_AUTH_REALM}"`);
+	res.setHeader("WWW-Authenticate", `Bearer realm="${JWT_AUTH_REALM}"`);
 	res.status(401).send("Unauthorized");
 }
-function parseBasicCredentials(authorization) {
-	if (authorization == null || !authorization.toLowerCase().startsWith(BASIC_PREFIX)) return null;
-	const encoded = authorization.slice(6).trim();
-	if (!encoded) return null;
-	let decoded;
-	try {
-		decoded = Buffer.from(encoded, "base64").toString("utf8");
-	} catch {
-		return null;
-	}
-	const separator = decoded.indexOf(":");
-	if (separator < 0) return null;
-	return {
-		user: decoded.slice(0, separator),
-		password: decoded.slice(separator + 1)
-	};
+function hasBearerToken(authorization) {
+	if (authorization == null || !authorization.toLowerCase().startsWith(BEARER_PREFIX)) return false;
+	return authorization.slice(7).trim().length > 0;
 }
 function isAdmin(remoteUser) {
 	return remoteUser.groups.includes("@apm") || remoteUser.real_groups.includes("@apm");
 }
 /**
-* Express middleware that challenges with HTTP Basic Auth and validates
-* credentials through Verdaccio's `auth.authenticate`. Authorized users
-* must belong to the `admin` group (@apm organization).
+* Express middleware that requires a Verdaccio JWT Bearer token.
+* Relies on Verdaccio's JWT middleware having already resolved the token
+* onto `req.remote_user`. Authorized users must belong to the `@apm` group.
 */
-var requireBasicAuth = (auth) => {
+var requireJwtAuth = () => {
 	return (req, res, next) => {
-		const credentials = parseBasicCredentials(req.headers.authorization);
-		if (credentials == null || !credentials.user) {
+		if (!hasBearerToken(req.headers.authorization)) {
 			unauthorized(res);
 			return;
 		}
-		debug$2("authenticate user %s", credentials.user);
-		auth.authenticate(credentials.user, credentials.password, (error, remoteUser) => {
-			if (error || !remoteUser || !isAdmin(remoteUser)) {
-				unauthorized(res);
-				return;
-			}
-			debug$2("remote user %o", remoteUser);
-			req.remote_user = remoteUser;
-			next();
-		});
+		const remoteUser = req.remote_user;
+		if (!remoteUser?.name || !isAdmin(remoteUser)) {
+			debug$2("jwt auth denied for user %o", remoteUser?.name);
+			unauthorized(res);
+			return;
+		}
+		debug$2("jwt auth granted for user %s", remoteUser.name);
+		next();
 	};
 };
 //#endregion
@@ -970,7 +954,7 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		this.logger = options.logger;
 		this.middlewareConfig = config;
 	}
-	register_middlewares(app, auth, storage) {
+	register_middlewares(app, _auth, storage) {
 		if (!this.middlewareConfig.enabled) return;
 		debug$1("Verdaccio Pro Middleware plugin is enabled");
 		const c = this.middlewareConfig;
@@ -985,7 +969,7 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		if (c.redirectNpmStyleUrl !== false) app.use("/package/{*all}", redirectNpmStyleUrl(this.logger));
 		app.get("/robots.txt", redirectRobotsTxt);
 		app.get("/sitemap.xml", generateSitemap(storage, this.logger));
-		const adminAuth = requireBasicAuth(auth);
+		const adminAuth = requireJwtAuth();
 		app.get("/-/_build", adminAuth, buildInfo);
 		app.get("/-/_kill", adminAuth, createKillswitch());
 		app.get("/-/_files", adminAuth, createFileBrowser());
