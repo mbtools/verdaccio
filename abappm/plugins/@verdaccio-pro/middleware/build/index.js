@@ -933,7 +933,7 @@ function parseBasicCredentials(authorization) {
 	};
 }
 function isAdmin(remoteUser) {
-	return remoteUser.groups.includes("admin") || remoteUser.real_groups.includes("admin");
+	return remoteUser.groups.includes("@apm") || remoteUser.real_groups.includes("@apm");
 }
 /**
 * Express middleware that challenges with HTTP Basic Auth and validates
