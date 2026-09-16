@@ -30,6 +30,6 @@ declare class MiddlewarePlugin extends pluginUtils.Plugin<MiddlewareConfig> impl
     logger: Logger;
     private middlewareConfig;
     constructor(config: MiddlewareConfig, options: pluginUtils.PluginOptions);
-    register_middlewares(app: Express, auth: pluginUtils.Auth<MiddlewareConfig>, storage: pluginUtils.Storage<MiddlewareConfig>): void;
+    register_middlewares(app: Express, _auth: pluginUtils.Auth<MiddlewareConfig>, storage: pluginUtils.Storage<MiddlewareConfig>): void;
 }
 export default MiddlewarePlugin;
