@@ -10,3 +10,6 @@ export { default as eventLog, type ActivityStorage } from './event-log';
 export { default as httpLog } from './http-log';
 export { default as userAgentFilter } from './user-agent-filter';
 export { default as createKillswitch } from './killswitch';
+export { default as createFileBrowser } from './file-browser';
+export { default as buildInfo, getBuildInfoFromEnv } from './build-info';
+export { default as requireBasicAuth, BASIC_AUTH_REALM, type AuthenticateAuth } from './require-basic-auth';

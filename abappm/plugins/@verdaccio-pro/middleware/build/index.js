@@ -36,6 +36,7 @@ let node_crypto = require("node:crypto");
 let node_fs_promises = require("node:fs/promises");
 let node_path = require("node:path");
 node_path = __toESM(node_path);
+let node_fs = require("node:fs");
 //#region src/middlewares/security-headers.ts
 var CORS_METHODS = "GET, HEAD, PUT, POST, DELETE, OPTIONS";
 var CORS_HEADERS = "Content-Type, Content-Encoding, Authorization, X-Requested-With, Accept, Origin";
@@ -84,8 +85,18 @@ var blockUnwantedRequests = (req, res, next) => {
 		next();
 		return;
 	}
-	if (/\.(env|php|exe|cmd|bat|sh|csh|ksh|zsh|ps1|txt|pdf|doc|docx|xls|xlsx|ppt|pptx)$/.test(path)) res.status(404).send("Not Found");
-	else next();
+	if (/\.(env|php|exe|cmd|bat|sh|csh|ksh|zsh|ps1|txt|pdf|doc|docx|xls|xlsx|ppt|pptx)$/.test(path)) {
+		res.status(404).send("Not Found");
+		return;
+	}
+	const method = req.method?.toUpperCase();
+	const isBlockedMethod = method === "POST" || method === "DELETE";
+	const isBlockedPath = /^\/$|^\/(en|de|fr|app|api|_next)(\/|$)/.test(path);
+	if (isBlockedMethod && isBlockedPath) {
+		res.status(404).send("Not Found");
+		return;
+	}
+	next();
 };
 //#endregion
 //#region src/middlewares/redirect-npm.ts
@@ -713,30 +724,14 @@ var userAgentFilter = (pattern) => {
 };
 //#endregion
 //#region src/middlewares/killswitch.ts
-/** Set this env var to arm the route; its value is the shared secret. */
-var KILLSWITCH_ENV = "VERDACCIO_PRO_KILLSWITCH";
-function tokensMatch(expected, provided) {
-	if (provided == null || provided.length === 0) return false;
-	const expectedBuf = Buffer.from(expected);
-	const providedBuf = Buffer.from(provided);
-	if (expectedBuf.length !== providedBuf.length) return false;
-	return (0, node_crypto.timingSafeEqual)(expectedBuf, providedBuf);
-}
 /**
-* Returns a request handler that exits the process when the path secret matches.
-* Mount at `GET /-/_kill/:token`. Returns `null` when the env var is unset.
+* Returns a request handler that exits the process after acknowledging the request.
+* Mount behind Basic Auth at `GET /-/_kill`.
 */
-var createKillswitch = (env = process.env, exit = (code) => {
+var createKillswitch = (exit = (code) => {
 	process.exit(code);
 }) => {
-	const secret = env[KILLSWITCH_ENV];
-	if (!secret) return null;
-	return (req, res) => {
-		const token = typeof req.params.token === "string" ? req.params.token : void 0;
-		if (!tokensMatch(secret, token)) {
-			res.status(404).send("Not Found");
-			return;
-		}
+	return (_req, res) => {
 		res.status(200).send({
 			ok: true,
 			crashing: true
@@ -747,8 +742,156 @@ var createKillswitch = (env = process.env, exit = (code) => {
 	};
 };
 //#endregion
-//#region src/plugin.ts
-var debug$1 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
+//#region src/middlewares/file-browser.ts
+var MAX_FILE_BYTES = 1048576;
+var TEXT_EXTENSIONS = /* @__PURE__ */ new Set([
+	".yml",
+	".yaml",
+	".js",
+	".cjs",
+	".mjs",
+	".ts",
+	".cts",
+	".mts",
+	".json",
+	".json5",
+	".log",
+	".txt",
+	".md",
+	".markdown",
+	".xml",
+	".html",
+	".htm",
+	".css",
+	".scss",
+	".less",
+	".ini",
+	".conf",
+	".cfg",
+	".env",
+	".sh",
+	".bash",
+	".zsh",
+	".ps1",
+	".bat",
+	".cmd",
+	".toml",
+	".csv",
+	".svg",
+	".gitignore",
+	".npmrc",
+	".dockerignore"
+]);
+var TEXT_BASENAMES = /* @__PURE__ */ new Set([
+	"dockerfile",
+	"makefile",
+	"license",
+	"licence",
+	"readme",
+	"changelog",
+	"authors",
+	"contributors",
+	"gemfile",
+	"rakefile",
+	"procfile"
+]);
+function isAllowedTextFile(filePath) {
+	const ext = node_path.default.extname(filePath).toLowerCase();
+	if (TEXT_EXTENSIONS.has(ext)) return true;
+	const base = node_path.default.basename(filePath).toLowerCase();
+	return TEXT_BASENAMES.has(base);
+}
+function resolveSafePath(rootDir, requestedPath) {
+	const relative = requestedPath == null || requestedPath === "" ? "." : requestedPath;
+	const absolute = node_path.default.resolve(rootDir, relative);
+	const root = node_path.default.resolve(rootDir);
+	const relativeToRoot = node_path.default.relative(root, absolute);
+	if (relativeToRoot.startsWith("..") || node_path.default.isAbsolute(relativeToRoot)) return null;
+	return absolute;
+}
+function queryPath(req) {
+	const value = req.query.path;
+	if (typeof value === "string") return value;
+	if (Array.isArray(value) && typeof value[0] === "string") return value[0];
+}
+/**
+* Returns a request handler that lists directories and reads allowlisted text files.
+* Mount behind Basic Auth at `GET /-/_files`.
+*/
+var createFileBrowser = (options = {}) => {
+	const rootDir = options.rootDir ?? process.cwd();
+	const maxFileBytes = options.maxFileBytes ?? MAX_FILE_BYTES;
+	return async (req, res) => {
+		const absolutePath = resolveSafePath(rootDir, queryPath(req));
+		if (absolutePath == null) {
+			res.status(400).send({ error: "Invalid path" });
+			return;
+		}
+		let stats;
+		try {
+			stats = await node_fs.promises.stat(absolutePath);
+		} catch {
+			res.status(404).send({ error: "Not found" });
+			return;
+		}
+		const relativePath = node_path.default.relative(rootDir, absolutePath).split(node_path.default.sep).join("/") || ".";
+		if (stats.isDirectory()) {
+			const names = await node_fs.promises.readdir(absolutePath);
+			const entries = await Promise.all(names.sort((a, b) => a.localeCompare(b)).map(async (name) => {
+				const entryPath = node_path.default.join(absolutePath, name);
+				try {
+					const entryStats = await node_fs.promises.stat(entryPath);
+					if (entryStats.isDirectory()) return {
+						name,
+						type: "directory"
+					};
+					return {
+						name,
+						type: "file",
+						size: entryStats.size,
+						readable: isAllowedTextFile(name)
+					};
+				} catch {
+					return {
+						name,
+						type: "unknown"
+					};
+				}
+			}));
+			res.status(200).send({
+				type: "directory",
+				path: relativePath,
+				entries
+			});
+			return;
+		}
+		if (!stats.isFile()) {
+			res.status(400).send({ error: "Unsupported path type" });
+			return;
+		}
+		if (!isAllowedTextFile(absolutePath)) {
+			res.status(415).send({ error: "File type not allowed" });
+			return;
+		}
+		if (stats.size > maxFileBytes) {
+			res.status(413).send({
+				error: "File too large",
+				maxBytes: maxFileBytes,
+				size: stats.size
+			});
+			return;
+		}
+		const content = await node_fs.promises.readFile(absolutePath, "utf8");
+		res.status(200).send({
+			type: "file",
+			path: relativePath,
+			size: stats.size,
+			content
+		});
+	};
+};
+//#endregion
+//#region src/middlewares/build-info.ts
 var BUILD_INFO_KEYS = [
 	"BUILD_DATE",
 	"BUILD_SHA",
@@ -764,6 +907,59 @@ function getBuildInfoFromEnv(env = process.env) {
 function buildInfo(_req, res) {
 	res.send({ env: getBuildInfoFromEnv() });
 }
+//#endregion
+//#region src/middlewares/require-basic-auth.ts
+var BASIC_PREFIX = "basic ";
+var BASIC_AUTH_REALM = "Verdaccio Pro";
+function unauthorized(res) {
+	res.setHeader("WWW-Authenticate", `Basic realm="${BASIC_AUTH_REALM}"`);
+	res.status(401).send("Unauthorized");
+}
+function parseBasicCredentials(authorization) {
+	if (authorization == null || !authorization.toLowerCase().startsWith(BASIC_PREFIX)) return null;
+	const encoded = authorization.slice(6).trim();
+	if (!encoded) return null;
+	let decoded;
+	try {
+		decoded = Buffer.from(encoded, "base64").toString("utf8");
+	} catch {
+		return null;
+	}
+	const separator = decoded.indexOf(":");
+	if (separator < 0) return null;
+	return {
+		user: decoded.slice(0, separator),
+		password: decoded.slice(separator + 1)
+	};
+}
+function isAdmin(remoteUser) {
+	return remoteUser.groups.includes("admin") || remoteUser.real_groups.includes("admin");
+}
+/**
+* Express middleware that challenges with HTTP Basic Auth and validates
+* credentials through Verdaccio's `auth.authenticate`. Authorized users
+* must belong to the `admin` group.
+*/
+var requireBasicAuth = (auth) => {
+	return (req, res, next) => {
+		const credentials = parseBasicCredentials(req.headers.authorization);
+		if (credentials == null || !credentials.user) {
+			unauthorized(res);
+			return;
+		}
+		auth.authenticate(credentials.user, credentials.password, (error, remoteUser) => {
+			if (error || !remoteUser || !isAdmin(remoteUser)) {
+				unauthorized(res);
+				return;
+			}
+			req.remote_user = remoteUser;
+			next();
+		});
+	};
+};
+//#endregion
+//#region src/plugin.ts
+var debug$1 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
 var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 	constructor(config, options) {
 		super(config, options);
@@ -771,7 +967,7 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		this.logger = options.logger;
 		this.middlewareConfig = config;
 	}
-	register_middlewares(app, _auth, storage) {
+	register_middlewares(app, auth, storage) {
 		if (!this.middlewareConfig.enabled) return;
 		debug$1("Verdaccio Pro Middleware plugin is enabled");
 		const c = this.middlewareConfig;
@@ -786,12 +982,10 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		if (c.redirectNpmStyleUrl !== false) app.use("/package/{*all}", redirectNpmStyleUrl(this.logger));
 		app.get("/robots.txt", redirectRobotsTxt);
 		app.get("/sitemap.xml", generateSitemap(storage, this.logger));
-		app.get("/-/_build", buildInfo);
-		const killswitch = createKillswitch();
-		if (killswitch) {
-			debug$1("killswitch armed");
-			app.get("/-/_kill/:token", killswitch);
-		}
+		const adminAuth = requireBasicAuth(auth);
+		app.get("/-/_build", adminAuth, buildInfo);
+		app.get("/-/_kill", adminAuth, createKillswitch());
+		app.get("/-/_files", adminAuth, createFileBrowser());
 	}
 };
 //#endregion

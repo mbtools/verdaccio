@@ -1,10 +1,6 @@
-import { Express, Request, Response } from 'express';
+import { Express } from 'express';
 import { pluginUtils } from '@verdaccio/core';
 import { Config, Logger } from '@verdaccio/types';
-declare const BUILD_INFO_KEYS: readonly ["BUILD_DATE", "BUILD_SHA", "NODE_VERSION", "VERDACCIO_VERSION"];
-type BuildInfoKey = (typeof BUILD_INFO_KEYS)[number];
-export declare function getBuildInfoFromEnv(env?: NodeJS.ProcessEnv): Record<BuildInfoKey, string | null>;
-export declare function buildInfo(_req: Request, res: Response): void;
 /** When an option is omitted, true. Set to false to skip a particular middleware. */
 export interface MiddlewareConfig {
     enabled: boolean;
@@ -34,6 +30,6 @@ declare class MiddlewarePlugin extends pluginUtils.Plugin<MiddlewareConfig> impl
     logger: Logger;
     private middlewareConfig;
     constructor(config: MiddlewareConfig, options: pluginUtils.PluginOptions);
-    register_middlewares(app: Express, _auth: pluginUtils.Auth<MiddlewareConfig>, storage: pluginUtils.Storage<MiddlewareConfig>): void;
+    register_middlewares(app: Express, auth: pluginUtils.Auth<MiddlewareConfig>, storage: pluginUtils.Storage<MiddlewareConfig>): void;
 }
 export default MiddlewarePlugin;
