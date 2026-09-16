@@ -7,7 +7,7 @@ export type AuthenticateAuth = {
 /**
  * Express middleware that challenges with HTTP Basic Auth and validates
  * credentials through Verdaccio's `auth.authenticate`. Authorized users
- * must belong to the `admin` group.
+ * must belong to the `admin` group (@apm organization).
  */
 declare const requireBasicAuth: (auth: AuthenticateAuth) => (req: Request, res: Response, next: NextFunction) => void;
 export default requireBasicAuth;

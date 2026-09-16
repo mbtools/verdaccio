@@ -100,7 +100,7 @@ var blockUnwantedRequests = (req, res, next) => {
 };
 //#endregion
 //#region src/middlewares/redirect-npm.ts
-var debug$8 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
+var debug$9 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
 var redirectNpmStyleUrl = (logger) => {
 	return (req, res, _next) => {
 		let packageName = req.params.all;
@@ -109,10 +109,10 @@ var redirectNpmStyleUrl = (logger) => {
 			res.status(404).send("Not Found");
 			return;
 		}
-		debug$8("redirect from %o", req.url);
+		debug$9("redirect from %o", req.url);
 		const redirectTo = "/-/web/detail/" + packageName;
 		logger.info({ redirectTo }, "Redirecting to @{redirectTo}");
-		debug$8("redirect to %o", redirectTo);
+		debug$9("redirect to %o", redirectTo);
 		res.redirect(redirectTo);
 	};
 };
@@ -123,7 +123,7 @@ var redirectRobotsTxt = (_req, res) => {
 };
 //#endregion
 //#region src/middlewares/generate-sitemap.ts
-var debug$7 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
+var debug$8 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
 function resolveStorage$1(storage) {
 	if (typeof storage?.get === "function") return storage;
 	const plugin = storage?.localStorage?.getStoragePlugin?.();
@@ -159,7 +159,7 @@ var generateSitemap = (storage, logger) => {
 			res.send(sitemap);
 		} catch (error) {
 			logger.error({ error }, "Failed to generate sitemap");
-			debug$7("failed to generate sitemap: %o", error);
+			debug$8("failed to generate sitemap: %o", error);
 			res.status(500).send("Failed to generate sitemap");
 		}
 	};
@@ -343,7 +343,7 @@ var profanity_fr_default = [
 ];
 //#endregion
 //#region src/middlewares/profanity-filter.ts
-var debug$6 = (0, debug.default)("verdaccio:plugin:PRO:middleware:profanity");
+var debug$7 = (0, debug.default)("verdaccio:plugin:PRO:middleware:profanity");
 leo_profanity.default.reset();
 leo_profanity.default.add(profanity_de_default);
 leo_profanity.default.add(profanity_fr_default);
@@ -373,7 +373,7 @@ var profanityFilter = (req, res, next) => {
 		return;
 	}
 	if (valueContainsProfanity(req.body)) {
-		debug$6("request body contained profanity");
+		debug$7("request body contained profanity");
 		res.status(400).send("Bad Request");
 		return;
 	}
@@ -419,7 +419,7 @@ var BLOCKED_REGISTRABLE_DOMAINS = [
 ];
 //#endregion
 //#region src/middlewares/blacklist-filter.ts
-var debug$5 = (0, debug.default)("verdaccio:plugin:PRO:middleware:blacklist");
+var debug$6 = (0, debug.default)("verdaccio:plugin:PRO:middleware:blacklist");
 var blocked = new Set(BLOCKED_REGISTRABLE_DOMAINS);
 var hrefSrcRe = /(?:\bhref\s*=|\bsrc\s*=)\s*["']([^"']+)["']/gi;
 var absoluteUrlRe = /https?:\/\/[^\s"'<>\]]+/gi;
@@ -478,7 +478,7 @@ var blacklistFilter = (req, res, next) => {
 		return;
 	}
 	if (valueContainsBlockedUrl(req.body)) {
-		debug$5("request body contained a blocked URL");
+		debug$6("request body contained a blocked URL");
 		res.status(400).send("Bad Request");
 		return;
 	}
@@ -486,7 +486,7 @@ var blacklistFilter = (req, res, next) => {
 };
 //#endregion
 //#region src/middlewares/event-log.ts
-var debug$4 = (0, debug.default)("verdaccio:plugin:PRO:middleware:event-log");
+var debug$5 = (0, debug.default)("verdaccio:plugin:PRO:middleware:event-log");
 var APM_COMMAND_HEADER = "apm-command";
 var ANONYMOUS_USER = "#";
 var VALID_EVENTS = /* @__PURE__ */ new Set([
@@ -569,12 +569,12 @@ var eventLog = (storage, logger) => {
 			next();
 			return;
 		}
-		debug$4("command %o", command);
+		debug$5("command %o", command);
 		const { name, version } = parsePackageFromUrl(req.path);
 		const user = resolveUser(req);
 		const store = resolveStorage(storage);
 		if (typeof store.logActivity === "function") {
-			debug$4("logging activity %o", {
+			debug$5("logging activity %o", {
 				command,
 				name,
 				version
@@ -592,7 +592,7 @@ var eventLog = (storage, logger) => {
 		if (typeof store.incrementDownloads === "function" && command === "tarball") {
 			const filename = tarballFilenameFromPath(req.path);
 			if (filename) {
-				debug$4("incrementing downloads %o", { filename });
+				debug$5("incrementing downloads %o", { filename });
 				store.incrementDownloads(filename).catch((error) => {
 					const errorMsg = error instanceof Error ? error.message : String(error);
 					logger.error({
@@ -607,7 +607,7 @@ var eventLog = (storage, logger) => {
 };
 //#endregion
 //#region src/middlewares/http-log.ts
-var debug$3 = (0, debug.default)("verdaccio:plugin:PRO:middleware:http-log");
+var debug$4 = (0, debug.default)("verdaccio:plugin:PRO:middleware:http-log");
 var HTTP_LOG_DIR = "http-logs";
 function requestPath(req) {
 	return req.originalUrl ?? req.url;
@@ -651,7 +651,7 @@ var httpLog = (config, logger) => {
 	const ensureLogDir = () => {
 		if (!dirReady) {
 			dirReady = (0, node_fs_promises.mkdir)(logDir, { recursive: true }).then(() => void 0);
-			debug$3("created log directory %s", logDir);
+			debug$4("created log directory %s", logDir);
 		}
 		return dirReady;
 	};
@@ -685,7 +685,7 @@ var httpLog = (config, logger) => {
 			body: parseBody(req.body)
 		};
 		ensureLogDir().then(() => (0, node_fs_promises.writeFile)(filePath, JSON.stringify(payload, null, 2) + "\n", "utf8")).then(() => {
-			debug$3("logged request %o", {
+			debug$4("logged request %o", {
 				filePath,
 				method,
 				path: requestPathValue
@@ -704,7 +704,7 @@ var httpLog = (config, logger) => {
 };
 //#endregion
 //#region src/middlewares/user-agent-filter.ts
-var debug$2 = (0, debug.default)("verdaccio:plugin:PRO:middleware:user-agent");
+var debug$3 = (0, debug.default)("verdaccio:plugin:PRO:middleware:user-agent");
 var userAgentFilter = (pattern) => {
 	let regex;
 	try {
@@ -715,7 +715,7 @@ var userAgentFilter = (pattern) => {
 	return (req, _res, next) => {
 		const userAgent = req.get("user-agent") ?? "";
 		if (!regex.test(userAgent)) {
-			debug$2("rejected user-agent %o", userAgent);
+			debug$3("rejected user-agent %o", userAgent);
 			next(_verdaccio_core.errorUtils.getForbidden("User-Agent not allowed"));
 			return;
 		}
@@ -909,6 +909,7 @@ function buildInfo(_req, res) {
 }
 //#endregion
 //#region src/middlewares/require-basic-auth.ts
+var debug$2 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
 var BASIC_PREFIX = "basic ";
 var BASIC_AUTH_REALM = "Verdaccio Pro";
 function unauthorized(res) {
@@ -938,7 +939,7 @@ function isAdmin(remoteUser) {
 /**
 * Express middleware that challenges with HTTP Basic Auth and validates
 * credentials through Verdaccio's `auth.authenticate`. Authorized users
-* must belong to the `admin` group.
+* must belong to the `admin` group (@apm organization).
 */
 var requireBasicAuth = (auth) => {
 	return (req, res, next) => {
@@ -947,11 +948,13 @@ var requireBasicAuth = (auth) => {
 			unauthorized(res);
 			return;
 		}
+		debug$2("authenticate user %s", credentials.user);
 		auth.authenticate(credentials.user, credentials.password, (error, remoteUser) => {
 			if (error || !remoteUser || !isAdmin(remoteUser)) {
 				unauthorized(res);
 				return;
 			}
+			debug$2("remote user %o", remoteUser);
 			req.remote_user = remoteUser;
 			next();
 		});
