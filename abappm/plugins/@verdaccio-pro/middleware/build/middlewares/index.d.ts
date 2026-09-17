@@ -11,5 +11,5 @@ export { default as httpLog } from './http-log';
 export { default as userAgentFilter } from './user-agent-filter';
 export { default as createKillswitch } from './killswitch';
 export { default as createFileBrowser } from './file-browser';
-export { default as buildInfo, getBuildInfoFromEnv } from './build-info';
-export { default as requireJwtAuth, JWT_AUTH_REALM } from './require-jwt-auth';
+export { default as buildInfo } from './build-info';
+export { default as requireJwtAuth } from './require-jwt-auth';

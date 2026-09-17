@@ -16,7 +16,7 @@ export interface MiddlewareConfig {
     httpLog?: boolean;
     /** Sets security headers and configurable CORS on all responses. */
     securityHeaders?: boolean;
-    /** Origins allowed credentialed CORS; all other cross-origin requests receive public wildcard CORS. */
+    /** Origins allowed credentialed read/write CORS; other origins receive read-only public CORS. */
     corsAllowedOrigins?: string[];
     /** Returns 404 for requests probing common non-registry file extensions. */
     blockUnwantedRequests?: boolean;
