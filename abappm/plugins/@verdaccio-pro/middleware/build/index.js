@@ -38,29 +38,91 @@ let node_path = require("node:path");
 node_path = __toESM(node_path);
 let node_fs = require("node:fs");
 //#region src/middlewares/security-headers.ts
-var CORS_METHODS = "GET, HEAD, PUT, POST, DELETE, OPTIONS";
-var CORS_HEADERS = "Content-Type, Content-Encoding, Authorization, X-Requested-With, Accept, Origin";
+var PUBLIC_CORS_METHODS = ["GET", "HEAD"];
+var TRUSTED_CORS_METHODS = [
+	"GET",
+	"HEAD",
+	"PUT",
+	"POST",
+	"DELETE"
+];
+var PUBLIC_CORS_HEADERS = [
+	"Accept",
+	"Content-Type",
+	"Origin"
+];
+var TRUSTED_CORS_HEADERS = [
+	"Accept",
+	"Authorization",
+	"Content-Encoding",
+	"Content-Type",
+	"Origin",
+	"X-Requested-With"
+];
 var CORS_EXPOSE = "Content-Length, Content-Type, Content-Encoding, ETag, Last-Modified";
-var normalizeOrigin = (origin) => origin.endsWith("/") ? origin.slice(0, -1) : origin;
+var CORS_MAX_AGE = "86400";
+var CORS_RESPONSE_HEADERS = [
+	"Access-Control-Allow-Credentials",
+	"Access-Control-Allow-Headers",
+	"Access-Control-Allow-Methods",
+	"Access-Control-Allow-Origin",
+	"Access-Control-Expose-Headers",
+	"Access-Control-Max-Age"
+];
+var parseOrigin = (origin) => {
+	try {
+		const url = new URL(origin);
+		return url.protocol === "http:" || url.protocol === "https:" ? url.origin : void 0;
+	} catch {
+		return;
+	}
+};
+var normalizeAllowedOrigin = (origin) => {
+	const normalizedOrigin = parseOrigin(origin);
+	if (!normalizedOrigin) throw new TypeError(`Invalid CORS origin: ${origin}`);
+	return normalizedOrigin;
+};
+var parseRequestedHeaders = (value) => value ? value.split(",").map((header) => header.trim().toLowerCase()).filter(Boolean) : [];
+var includesAll = (allowed, requested) => {
+	const normalizedAllowed = new Set(allowed.map((header) => header.toLowerCase()));
+	return requested.every((header) => normalizedAllowed.has(header));
+};
+var setCorsOrigin = (res, origin, trusted) => {
+	res.setHeader("Access-Control-Allow-Origin", trusted ? origin : "*");
+	if (trusted) res.setHeader("Access-Control-Allow-Credentials", "true");
+};
+var clearCorsHeaders = (res) => {
+	for (const header of CORS_RESPONSE_HEADERS) res.removeHeader(header);
+};
 var setSecurityHeaders = (allowedOrigins = []) => {
-	const allowlist = new Set(allowedOrigins.map(normalizeOrigin));
+	const allowlist = new Set(allowedOrigins.map(normalizeAllowedOrigin));
 	return (req, res, next) => {
+		clearCorsHeaders(res);
 		const origin = req.get("Origin");
-		if (origin) {
-			const normalizedOrigin = normalizeOrigin(origin);
-			if (allowlist.has(normalizedOrigin)) {
-				res.setHeader("Access-Control-Allow-Origin", normalizedOrigin);
-				res.setHeader("Access-Control-Allow-Credentials", "true");
-			} else res.setHeader("Access-Control-Allow-Origin", "*");
-			res.setHeader("Vary", "Origin");
-		} else res.setHeader("Access-Control-Allow-Origin", "*");
-		res.setHeader("Access-Control-Allow-Methods", CORS_METHODS);
-		res.setHeader("Access-Control-Allow-Headers", CORS_HEADERS);
-		res.setHeader("Access-Control-Expose-Headers", CORS_EXPOSE);
-		res.setHeader("Access-Control-Max-Age", "86400");
-		if (req.method === "OPTIONS") {
+		const normalizedOrigin = origin ? parseOrigin(origin) : void 0;
+		const trustedOrigin = normalizedOrigin !== void 0 && allowlist.has(normalizedOrigin);
+		const method = req.method.toUpperCase();
+		const requestedMethod = req.get("Access-Control-Request-Method")?.toUpperCase();
+		const isPreflight = method === "OPTIONS" && origin !== void 0 && requestedMethod !== void 0;
+		if (origin) res.vary("Origin");
+		if (isPreflight) {
+			const allowedMethods = trustedOrigin ? TRUSTED_CORS_METHODS : PUBLIC_CORS_METHODS;
+			const allowedHeaders = trustedOrigin ? TRUSTED_CORS_HEADERS : PUBLIC_CORS_HEADERS;
+			const requestedHeaders = parseRequestedHeaders(req.get("Access-Control-Request-Headers"));
+			if (!(allowedMethods.some((allowedMethod) => allowedMethod === requestedMethod) && includesAll(allowedHeaders, requestedHeaders))) {
+				res.status(403).end();
+				return;
+			}
+			setCorsOrigin(res, normalizedOrigin ?? origin, trustedOrigin);
+			res.setHeader("Access-Control-Allow-Methods", allowedMethods.join(", "));
+			res.setHeader("Access-Control-Allow-Headers", allowedHeaders.join(", "));
+			res.setHeader("Access-Control-Max-Age", CORS_MAX_AGE);
 			res.status(204).end();
 			return;
+		}
+		if (origin && (trustedOrigin || method === "GET" || method === "HEAD")) {
+			setCorsOrigin(res, normalizedOrigin ?? origin, trustedOrigin);
+			res.setHeader("Access-Control-Expose-Headers", CORS_EXPOSE);
 		}
 		if (req.protocol === "https" || req.get("X-Forwarded-Proto") === "https") res.setHeader("Strict-Transport-Security", "max-age=86400; includeSubDomains");
 		res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self'; form-action 'self'; font-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests; report-to default;");

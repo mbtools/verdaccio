@@ -20,7 +20,7 @@ NO WARRANTIES, [Functional Source License](https://fsl.software), [MIT Future Li
 
 ### Security Headers
 
-Sets security headers and configurable CORS on all responses (Strict-Transport-Security, Content-Security-Policy, Permissions-Policy, Referrer-Policy, X-Robots-Tag, X-Powered-By). Use `corsAllowedOrigins` to allow credentialed CORS for specific origins; all other cross-origin requests receive public wildcard CORS.
+Sets security headers and configurable CORS on all responses (Strict-Transport-Security, Content-Security-Policy, Permissions-Policy, Referrer-Policy, X-Robots-Tag, X-Powered-By). Use `corsAllowedOrigins` to allow credentialed read/write CORS for specific origins; all other origins receive wildcard CORS only for public `GET` and `HEAD` access.
 
 ### Prototype Pollution Protection
 
@@ -84,7 +84,7 @@ middleware:
     httpLog: false
     # Sets security headers and configurable CORS on all responses.
     securityHeaders: true
-    # Origins allowed credentialed CORS; all other cross-origin requests receive public wildcard CORS.
+    # Origins allowed credentialed read/write CORS; all others receive read-only public CORS.
     corsAllowedOrigins:
       - https://app.example.com
     # Returns 404 for requests probing common non-registry file extensions.
