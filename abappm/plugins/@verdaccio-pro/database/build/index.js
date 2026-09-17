@@ -1065,6 +1065,7 @@ function effectiveAccess(name, stored) {
 var debug$5 = (0, debug.default)("verdaccio:plugin:PRO:db");
 var PackageService = class PackageService {
 	constructor(database, logger, tenant) {
+		this.pendingUpdates = /* @__PURE__ */ new WeakMap();
 		this.db = database;
 		this.logger = logger;
 		this.tenant = tenant ?? new TenantService(database, logger);
@@ -1076,7 +1077,16 @@ var PackageService = class PackageService {
 		return exists;
 	}
 	async create(name, manifest, options) {
-		await this.save(name, manifest, options);
+		try {
+			await this.save(name, manifest, {
+				...options,
+				createOnly: true
+			});
+		} catch (error) {
+			const databaseError = error;
+			if (databaseError.code === "23505" || databaseError.cause?.code === "23505") throw _verdaccio_core.errorUtils.getConflict("package already exists");
+			throw error;
+		}
 		debug$5("package created successfully");
 	}
 	async getAccess(name) {
@@ -1098,23 +1108,42 @@ var PackageService = class PackageService {
 		const [row] = await this.db.select({ access: packages.access }).from(packages).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(packages.org_id, org_id), (0, drizzle_orm.eq)(packages.name, name), (0, drizzle_orm.isNull)(packages.deleted)));
 		return row?.access ?? null;
 	}
-	async read(name, noThrow) {
+	async readSnapshot(name, noThrow) {
 		const org_id = await this.tenant.get(name);
-		const [packageJson] = await this.db.select({ json: packages.json }).from(packages).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(packages.org_id, org_id), (0, drizzle_orm.eq)(packages.name, name), (0, drizzle_orm.isNull)(packages.deleted)));
-		if (!packageJson) {
-			if (noThrow) return {};
-			throw _verdaccio_core.errorUtils.getNotFound("package.json not found");
-		}
-		const manifestMerged = mergeReadmesIntoManifest(JSON.parse(unescapeHtmlEntities(JSON.stringify(packageJson.json))), await this.db.select({
-			version: readmes.version,
-			markdown: readmes.markdown
-		}).from(readmes).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(readmes.org_id, org_id), (0, drizzle_orm.eq)(readmes.name, name), (0, drizzle_orm.isNull)(readmes.deleted))));
-		debug$5("package read successfully");
-		return manifestMerged;
+		return this.db.transaction(async (tx) => {
+			const [packageJson] = await tx.select({
+				json: packages.json,
+				revision: drizzle_orm.sql`xmin::text`
+			}).from(packages).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(packages.org_id, org_id), (0, drizzle_orm.eq)(packages.name, name), (0, drizzle_orm.isNull)(packages.deleted)));
+			if (!packageJson) {
+				if (noThrow) return {
+					manifest: {},
+					revision: null
+				};
+				throw _verdaccio_core.errorUtils.getNotFound("package.json not found");
+			}
+			const manifestMerged = mergeReadmesIntoManifest(JSON.parse(unescapeHtmlEntities(JSON.stringify(packageJson.json))), await tx.select({
+				version: readmes.version,
+				markdown: readmes.markdown
+			}).from(readmes).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(readmes.org_id, org_id), (0, drizzle_orm.eq)(readmes.name, name), (0, drizzle_orm.isNull)(readmes.deleted))));
+			debug$5("package read successfully");
+			return {
+				manifest: manifestMerged,
+				revision: packageJson.revision
+			};
+		}, {
+			isolationLevel: "repeatable read",
+			accessMode: "read only"
+		});
+	}
+	async read(name, noThrow) {
+		return (await this.readSnapshot(name, noThrow)).manifest;
 	}
 	async save(name, manifest, options) {
 		const org_id = await this.tenant.get(name);
 		const publishAccess = options?.access ?? extractAccessFromPublishBody(manifest);
+		const hasPendingUpdate = this.pendingUpdates.has(manifest);
+		const expectedRevision = this.pendingUpdates.get(manifest);
 		await this.db.transaction(async (tx) => {
 			let accessToStore;
 			if (publishAccess !== void 0) accessToStore = resolveStoredAccess(name, publishAccess);
@@ -1200,7 +1229,32 @@ var PackageService = class PackageService {
 				deleted: null
 			};
 			if (publishAccess !== void 0) packageUpdateSet.access = accessToStore;
-			try {
+			if (options?.createOnly) {
+				await tx.insert(packages).values({
+					org_id,
+					name,
+					json: manifestClean,
+					access: accessToStore
+				});
+				debug$5("package saved successfully");
+			} else if (hasPendingUpdate && expectedRevision !== null) {
+				const [updated] = await tx.update(packages).set({
+					json: manifestClean,
+					updated: /* @__PURE__ */ new Date(),
+					deleted: null,
+					...publishAccess !== void 0 ? { access: accessToStore } : {}
+				}).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(packages.org_id, org_id), (0, drizzle_orm.eq)(packages.name, name), (0, drizzle_orm.isNull)(packages.deleted), drizzle_orm.sql`xmin::text = ${expectedRevision}`)).returning({ name: packages.name });
+				if (!updated) throw _verdaccio_core.errorUtils.getConflict("package has been modified by another request");
+				debug$5("package saved successfully");
+			} else if (hasPendingUpdate) {
+				await tx.insert(packages).values({
+					org_id,
+					name,
+					json: manifestClean,
+					access: accessToStore
+				});
+				debug$5("package saved successfully");
+			} else {
 				await tx.insert(packages).values({
 					org_id,
 					name,
@@ -1211,14 +1265,14 @@ var PackageService = class PackageService {
 					set: packageUpdateSet
 				});
 				debug$5("package saved successfully");
-			} catch (error) {
-				debug$5("packages error: %o", error);
-				tx.rollback();
 			}
 		});
+		this.pendingUpdates.delete(manifest);
 	}
 	async update(name, handleUpdate) {
-		const manifestUpdated = await handleUpdate(await this.read(name, true));
+		const { manifest, revision } = await this.readSnapshot(name, true);
+		const manifestUpdated = await handleUpdate(manifest);
+		this.pendingUpdates.set(manifestUpdated, revision);
 		debug$5("package updated successfully");
 		return manifestUpdated;
 	}
@@ -1361,48 +1415,55 @@ var TarballService = class {
 		const org_id = await this.tenant.get(packageName);
 		const version = getVersionFromFilename(fileName);
 		const chunks = [];
-		const writable = new stream.Writable({ write(chunk, encoding, callback) {
-			chunks.push(Buffer.from(chunk));
-			callback();
-		} });
-		signal.addEventListener("abort", () => {
-			debug$4("aborting write stream");
-			writable.destroy();
-		});
-		process.nextTick(() => {
-			debug$4("opening write stream");
-			writable.emit("open");
-		});
-		writable.on("finish", async () => {
-			const data = Buffer.concat(chunks);
-			const tarballData = {
-				org_id,
-				name: packageName,
-				version,
-				filename: fileName,
-				data,
-				size: data.length
-			};
-			try {
-				await this.db.insert(tarballs).values(tarballData).onConflictDoUpdate({
+		const writable = new stream.Writable({
+			write(chunk, _encoding, callback) {
+				chunks.push(Buffer.from(chunk));
+				callback();
+			},
+			final: (callback) => {
+				const data = Buffer.concat(chunks);
+				const tarballData = {
+					org_id,
+					name: packageName,
+					version,
+					filename: fileName,
+					data,
+					size: data.length
+				};
+				this.db.insert(tarballs).values(tarballData).onConflictDoUpdate({
 					target: [
 						tarballs.org_id,
 						tarballs.name,
 						tarballs.version
 					],
 					set: {
+						filename: drizzle_orm.sql`excluded.filename`,
 						data: drizzle_orm.sql`excluded.data`,
 						size: drizzle_orm.sql`excluded.size`,
 						updated: /* @__PURE__ */ new Date(),
 						deleted: null
-					}
+					},
+					setWhere: (0, drizzle_orm.isNotNull)(tarballs.deleted)
+				}).returning({ id: tarballs.id }).then(([written]) => {
+					if (!written) throw _verdaccio_core.errorUtils.getConflict(`Tarball already exists: ${fileName}`);
+					debug$4("tarball written successfully");
+					chunks.length = 0;
+					callback();
+				}).catch((error) => {
+					debug$4("write error: %o", error);
+					chunks.length = 0;
+					callback(error);
 				});
-				debug$4("tarball written successfully");
-			} catch (err) {
-				debug$4("write error: %o", err);
-				tarballData.data = Buffer.alloc(0);
-				writable.destroy(err);
 			}
+		});
+		signal.addEventListener("abort", () => {
+			debug$4("aborting write stream");
+			chunks.length = 0;
+			writable.destroy();
+		});
+		process.nextTick(() => {
+			debug$4("opening write stream");
+			writable.emit("open");
 		});
 		writable.on("error", (err) => {
 			debug$4("write stream error: %o", err);

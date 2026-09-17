@@ -13,6 +13,7 @@ export declare class PackageService {
     private db;
     private logger;
     private tenant;
+    private pendingUpdates;
     constructor(database: Database, logger: Logger, tenant?: TenantService);
     exists(name: string): Promise<boolean>;
     create(name: string, manifest: Manifest, options?: {
@@ -21,9 +22,11 @@ export declare class PackageService {
     getAccess(name: string): Promise<PackageAccess>;
     setAccess(name: string, access: PackageAccess): Promise<void>;
     private getStoredAccess;
+    private readSnapshot;
     read(name: string, noThrow?: boolean): Promise<Manifest>;
     save(name: string, manifest: Manifest, options?: {
         access?: PackageAccess;
+        createOnly?: boolean;
     }): Promise<void>;
     update(name: string, handleUpdate: Callback): Promise<Manifest>;
     delete(name: string): Promise<void>;
