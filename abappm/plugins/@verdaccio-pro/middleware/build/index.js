@@ -162,7 +162,7 @@ var blockUnwantedRequests = (req, res, next) => {
 };
 //#endregion
 //#region src/middlewares/redirect-npm.ts
-var debug$9 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
+var debug$8 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
 var redirectNpmStyleUrl = (logger) => {
 	return (req, res, _next) => {
 		let packageName = req.params.all;
@@ -171,10 +171,10 @@ var redirectNpmStyleUrl = (logger) => {
 			res.status(404).send("Not Found");
 			return;
 		}
-		debug$9("redirect from %o", req.url);
+		debug$8("redirect from %o", req.url);
 		const redirectTo = "/-/web/detail/" + packageName;
 		logger.info({ redirectTo }, "Redirecting to @{redirectTo}");
-		debug$9("redirect to %o", redirectTo);
+		debug$8("redirect to %o", redirectTo);
 		res.redirect(redirectTo);
 	};
 };
@@ -185,7 +185,7 @@ var redirectRobotsTxt = (_req, res) => {
 };
 //#endregion
 //#region src/middlewares/generate-sitemap.ts
-var debug$8 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
+var debug$7 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
 function resolveStorage$1(storage) {
 	if (typeof storage?.get === "function") return storage;
 	const plugin = storage?.localStorage?.getStoragePlugin?.();
@@ -221,7 +221,7 @@ var generateSitemap = (storage, logger) => {
 			res.send(sitemap);
 		} catch (error) {
 			logger.error({ error }, "Failed to generate sitemap");
-			debug$8("failed to generate sitemap: %o", error);
+			debug$7("failed to generate sitemap: %o", error);
 			res.status(500).send("Failed to generate sitemap");
 		}
 	};
@@ -405,7 +405,7 @@ var profanity_fr_default = [
 ];
 //#endregion
 //#region src/middlewares/profanity-filter.ts
-var debug$7 = (0, debug.default)("verdaccio:plugin:PRO:middleware:profanity");
+var debug$6 = (0, debug.default)("verdaccio:plugin:PRO:middleware:profanity");
 leo_profanity.default.reset();
 leo_profanity.default.add(profanity_de_default);
 leo_profanity.default.add(profanity_fr_default);
@@ -435,7 +435,7 @@ var profanityFilter = (req, res, next) => {
 		return;
 	}
 	if (valueContainsProfanity(req.body)) {
-		debug$7("request body contained profanity");
+		debug$6("request body contained profanity");
 		res.status(400).send("Bad Request");
 		return;
 	}
@@ -481,7 +481,7 @@ var BLOCKED_REGISTRABLE_DOMAINS = [
 ];
 //#endregion
 //#region src/middlewares/blacklist-filter.ts
-var debug$6 = (0, debug.default)("verdaccio:plugin:PRO:middleware:blacklist");
+var debug$5 = (0, debug.default)("verdaccio:plugin:PRO:middleware:blacklist");
 var blocked = new Set(BLOCKED_REGISTRABLE_DOMAINS);
 var hrefSrcRe = /(?:\bhref\s*=|\bsrc\s*=)\s*["']([^"']+)["']/gi;
 var absoluteUrlRe = /https?:\/\/[^\s"'<>\]]+/gi;
@@ -540,7 +540,7 @@ var blacklistFilter = (req, res, next) => {
 		return;
 	}
 	if (valueContainsBlockedUrl(req.body)) {
-		debug$6("request body contained a blocked URL");
+		debug$5("request body contained a blocked URL");
 		res.status(400).send("Bad Request");
 		return;
 	}
@@ -548,7 +548,7 @@ var blacklistFilter = (req, res, next) => {
 };
 //#endregion
 //#region src/middlewares/event-log.ts
-var debug$5 = (0, debug.default)("verdaccio:plugin:PRO:middleware:event-log");
+var debug$4 = (0, debug.default)("verdaccio:plugin:PRO:middleware:event-log");
 var APM_COMMAND_HEADER = "apm-command";
 var ANONYMOUS_USER = "#";
 var VALID_EVENTS = /* @__PURE__ */ new Set([
@@ -631,12 +631,12 @@ var eventLog = (storage, logger) => {
 			next();
 			return;
 		}
-		debug$5("command %o", command);
+		debug$4("command %o", command);
 		const { name, version } = parsePackageFromUrl(req.path);
 		const user = resolveUser(req);
 		const store = resolveStorage(storage);
 		if (typeof store.logActivity === "function") {
-			debug$5("logging activity %o", {
+			debug$4("logging activity %o", {
 				command,
 				name,
 				version
@@ -654,7 +654,7 @@ var eventLog = (storage, logger) => {
 		if (typeof store.incrementDownloads === "function" && command === "tarball") {
 			const filename = tarballFilenameFromPath(req.path);
 			if (filename) {
-				debug$5("incrementing downloads %o", { filename });
+				debug$4("incrementing downloads %o", { filename });
 				store.incrementDownloads(filename).catch((error) => {
 					const errorMsg = error instanceof Error ? error.message : String(error);
 					logger.error({
@@ -669,7 +669,7 @@ var eventLog = (storage, logger) => {
 };
 //#endregion
 //#region src/middlewares/http-log.ts
-var debug$4 = (0, debug.default)("verdaccio:plugin:PRO:middleware:http-log");
+var debug$3 = (0, debug.default)("verdaccio:plugin:PRO:middleware:http-log");
 var HTTP_LOG_DIR = "http-logs";
 function requestPath(req) {
 	return req.originalUrl ?? req.url;
@@ -713,7 +713,7 @@ var httpLog = (config, logger) => {
 	const ensureLogDir = () => {
 		if (!dirReady) {
 			dirReady = (0, node_fs_promises.mkdir)(logDir, { recursive: true }).then(() => void 0);
-			debug$4("created log directory %s", logDir);
+			debug$3("created log directory %s", logDir);
 		}
 		return dirReady;
 	};
@@ -747,7 +747,7 @@ var httpLog = (config, logger) => {
 			body: parseBody(req.body)
 		};
 		ensureLogDir().then(() => (0, node_fs_promises.writeFile)(filePath, JSON.stringify(payload, null, 2) + "\n", "utf8")).then(() => {
-			debug$4("logged request %o", {
+			debug$3("logged request %o", {
 				filePath,
 				method,
 				path: requestPathValue
@@ -766,7 +766,7 @@ var httpLog = (config, logger) => {
 };
 //#endregion
 //#region src/middlewares/user-agent-filter.ts
-var debug$3 = (0, debug.default)("verdaccio:plugin:PRO:middleware:user-agent");
+var debug$2 = (0, debug.default)("verdaccio:plugin:PRO:middleware:user-agent");
 var userAgentFilter = (pattern) => {
 	let regex;
 	try {
@@ -777,7 +777,7 @@ var userAgentFilter = (pattern) => {
 	return (req, _res, next) => {
 		const userAgent = req.get("user-agent") ?? "";
 		if (!regex.test(userAgent)) {
-			debug$3("rejected user-agent %o", userAgent);
+			debug$2("rejected user-agent %o", userAgent);
 			next(_verdaccio_core.errorUtils.getForbidden("User-Agent not allowed"));
 			return;
 		}
@@ -788,7 +788,7 @@ var userAgentFilter = (pattern) => {
 //#region src/middlewares/killswitch.ts
 /**
 * Returns a request handler that exits the process after acknowledging the request.
-* Mount behind JWT auth at `GET /-/_kill`.
+* Mount behind authentication at `GET /-/_kill`.
 */
 var createKillswitch = (exit = (code) => {
 	process.exit(code);
@@ -804,8 +804,74 @@ var createKillswitch = (exit = (code) => {
 	};
 };
 //#endregion
-//#region src/middlewares/file-browser.ts
+//#region src/middlewares/build-info.ts
+var BUILD_INFO_KEYS = [
+	"BUILD_DATE",
+	"BUILD_SHA",
+	"NODE_VERSION",
+	"VERDACCIO_VERSION"
+];
+function getBuildInfoFromEnv(env = process.env) {
+	return BUILD_INFO_KEYS.reduce((buildInfos, key) => {
+		buildInfos[key] = env[key] ?? null;
+		return buildInfos;
+	}, {});
+}
+function buildInfo(_req, res) {
+	res.send({ env: getBuildInfoFromEnv() });
+}
+//#endregion
+//#region src/middlewares/basic-auth.ts
+var DASHBOARD_AUTH_REALM = "Verdaccio Pro Dashboard";
+var DASHBOARD_USER_ENV = "VERDACCIO_DASHBOARD_USER";
+var DASHBOARD_PASSWORD_ENV = "VERDACCIO_DASHBOARD_PASSWORD";
+function digest(value) {
+	return (0, node_crypto.createHash)("sha256").update(value).digest();
+}
+function parseCredentials(authorization) {
+	if (!authorization?.toLowerCase().startsWith("basic ")) return null;
+	try {
+		const decoded = Buffer.from(authorization.slice(6).trim(), "base64").toString("utf8");
+		const separator = decoded.indexOf(":");
+		if (separator < 0) return null;
+		return {
+			user: decoded.slice(0, separator),
+			password: decoded.slice(separator + 1)
+		};
+	} catch {
+		return null;
+	}
+}
+function unauthorized(res) {
+	res.setHeader("Cache-Control", "no-store");
+	res.setHeader("WWW-Authenticate", `Basic realm="${DASHBOARD_AUTH_REALM}", charset="UTF-8"`);
+	res.status(401).send("Unauthorized");
+}
+function requireBasicAuth(options = {
+	user: process.env[DASHBOARD_USER_ENV],
+	password: process.env[DASHBOARD_PASSWORD_ENV]
+}) {
+	const expectedUser = options.user;
+	const expectedPassword = options.password;
+	if (!expectedUser || !expectedPassword) throw new Error(`${DASHBOARD_USER_ENV} and ${DASHBOARD_PASSWORD_ENV} must be set`);
+	const expectedUserDigest = digest(expectedUser);
+	const expectedPasswordDigest = digest(expectedPassword);
+	return (req, res, next) => {
+		const credentials = parseCredentials(req.headers.authorization);
+		const userMatches = (0, node_crypto.timingSafeEqual)(digest(credentials?.user ?? ""), expectedUserDigest);
+		const passwordMatches = (0, node_crypto.timingSafeEqual)(digest(credentials?.password ?? ""), expectedPasswordDigest);
+		if (!userMatches || !passwordMatches) {
+			unauthorized(res);
+			return;
+		}
+		res.setHeader("Cache-Control", "no-store");
+		next();
+	};
+}
+//#endregion
+//#region src/middlewares/dashboard.ts
 var MAX_FILE_BYTES = 1048576;
+var DASHBOARD_PATH = "/-/_dashboard";
 var TEXT_EXTENSIONS = /* @__PURE__ */ new Set([
 	".yml",
 	".yaml",
@@ -830,7 +896,6 @@ var TEXT_EXTENSIONS = /* @__PURE__ */ new Set([
 	".ini",
 	".conf",
 	".cfg",
-	".env",
 	".sh",
 	".bash",
 	".zsh",
@@ -839,10 +904,7 @@ var TEXT_EXTENSIONS = /* @__PURE__ */ new Set([
 	".cmd",
 	".toml",
 	".csv",
-	".svg",
-	".gitignore",
-	".npmrc",
-	".dockerignore"
+	".svg"
 ]);
 var TEXT_BASENAMES = /* @__PURE__ */ new Set([
 	"dockerfile",
@@ -857,155 +919,172 @@ var TEXT_BASENAMES = /* @__PURE__ */ new Set([
 	"rakefile",
 	"procfile"
 ]);
+var BrowserError = class extends Error {
+	constructor(status, message) {
+		super(message);
+		this.status = status;
+	}
+};
+function escapeHtml(value) {
+	return String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;").replaceAll("'", "&#39;");
+}
+function isWithinRoot(root, candidate) {
+	const relative = node_path.default.relative(root, candidate);
+	return relative === "" || !relative.startsWith("..") && !node_path.default.isAbsolute(relative);
+}
 function isAllowedTextFile(filePath) {
-	const ext = node_path.default.extname(filePath).toLowerCase();
-	if (TEXT_EXTENSIONS.has(ext)) return true;
 	const base = node_path.default.basename(filePath).toLowerCase();
-	return TEXT_BASENAMES.has(base);
+	return TEXT_EXTENSIONS.has(node_path.default.extname(base)) || TEXT_BASENAMES.has(base);
 }
-function resolveSafePath(rootDir, requestedPath) {
-	const relative = requestedPath == null || requestedPath === "" ? "." : requestedPath;
-	const absolute = node_path.default.resolve(rootDir, relative);
-	const root = node_path.default.resolve(rootDir);
-	const relativeToRoot = node_path.default.relative(root, absolute);
-	if (relativeToRoot.startsWith("..") || node_path.default.isAbsolute(relativeToRoot)) return null;
-	return absolute;
-}
-function queryPath(req) {
-	const value = req.query.path;
-	if (typeof value === "string") return value;
-	if (Array.isArray(value) && typeof value[0] === "string") return value[0];
-}
-/**
-* Returns a request handler that lists directories and reads allowlisted text files.
-* Mount behind JWT auth at `GET /-/_files`.
-*/
-var createFileBrowser = (options = {}) => {
-	const rootDir = options.rootDir ?? process.cwd();
-	const maxFileBytes = options.maxFileBytes ?? MAX_FILE_BYTES;
-	return async (req, res) => {
-		const absolutePath = resolveSafePath(rootDir, queryPath(req));
-		if (absolutePath == null) {
-			res.status(400).send({ error: "Invalid path" });
-			return;
-		}
-		let stats;
-		try {
-			stats = await node_fs.promises.stat(absolutePath);
-		} catch {
-			res.status(404).send({ error: "Not found" });
-			return;
-		}
-		const relativePath = node_path.default.relative(rootDir, absolutePath).split(node_path.default.sep).join("/") || ".";
-		if (stats.isDirectory()) {
-			const names = await node_fs.promises.readdir(absolutePath);
-			const entries = await Promise.all(names.sort((a, b) => a.localeCompare(b)).map(async (name) => {
-				const entryPath = node_path.default.join(absolutePath, name);
-				try {
-					const entryStats = await node_fs.promises.stat(entryPath);
-					if (entryStats.isDirectory()) return {
-						name,
-						type: "directory"
-					};
-					return {
-						name,
-						type: "file",
-						size: entryStats.size,
-						readable: isAllowedTextFile(name)
-					};
-				} catch {
-					return {
-						name,
-						type: "unknown"
-					};
-				}
-			}));
-			res.status(200).send({
-				type: "directory",
-				path: relativePath,
-				entries
-			});
-			return;
-		}
-		if (!stats.isFile()) {
-			res.status(400).send({ error: "Unsupported path type" });
-			return;
-		}
-		if (!isAllowedTextFile(absolutePath)) {
-			res.status(415).send({ error: "File type not allowed" });
-			return;
-		}
-		if (stats.size > maxFileBytes) {
-			res.status(413).send({
-				error: "File too large",
-				maxBytes: maxFileBytes,
-				size: stats.size
-			});
-			return;
-		}
-		const content = await node_fs.promises.readFile(absolutePath, "utf8");
-		res.status(200).send({
-			type: "file",
-			path: relativePath,
-			size: stats.size,
-			content
+async function browse(rootDir, requestedPath, maxFileBytes) {
+	const root = await node_fs.promises.realpath(rootDir);
+	const lexicalPath = node_path.default.resolve(root, requestedPath || ".");
+	if (!isWithinRoot(root, lexicalPath)) throw new BrowserError(400, "Invalid path");
+	let absolutePath;
+	try {
+		absolutePath = await node_fs.promises.realpath(lexicalPath);
+	} catch {
+		throw new BrowserError(404, "Not found");
+	}
+	if (!isWithinRoot(root, absolutePath)) throw new BrowserError(400, "Invalid path");
+	const stats = await node_fs.promises.stat(absolutePath);
+	const relativePath = node_path.default.relative(root, absolutePath).split(node_path.default.sep).join("/") || ".";
+	if (stats.isDirectory()) {
+		const names = await node_fs.promises.readdir(absolutePath);
+		const entries = await Promise.all(names.map(async (name) => {
+			const entryPath = node_path.default.join(absolutePath, name);
+			try {
+				const entryStats = await node_fs.promises.lstat(entryPath);
+				if (entryStats.isSymbolicLink()) return {
+					name,
+					type: "unknown"
+				};
+				if (entryStats.isDirectory()) return {
+					name,
+					type: "directory",
+					modified: entryStats.mtime.toISOString()
+				};
+				if (entryStats.isFile()) return {
+					name,
+					type: "file",
+					size: entryStats.size,
+					modified: entryStats.mtime.toISOString(),
+					readable: isAllowedTextFile(name)
+				};
+				return {
+					name,
+					type: "unknown"
+				};
+			} catch {
+				return {
+					name,
+					type: "unknown"
+				};
+			}
+		}));
+		entries.sort((left, right) => {
+			if (left.type === "directory" && right.type !== "directory") return -1;
+			if (left.type !== "directory" && right.type === "directory") return 1;
+			return left.name.localeCompare(right.name);
 		});
+		return {
+			type: "directory",
+			path: relativePath,
+			entries
+		};
+	}
+	if (!stats.isFile()) throw new BrowserError(400, "Unsupported path type");
+	if (!isAllowedTextFile(absolutePath)) throw new BrowserError(415, "File type not allowed");
+	if (stats.size > maxFileBytes) throw new BrowserError(413, `File is larger than ${formatBytes(maxFileBytes)}`);
+	return {
+		type: "file",
+		path: relativePath,
+		size: stats.size,
+		modified: stats.mtime.toISOString(),
+		content: await node_fs.promises.readFile(absolutePath, "utf8")
 	};
-};
-//#endregion
-//#region src/middlewares/build-info.ts
-var BUILD_INFO_KEYS = [
-	"BUILD_DATE",
-	"BUILD_SHA",
-	"NODE_VERSION",
-	"VERDACCIO_VERSION"
-];
-function getBuildInfoFromEnv(env = process.env) {
-	return BUILD_INFO_KEYS.reduce((buildInfos, key) => {
-		buildInfos[key] = env[key] ?? null;
-		return buildInfos;
-	}, {});
 }
-function buildInfo(_req, res) {
-	res.send({ env: getBuildInfoFromEnv() });
+function formatBytes(bytes) {
+	if (bytes < 1024) return `${bytes} B`;
+	if (bytes < 1048576) return `${(bytes / 1024).toFixed(1)} KB`;
+	return `${(bytes / 1048576).toFixed(1)} MB`;
 }
-//#endregion
-//#region src/middlewares/require-jwt-auth.ts
-var debug$2 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
-var BEARER_PREFIX = "bearer ";
-var JWT_AUTH_REALM = "Verdaccio Pro";
-function unauthorized(res) {
-	res.setHeader("WWW-Authenticate", `Bearer realm="${JWT_AUTH_REALM}"`);
-	res.status(401).send("Unauthorized");
+function formatDuration(seconds) {
+	const days = Math.floor(seconds / 86400);
+	const hours = Math.floor(seconds % 86400 / 3600);
+	const minutes = Math.floor(seconds % 3600 / 60);
+	return [
+		days ? `${days}d` : "",
+		hours ? `${hours}h` : "",
+		`${minutes}m`
+	].filter(Boolean).join(" ");
 }
-function hasBearerToken(authorization) {
-	if (authorization == null || !authorization.toLowerCase().startsWith(BEARER_PREFIX)) return false;
-	return authorization.slice(7).trim().length > 0;
+function fileHref(relativePath) {
+	return `${DASHBOARD_PATH}?path=${encodeURIComponent(relativePath)}`;
 }
-function isAdmin(remoteUser) {
-	return remoteUser.groups.includes("@apm") || remoteUser.real_groups.includes("@apm");
+function renderBrowser(result) {
+	if (result.type === "file") {
+		const parent = node_path.default.posix.dirname(result.path);
+		return `<section class="panel"><div class="browser-head"><h2>${escapeHtml(result.path)}</h2><a href="${fileHref(parent)}">Parent directory</a></div><p class="muted">${formatBytes(result.size)} · ${escapeHtml(result.modified)}</p><pre>${escapeHtml(result.content)}</pre></section>`;
+	}
+	const parent = result.path === "." ? null : node_path.default.posix.dirname(result.path);
+	const rows = [parent == null ? "" : `<tr><td><a href="${fileHref(parent)}">../</a></td><td>directory</td><td>—</td><td>—</td></tr>`, ...result.entries.map((entry) => {
+		const childPath = result.path === "." ? entry.name : `${result.path}/${entry.name}`;
+		const canOpen = entry.type === "directory" || entry.type === "file" && entry.readable;
+		const name = `${escapeHtml(entry.name)}${entry.type === "directory" ? "/" : ""}`;
+		return `<tr><td>${canOpen ? `<a href="${fileHref(childPath)}">${name}</a>` : name}</td><td>${entry.type}</td><td>${entry.size == null ? "—" : formatBytes(entry.size)}</td><td>${escapeHtml(entry.modified ?? "—")}</td></tr>`;
+	})].join("");
+	return `<section class="panel"><div class="browser-head"><h2>Files / ${escapeHtml(result.path)}</h2><span class="muted">Text files up to ${formatBytes(MAX_FILE_BYTES)}</span></div><table><thead><tr><th>Name</th><th>Type</th><th>Size</th><th>Modified</th></tr></thead><tbody>${rows}</tbody></table></section>`;
 }
-/**
-* Express middleware that requires a Verdaccio JWT Bearer token.
-* Relies on Verdaccio's JWT middleware having already resolved the token
-* onto `req.remote_user`. Authorized users must belong to the `@apm` group.
-*/
-var requireJwtAuth = () => {
-	return (req, res, next) => {
-		if (!hasBearerToken(req.headers.authorization)) {
-			unauthorized(res);
-			return;
-		}
-		const remoteUser = req.remote_user;
-		if (!remoteUser?.name || !isAdmin(remoteUser)) {
-			debug$2("jwt auth denied for user %o", remoteUser?.name);
-			unauthorized(res);
-			return;
-		}
-		debug$2("jwt auth granted for user %s", remoteUser.name);
-		next();
+function resolveStatsStorage(storage) {
+	if (typeof storage.get === "function") return storage;
+	return storage.getStoragePlugin?.() ?? storage.localStorage?.getStoragePlugin?.() ?? storage;
+}
+async function getRegistryStats(storage, now) {
+	const statsStorage = resolveStatsStorage(storage);
+	if (typeof statsStorage.get !== "function") throw new Error("Registry storage statistics are unavailable");
+	const packages = await statsStorage.get();
+	if (typeof statsStorage.getDownloads !== "function") return {
+		packages: packages.length,
+		downloads: null
 	};
-};
+	const end = now.toISOString().slice(0, 10);
+	const startDate = new Date(now);
+	startDate.setUTCDate(startDate.getUTCDate() - 29);
+	const downloads = await statsStorage.getDownloads("d", startDate.toISOString().slice(0, 10), end);
+	return {
+		packages: packages.length,
+		downloads: downloads?.reduce((total, row) => total + row.count, 0) ?? 0
+	};
+}
+function createDashboard(storage, options = {}) {
+	const env = options.env ?? process.env;
+	const rootDir = options.rootDir ?? env["VERDACCIO_DASHBOARD_ROOT"] ?? process.cwd();
+	const maxFileBytes = options.maxFileBytes ?? MAX_FILE_BYTES;
+	const now = options.now ?? (() => /* @__PURE__ */ new Date());
+	const uptime = options.uptime ?? process.uptime;
+	const memoryUsage = options.memoryUsage ?? process.memoryUsage;
+	return async (req, res) => {
+		const requestedPath = typeof req.query.path === "string" ? req.query.path : ".";
+		const currentTime = now();
+		const [statsResult, browserResult] = await Promise.allSettled([getRegistryStats(storage, currentTime), browse(rootDir, requestedPath, maxFileBytes)]);
+		const build = getBuildInfoFromEnv(env);
+		const memory = memoryUsage();
+		const registryStats = statsResult.status === "fulfilled" ? statsResult.value : {
+			packages: 0,
+			downloads: null
+		};
+		const browserHtml = browserResult.status === "fulfilled" ? renderBrowser(browserResult.value) : `<section class="panel error"><h2>Files</h2><p>${escapeHtml(browserResult.reason instanceof Error ? browserResult.reason.message : "Unable to browse files")}</p></section>`;
+		res.setHeader("Content-Type", "text/html; charset=utf-8");
+		res.status(browserResult.status === "rejected" && browserResult.reason instanceof BrowserError ? browserResult.reason.status : 200);
+		res.send(`<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Verdaccio Pro Dashboard</title><style>
+:root{color-scheme:dark;background:#101410;color:#ecf3ec;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}*{box-sizing:border-box}body{margin:0;background:#101410}main{max-width:1180px;margin:auto;padding:32px 20px 64px}header{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:24px}h1,h2{margin:0}h1{font-size:28px}h2{font-size:16px}.eyebrow,.muted{color:#9aac9a}.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:12px;margin-bottom:8px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:12px}.card,.panel{background:#182018;border:1px solid #354535;border-radius:8px}.card{padding:18px}.card strong{display:block;font-size:24px;margin-top:10px}.panel{padding:20px;margin-top:12px;overflow:auto}.build{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}.build div{border-left:2px solid #cd4000;padding-left:12px}.build span{display:block;color:#9aac9a;font-size:12px;margin-bottom:5px}.browser-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}table{border-collapse:collapse;width:100%;min-width:680px}th,td{text-align:left;border-bottom:1px solid #2d392d;padding:10px 8px}th{color:#9aac9a;font-size:12px;text-transform:uppercase}a{color:#9bd49b;text-decoration:none}a:hover{text-decoration:underline}pre{white-space:pre-wrap;word-break:break-word;background:#0b0e0b;border:1px solid #2d392d;padding:16px;border-radius:6px;line-height:1.5}.error{border-color:#8f4545;color:#ffb7b7}@media(max-width:650px){header,.browser-head{align-items:flex-start;flex-direction:column}}
+</style></head><body><main><header><div><div class="eyebrow">Verdaccio Pro</div><h1>Registry dashboard</h1></div><div class="muted">${escapeHtml(currentTime.toISOString())}</div></header>
+<section class="grid"><div class="card"><span class="muted">Local packages</span><strong>${registryStats.packages}</strong></div><div class="card"><span class="muted">Downloads · 30 days</span><strong>${registryStats.downloads ?? "n/a"}</strong></div><div class="card"><span class="muted">Uptime</span><strong>${escapeHtml(formatDuration(uptime()))}</strong></div><div class="card"><span class="muted">Memory RSS</span><strong>${formatBytes(memory.rss)}</strong></div></section>
+<section class="panel"><div class="browser-head"><h2>Build information</h2><a href="${DASHBOARD_PATH}">Dashboard root</a></div><div class="build">${Object.entries(build).map(([key, value]) => `<div><span>${escapeHtml(key)}</span>${escapeHtml(value ?? "not set")}</div>`).join("")}</div></section>${browserHtml}</main></body></html>`);
+	};
+}
 //#endregion
 //#region src/plugin.ts
 var debug$1 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
@@ -1031,10 +1110,12 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		if (c.redirectNpmStyleUrl !== false) app.use("/package/{*all}", redirectNpmStyleUrl(this.logger));
 		app.get("/robots.txt", redirectRobotsTxt);
 		app.get("/sitemap.xml", generateSitemap(storage, this.logger));
-		const adminAuth = requireJwtAuth();
-		app.get("/-/_build", adminAuth, buildInfo);
-		app.get("/-/_kill", adminAuth, createKillswitch());
-		app.get("/-/_files", adminAuth, createFileBrowser());
+		const dashboardAuth = requireBasicAuth();
+		const dashboard = createDashboard(storage);
+		app.get("/-/_dashboard", dashboardAuth, dashboard);
+		app.get("/-/_build", dashboardAuth, buildInfo);
+		app.get("/-/_kill", dashboardAuth, createKillswitch());
+		app.get("/-/_files", dashboardAuth, dashboard);
 	}
 };
 //#endregion

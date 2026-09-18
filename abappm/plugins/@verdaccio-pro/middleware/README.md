@@ -54,6 +54,20 @@ Redirects `/package/*` URLs to the web UI detail page (e.g., `/package/@scope/pk
 
 When set, rejects requests whose `User-Agent` header does not match the given RegExp source.
 
+### Operations Dashboard
+
+Provides a Basic Auth-protected dashboard at `/-/_dashboard` with build metadata, local package and recent download counts, process uptime and memory usage, and an HTML file browser. The file browser is rooted at the Verdaccio working directory by default, refuses path and symlink escapes, and only opens allowlisted text files up to 1 MB.
+
+Set both required credentials before starting Verdaccio:
+
+| Environment variable           | Required | Description                                                            |
+| ------------------------------ | -------- | ---------------------------------------------------------------------- |
+| `VERDACCIO_DASHBOARD_USER`     | yes      | Basic Auth username for the dashboard and operations endpoints.        |
+| `VERDACCIO_DASHBOARD_PASSWORD` | yes      | Basic Auth password for the dashboard and operations endpoints.        |
+| `VERDACCIO_DASHBOARD_ROOT`     | no       | Absolute file-browser root. Defaults to the process working directory. |
+
+The same credentials protect the existing `/-/_build`, `/-/_files`, and `/-/_kill` endpoints. Serve these endpoints over HTTPS because Basic Auth credentials are encoded, not encrypted.
+
 ## Quickstart
 
 Add the following to your Verdaccio configuration:
