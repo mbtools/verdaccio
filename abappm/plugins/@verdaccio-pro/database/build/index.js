@@ -1237,12 +1237,22 @@ var PackageService = class PackageService {
 			};
 			if (publishAccess !== void 0) packageUpdateSet.access = accessToStore;
 			if (options?.createOnly) {
-				await tx.insert(packages).values({
+				const [created] = await tx.insert(packages).values({
 					org_id,
 					name,
 					json: manifestClean,
 					access: accessToStore
-				});
+				}).onConflictDoUpdate({
+					target: [packages.org_id, packages.name],
+					set: {
+						json: drizzle_orm.sql`excluded.json`,
+						access: drizzle_orm.sql`excluded.access`,
+						updated: /* @__PURE__ */ new Date(),
+						deleted: null
+					},
+					setWhere: (0, drizzle_orm.isNotNull)(packages.deleted)
+				}).returning({ name: packages.name });
+				if (!created) throw _verdaccio_core.errorUtils.getConflict("package already exists");
 				debug$5("package saved successfully");
 			} else if (hasPendingUpdate && expectedRevision !== null) {
 				const [updated] = await tx.update(packages).set({
