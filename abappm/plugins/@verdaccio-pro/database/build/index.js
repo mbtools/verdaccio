@@ -169,6 +169,13 @@ var getDatabase = (url, logger) => {
 	connections.set(url, db);
 	return db;
 };
+/** Drop a cached pool so the next getDatabase() opens a fresh connection. */
+var resetDatabaseConnection = async (url) => {
+	const cached = connections.get(url);
+	if (!cached) return;
+	connections.delete(url);
+	await cached.$client.end();
+};
 //#endregion
 //#region src/db/schema/index.ts
 var timestamps = {
@@ -1151,7 +1158,7 @@ var PackageService = class PackageService {
 				const [existing] = await tx.select({ access: packages.access }).from(packages).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(packages.org_id, org_id), (0, drizzle_orm.eq)(packages.name, name), (0, drizzle_orm.isNull)(packages.deleted)));
 				accessToStore = existing?.access ?? resolveStoredAccess(name);
 			}
-			const tags = manifest["dist-tags"];
+			const tags = manifest["dist-tags"] ?? {};
 			const distTagsData = Object.entries(tags).map(([tag, version]) => ({
 				org_id,
 				tag,
@@ -1280,11 +1287,12 @@ var PackageService = class PackageService {
 		const org_id = await this.tenant.get(name);
 		await this.db.transaction(async (tx) => {
 			try {
-				await tx.update(packages).set({ deleted: /* @__PURE__ */ new Date() }).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(packages.org_id, org_id), (0, drizzle_orm.eq)(packages.name, name)));
+				const [deleted] = await tx.update(packages).set({ deleted: /* @__PURE__ */ new Date() }).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(packages.org_id, org_id), (0, drizzle_orm.eq)(packages.name, name), (0, drizzle_orm.isNull)(packages.deleted))).returning({ name: packages.name });
+				if (!deleted) throw _verdaccio_core.errorUtils.getNotFound("package not found");
 				debug$5("package deleted successfully");
 			} catch (error) {
 				debug$5("packages error: %o", error);
-				tx.rollback();
+				throw error;
 			}
 			try {
 				await tx.update(readmes).set({ deleted: /* @__PURE__ */ new Date() }).where((0, drizzle_orm.and)((0, drizzle_orm.eq)(readmes.org_id, org_id), (0, drizzle_orm.eq)(readmes.name, name)));
@@ -1399,11 +1407,12 @@ var TarballService = class {
 		signal.addEventListener("abort", () => {
 			debug$4("aborting read stream");
 			tarballData.data = Buffer.alloc(0);
-			readable.destroy();
+			const abortError = Object.assign(/* @__PURE__ */ new Error("ABORT_ERR"), { code: "ABORT_ERR" });
+			readable.destroy(abortError);
 		});
 		readable.on("open", () => {
 			debug$4("opening read stream");
-			readable.emit("content-size", tarballData.size);
+			readable.emit("content-length", tarballData.size);
 		});
 		process.nextTick(() => {
 			readable.emit("open");
@@ -1761,6 +1770,7 @@ exports.paddleEvents = paddleEvents;
 exports.paddleSubscriptions = paddleSubscriptions;
 exports.permissionEnum = permissionEnum;
 exports.readmes = readmes;
+exports.resetDatabaseConnection = resetDatabaseConnection;
 exports.resolveOrgName = resolveOrgName;
 exports.resolveStoredAccess = resolveStoredAccess;
 exports.roles = roles;

@@ -35,8 +35,8 @@
   "scripts": {
     "build": "vite build",
     "test": "cross-env NODE_ENV=test vitest run",
-    "db-server:file": "pglite-server --db=local.db",
-    "db-server:memory": "pglite-server",
+    "db-server:file": "pglite-server --db=local.db --max-connections=10",
+    "db-server:memory": "pglite-server --max-connections=10",
     "db:studio": "drizzle-kit studio",
     "db:generate": "drizzle-kit generate",
     "db:visualize": "pnpx drizzle-lab visualizer",
