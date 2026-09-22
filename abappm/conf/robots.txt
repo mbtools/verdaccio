@@ -6,7 +6,7 @@
 # ./o--000'""`-0-0-'"`-0-0-'"`-0-0-'"
 # 
 # By accessing apm.to and abappm.com websites you agree to our Terms of Service, available at
-# https://abappm.com/terms-of-use/
+# https://docs.abappm.com/policies/
 #
 # As always, Asimov's Three Laws are in effect:
 # 1. A robot may not injure a human being or, through inaction, allow a human being to come to harm.

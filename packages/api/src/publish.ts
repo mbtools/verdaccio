@@ -244,7 +244,7 @@ export function publishPackage(
     debug('publishing package %s', packageName);
     debug('revision %s', revision);
     if (debug.enabled) {
-      debug('body %o', req.body);
+      // debug('body %o', req.body); // apm
     }
     const metadata = req.body;
 

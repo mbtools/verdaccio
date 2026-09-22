@@ -54,7 +54,7 @@ var apmFooterHtml = `
   }
   @media (min-width: 768px) {
     .apm-footer-grid {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
     }
   }
   .apm-footer-tagline {
@@ -144,6 +144,14 @@ var apmFooterHtml = `
           <li><a href="https://abappm.com/about" target="_blank" rel="noopener noreferrer">About</a></li>
           <li><a href="https://github.com/abappm" target="_blank" rel="noopener noreferrer">GitHub</a></li>
           <li><a href="https://status.abappm.com" target="_blank" rel="noopener noreferrer">Status</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="apm-footer-heading">Legal</h4>
+        <ul class="apm-footer-links">
+          <li><a href="https://docs.abappm.com/policies/" target="_blank" rel="noopener noreferrer">Policies</a></li>
+          <li><a href="https://docs.abappm.com/policies/terms-of-use.html" target="_blank" rel="noopener noreferrer">Terms</a></li>
+          <li><a href="https://docs.abappm.com/policies/privacy-policy.html" target="_blank" rel="noopener noreferrer">Privacy</a></li>
         </ul>
       </div>
       <div>
