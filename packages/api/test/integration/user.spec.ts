@@ -6,7 +6,9 @@ import { API_ERROR, HEADERS, HEADER_TYPE, HTTP_STATUS, TOKEN_BEARER } from '@ver
 
 import { buildToken, createUser, getPackage, initializeServer } from './_helper';
 
-const FORBIDDEN_VUE = 'Authorization required to access package vue';
+// apm
+const FORBIDDEN_VUE =
+  'Authorization required to access package vue. Sign up at https://abappm.com/';
 
 vi.setConfig({ testTimeout: 20000 });
 

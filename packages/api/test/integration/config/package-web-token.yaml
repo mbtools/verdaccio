@@ -18,8 +18,8 @@ log: { type: stdout, format: pretty, level: trace }
 packages:
   '@*/*':
     access: $authenticated
-    publish: $anonymous
+    publish: $authenticated # apm
   '**':
     access: $authenticated
-    publish: $anonymous
+    publish: $authenticated # apm
 _debug: true
