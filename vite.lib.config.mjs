@@ -130,7 +130,7 @@ export function createLibConfig(dirname, options = {}) {
     build: {
       outDir,
       emptyOutDir: true,
-      sourcemap: false,
+      sourcemap: false, // apm
       minify: false,
       lib: {
         entry: entries,

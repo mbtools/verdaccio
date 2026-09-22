@@ -32,9 +32,9 @@ const LoginDialog: React.FC<Props> = ({ onClose, open = false }) => {
       <DialogContent data-testid="dialogContentLogin">
         <LoginFormHeader />
         <LoginDialogForm />
-        <div style={{ textAlign: 'center', marginTop: 16 }}>
+        <div style={{ textAlign: 'center', marginTop: 16, fontSize: 16 }}>
           <LinkExternal to="https://abappm.com/#pricing" data-testid="signup-link">
-            Not registered? Sign up here
+            Not registered? Sign up at abappm.com!
           </LinkExternal>
         </div>
       </DialogContent>
