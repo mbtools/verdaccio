@@ -143,11 +143,11 @@ var setSecurityHeaders = (allowedOrigins = []) => {
 //#region src/middlewares/block-requests.ts
 var blockUnwantedRequests = (req, res, next) => {
 	const path = req.path ?? req.url?.split("?")[0] ?? "";
-	if (path.includes("/robots.txt") || path.includes("/sitemap.xml")) {
+	if (path.includes("/robots.txt") || path.includes("/security.txt") || path.includes("/sitemap.xml")) {
 		next();
 		return;
 	}
-	if (/\.(env|php|exe|cmd|bat|sh|csh|ksh|zsh|ps1|txt|pdf|doc|docx|xls|xlsx|ppt|pptx)$/.test(path)) {
+	if (/\.(env|log|php|exe|cmd|bat|sh|csh|ksh|zsh|ps1|txt|pdf|doc|docx|xls|xlsx|ppt|pptx)$/.test(path)) {
 		res.status(404).send("Not Found");
 		return;
 	}
@@ -182,6 +182,11 @@ var redirectNpmStyleUrl = (logger) => {
 //#region src/middlewares/redirect-robots.ts
 var redirectRobotsTxt = (_req, res) => {
 	res.redirect("/-/assets/robots.txt");
+};
+//#endregion
+//#region src/middlewares/redirect-security.ts
+var redirectSecurityTxt = (_req, res) => {
+	res.redirect("/-/assets/security.txt");
 };
 //#endregion
 //#region src/middlewares/generate-sitemap.ts
@@ -822,7 +827,7 @@ function buildInfo(_req, res) {
 }
 //#endregion
 //#region src/middlewares/basic-auth.ts
-var DASHBOARD_AUTH_REALM = "Verdaccio Pro Dashboard";
+var DASHBOARD_AUTH_REALM = "apm Dashboard";
 var DASHBOARD_USER_ENV = "VERDACCIO_DASHBOARD_USER";
 var DASHBOARD_PASSWORD_ENV = "VERDACCIO_DASHBOARD_PASSWORD";
 function digest(value) {
@@ -1109,6 +1114,7 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		if (c.eventLog !== false) app.use(eventLog(storage, this.logger));
 		if (c.redirectNpmStyleUrl !== false) app.use("/package/{*all}", redirectNpmStyleUrl(this.logger));
 		app.get("/robots.txt", redirectRobotsTxt);
+		app.get("/.well-known/security.txt", redirectSecurityTxt);
 		app.get("/sitemap.xml", generateSitemap(storage, this.logger));
 		const dashboardAuth = requireBasicAuth();
 		const dashboard = createDashboard(storage);
