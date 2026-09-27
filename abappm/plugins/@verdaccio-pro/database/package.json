@@ -1,6 +1,6 @@
 {
   "name": "@verdaccio-pro/database",
-  "version": "1.4.4",
+  "version": "1.5.0",
   "description": "Database Layer for Verdaccio Pro (Postgres/Drizzle)",
   "keywords": [
     "database",
@@ -52,7 +52,6 @@
   "dependencies": {
     "@verdaccio/core": "next-9",
     "debug": "4.4.3",
-    "dotenv": "17.4.2",
     "drizzle-orm": "1.0.0-rc.4",
     "pg": "8.23.0",
     "zod": "4.6.5"
