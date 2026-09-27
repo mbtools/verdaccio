@@ -1,5 +1,20 @@
 # @verdaccio/node-api
 
+## 9.0.0-next-9.32
+
+### Patch Changes
+
+- f3f8976: chore: replace \_\_dirname with import.meta.dirname
+- Updated dependencies [107c4d3]
+- Updated dependencies [34cd0fb]
+- Updated dependencies [f3f8976]
+- Updated dependencies [89a7362]
+- Updated dependencies [cbfcfd2]
+- Updated dependencies [a4e2da0]
+- Updated dependencies [107c4d3]
+  - @verdaccio/logger@9.0.0-next-9.32
+  - @verdaccio/config@9.0.0-next-9.32
+
 ## 9.0.0-next-9.31
 
 ### Patch Changes
@@ -416,7 +431,7 @@
 
 ### Patch Changes
 
-- 54b1906: chore(deps): node-api, proxy, search, search-indexer
+- 54b1906: chore(deps): node-api, proxy, search
 - Updated dependencies [15bd80b]
 - Updated dependencies [9350431]
   - @verdaccio/server@8.0.0-next-8.19
