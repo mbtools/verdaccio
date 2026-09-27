@@ -1,6 +1,8 @@
 #
 # --- Build Stage ---
 #
+
+# https://hub.docker.com/hardened-images/catalog/dhi/node/images
 FROM --platform=${BUILDPLATFORM:-linux/amd64} dhi.io/node:24-alpine3.23-dev AS builder
 
 ENV NODE_ENV=production \
