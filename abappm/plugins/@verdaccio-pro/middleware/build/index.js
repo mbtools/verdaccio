@@ -162,7 +162,7 @@ var blockUnwantedRequests = (req, res, next) => {
 };
 //#endregion
 //#region src/middlewares/redirect-npm.ts
-var debug$8 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
+var debug$10 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
 var redirectNpmStyleUrl = (logger) => {
 	return (req, res, _next) => {
 		let packageName = req.params.all;
@@ -171,10 +171,10 @@ var redirectNpmStyleUrl = (logger) => {
 			res.status(404).send("Not Found");
 			return;
 		}
-		debug$8("redirect from %o", req.url);
+		debug$10("redirect from %o", req.url);
 		const redirectTo = "/-/web/detail/" + packageName;
 		logger.info({ redirectTo }, "Redirecting to @{redirectTo}");
-		debug$8("redirect to %o", redirectTo);
+		debug$10("redirect to %o", redirectTo);
 		res.redirect(redirectTo);
 	};
 };
@@ -190,7 +190,7 @@ var redirectSecurityTxt = (_req, res) => {
 };
 //#endregion
 //#region src/middlewares/generate-sitemap.ts
-var debug$7 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
+var debug$9 = (0, debug.default)("verdaccio:plugin:PRO:middleware");
 function resolveStorage$1(storage) {
 	if (typeof storage?.get === "function") return storage;
 	const plugin = storage?.localStorage?.getStoragePlugin?.();
@@ -226,7 +226,7 @@ var generateSitemap = (storage, logger) => {
 			res.send(sitemap);
 		} catch (error) {
 			logger.error({ error }, "Failed to generate sitemap");
-			debug$7("failed to generate sitemap: %o", error);
+			debug$9("failed to generate sitemap: %o", error);
 			res.status(500).send("Failed to generate sitemap");
 		}
 	};
@@ -410,7 +410,7 @@ var profanity_fr_default = [
 ];
 //#endregion
 //#region src/middlewares/profanity-filter.ts
-var debug$6 = (0, debug.default)("verdaccio:plugin:PRO:middleware:profanity");
+var debug$8 = (0, debug.default)("verdaccio:plugin:PRO:middleware:profanity");
 leo_profanity.default.reset();
 leo_profanity.default.add(profanity_de_default);
 leo_profanity.default.add(profanity_fr_default);
@@ -440,7 +440,7 @@ var profanityFilter = (req, res, next) => {
 		return;
 	}
 	if (valueContainsProfanity(req.body)) {
-		debug$6("request body contained profanity");
+		debug$8("request body contained profanity");
 		res.status(400).send("Bad Request");
 		return;
 	}
@@ -486,7 +486,7 @@ var BLOCKED_REGISTRABLE_DOMAINS = [
 ];
 //#endregion
 //#region src/middlewares/blacklist-filter.ts
-var debug$5 = (0, debug.default)("verdaccio:plugin:PRO:middleware:blacklist");
+var debug$7 = (0, debug.default)("verdaccio:plugin:PRO:middleware:blacklist");
 var blocked = new Set(BLOCKED_REGISTRABLE_DOMAINS);
 var hrefSrcRe = /(?:\bhref\s*=|\bsrc\s*=)\s*["']([^"']+)["']/gi;
 var absoluteUrlRe = /https?:\/\/[^\s"'<>\]]+/gi;
@@ -545,10 +545,114 @@ var blacklistFilter = (req, res, next) => {
 		return;
 	}
 	if (valueContainsBlockedUrl(req.body)) {
-		debug$5("request body contained a blocked URL");
+		debug$7("request body contained a blocked URL");
 		res.status(400).send("Bad Request");
 		return;
 	}
+	next();
+};
+//#endregion
+//#region src/middlewares/email-obfuscation.ts
+var debug$6 = (0, debug.default)("verdaccio:plugin:PRO:middleware:email-obfuscation");
+var mailtoHrefRe = /(\bhref\s*=\s*)(["'])(mailto:[^"']+)\2/gi;
+function encodeAsHtmlEntities(text) {
+	let out = "";
+	for (let i = 0; i < text.length; i++) out += `&#${text.charCodeAt(i)};`;
+	return out;
+}
+function isHtmlResponse$1(res, body) {
+	const header = res.getHeader("Content-Type");
+	const contentType = Array.isArray(header) ? header.join(";") : String(header ?? "");
+	if (contentType) return /text\/html/i.test(contentType);
+	return /^\s*</.test(body);
+}
+/** Encodes the address portion of a mailto URL as HTML decimal entities. */
+function obfuscateMailtoHref(hrefValue) {
+	if (!/^mailto:/i.test(hrefValue)) return hrefValue;
+	if (/&#\d+;/.test(hrefValue)) return hrefValue;
+	return `mailto:${encodeAsHtmlEntities(hrefValue.slice(7))}`;
+}
+/** Replaces every mailto href in an HTML fragment with an obfuscated form. */
+function obfuscateMailtoInString(text) {
+	if (!text.includes("mailto:")) return text;
+	mailtoHrefRe.lastIndex = 0;
+	let changed = false;
+	const result = text.replace(mailtoHrefRe, (_match, attr, quote, mailto) => {
+		const obfuscated = obfuscateMailtoHref(mailto);
+		if (obfuscated !== mailto) changed = true;
+		return `${attr}${quote}${obfuscated}${quote}`;
+	});
+	if (changed) debug$6("obfuscated mailto href(s)");
+	return result;
+}
+/**
+* Rewrites mailto href attributes in HTML responses so scrapers cannot
+* match plain email addresses in the raw markup. JSON responses are left alone.
+*/
+var emailObfuscation = (_req, res, next) => {
+	const originalSend = res.send.bind(res);
+	res.send = ((body) => {
+		if (typeof body === "string" && isHtmlResponse$1(res, body)) return originalSend(obfuscateMailtoInString(body));
+		return originalSend(body);
+	});
+	next();
+};
+//#endregion
+//#region src/middlewares/github-git-href.ts
+var debug$5 = (0, debug.default)("verdaccio:plugin:PRO:middleware:github-git-href");
+var hrefRe = /(\bhref\s*=\s*)(["'])([^"']+)\2/gi;
+function isHtmlResponse(res, body) {
+	const header = res.getHeader("Content-Type");
+	const contentType = Array.isArray(header) ? header.join(";") : String(header ?? "");
+	if (contentType) return /text\/html/i.test(contentType);
+	return /^\s*</.test(body);
+}
+function isGithubHost(hostname) {
+	return /^(?:www\.)?github\.com$/i.test(hostname);
+}
+/**
+* Removes a trailing `.git` suffix from github.com href URLs.
+* Non-GitHub URLs and URLs without a `.git` suffix are left unchanged.
+*/
+function stripGithubGitHref(hrefValue) {
+	if (!/github\.com/i.test(hrefValue) || !/\.git(?:\/)?(?:[?#]|$)/i.test(hrefValue)) return hrefValue;
+	const isProtocolRelative = hrefValue.startsWith("//");
+	let parsed;
+	try {
+		parsed = new URL(isProtocolRelative ? `https:${hrefValue}` : hrefValue);
+	} catch {
+		return hrefValue;
+	}
+	if (!isGithubHost(parsed.hostname)) return hrefValue;
+	const path = parsed.pathname;
+	if (!/\.git\/?$/i.test(path)) return hrefValue;
+	parsed.pathname = path.replace(/\.git\/?$/i, "");
+	if (isProtocolRelative) return `//${parsed.host}${parsed.pathname}${parsed.search}${parsed.hash}`;
+	return parsed.toString();
+}
+/** Replaces every github.com href ending in `.git` with the suffix removed. */
+function stripGithubGitInString(text) {
+	if (!/github\.com/i.test(text) || !/\.git/i.test(text)) return text;
+	hrefRe.lastIndex = 0;
+	let changed = false;
+	const result = text.replace(hrefRe, (_match, attr, quote, href) => {
+		const rewritten = stripGithubGitHref(href);
+		if (rewritten !== href) changed = true;
+		return `${attr}${quote}${rewritten}${quote}`;
+	});
+	if (changed) debug$5("stripped .git from github.com href(s)");
+	return result;
+}
+/**
+* Rewrites github.com href attributes that end in `.git` so the browser
+* opens the repository page instead of a git clone URL. JSON is left alone.
+*/
+var githubGitHref = (_req, res, next) => {
+	const originalSend = res.send.bind(res);
+	res.send = ((body) => {
+		if (typeof body === "string" && isHtmlResponse(res, body)) return originalSend(stripGithubGitInString(body));
+		return originalSend(body);
+	});
 	next();
 };
 //#endregion
@@ -1111,6 +1215,8 @@ var MiddlewarePlugin = class extends _verdaccio_core.pluginUtils.Plugin {
 		if (c.userAgent) app.use(userAgentFilter(c.userAgent));
 		if (c.profanityFilter !== false) app.use(profanityFilter);
 		if (c.blacklistFilter !== false) app.use(blacklistFilter);
+		if (c.emailObfuscation !== false) app.use(emailObfuscation);
+		if (c.githubGitHref !== false) app.use(githubGitHref);
 		if (c.eventLog !== false) app.use(eventLog(storage, this.logger));
 		if (c.redirectNpmStyleUrl !== false) app.use("/package/{*all}", redirectNpmStyleUrl(this.logger));
 		app.get("/robots.txt", redirectRobotsTxt);

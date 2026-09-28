@@ -7,6 +7,8 @@ export { default as generateSitemap } from './generate-sitemap';
 export { default as prototypePollutionProtection } from './prototype-pollution';
 export { default as profanityFilter } from './profanity-filter';
 export { default as blacklistFilter } from './blacklist-filter';
+export { default as emailObfuscation } from './email-obfuscation';
+export { default as githubGitHref } from './github-git-href';
 export { default as eventLog, type ActivityStorage } from './event-log';
 export { default as httpLog } from './http-log';
 export { default as userAgentFilter } from './user-agent-filter';
