@@ -10,6 +10,10 @@ export interface MiddlewareConfig {
     profanityFilter?: boolean;
     /** Rejects write requests whose JSON body links to blocked adult domains. */
     blacklistFilter?: boolean;
+    /** Obfuscates mailto href emails in HTML responses via HTML entities. */
+    emailObfuscation?: boolean;
+    /** Strips trailing .git from github.com hrefs in HTML responses. */
+    githubGitHref?: boolean;
     /** Records package and user activity events to storage. */
     eventLog?: boolean;
     /** Writes each HTTP request to a timestamped file under http-logs/. */

@@ -34,6 +34,14 @@ Rejects write requests whose JSON body contains profanity.
 
 Rejects write requests whose JSON body links to blocked adult domains.
 
+### Email Obfuscation
+
+Rewrites `mailto:` href attributes in HTML responses by encoding the address as HTML decimal entities, so plain email patterns are harder for scrapers to harvest from the raw markup. JSON responses are not modified.
+
+### GitHub `.git` Href Cleanup
+
+Rewrites `href` attributes pointing at `github.com` that end in `.git` by removing the trailing `.git`, so links open the repository page instead of a git clone URL. JSON responses are not modified.
+
 ### Event Log
 
 Records package and user activity events to storage.
@@ -92,6 +100,10 @@ middleware:
     profanityFilter: true
     # Rejects write requests whose JSON body links to blocked adult domains.
     blacklistFilter: true
+    # Obfuscates mailto href emails in HTML responses via HTML entities.
+    emailObfuscation: true
+    # Strips trailing .git from github.com hrefs in HTML responses.
+    githubGitHref: true
     # Records package and user activity events to storage.
     eventLog: true
     # Writes each HTTP request to a timestamped file under http-logs/.
