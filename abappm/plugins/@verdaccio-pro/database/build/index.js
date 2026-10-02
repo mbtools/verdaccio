@@ -24,7 +24,7 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 let node_fs = require("node:fs");
 let node_path = require("node:path");
 let drizzle_orm_node_postgres = require("drizzle-orm/node-postgres");
-let dotenv = require("dotenv");
+let node_process = require("node:process");
 let zod = require("zod");
 zod = __toESM(zod);
 let drizzle_orm_logger = require("drizzle-orm/logger");
@@ -71,10 +71,11 @@ var envSchema = zod.default.object({
 	DB_FALLBACK: stringBoolean.default(false),
 	DB_SALT: zod.default.string().min(1).default(DEV_DEFAULT_DB_SALT)
 });
-(0, dotenv.config)({
-	debug: false,
-	quiet: true
-});
+try {
+	(0, node_process.loadEnvFile)();
+} catch (error) {
+	if (error.code !== "ENOENT") throw error;
+}
 function collectEnvInput() {
 	return {
 		NODE_ENV: process.env.NODE_ENV,
@@ -607,6 +608,22 @@ var counterSchema = (0, drizzle_orm_pg_core.pgTable)("counter", {
 	count: (0, drizzle_orm_pg_core.integer)("count").default(0),
 	updatedAt: (0, drizzle_orm_pg_core.timestamp)("updated_at", { mode: "date" }).defaultNow().$onUpdate(() => /* @__PURE__ */ new Date()).notNull(),
 	createdAt: (0, drizzle_orm_pg_core.timestamp)("created_at", { mode: "date" }).defaultNow().notNull()
+});
+/**
+* Sticker gift requests (testimonial thank-you)
+*/
+var stickerRequests = (0, drizzle_orm_pg_core.pgTable)("sticker_requests", {
+	id: (0, drizzle_orm_pg_core.serial)("id").primaryKey(),
+	name: (0, drizzle_orm_pg_core.text)("name").notNull(),
+	address_line1: (0, drizzle_orm_pg_core.text)("address_line1").notNull(),
+	address_line2: (0, drizzle_orm_pg_core.text)("address_line2"),
+	city: (0, drizzle_orm_pg_core.text)("city").notNull(),
+	region: (0, drizzle_orm_pg_core.text)("region"),
+	postal_code: (0, drizzle_orm_pg_core.text)("postal_code").notNull(),
+	country: (0, drizzle_orm_pg_core.text)("country").notNull(),
+	apm_user_id: (0, drizzle_orm_pg_core.text)("apm_user_id"),
+	sent_at: (0, drizzle_orm_pg_core.timestamp)("sent_at", { mode: "date" }),
+	...timestamps
 });
 //#endregion
 //#region src/services/org.ts
@@ -1785,6 +1802,7 @@ exports.resolveOrgName = resolveOrgName;
 exports.resolveStoredAccess = resolveStoredAccess;
 exports.roles = roles;
 exports.secrets = secrets;
+exports.stickerRequests = stickerRequests;
 exports.stripAccessFromManifest = stripAccessFromManifest;
 exports.subscriptionStatusEnum = subscriptionStatusEnum;
 exports.tarballs = tarballs;
