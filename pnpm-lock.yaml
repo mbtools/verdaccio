@@ -436,6 +436,9 @@ importers:
       '@verdaccio/signature':
         specifier: workspace:9.0.0-next-9.33
         version: link:../signature
+      '@verdaccio/store':
+        specifier: workspace:9.0.0-next-9.33
+        version: link:../store
       debug:
         specifier: 4.4.3
         version: 4.4.3(supports-color@5.5.0)
