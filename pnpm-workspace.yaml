@@ -29,6 +29,8 @@ minimumReleaseAgeExclude:
   - 'verdaccio-*'
   # Renovate security update: vitest@4.1.11
   - vitest@4.1.11
+  # Renovate security update: js-yaml@5.4.1
+  - js-yaml@5.4.1
 
 # Force the esbuild security patch (>= 0.28.1) across the whole tree.
 # See GHSA-gv7w-rqvm-qjhr (RCE via NPM_CONFIG_REGISTRY, fixed in 0.28.1).
@@ -38,17 +40,15 @@ overrides:
   # Pulled in transitively via supertest > superagent (dev only).
   # See GHSA-hmw2-7cc7-3qxx (fixed in 4.0.6).
   form-data: '>=4.0.6'
-  # Force fixes for fast-uri URL normalization vulnerabilities.
-  # Pulled in transitively via ajv (production dependency).
-  # See GHSA-5jgf-p345-68v8, GHSA-f65p-4m7j-42xc, GHSA-fph4-wmhf-6fwf,
-  # and GHSA-jqff-g426-hqxp (fixed in 3.1.6).
-  fast-uri: '3.1.6'
 saveExact: true
 ignoreScripts: true
 preferFrozenLockfile: true
 
 auditConfig:
   ignoreGhsas:
+    # brace-expansion (via minimatch)
+    - GHSA-qhr7-859c-m2p7
+    - GHSA-6j4f-fj2g-mc7p
     # Express.js unreleased
     - GHSA-j3q9-mxjg-w52f
     # Express.js unreleased
@@ -57,3 +57,7 @@ auditConfig:
     # inside the 7-day minimumReleaseAge quarantine. Remove this ignore and
     # update the lockfile after 2026-07-30.
     - GHSA-mh99-v99m-4gvg
+    # fast-uri: authority injection during URI serialization.
+    - GHSA-qw65-cvwx-89v3
+    # fast-uri: host confusion when parsing an unclosed authority bracket.
+    - GHSA-58mr-gqgx-xq4g
