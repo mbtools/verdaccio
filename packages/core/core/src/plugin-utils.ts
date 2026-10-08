@@ -137,7 +137,8 @@ export interface AuthPluginPackage {
  *
  * https://verdaccio.org/docs/plugin-auth
  */
-export interface Auth<T> extends Plugin<T> {
+export interface Auth<T, Storage = unknown> extends Plugin<T> {
+  init?(storage: Storage): Promise<void>;
   /**
    * Handles the authenticated method.
    * ```ts
@@ -172,7 +173,7 @@ export interface Auth<T> extends Plugin<T> {
     newPassword: string,
     cb: AuthChangePasswordCallback
   ): void;
-  getPackagesSpec?(pkgName: string): PackageAccess | void;
+  getPackagesSpec?(packageName: string, user: RemoteUser): PackageAccess | void;
   allow_publish?(user: RemoteUser, pkg: T & PackageAccess, cb: AuthAccessCallback): void;
   allow_publish?(user: RemoteUser, pkg: AllowAccess & PackageAccess, cb: AuthAccessCallback): void;
   allow_access?(user: RemoteUser, pkg: T & PackageAccess, cb: AccessCallback): void;
