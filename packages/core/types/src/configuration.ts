@@ -135,6 +135,14 @@ export type FlagsConfig = {
    * @default false
    */
   webLogin?: boolean;
+
+  /**
+   * The domain to use for email addresses of users
+   * Turns into username@emailDomain (e.g. username@mail.abappm.com).
+   *
+   * @default ''
+   */
+  emailDomain?: string;
 };
 
 export type PackageManagers = 'pnpm' | 'yarn' | 'npm' | string;

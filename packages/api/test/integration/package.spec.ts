@@ -161,7 +161,7 @@ describe('package', () => {
       const { app, auth } = await initializeServerWithContext('package-web-token.yaml');
       const token = await auth.jwtEncrypt(createRemoteUser('web-user', []), {});
 
-      await publishVersion(app, 'foo', '1.0.0', undefined, token); // apm
+      await publishVersion(app, 'foo', '1.0.0');
 
       await supertest(app)
         .get('/foo')

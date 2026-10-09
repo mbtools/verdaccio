@@ -7,14 +7,10 @@ import { buildToken, getNewToken, initializeServer, publishVersion } from './_he
 
 describe('package access on scoped names', () => {
   let app;
-  let maintainerToken: string; // apm
 
   beforeAll(async () => {
     app = await initializeServer('package-scope-access.yaml');
-    maintainerToken = await getNewToken(app, { name: 'maintainer', password: 'strongPass123' });
-    await publishVersion(app, '@restricted/webapp', '1.0.0', undefined, maintainerToken).expect( // apm
-      HTTP_STATUS.CREATED
-    );
+    await publishVersion(app, '@restricted/webapp', '1.0.0').expect(HTTP_STATUS.CREATED);
     await publishVersion(app, '@team/webapp', '1.0.0').expect(HTTP_STATUS.CREATED);
   });
 
@@ -56,10 +52,11 @@ describe('package access on scoped names', () => {
   });
 
   test('an authorized user can read a restricted scoped package', async () => {
+    const token = await getNewToken(app, { name: 'maintainer', password: 'strongPass123' });
     const response = await supertest(app)
       .get('/@restricted/webapp')
       .set(HEADERS.ACCEPT, HEADERS.JSON)
-      .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, maintainerToken)) // apm
+      .set(HEADERS.AUTHORIZATION, buildToken(TOKEN_BEARER, token))
       .expect(HTTP_STATUS.OK);
     expect(response.body.name).toBe('@restricted/webapp');
   });

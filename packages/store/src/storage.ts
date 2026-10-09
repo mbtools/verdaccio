@@ -1605,16 +1605,13 @@ class Storage {
             if (maintainer === ANONYMOUS_USER) {
               return { name: maintainer };
             } else {
-              return { name: maintainer, email: `${maintainer}@mail.abappm.com` };
+              return { name: maintainer, email: this.getEmail(maintainer) };
             }
           } else if (maintainer && typeof maintainer === 'object') {
             if (maintainer.name === ANONYMOUS_USER) {
               return { name: maintainer.name };
             } else {
-              return {
-                name: maintainer.name,
-                email: `${maintainer.name}@mail.abappm.com`,
-              };
+              return { name: maintainer.name, email: this.getEmail(maintainer.name) };
             }
           }
           return maintainer;
@@ -1725,7 +1722,7 @@ class Storage {
     // TODO: Add email of user
     packageData.maintainers =
       username && username.length > 0
-        ? [{ name: username, email: username + '@mail.abappm.com' }] // apm
+        ? [{ name: username, email: this.getEmail(username) }] // apm
         : [{ name: ANONYMOUS_USER, email: '' }];
 
     try {
@@ -2327,6 +2324,11 @@ class Storage {
       this.logger.error({ username }, '@{username} is not a maintainer (package owner)');
       throw errorUtils.getForbidden('only owners are allowed to change package');
     }
+  }
+
+  private getEmail(username: string): string {
+    const mailDomain = this.config?.flags?.emailDomain;
+    return mailDomain ? `${username}@${mailDomain}` : '';
   }
 }
 
