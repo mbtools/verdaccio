@@ -125,7 +125,7 @@ var setSecurityHeaders = (allowedOrigins = []) => {
 			res.setHeader("Access-Control-Expose-Headers", CORS_EXPOSE);
 		}
 		if (req.protocol === "https" || req.get("X-Forwarded-Proto") === "https") res.setHeader("Strict-Transport-Security", "max-age=86400; includeSubDomains");
-		res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self'; form-action 'self'; font-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests; report-to default;");
+		res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self' https://analytics.abappm.com; form-action 'self'; font-src 'self'; base-uri 'self'; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests; report-to default;");
 		res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
 		res.setHeader("Reporting-Endpoints", "default=\"https://csp.abappm.com/csp\"");
 		res.setHeader("Permissions-Policy", "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(self), usb=(), fullscreen=(self)");
