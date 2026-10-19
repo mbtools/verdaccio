@@ -11,6 +11,7 @@ import {
 } from '@verdaccio/ui-components';
 
 import App from './App';
+import { initializeAnalytics } from './analytics'; // apm
 
 const container = document.getElementById('root');
 
@@ -19,6 +20,8 @@ if (!container) {
 }
 
 const root = createRoot(container);
+
+initializeAnalytics(window.__VERDACCIO_BASENAME_UI_OPTIONS); // apm
 
 const AppContainer = () => (
   <ErrorBoundary>

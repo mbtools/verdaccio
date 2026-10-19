@@ -86,5 +86,6 @@ export function getUIOptions(
     scope,
     language,
     hideDeprecatedVersions,
+    plausible: config.web?.plausible,
   };
 }

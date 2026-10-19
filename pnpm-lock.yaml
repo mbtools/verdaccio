@@ -1148,6 +1148,9 @@ importers:
       '@mui/material':
         specifier: 7.3.11
         version: 7.3.11(@emotion/react@11.14.0(@types/react@19.2.18)(react@19.3.0)(supports-color@5.5.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.18)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.2.18)(react@19.3.0)(supports-color@5.5.0))(@types/react@19.2.18)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      '@plausible-analytics/tracker':
+        specifier: 0.4.6
+        version: 0.4.6
       '@testing-library/dom':
         specifier: 10.4.2
         version: 10.4.2
@@ -2862,6 +2865,9 @@ packages:
 
   '@pinojs/redact@0.4.0':
     resolution: {integrity: sha512-k2ENnmBugE/rzQfEcdWHcCY+/FM3VLzH9cYEsbdsoqrvzAKRhUZeRNhAZvB8OitQJ1TBed3yqWtdjzS6wJKBwg==}
+
+  '@plausible-analytics/tracker@0.4.6':
+    resolution: {integrity: sha512-nbu6xGgSP6jeYuoVklZBzucUnIpo75tVu3Kr+R0EDycVKaMC/jF5Q/YCaM/8gR4fPZ1IDcXt6FdBJFZ1uZwEPA==}
 
   '@pnpm/deps.graph-sequencer@1100.0.1':
     resolution: {integrity: sha512-pOr5+q1fLYKwFN3LAJuGZEnfXDcQ73zqgDHMtGy+K+uIoUqyY+6MeDCWFwfu+4EFuq76I5EPFofoNAI+Bmmq4A==}
@@ -7632,6 +7638,8 @@ snapshots:
       tsyringe: 4.10.0
 
   '@pinojs/redact@0.4.0': {}
+
+  '@plausible-analytics/tracker@0.4.6': {}
 
   '@pnpm/deps.graph-sequencer@1100.0.1': {}
 

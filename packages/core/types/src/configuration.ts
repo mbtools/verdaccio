@@ -173,6 +173,7 @@ export type CommonWebConf = {
   primaryColor?: string;
   showRaw?: boolean;
   assetFolder?: string;
+  plausible?: { domain: string; endpoint: string }; // apm
 };
 
 /**
