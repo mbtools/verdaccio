@@ -2,9 +2,9 @@ name: Docker publish apm to docker.io
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - 'apm'
+  # push:
+  #   branches:
+  #     - 'apm'
 
 permissions:
   contents: read
