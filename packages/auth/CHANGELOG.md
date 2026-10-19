@@ -1,5 +1,83 @@
 # @verdaccio/auth
 
+## 9.0.0-next-9.36
+
+### Patch Changes
+
+- 5009e4d: Fix `npm login`, `yarn npm login` and `pnpm login` failing with `401 need: Bearer`, for a user that already exists and, with pnpm, also when registering a new user.
+  
+  When the account exists, the npm client gets `409` on `PUT /-/user/org.couchdb.user:<name>` and retries the same request with `Authorization: Basic`; Yarn sends Basic on the `GET` of the same path as well, and pnpm sends it on a single `PUT`, even when the user does not exist yet. Removing incoming Basic authentication dropped that retry along with the rest, so the first token for an existing user could no longer be obtained through the legacy login (`/-/v1/login` is only available behind `flags.webLogin`). Tokens already issued, `_authToken` in `.npmrc` and registering a new user without a Basic header (npm, Yarn) were not affected.
+  
+  Basic is accepted again, and only on the login routes (`GET` and `PUT /-/user/org.couchdb.user:*`). The password is checked behind the same rate limit and two-factor challenge as before, and every other route still answers `401` to a Basic header. A failure of the authentication backend is reported as an error instead of being taken for an unknown user. Affects the versions that removed incoming Basic authentication (`7.0.0-next-7.x` and `9.0.0-next-9.x`); 6.x was never affected.
+  
+  To keep rejecting Basic everywhere, including the login route, set `security.api.basicLogin: false`.
+- Updated dependencies [646ec1d]
+- Updated dependencies [5009e4d]
+  - verdaccio-htpasswd@14.0.0-next-9.36
+  - @verdaccio/config@9.0.0-next-9.36
+  - @verdaccio/core@9.0.0-next-9.36
+  - @verdaccio/signature@9.0.0-next-9.36
+  - @verdaccio/loaders@9.0.0-next-9.36
+
+## 9.0.0-next-9.35
+
+### Patch Changes
+
+- Updated dependencies [7027b96]
+- Updated dependencies [1693358]
+  - verdaccio-htpasswd@14.0.0-next-9.35
+  - @verdaccio/core@9.0.0-next-9.35
+  - @verdaccio/config@9.0.0-next-9.35
+  - @verdaccio/loaders@9.0.0-next-9.35
+  - @verdaccio/signature@9.0.0-next-9.35
+
+## 9.0.0-next-9.34
+
+### Patch Changes
+
+- 31e18e8: Align user registration with the authentication plugin callback contract.
+  
+  The htpasswd plugin's `adduser` method now returns `void` and reports registration
+  results and internal asynchronous errors through its callback. Registration retains
+  the checks performed after acquiring the file lock and releases the lock before
+  reporting completion, and invokes the callback exactly once even if the callback
+  itself throws.
+  
+  The htpasswd and in-memory plugins now consider only stored user entries, so
+  usernames such as `constructor` or `toString` can be registered and authenticated.
+  When htpasswd reloads its file, users removed from it are now forgotten: before,
+  a user deleted from the `.htpasswd` file could keep authenticating until Verdaccio
+  restarted. If reading the `.htpasswd` file fails after its lock is taken, the lock is
+  now released instead of blocking later registrations until it goes stale. When the
+  `.htpasswd` file does not exist yet, registration creates it before taking the lock, so
+  concurrent first registrations no longer lose a user that was reported as created.
+  
+  These htpasswd issues affect every published `verdaccio-htpasswd` up to
+  `14.0.0-next-9.33` (shipped by `verdaccio@9.0.0-next-9.33` and `7.0.0-next-7.29`) and
+  `13.1.3` (shipped by the stable `verdaccio@6.10.4`). This change fixes the next line;
+  the port to the stable 6.x line is pending.
+  
+  Authentication reports invalid plugin group results through the error callback,
+  checking the type before the length so values such as `{ length: 0 }` are rejected.
+  The plugin verifier also rejects native `async` implementations and non-function
+  values for `adduser` and legacy `add_user`, with a diagnostic explaining the callback
+  contract. This additional validation applies to the verifier, not the production
+  plugin loader.
+  
+  Plugin authors should keep registration methods callback-based, handle internal
+  asynchronous errors, and return `void`. The verifier does not invoke registration,
+  so ordinary functions that return promises still require tests in the plugin's own
+  suite. Registry configuration does not need to change.
+- Updated dependencies [83eb46c]
+- Updated dependencies [0cac607]
+- Updated dependencies [b6cc475]
+- Updated dependencies [31e18e8]
+  - @verdaccio/core@9.0.0-next-9.34
+  - verdaccio-htpasswd@14.0.0-next-9.34
+  - @verdaccio/config@9.0.0-next-9.34
+  - @verdaccio/loaders@9.0.0-next-9.34
+  - @verdaccio/signature@9.0.0-next-9.34
+
 ## 9.0.0-next-9.33
 
 ### Patch Changes

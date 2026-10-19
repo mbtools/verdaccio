@@ -1,5 +1,27 @@
 # Change Log
 
+## 14.0.0-next-9.60
+
+### Patch Changes
+
+- @verdaccio/core@9.0.0-next-9.36
+
+## 14.0.0-next-9.59
+
+### Patch Changes
+
+- Updated dependencies [1693358]
+  - @verdaccio/core@9.0.0-next-9.35
+
+## 14.0.0-next-9.58
+
+### Patch Changes
+
+- Updated dependencies [83eb46c]
+- Updated dependencies [0cac607]
+- Updated dependencies [b6cc475]
+  - @verdaccio/core@9.0.0-next-9.34
+
 ## 14.0.0-next-9.57
 
 ### Patch Changes

@@ -18,6 +18,10 @@ inputs:
     description: 'Node.js version to use. When empty, falls back to .nvmrc.'
     required: false
     default: ''
+  ignore-scripts:
+    description: 'Skip lifecycle scripts during install'
+    required: false
+    default: 'true'
 
 runs:
   using: composite
@@ -30,14 +34,14 @@ runs:
       shell: bash
     - name: Use Node (explicit version)
       if: inputs.node-version != ''
-      uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+      uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
       with:
         node-version: ${{ inputs.node-version }}
     - name: Use Node (from .nvmrc)
       if: inputs.node-version == ''
-      uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+      uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
       with:
         node-version-file: '.nvmrc'
     - name: Install
-      run: pnpm install --reporter=${{ inputs.reporter }} --ignore-scripts --registry ${{ inputs.registry-url }} --loglevel=${{ inputs.loglevel }}
+      run: pnpm install --reporter=${{ inputs.reporter }} ${{ inputs.ignore-scripts == 'true' && '--ignore-scripts' || '' }} --registry ${{ inputs.registry-url }} --loglevel=${{ inputs.loglevel }}
       shell: bash

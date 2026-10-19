@@ -1,5 +1,52 @@
 # verdaccio
 
+## 9.0.0-next-9.36
+
+### Patch Changes
+
+- Updated dependencies [646ec1d]
+- Updated dependencies [5009e4d]
+  - verdaccio-htpasswd@14.0.0-next-9.36
+  - @verdaccio/config@9.0.0-next-9.36
+  - verdaccio-audit@14.0.0-next-9.36
+  - @verdaccio/server@9.0.0-next-9.36
+  - @verdaccio/cli@9.0.0-next-9.36
+  - @verdaccio/package-filter@14.0.0-next-9.60
+  - @verdaccio/node-api@9.0.0-next-9.36
+  - @verdaccio/ui-theme@9.0.0-next-9.36
+
+## 9.0.0-next-9.35
+
+### Patch Changes
+
+- 2d3bcca: Update the bundled Express dependencies to clear two advisories in the shipped dependency tree.
+  
+  `proxy-addr` is forced to `>=2.0.8` (GHSA-jqcg-44mw-7w3h, IP spoofing via an IPv4-mapped IPv6 trust subnet) and `compression` to `>=1.8.2` (GHSA-vc2v-76pw-4v95, denial of service through a memory leak when a response closes prematurely). Both are reached transitively through Express; the fix is applied as a workspace override, so no configuration change is required when upgrading.
+- Updated dependencies [7027b96]
+  - verdaccio-htpasswd@14.0.0-next-9.35
+  - @verdaccio/server@9.0.0-next-9.35
+  - @verdaccio/cli@9.0.0-next-9.35
+  - @verdaccio/config@9.0.0-next-9.35
+  - verdaccio-audit@14.0.0-next-9.35
+  - @verdaccio/package-filter@14.0.0-next-9.59
+  - @verdaccio/node-api@9.0.0-next-9.35
+  - @verdaccio/ui-theme@9.0.0-next-9.35
+
+## 9.0.0-next-9.34
+
+### Patch Changes
+
+- 8409cdb: Update the master release tooling to Changesets CLI v3.0.3.
+- Updated dependencies [31e18e8]
+  - verdaccio-htpasswd@14.0.0-next-9.34
+  - @verdaccio/server@9.0.0-next-9.34
+  - @verdaccio/cli@9.0.0-next-9.34
+  - @verdaccio/config@9.0.0-next-9.34
+  - verdaccio-audit@14.0.0-next-9.34
+  - @verdaccio/package-filter@14.0.0-next-9.58
+  - @verdaccio/node-api@9.0.0-next-9.34
+  - @verdaccio/ui-theme@9.0.0-next-9.34
+
 ## 9.0.0-next-9.33
 
 ### Minor Changes

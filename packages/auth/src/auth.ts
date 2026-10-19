@@ -43,6 +43,7 @@ import {
   getMiddlewareCredentials,
   isAESLegacy,
   isAuthHeaderValid,
+  isBasicLoginRequest,
   parseAuthTokenHeader,
   verifyJWTPayload,
 } from './utils';
@@ -236,23 +237,11 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
           return cb(err);
         }
 
-        // Expect: SKIP if groups is falsey and not an array
-        //         with at least one item (truthy length)
-        // Expect: CONTINUE otherwise (will error if groups is not
-        //         an array, but this is current behavior)
-        // Caveat: STRING (if valid) will pass successfully
-        //         bug give unexpected results
-        // Info: Cannot use `== false to check falsey values`
-        if (!!groups && groups.length !== 0) {
-          // TODO: create a better understanding of expectations
-          if (typeof groups === 'string') {
-            throw new TypeError('plugin group error: invalid type for function');
-          }
-          const isGroupValid: boolean = Array.isArray(groups);
-          if (!isGroupValid) {
-            throw new TypeError(API_ERROR.BAD_FORMAT_USER_GROUP);
-          }
+        if (groups && !Array.isArray(groups)) {
+          return cb(errorUtils.getInternalError(API_ERROR.BAD_FORMAT_USER_GROUP));
+        }
 
+        if (groups && groups.length !== 0) {
           debug('authentication for user %o was successfully. Groups: %o', username, groups);
           return cb(err, createRemoteUser(username, groups));
         }
@@ -595,6 +584,11 @@ class Auth implements IAuthMiddleware, TokenEncryption, pluginUtils.IBasicAuth {
       const { authorization } = req.headers;
       if (isNil(authorization)) {
         debug('jwt, authentication header is missing');
+        return next();
+      }
+
+      if (isBasicLoginRequest(req, this.config.security)) {
+        debug('basic login request, credentials are checked by the login route');
         return next();
       }
 

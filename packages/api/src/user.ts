@@ -2,7 +2,7 @@ import buildDebug from 'debug';
 import type { RequestHandler, Response, Router } from 'express';
 
 import type { Auth } from '@verdaccio/auth';
-import { getApiToken } from '@verdaccio/auth';
+import { getApiToken, isBasicLoginRequest, parseBasicLoginCredentials } from '@verdaccio/auth';
 import { createRemoteUser } from '@verdaccio/config';
 import {
   API_ERROR,
@@ -57,9 +57,32 @@ export default function (
     });
   }
 
+  function basicLoginAuth(req: $RequestExtend, _res: Response, next: $NextFunctionVer): void {
+    if (!isBasicLoginRequest(req, config.security)) {
+      return next();
+    }
+
+    const credentials = parseBasicLoginCredentials(req.headers.authorization as string);
+    if (!credentials) {
+      return next(errorUtils.getBadRequest(API_ERROR.BAD_USERNAME_PASSWORD));
+    }
+
+    auth.authenticate(credentials.user, credentials.password, (err, user): void => {
+      // a failing backend is reported, not mistaken for an unknown user to register
+      if (err && !(typeof err.status === 'number' && err.status < HTTP_STATUS.INTERNAL_ERROR)) {
+        return next(err);
+      }
+      if (!err && user) {
+        req.remote_user = user;
+      }
+      next();
+    });
+  }
+
   route.get(
     USER_API_ENDPOINTS.get_user,
     rateLimit(config?.userRateLimit),
+    basicLoginAuth,
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       debug('verifying user');
 
@@ -68,6 +91,23 @@ export default function (
         typeof req.remote_user.name !== 'string' ||
         req.remote_user.name === ''
       ) {
+        // Only fires when a custom auth plugin's apiJWTmiddleware records the failure here;
+        // the bundled middleware propagates auth errors instead of storing them on remote_user.
+        if (req.remote_user?.error) {
+          debug('user authentication failed: %o', req.remote_user.error);
+          // a malformed Authorization header is a client error, not a credential failure
+          if (req.remote_user.error === API_ERROR.BAD_AUTH_HEADER) {
+            return next(errorUtils.getBadRequest(API_ERROR.BAD_AUTH_HEADER));
+          }
+          return next(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
+        }
+        // When Bearer token verification fails the auth middleware intentionally keeps an
+        // anonymous user (without recording an error) to stay compatible with npm clients.
+        // If credentials were provided but the user is still anonymous they were rejected.
+        if (req.headers.authorization) {
+          debug('credentials were provided but rejected');
+          return next(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
+        }
         debug('user not logged in');
         res.status(HTTP_STATUS.OK);
         return next({ ok: false });
@@ -108,6 +148,7 @@ export default function (
   route.put(
     USER_API_ENDPOINTS.add_user,
     rateLimit(config?.userRateLimit),
+    basicLoginAuth,
     function (req: $RequestExtend, res: Response, next: $NextFunctionVer): void {
       const { name, password } = req.body;
       debug('login or adduser');
@@ -129,9 +170,7 @@ export default function (
                 { name, err },
                 'authenticating for user @{username} failed. Error: @{err.message}'
               );
-              return next(
-                errorUtils.getCode(HTTP_STATUS.UNAUTHORIZED, API_ERROR.BAD_USERNAME_PASSWORD)
-              );
+              return next(errorUtils.getUnauthorized(API_ERROR.BAD_USERNAME_PASSWORD));
             }
 
             Promise.resolve(
