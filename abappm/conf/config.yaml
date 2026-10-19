@@ -86,6 +86,9 @@ web:
     windowMs: 60000 # 1 minute
     max: 30
   assetFolder: /verdaccio/conf
+  plausible:
+    domain: VERDACCIO_PLAUSIBLE_DOMAIN
+    endpoint: VERDACCIO_PLAUSIBLE_ENDPOINT
 
 # Settings for authentication plugin
 # https://verdaccio.org/docs/configuration#authentication
