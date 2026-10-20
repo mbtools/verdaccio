@@ -2,7 +2,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router';
 import { describe, expect, test, vi } from 'vitest';
 
-import { fireEvent, render, screen } from '../../test/test-react-testing-library';
+import { act, fireEvent, render, renderWith, screen } from '../../test/test-react-testing-library';
 import NotFound from './NotFound';
 
 const mockNavigate = vi.fn();
@@ -16,6 +16,29 @@ vi.mock('react-router', async (importOriginal) => {
 });
 
 describe('<NotFound /> component', () => {
+  test('announces each missing path once, including client-side navigation', async () => {
+    const onNotFound = vi.fn();
+    window.addEventListener('verdaccio:ui:404', onNotFound);
+    const { createMemoryRouter, RouterProvider } = await import('react-router');
+    const router = createMemoryRouter([{ path: '*', element: <NotFound /> }], {
+      initialEntries: ['/missing'],
+    });
+
+    try {
+      const view = renderWith(<RouterProvider router={router} />);
+      expect(onNotFound).toHaveBeenCalledTimes(1);
+
+      view.rerender(<RouterProvider router={router} />);
+      expect(onNotFound).toHaveBeenCalledTimes(1);
+
+      await act(() => router.navigate('/another-missing-page'));
+      expect(onNotFound).toHaveBeenCalledTimes(2);
+    } finally {
+      window.removeEventListener('verdaccio:ui:404', onNotFound);
+      router.dispose();
+    }
+  });
+
   test('should load the component in default state', () => {
     render(
       <MemoryRouter>

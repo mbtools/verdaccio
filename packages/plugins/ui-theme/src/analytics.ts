@@ -1,6 +1,10 @@
-import { init } from '@plausible-analytics/tracker';
+import { init, track } from '@plausible-analytics/tracker';
 
 import type { TemplateUIOptions } from '@verdaccio/types';
+
+function trackNotFound() {
+  track('404', {});
+}
 
 export function initializeAnalytics(options: TemplateUIOptions) {
   const plausible = options.plausible;
@@ -12,5 +16,7 @@ export function initializeAnalytics(options: TemplateUIOptions) {
       fileDownloads: true,
       formSubmissions: true,
     });
+    window.addEventListener('verdaccio:ui:404', trackNotFound);
+    return () => window.removeEventListener('verdaccio:ui:404', trackNotFound);
   }
 }

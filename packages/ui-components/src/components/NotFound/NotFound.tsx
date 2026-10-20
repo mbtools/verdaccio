@@ -3,16 +3,21 @@ import FolderOffIcon from '@mui/icons-material/FolderOff';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { common } from '@mui/material/colors';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 
 import type { Theme } from '../../';
 import Heading from '../Heading';
 
 const NotFound: React.FC = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    window.dispatchEvent(new Event('verdaccio:ui:404'));
+  }, [pathname]);
 
   const handleGoHome = useCallback(() => {
     navigate('/');
