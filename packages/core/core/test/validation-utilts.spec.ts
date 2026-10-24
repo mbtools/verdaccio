@@ -5,6 +5,7 @@ import {
   isObject,
   normalizeMetadata,
   validateName,
+  validateExactVersion,
   validatePackage,
   validatePackageName,
   validatePassword,
@@ -44,6 +45,65 @@ describe('validatePackage', () => {
 });
 
 describe('validatePackageName', () => {
+  test.each([
+    '@scope/pkg',
+    '@Scope/JSONStream',
+    '@scope/_pkg',
+    '@_scope/pkg',
+    '@.scope/pkg',
+    '@../pkg',
+    '@scope/pkg.',
+    '@scope/node_modules',
+    '@scope/favicon.ico',
+    '@scope/__proto__',
+    '@con/pkg',
+    '@scope/con',
+    '@-/--',
+    "@scope/!~*'()",
+    `@${'s'.repeat(215)}/${'p'.repeat(215)}`,
+  ])('preserves accepted scoped package names: %j', (name) => {
+    expect(validatePackageName(name)).toBe(true);
+  });
+
+  test.each([
+    '@',
+    '@scope',
+    '@/pkg',
+    '@scope/',
+    '@/',
+    '@scope//pkg',
+    '@scope/pkg/',
+    '@scope/pkg/extra',
+    '@scope/pkg//',
+    'scope/pkg',
+    '/pkg',
+    '/@scope/pkg',
+    '@@scope/pkg',
+    '@scope/@pkg',
+    '@scope/.pkg',
+    '@scope/.',
+    '@scope/..',
+    '@scope/pkg name',
+    '@scope /pkg',
+    '@scope/pkg%2Fextra',
+    '@scope%2Fextra/pkg',
+    '@scope/pkg\\extra',
+    '@scope\\extra/pkg',
+    '@scope/pkg\n',
+    '@scope\n/pkg',
+    '@scope/p\nkg',
+    '@scope/pkg\r',
+    '@scope/pkg\u2028',
+    '@scope/pkg\u2029',
+    '@scope/pkg\0',
+    '@scope/é',
+    '@é/pkg',
+    '@\uD800/pkg',
+    '@scope/\uDFFF',
+  ])('rejects malformed scoped package names: %j', (name) => {
+    expect(validatePackageName(name)).toBe(false);
+  });
+
   test('should follow npm rules for existing packages', () => {
     for (const name of [
       'some-package',
@@ -309,4 +369,28 @@ describe('validateUserName', () => {
   test('should fail to validate username if not given', () => {
     expect(validateUserName(undefined, 'test')).toBeFalsy();
   });
+});
+
+describe('validateExactVersion', () => {
+  test.each(['1.0.0', '0.0.0', '1.2.3-beta.1', '1.2.3+build.1'])(
+    'accepts exact version %s',
+    (version) => expect(validateExactVersion(version)).toBe(true)
+  );
+  test.each([
+    undefined,
+    null,
+    1,
+    '',
+    'latest',
+    '*',
+    '1.x',
+    '1.0',
+    '^1.0.0',
+    '~1.0.0',
+    '01.0.0',
+    'v1.0.0',
+    ' 1.0.0 ',
+  ])('rejects non-exact version %s', (version) =>
+    expect(validateExactVersion(version)).toBe(false)
+  );
 });

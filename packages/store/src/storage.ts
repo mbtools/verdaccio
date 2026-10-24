@@ -816,6 +816,35 @@ class Storage {
     return this.stageStorage;
   }
 
+  /** Resolve a locally known version without fetching lifecycle information from uplinks. */
+  public async getPackageVersionStatus(
+    name: string,
+    version: string
+  ): Promise<'published' | 'staged'> {
+    // Read staging first: approval publishes the version before removing its staged record.
+    const staged = this.config.flags?.stage
+      ? await this.getStageStorage().findByVersion(name, version)
+      : undefined;
+    let manifest: Manifest | undefined;
+    try {
+      manifest = await this.getPackageLocalMetadata(name);
+    } catch (error: any) {
+      if (error.status !== HTTP_STATUS.NOT_FOUND) {
+        throw error;
+      }
+    }
+    if (manifest) {
+      const [filtered] = await this.applyFilters(manifest);
+      if (Object.hasOwn(filtered.versions, version)) {
+        return 'published';
+      }
+    }
+    if (staged) {
+      return 'staged';
+    }
+    throw errorUtils.getNotFound('no such package version');
+  }
+
   /**
    * Retrieve a wrapper that provide access to the package location.
    * @param {Object} pkgName package name.
@@ -1139,7 +1168,18 @@ class Storage {
     options: UpdateManifestOptions
   ): Promise<string | undefined> {
     debug('update manifest %o for user %o', manifest._id, options.requestOptions.username);
-    if (isDeprecatedManifest(manifest as Manifest)) {
+    const isDeprecation = isDeprecatedManifest(manifest as Manifest);
+    if (isDeprecation && !options.allowUnpublish) {
+      const localManifest = await this.getPackageLocalMetadata(options.name);
+      if (
+        Object.keys(localManifest.versions).some((version) =>
+          isNil((manifest as Manifest).versions[version])
+        )
+      ) {
+        throw errorUtils.getBadRequest(API_ERROR.UNSUPORTED_REGISTRY_CALL);
+      }
+    }
+    if (isDeprecation) {
       debug('update manifest deprecate');
       // if the manifest is deprecated, we need to update the package.json
       await this.deprecate(manifest as Manifest, {
@@ -1175,6 +1215,9 @@ class Storage {
       }
       return message;
     } else if (validationUtils.validateUnPublishSingleVersion(manifest)) {
+      if (!options.allowUnpublish) {
+        throw errorUtils.getBadRequest(API_ERROR.UNSUPORTED_REGISTRY_CALL);
+      }
       debug('unpublish a version');
 
       await this.unPublishAPackage(manifest as UnPublishManifest, {
@@ -1326,8 +1369,15 @@ class Storage {
     // get the unique version available
     const [versionToPublish] = Object.keys(versions);
 
-    // at this point document is either created or existed before
+    // Scoped clients include the scope in the key; storage uses only the basename.
     const [firstAttachmentKey] = Object.keys(_attachments);
+    const tarballName = basename(firstAttachmentKey);
+    if (
+      !validationUtils.validateName(firstAttachmentKey) ||
+      !validationUtils.validateName(tarballName)
+    ) {
+      throw errorUtils.getBadRequest(`invalid tarball name ${firstAttachmentKey}`);
+    }
     const buffer = this.getBufferManifest(body._attachments[firstAttachmentKey].data as string);
 
     try {
@@ -1396,7 +1446,7 @@ class Storage {
     // 3. upload the tarball to the storage
     try {
       const readable = Readable.from(buffer);
-      await this.uploadTarball(name, basename(firstAttachmentKey), readable, {
+      await this.uploadTarball(name, tarballName, readable, {
         signal: options.signal,
       });
     } catch (err: any) {
@@ -1459,11 +1509,21 @@ class Storage {
           return stream;
         })
         .then((stream) => {
+          // Cancellation may reach the destination while setup is still
+          // resolving. Preserve that error instead of piping into a destroyed stream.
+          if (stream.errored) {
+            throw stream.errored;
+          }
           pipeline(contentReadable, stream, { signal })
             .then(() => {
               debug('success pipe upload tarball');
             })
             .catch(reject);
+        })
+        .catch((err) => {
+          // Destination setup can fail before a stream is returned.
+          contentReadable.destroy();
+          reject(err);
         });
     });
   }
@@ -1513,10 +1573,11 @@ class Storage {
       // a failed write emits 'close' too — it must never reach the metadata update
       let uploadFailed = false;
 
-      localStorageWriteStream.on('open', async () => {
-        try {
-          await pipeline(uploadStream, transformHash, localStorageWriteStream, { signal });
-        } catch (err: any) {
+      // Connect immediately: Writable streams buffer until ready. Waiting for
+      // 'open' would leave cancellation and source errors unable to close a
+      // destination that is still opening (or never emits 'open').
+      pipeline(uploadStream, transformHash, localStorageWriteStream, { signal }).catch(
+        (err: any) => {
           // pipeline already destroyed the streams; an unhandled rejection
           // here would kill the process
           uploadFailed = true;
@@ -1525,11 +1586,11 @@ class Storage {
             'error uploading tarball @{filename} for @{pkgName}: @{err.message}'
           );
         }
-      });
+      );
 
       // once the file descriptor has been closed
       localStorageWriteStream.on('close', async () => {
-        if (uploadFailed) {
+        if (uploadFailed || !localStorageWriteStream.writableFinished) {
           debug('skip metadata update for failed upload %o for %o', filename, pkgName);
           return;
         }
